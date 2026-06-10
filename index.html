@@ -144,6 +144,14 @@ html.theme-dark .bg-grid{opacity:.35;background-image:radial-gradient(circle at 
 html.theme-dark .hero-logo.light{display:none}
 html.theme-dark .hero-logo.dark{display:block}
 .hero-arabic{font-family:'Amiri','Plus Jakarta Sans',serif;font-size:clamp(26px,4.6vw,40px);color:var(--primary);font-weight:700;margin:6px 0;direction:rtl;line-height:1.6}
+.hero-tagline{font-size:clamp(14px,1.8vw,17px);font-weight:600;font-style:italic;color:var(--ink-3);margin:10px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:.4em}
+.hero-tagline .w{display:inline-block;opacity:0;transform:translateY(14px);animation:wordUp .7s cubic-bezier(.16,1,.3,1) forwards}
+.hero-tagline .w:nth-child(1){animation-delay:.22s}
+.hero-tagline .w:nth-child(2){animation-delay:.30s}
+.hero-tagline .w:nth-child(3){animation-delay:.38s}
+.hero-tagline .w:nth-child(4){animation-delay:.46s}
+.hero-tagline .w:nth-child(5){animation-delay:.54s}
+@keyframes wordUp{to{opacity:1;transform:translateY(0)}}
 .hero h1{font-size:clamp(36px,6.6vw,68px);font-weight:800;letter-spacing:-.035em;line-height:1.05;color:var(--ink);margin-top:10px}
 .hero h1 .grad{background:linear-gradient(110deg,var(--primary),var(--primary-2),var(--primary));background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4.5s linear infinite}
 @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
@@ -305,6 +313,7 @@ html.theme-dark .hero-logo.dark{display:block}
   <img class="hero-logo light h-anim" style="animation-delay:.12s" src="assets/images/logo-abu.png"   alt="Rattililqur'an" onerror="this.style.display='none'">
   <img class="hero-logo dark  h-anim" style="animation-delay:.12s" src="assets/images/logo-putih.png" alt="Rattililqur'an" onerror="this.style.display='none'">
   <div class="hero-arabic h-anim" style="animation-delay:.20s">رَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+  <p class="hero-tagline"><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w">Sahabat</span><span class="w">Al-Qur'an</span></p>
   <h1 class="h-anim" style="animation-delay:.30s">Belajar Al-Qur'an<br><span class="grad">dengan Tartil</span></h1>
   <p class="lead h-anim" style="animation-delay:.44s">Lembaga tahsin &amp; tahfidz yang membimbing setiap muslim membaca Al-Qur'an
      dengan benar dan indah — bersama pengajar berpengalaman dan metode pembelajaran terstruktur.</p>
