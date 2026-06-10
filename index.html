@@ -76,6 +76,11 @@ html.theme-dark .orb3{background:#0d3b30;opacity:.3}
   mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,#000 35%,transparent 78%);
 }
 html.theme-dark .bg-grid{opacity:.35;background-image:radial-gradient(circle at 1px 1px,rgba(129,140,248,.18) 1px,transparent 0)}
+.bg-noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html.theme-dark .bg-noise{opacity:.05}
+
+/* ── SCROLL-REVEAL TEXT ── */
+.about-visual .ayat-tr .ch{transition:opacity .15s linear}
 
 /* ── SCROLL PROGRESS ── */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;background:var(--grad);box-shadow:0 0 12px rgba(99,102,241,.5);transition:width .1s linear}
@@ -287,6 +292,7 @@ html.theme-dark .hero-logo.dark{display:block}
   <div class="bg-orb orb3"></div>
 </div>
 <div class="bg-grid"></div>
+<div class="bg-noise"></div>
 
 <!-- ══ NAVBAR ══ -->
 <nav class="nav">
@@ -520,6 +526,33 @@ html.theme-dark .hero-logo.dark{display:block}
     entries.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); statIO.unobserve(e.target); } });
   }, { threshold:.5 });
   document.querySelectorAll('.stat-num[data-count]').forEach(function(el){ statIO.observe(el); });
+
+  // Scroll-linked character reveal (kutipan ayat di section Tentang)
+  var revealEl = document.querySelector('.ayat-tr');
+  if (revealEl) {
+    var fullText = revealEl.textContent;
+    revealEl.setAttribute('aria-label', fullText);
+    revealEl.innerHTML = '<span aria-hidden="true">' + fullText.split('').map(function(ch){
+      return '<span class="ch">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>';
+    }).join('') + '</span>';
+    var chars = revealEl.querySelectorAll('.ch');
+    function updateCharReveal(){
+      var rect = revealEl.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var start = vh * 0.8, end = vh * 0.2;
+      var progress = (start - rect.top) / (start - end);
+      progress = Math.max(0, Math.min(1, progress));
+      var n = chars.length;
+      chars.forEach(function(c, i){
+        var charProgress = i / n;
+        var t = (progress - (charProgress - 0.1)) / 0.15;
+        t = Math.max(0, Math.min(1, t));
+        c.style.opacity = (0.2 + t * 0.8).toFixed(2);
+      });
+    }
+    window.addEventListener('scroll', updateCharReveal, { passive:true });
+    updateCharReveal();
+  }
 
   // FAQ accordion
   document.querySelectorAll('.qa-q').forEach(function(btn){
