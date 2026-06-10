@@ -100,6 +100,7 @@ html.theme-dark .bg-noise{opacity:.05}
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-link{font-size:14px;font-weight:600;color:var(--ink-3);padding:9px 14px;border-radius:11px;text-decoration:none;transition:.18s;position:relative}
 .nav-link:hover{color:var(--primary);background:var(--soft)}
+.nav-link.active{color:var(--primary);background:var(--soft)}
 .nav-cta{margin-left:6px}
 .nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
 .nav-toggle span{display:block;width:18px;height:2px;background:var(--ink-2);border-radius:2px;transition:.25s}
@@ -127,6 +128,19 @@ html.theme-dark .bg-noise{opacity:.05}
 .btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.32)}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(37,211,102,.42)}
 .btn-lg{padding:16px 32px;font-size:15.5px;border-radius:15px}
+
+/* ── FLOATING ACTIONS ── */
+.fab-group{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;align-items:center;gap:12px}
+.fab{display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;text-decoration:none;box-shadow:var(--sh-lg);transition:transform .2s,box-shadow .2s;border:none;cursor:pointer}
+.fab:hover{transform:translateY(-3px) scale(1.05)}
+.fab-wa{background:#25D366;color:#fff}
+.fab-wa svg{width:28px;height:28px}
+.fab-wa .pulse{position:absolute;inset:0;border-radius:50%;background:#25D366;opacity:.55;animation:fabPulse 2.4s ease-out infinite}
+@keyframes fabPulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.7);opacity:0}}
+.fab-top{position:relative;width:42px;height:42px;background:var(--card);color:var(--primary);border:1px solid var(--line);opacity:0;pointer-events:none;transform:translateY(8px)}
+.fab-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.fab-top svg{width:20px;height:20px}
+@media(max-width:640px){.fab-group{right:14px;bottom:14px}.fab-wa{width:50px;height:50px}.fab-wa svg{width:25px;height:25px}}
 
 /* ── SECTION ── */
 .section{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:90px 22px}
@@ -175,7 +189,8 @@ html.theme-dark .hero-logo.dark{display:block}
 /* ── STATS ── */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:50px auto 0;position:relative;z-index:1}
 .stat{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:var(--r);padding:24px 16px;text-align:center;box-shadow:var(--sh)}
-.stat .ico{font-size:22px;margin-bottom:8px}
+.stat .ico{font-size:22px;margin-bottom:8px;display:flex;justify-content:center;color:var(--primary)}
+.stat .ico svg{width:24px;height:24px}
 .stat-num{font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .stat-lbl{font-size:11.5px;color:var(--ink-4);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:9px}
 
@@ -185,7 +200,8 @@ html.theme-dark .hero-logo.dark{display:block}
 @media(max-width:480px){.strip{grid-template-columns:1fr}}
 .strip-item{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--sh-sm);transition:transform .2s,box-shadow .2s}
 .strip-item:hover{transform:translateY(-3px);box-shadow:var(--sh)}
-.strip-item .ico{flex-shrink:0;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--grad-soft)}
+.strip-item .ico{flex-shrink:0;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--grad-soft);color:var(--primary)}
+.strip-item .ico svg{width:22px;height:22px}
 .strip-item h4{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:3px}
 .strip-item p{font-size:12.5px;color:var(--ink-3);line-height:1.5}
 
@@ -198,7 +214,8 @@ html.theme-dark .hero-logo.dark{display:block}
 .card-feat::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(14,165,233,.4),transparent 40%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s}
 .card-feat:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
 .card-feat:hover::before{opacity:1}
-.card-feat .ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--grad-soft);margin-bottom:18px}
+.card-feat .ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--grad-soft);margin-bottom:18px;color:var(--primary)}
+.card-feat .ico svg{width:28px;height:28px}
 .card-feat h3{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:9px}
 .card-feat p{font-size:14.5px;color:var(--ink-3)}
 
@@ -211,7 +228,8 @@ html.theme-dark .hero-logo.dark{display:block}
 .about-visual .ayat-src{font-size:13px;font-weight:700;color:rgba(255,255,255,.8);margin-top:12px;position:relative}
 .about-text .item{display:flex;gap:14px;margin-bottom:20px}
 .about-text .item:last-child{margin-bottom:0}
-.about-text .item .ico{flex-shrink:0;width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--soft)}
+.about-text .item .ico{flex-shrink:0;width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--soft);color:var(--primary)}
+.about-text .item .ico svg{width:24px;height:24px}
 .about-text .item h4{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:4px}
 .about-text .item p{font-size:14px;color:var(--ink-3)}
 
@@ -299,6 +317,23 @@ html.theme-dark .hero-logo.dark{display:block}
 <div class="bg-grid"></div>
 <div class="bg-noise"></div>
 
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/><circle cx="17" cy="8" r="2.6"/><path d="M22 21v-1a4 4 0 0 0-3-3.85"/></symbol>
+  <symbol id="i-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3.4.81-4.5 2.09C10.9 3.81 9.26 3 7.5 3A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13 4 9l3-3 4.5 4.5"/><path d="m16 13 4-4-3-3-4.5 4.5"/><path d="M8 13l2.5 2.5a2 2 0 0 0 2.83 0L19 10"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+  <symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+  <symbol id="i-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12.5V17c0 1.1 2.7 3 6 3s6-1.9 6-3v-4.5"/><path d="M22 10v6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+</svg>
+
 <!-- ══ NAVBAR ══ -->
 <nav class="nav">
   <div class="nav-inner">
@@ -334,9 +369,9 @@ html.theme-dark .hero-logo.dark{display:block}
 
   <!-- STATS — [EDIT] ubah data-count sesuai data asli -->
   <div class="stats h-anim" style="animation-delay:.72s">
-    <div class="stat"><div class="ico">🌙</div><div class="stat-num" data-count="100" data-suffix="+">0</div><div class="stat-lbl">Murid Aktif</div></div>
-    <div class="stat"><div class="ico">📖</div><div class="stat-num" data-count="10"  data-suffix="+">0</div><div class="stat-lbl">Halaqah</div></div>
-    <div class="stat"><div class="ico">🧑‍🏫</div><div class="stat-num" data-count="8" data-suffix="+">0</div><div class="stat-lbl">Pengajar</div></div>
+    <div class="stat"><div class="ico"><svg><use href="#i-users"/></svg></div><div class="stat-num" data-count="100" data-suffix="+">0</div><div class="stat-lbl">Murid Aktif</div></div>
+    <div class="stat"><div class="ico"><svg><use href="#i-book-open"/></svg></div><div class="stat-num" data-count="10"  data-suffix="+">0</div><div class="stat-lbl">Halaqah</div></div>
+    <div class="stat"><div class="ico"><svg><use href="#i-graduation-cap"/></svg></div><div class="stat-num" data-count="8" data-suffix="+">0</div><div class="stat-lbl">Pengajar</div></div>
   </div>
 
   <div class="scroll-hint h-anim" style="animation-delay:.9s"><span class="mouse"></span>Gulir</div>
@@ -345,10 +380,10 @@ html.theme-dark .hero-logo.dark{display:block}
 <!-- ══ KEUNGGULAN STRIP ══ -->
 <section class="section tight">
   <div class="strip">
-    <div class="strip-item" data-reveal><div class="ico">🎯</div><div><h4>Metode Terstruktur</h4><p>Belajar bertahap sesuai jenjang kemampuan.</p></div></div>
-    <div class="strip-item" data-reveal><div class="ico">👥</div><div><h4>Halaqah Kecil</h4><p>Bimbingan intensif dalam kelompok kecil.</p></div></div>
-    <div class="strip-item" data-reveal><div class="ico">📊</div><div><h4>Progres Transparan</h4><p>Pantau perkembangan lewat portal digital.</p></div></div>
-    <div class="strip-item" data-reveal><div class="ico">🕌</div><div><h4>Adab &amp; Akhlak</h4><p>Menumbuhkan akhlak qur'ani sejak dini.</p></div></div>
+    <div class="strip-item" data-reveal><div class="ico"><svg><use href="#i-target"/></svg></div><div><h4>Metode Terstruktur</h4><p>Belajar bertahap sesuai jenjang kemampuan.</p></div></div>
+    <div class="strip-item" data-reveal><div class="ico"><svg><use href="#i-users"/></svg></div><div><h4>Halaqah Kecil</h4><p>Bimbingan intensif dalam kelompok kecil.</p></div></div>
+    <div class="strip-item" data-reveal><div class="ico"><svg><use href="#i-bar-chart"/></svg></div><div><h4>Progres Transparan</h4><p>Pantau perkembangan lewat portal digital.</p></div></div>
+    <div class="strip-item" data-reveal><div class="ico"><svg><use href="#i-heart"/></svg></div><div><h4>Adab &amp; Akhlak</h4><p>Menumbuhkan akhlak qur'ani sejak dini.</p></div></div>
   </div>
 </section>
 
@@ -360,9 +395,9 @@ html.theme-dark .hero-logo.dark{display:block}
       <h2 class="title">Mengapa Rattililqur'an?</h2>
       <p class="sub" style="margin-bottom:26px">Kami hadir untuk mewujudkan generasi yang mencintai dan membaca Al-Qur'an sesuai kaidah tajwid, dengan bimbingan yang sabar dan penuh berkah.</p>
       <div class="about-text">
-        <div class="item"><div class="ico">📖</div><div><h4>Visi Kami</h4><p>Menjadi wadah pembelajaran Al-Qur'an yang menumbuhkan kecintaan dan kemampuan membaca dengan tartil.</p></div></div>
-        <div class="item"><div class="ico">🌙</div><div><h4>Metode Kami</h4><p>Pembelajaran terstruktur per level, dibimbing langsung oleh pengajar dalam halaqah kecil dengan evaluasi berkala.</p></div></div>
-        <div class="item"><div class="ico">🤝</div><div><h4>Komitmen Kami</h4><p>Setiap murid dipantau perkembangannya melalui portal digital, transparan bagi murid dan orang tua.</p></div></div>
+        <div class="item"><div class="ico"><svg><use href="#i-book-open"/></svg></div><div><h4>Visi Kami</h4><p>Menjadi wadah pembelajaran Al-Qur'an yang menumbuhkan kecintaan dan kemampuan membaca dengan tartil.</p></div></div>
+        <div class="item"><div class="ico"><svg><use href="#i-target"/></svg></div><div><h4>Metode Kami</h4><p>Pembelajaran terstruktur per level, dibimbing langsung oleh pengajar dalam halaqah kecil dengan evaluasi berkala.</p></div></div>
+        <div class="item"><div class="ico"><svg><use href="#i-handshake"/></svg></div><div><h4>Komitmen Kami</h4><p>Setiap murid dipantau perkembangannya melalui portal digital, transparan bagi murid dan orang tua.</p></div></div>
       </div>
     </div>
     <div class="about-visual" data-reveal>
@@ -380,12 +415,12 @@ html.theme-dark .hero-logo.dark{display:block}
   <h2 class="title" data-reveal>Halaqah &amp; Kajian</h2>
   <p class="sub" data-reveal>Beragam program disusun sesuai jenjang kemampuan, dari pemula hingga tahfidz.</p>
   <div class="grid grid-3">
-    <div class="card-feat" data-reveal><div class="ico">🔤</div><h3>Tahsin Dasar</h3><p>Belajar makharijul huruf dan kaidah tajwid dari nol hingga lancar membaca Al-Qur'an dengan benar.</p></div>
-    <div class="card-feat" data-reveal><div class="ico">📿</div><h3>Tahfidz</h3><p>Program menghafal Al-Qur'an dengan target bertahap, disimak dan dimuraja'ah rutin oleh pengajar.</p></div>
-    <div class="card-feat" data-reveal><div class="ico">📚</div><h3>Kajian At-Tibyan</h3><p>Kajian adab penghafal Al-Qur'an mengikuti kitab At-Tibyan karya Imam An-Nawawi rahimahullah.</p></div>
-    <div class="card-feat" data-reveal><div class="ico">🕐</div><h3>Jadwal Fleksibel</h3><p>Halaqah dijadwalkan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div>
-    <div class="card-feat" data-reveal><div class="ico">📈</div><h3>Laporan Progres</h3><p>Setiap murid mendapat raport perkembangan: presensi, nilai, dan capaian hafalan per periode.</p></div>
-    <div class="card-feat" data-reveal><div class="ico">📱</div><h3>Portal Digital</h3><p>Akses materi, jadwal, nilai, dan pengumuman kapan saja melalui aplikasi portal modern.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-type"/></svg></div><h3>Tahsin Dasar</h3><p>Belajar makharijul huruf dan kaidah tajwid dari nol hingga lancar membaca Al-Qur'an dengan benar.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-repeat"/></svg></div><h3>Tahfidz</h3><p>Program menghafal Al-Qur'an dengan target bertahap, disimak dan dimuraja'ah rutin oleh pengajar.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-book"/></svg></div><h3>Kajian At-Tibyan</h3><p>Kajian adab penghafal Al-Qur'an mengikuti kitab At-Tibyan karya Imam An-Nawawi rahimahullah.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-clock"/></svg></div><h3>Jadwal Fleksibel</h3><p>Halaqah dijadwalkan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-trending-up"/></svg></div><h3>Laporan Progres</h3><p>Setiap murid mendapat raport perkembangan: presensi, nilai, dan capaian hafalan per periode.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-smartphone"/></svg></div><h3>Portal Digital</h3><p>Akses materi, jadwal, nilai, dan pengumuman kapan saja melalui aplikasi portal modern.</p></div>
   </div>
 </section>
 
@@ -492,6 +527,15 @@ html.theme-dark .hero-logo.dark{display:block}
   </div>
 </footer>
 
+<!-- ══ FLOATING ACTIONS ══ -->
+<div class="fab-group">
+  <button class="fab fab-top" id="backToTop" aria-label="Kembali ke atas"><svg><use href="#i-arrow-up"/></svg></button>
+  <a href="https://wa.me/6282316993233?text=Assalamualaikum,%20saya%20ingin%20bertanya%20tentang%20Rattililqur'an" target="_blank" rel="noopener" class="fab fab-wa" aria-label="Chat WhatsApp" style="position:relative">
+    <span class="pulse"></span>
+    <svg viewBox="0 0 32 32" aria-hidden="true" style="position:relative"><path fill="#fff" d="M23.47 19.27c-.347-.173-2.05-1.012-2.367-1.128-.318-.116-.55-.173-.78.174-.232.346-.897 1.127-1.1 1.359-.202.232-.405.26-.752.087-.346-.173-1.46-.538-2.78-1.715-1.028-.916-1.722-2.048-1.923-2.394-.202-.346-.022-.533.152-.706.156-.155.346-.405.52-.607.172-.202.23-.346.346-.578.115-.232.057-.434-.029-.607-.086-.173-.78-1.879-1.07-2.573-.282-.677-.568-.585-.78-.596-.202-.01-.434-.012-.665-.012-.232 0-.607.087-.925.434-.318.346-1.214 1.187-1.214 2.893 0 1.706 1.243 3.355 1.416 3.587.173.232 2.445 3.733 5.92 5.235.827.357 1.473.57 1.977.73.83.264 1.585.227 2.182.138.666-.1 2.05-.838 2.34-1.647.289-.81.289-1.504.202-1.648-.086-.144-.318-.231-.665-.404z"/><path fill="#fff" d="M16 3.2A12.8 12.8 0 0 0 4.6 22l-1.4 5.2 5.3-1.4A12.8 12.8 0 1 0 16 3.2zm0 23.2a10.3 10.3 0 0 1-5.27-1.44l-.38-.22-3.93 1.03 1.05-3.83-.25-.4A10.36 10.36 0 1 1 16 26.4z"/></svg>
+  </a>
+</div>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -503,6 +547,32 @@ html.theme-dark .hero-logo.dark{display:block}
     progress.style.width = (scrolled * 100) + '%';
   }
   window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+  // Back-to-top button
+  var backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function(){
+    backToTop.classList.toggle('show', window.scrollY > 500);
+  }, { passive:true });
+  backToTop.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+
+  // Active nav link on scroll
+  var navLinkEls = document.querySelectorAll('.nav-link[href^="#"]');
+  var navSections = Array.prototype.map.call(navLinkEls, function(a){
+    return document.getElementById(a.getAttribute('href').slice(1));
+  }).filter(Boolean);
+  var navIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var link = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+      if(!link) return;
+      if(e.isIntersecting) {
+        navLinkEls.forEach(function(a){ a.classList.remove('active'); });
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin:'-45% 0px -50% 0px' });
+  navSections.forEach(function(s){ navIO.observe(s); });
 
   // Mobile menu
   var toggle = document.getElementById('navToggle'), links = document.getElementById('navLinks');
