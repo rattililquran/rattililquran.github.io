@@ -242,8 +242,9 @@ html.theme-dark .hero-logo.dark{display:block}
 .cta .btn-clear:hover{background:rgba(255,255,255,.26);color:#fff;transform:translateY(-2px)}
 
 /* ── CONTACT ── */
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
-@media(max-width:860px){.cgrid{grid-template-columns:1fr}}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-top:46px}
+@media(max-width:860px){.cgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.cgrid{grid-template-columns:1fr}}
 .ccard{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 24px;text-align:center;box-shadow:var(--sh);text-decoration:none;display:block;transition:transform .2s,box-shadow .2s}
 .ccard:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .ccard .ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--grad-soft);margin:0 auto 14px}
@@ -434,6 +435,8 @@ html.theme-dark .hero-logo.dark{display:block}
     <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico">📷</div><h4>Instagram</h4><p>@rattililquran</p></a>
     <!-- [EDIT] email -->
     <a href="mailto:admin@rattililquran.com" class="ccard" data-reveal><div class="ico">✉️</div><h4>Email</h4><p>admin@rattililquran.com</p></a>
+    <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico">📢</div><h4>Channel WA</h4><p>Rattililqur'an</p></a>
+    <a href="https://youtube.com/@Rattililquran01" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico">▶️</div><h4>YouTube</h4><p>@Rattililquran01</p></a>
   </div>
 </section>
 
@@ -456,7 +459,9 @@ html.theme-dark .hero-logo.dark{display:block}
       <a href="/Portal-Halaqah-Rattililquran/index.html">Masuk Portal</a>
       <!-- [EDIT] sosial & kontak -->
       <a href="https://wa.me/62812XXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener">Channel WA</a>
       <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://youtube.com/@Rattililquran01" target="_blank" rel="noopener">YouTube</a>
       <a href="mailto:admin@rattililquran.com">Email</a>
     </div>
   </div>
