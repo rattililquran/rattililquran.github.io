@@ -226,6 +226,14 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 html.theme-dark .reg-status.open{color:#34d399}
 html.theme-dark .reg-status.closed{color:#f87171}
 .reg-note{max-width:560px;margin:14px auto 0;font-size:13.5px;color:var(--ink-3)}
+
+/* ── COUNTDOWN PENDAFTARAN ── */
+.countdown{margin:22px auto 0;max-width:380px}
+.countdown-label{font-size:13px;font-weight:700;color:var(--ink-3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cd-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 4px;box-shadow:var(--sh)}
+.cd-num{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cd-unit{display:block;font-size:10.5px;color:var(--ink-4);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
 @keyframes pulseDot{0%,100%{box-shadow:0 0 0 4px rgba(16,185,129,.18)}50%{box-shadow:0 0 0 7px rgba(16,185,129,.05)}}
 .hero-logo{width:130px;max-width:42%;margin:26px auto 4px;display:block}
 .hero-logo.dark{display:none}
@@ -325,20 +333,36 @@ html.theme-dark .hero-logo.dark{display:block}
 .sched-note{max-width:680px;margin:18px auto 0;font-size:13px;color:var(--ink-4);text-align:center}
 
 /* ── TESTIMONI ── */
-.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
-@media(max-width:860px){.tg{grid-template-columns:1fr}}
+.tg{position:relative;max-width:640px;margin:46px auto 0}
+.tg-viewport{overflow:hidden;border-radius:var(--r-lg)}
+.tg-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.tg-track .tcard{flex:0 0 100%;box-sizing:border-box}
 .tcard{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 26px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
 .tcard::before{content:'\201C';position:absolute;top:-6px;right:18px;font-family:Georgia,serif;font-size:80px;font-weight:900;line-height:1;color:var(--primary);opacity:.08;pointer-events:none}
-.tcard:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.tg-track .tcard:hover{transform:none;box-shadow:var(--sh)}
 .tcard .stars{color:#f59e0b;font-size:15px;letter-spacing:2px;margin-bottom:14px}
 .tcard p{font-size:15px;color:var(--ink-2);line-height:1.7;margin-bottom:20px}
 .tcard .who{display:flex;align-items:center;gap:12px}
 .tcard .av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:17px;background:var(--grad)}
 .tcard .who b{font-size:14.5px;color:var(--ink);font-weight:800;display:block}
 .tcard .who span{font-size:12.5px;color:var(--ink-4)}
+.tg-dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.tg-dot{width:9px;height:9px;border-radius:50%;border:none;background:var(--line);cursor:pointer;transition:.2s;padding:0}
+.tg-dot.active{background:var(--primary);width:24px;border-radius:5px}
+.tg-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink-2);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:.2s;z-index:2}
+.tg-arrow:hover{color:var(--primary);border-color:var(--primary)}
+.tg-arrow svg{width:18px;height:18px}
+.tg-prev{left:-56px}
+.tg-next{right:-56px}
+@media(max-width:760px){.tg-arrow{display:none}}
 
 /* ── FAQ ── */
-.faq{max-width:780px;margin:42px auto 0}
+.faq-search{position:relative;max-width:480px;margin:42px auto 0}
+.faq-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink-4);pointer-events:none}
+.faq-search input{width:100%;padding:13px 16px 13px 46px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:inherit;font-size:14.5px;box-shadow:var(--sh);transition:.18s;box-sizing:border-box}
+.faq-search input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--grad-soft)}
+.faq{max-width:780px;margin:24px auto 0}
+.faq-empty{text-align:center;padding:24px;color:var(--ink-4);font-size:14px}
 .qa{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden;transition:box-shadow .2s}
 .qa.open{box-shadow:var(--sh)}
 .qa-q{width:100%;text-align:left;background:none;border:none;font-family:inherit;font-size:15.5px;font-weight:700;color:var(--ink);padding:20px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
@@ -419,6 +443,9 @@ html.theme-dark .hero-logo.dark{display:block}
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
   <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
 </svg>
 
 <!-- ══ NAVBAR ══ -->
@@ -552,6 +579,15 @@ html.theme-dark .hero-logo.dark{display:block}
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
   <div class="reg-status" id="regStatus" data-reveal><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Dibuka</span></div>
   <p class="reg-note" id="regNote" data-reveal style="display:none"></p>
+  <div class="countdown" id="regCountdown" data-reveal style="display:none">
+    <p class="countdown-label" id="countdownLabel"></p>
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num" id="cdDays">00</span><span class="cd-unit">Hari</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdHours">00</span><span class="cd-unit">Jam</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdMins">00</span><span class="cd-unit">Menit</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdSecs">00</span><span class="cd-unit">Detik</span></div>
+    </div>
+  </div>
   <div class="steps">
     <div class="step" data-reveal><div class="step-num">1</div><h4>Hubungi Admin</h4><p>Klik tombol WhatsApp dan sampaikan minat Anda untuk mendaftar.</p></div>
     <div class="step" data-reveal><div class="step-num">2</div><h4>Isi Data Diri</h4><p>Lengkapi formulir pendaftaran yang dikirimkan oleh admin.</p></div>
@@ -572,10 +608,17 @@ html.theme-dark .hero-logo.dark{display:block}
   <p class="sub" data-reveal>Pengalaman murid dan orang tua bersama Rattililqur'an.</p>
   <!-- [EDIT TESTIMONI] Ganti teks & nama berikut dengan testimoni asli -->
   <!-- [EDIT TESTIMONI] Ganti dengan testimoni asli dari murid/wali -->
-  <div class="tg">
-    <div class="tcard" data-reveal><div class="stars">★★★★★</div><p>"Alhamdulillah, dalam beberapa bulan bacaan anak saya jauh lebih baik. Pengajarnya sabar dan telaten, setiap perkembangan juga bisa dipantau langsung lewat portal."</p><div class="who"><div class="av">F</div><div><b>Fitriani Rahmawati</b><span>Wali Murid — Tahsin Dasar</span></div></div></div>
-    <div class="tcard" data-reveal><div class="stars">★★★★★</div><p>"Metode hafalannya terstruktur dan target per pekan jelas. Murajaah rutin bikin hafalan lebih kuat dan tidak gampang lupa. Sangat direkomendasikan."</p><div class="who"><div class="av">A</div><div><b>Ahmad Zaki Hidayat</b><span>Murid — Program Tahfidz</span></div></div></div>
-    <div class="tcard" data-reveal><div class="stars">★★★★★</div><p>"Suasana halaqahnya kekeluargaan, jumlah pesertanya kecil jadi anak-anak benar-benar dibimbing satu per satu. Jadwalnya juga fleksibel untuk yang sambil sekolah."</p><div class="who"><div class="av">S</div><div><b>Siti Nur Azizah</b><span>Wali Murid — Halaqah Anak</span></div></div></div>
+  <div class="tg" data-reveal>
+    <button class="tg-arrow tg-prev" id="tgPrev" aria-label="Testimoni sebelumnya"><svg><use href="#i-chevron-left"/></svg></button>
+    <div class="tg-viewport">
+      <div class="tg-track" id="tgTrack">
+        <div class="tcard"><div class="stars">★★★★★</div><p>"Alhamdulillah, dalam beberapa bulan bacaan anak saya jauh lebih baik. Pengajarnya sabar dan telaten, setiap perkembangan juga bisa dipantau langsung lewat portal."</p><div class="who"><div class="av">F</div><div><b>Fitriani Rahmawati</b><span>Wali Murid — Tahsin Dasar</span></div></div></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>"Metode hafalannya terstruktur dan target per pekan jelas. Murajaah rutin bikin hafalan lebih kuat dan tidak gampang lupa. Sangat direkomendasikan."</p><div class="who"><div class="av">A</div><div><b>Ahmad Zaki Hidayat</b><span>Murid — Program Tahfidz</span></div></div></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>"Suasana halaqahnya kekeluargaan, jumlah pesertanya kecil jadi anak-anak benar-benar dibimbing satu per satu. Jadwalnya juga fleksibel untuk yang sambil sekolah."</p><div class="who"><div class="av">S</div><div><b>Siti Nur Azizah</b><span>Wali Murid — Halaqah Anak</span></div></div></div>
+      </div>
+    </div>
+    <button class="tg-arrow tg-next" id="tgNext" aria-label="Testimoni berikutnya"><svg><use href="#i-chevron-right"/></svg></button>
+    <div class="tg-dots" id="tgDots"></div>
   </div>
 </section>
 
@@ -585,11 +628,16 @@ html.theme-dark .hero-logo.dark{display:block}
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan <span class="grad-text">Umum</span></h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
-  <div class="faq" style="text-align:left">
+  <div class="faq-search" data-reveal>
+    <svg><use href="#i-search"/></svg>
+    <input type="text" id="faqSearch" placeholder="Cari pertanyaan, mis. biaya, jadwal, online..." aria-label="Cari pertanyaan FAQ">
+  </div>
+  <div class="faq" id="faqList" style="text-align:left">
     <div class="qa" data-reveal><button class="qa-q">Apakah pemula yang belum bisa baca Al-Qur'an boleh ikut?<span class="chev">+</span></button><div class="qa-a"><p>Tentu boleh. Program Tahsin Dasar kami dirancang khusus dari nol — mulai dari mengenal huruf hijaiyah hingga lancar membaca dengan tajwid.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Bagaimana jadwal halaqahnya?<span class="chev">+</span></button><div class="qa-a"><p>Halaqah diadakan beberapa kali sepekan dan disesuaikan dengan kelompok serta jenjang. Detail jadwal akan disampaikan saat pendaftaran.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Apakah ada biaya pendaftaran?<span class="chev">+</span></button><div class="qa-a"><p>Informasi biaya dan infak program akan dijelaskan oleh admin saat Anda menghubungi via WhatsApp. Silakan tanyakan langsung.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Apakah bisa belajar secara online?<span class="chev">+</span></button><div class="qa-a"><p>Ya, sebagian halaqah dilaksanakan secara daring. Perkembangan belajar tetap terpantau melalui portal digital kami.</p></div></div>
+    <p class="faq-empty" id="faqEmpty" style="display:none">Tidak ada pertanyaan yang cocok. Coba kata kunci lain atau hubungi kami langsung via WhatsApp.</p>
   </div>
 </section>
 
@@ -708,6 +756,33 @@ html.theme-dark .hero-logo.dark{display:block}
     }
   })();
 
+  // ══ COUNTDOWN PENDAFTARAN ══
+  // [EDIT] isi salah satu tanggal di bawah (format ISO 'YYYY-MM-DDTHH:mm:ss'), kosongkan ('') jika tidak dipakai
+  var TANGGAL_TUTUP_PENDAFTARAN = ''; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59'
+  var TANGGAL_BUKA_BERIKUTNYA = '';   // dipakai jika PENDAFTARAN_DIBUKA = false, mis. '2026-08-01T00:00:00'
+  (function(){
+    var targetStr = PENDAFTARAN_DIBUKA ? TANGGAL_TUTUP_PENDAFTARAN : TANGGAL_BUKA_BERIKUTNYA;
+    if(!targetStr) return;
+    var target = new Date(targetStr);
+    if(isNaN(target.getTime())) return;
+    var box = document.getElementById('regCountdown');
+    var label = document.getElementById('countdownLabel');
+    var dEl = document.getElementById('cdDays'), hEl = document.getElementById('cdHours'), mEl = document.getElementById('cdMins'), sEl = document.getElementById('cdSecs');
+    label.textContent = PENDAFTARAN_DIBUKA ? 'Pendaftaran ditutup dalam' : 'Gelombang berikutnya dibuka dalam';
+    box.style.display = 'block';
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      var diff = target.getTime() - Date.now();
+      if(diff <= 0){ dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = '00'; clearInterval(timer); return; }
+      dEl.textContent = pad(Math.floor(diff / 86400000));
+      hEl.textContent = pad(Math.floor(diff % 86400000 / 3600000));
+      mEl.textContent = pad(Math.floor(diff % 3600000 / 60000));
+      sEl.textContent = pad(Math.floor(diff % 60000 / 1000));
+    }
+    tick();
+    var timer = setInterval(tick, 1000);
+  })();
+
   // Scroll progress bar
   var progress = document.getElementById('progress');
   function onScroll(){
@@ -805,6 +880,61 @@ html.theme-dark .hero-logo.dark{display:block}
       if(!isOpen){ qa.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
     });
   });
+
+  // FAQ search
+  var faqSearch = document.getElementById('faqSearch');
+  if(faqSearch){
+    var faqItems = document.querySelectorAll('#faqList .qa');
+    var faqEmpty = document.getElementById('faqEmpty');
+    faqSearch.addEventListener('input', function(){
+      var q = faqSearch.value.trim().toLowerCase();
+      var visible = 0;
+      faqItems.forEach(function(item){
+        var match = item.textContent.toLowerCase().indexOf(q) !== -1;
+        item.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      faqEmpty.style.display = visible === 0 ? 'block' : 'none';
+    });
+  }
+
+  // Testimoni carousel
+  (function(){
+    var track = document.getElementById('tgTrack');
+    if(!track) return;
+    var dotsWrap = document.getElementById('tgDots');
+    var prevBtn = document.getElementById('tgPrev');
+    var nextBtn = document.getElementById('tgNext');
+    var slides = track.children.length;
+    var idx = 0, timer;
+    for(var i = 0; i < slides; i++){
+      var dot = document.createElement('button');
+      dot.className = 'tg-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Testimoni ' + (i + 1));
+      dot.addEventListener('click', (function(n){ return function(){ goTo(n); restart(); }; })(i));
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.querySelectorAll('.tg-dot');
+    function goTo(i){
+      idx = (i + slides) % slides;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach(function(d, j){ d.classList.toggle('active', j === idx); });
+    }
+    function next(){ goTo(idx + 1); }
+    function prev(){ goTo(idx - 1); }
+    function restart(){ clearInterval(timer); timer = setInterval(next, 6000); }
+    nextBtn.addEventListener('click', function(){ next(); restart(); });
+    prevBtn.addEventListener('click', function(){ prev(); restart(); });
+    var startX = null;
+    track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, { passive:true });
+    track.addEventListener('touchend', function(e){
+      if(startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if(Math.abs(dx) > 40){ dx < 0 ? next() : prev(); restart(); }
+      startX = null;
+    }, { passive:true });
+    restart();
+  })();
 </script>
 
 </body>
