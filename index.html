@@ -182,6 +182,18 @@ html.theme-dark .bg-noise{opacity:.05}
 .hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:80px 22px 40px;text-align:center}
 .hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink-2);background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);padding:8px 16px;border-radius:99px;box-shadow:var(--sh-sm)}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(16,185,129,.18);animation:pulseDot 2.4s ease-in-out infinite}
+.hero-badge.closed .dot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.18);animation:none}
+
+/* ── REGISTRATION STATUS ── */
+.reg-status{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700;padding:9px 18px;border-radius:99px;margin-top:20px;border:1px solid var(--line)}
+.reg-status .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.reg-status.open{color:#059669;background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.25)}
+.reg-status.open .dot{background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.18);animation:pulseDot 2.4s ease-in-out infinite}
+.reg-status.closed{color:#dc2626;background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.25)}
+.reg-status.closed .dot{background:#ef4444}
+html.theme-dark .reg-status.open{color:#34d399}
+html.theme-dark .reg-status.closed{color:#f87171}
+.reg-note{max-width:560px;margin:14px auto 0;font-size:13.5px;color:var(--ink-3)}
 @keyframes pulseDot{0%,100%{box-shadow:0 0 0 4px rgba(16,185,129,.18)}50%{box-shadow:0 0 0 7px rgba(16,185,129,.05)}}
 .hero-logo{width:130px;max-width:42%;margin:26px auto 4px;display:block}
 .hero-logo.dark{display:none}
@@ -374,7 +386,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ HERO ══ -->
 <header class="hero">
-  <div class="hero-badge h-anim" style="animation-delay:.05s"><span class="dot"></span> Pendaftaran murid baru dibuka</div>
+  <div class="hero-badge h-anim" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran murid baru dibuka</span></div>
   <img class="hero-logo light h-anim" style="animation-delay:.12s" src="assets/images/logo-abu.png"   alt="Rattililqur'an" onerror="this.style.display='none'">
   <img class="hero-logo dark  h-anim" style="animation-delay:.12s" src="assets/images/logo-putih.png" alt="Rattililqur'an" onerror="this.style.display='none'">
   <div class="hero-arabic h-anim" style="animation-delay:.20s">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
@@ -451,6 +463,8 @@ html.theme-dark .hero-logo.dark{display:block}
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara Bergabung</h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
+  <div class="reg-status" id="regStatus" data-reveal><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Dibuka</span></div>
+  <p class="reg-note" id="regNote" data-reveal style="display:none"></p>
   <div class="steps">
     <div class="step" data-reveal><div class="step-num">1</div><h4>Hubungi Admin</h4><p>Klik tombol WhatsApp dan sampaikan minat Anda untuk mendaftar.</p></div>
     <div class="step" data-reveal><div class="step-num">2</div><h4>Isi Data Diri</h4><p>Lengkapi formulir pendaftaran yang dikirimkan oleh admin.</p></div>
@@ -459,7 +473,7 @@ html.theme-dark .hero-logo.dark{display:block}
   </div>
   <div style="margin-top:42px" data-reveal>
     <!-- [EDIT] ganti nomor WhatsApp pada href -->
-    <a href="https://wa.me/6282316993233?text=Assalamualaikum,%20saya%20ingin%20mendaftar%20program%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-wa btn-lg">💬 Daftar via WhatsApp</a>
+    <a href="https://wa.me/6282316993233?text=Assalamualaikum,%20saya%20ingin%20mendaftar%20program%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-wa btn-lg" id="regWaBtn">💬 Daftar via WhatsApp</a>
   </div>
 </section>
 
@@ -570,6 +584,34 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ══ STATUS PENDAFTARAN ══
+  // [EDIT] ubah PENDAFTARAN_DIBUKA ke false saat pendaftaran ditutup, lalu sesuaikan PESAN_TUTUP
+  var PENDAFTARAN_DIBUKA = true;
+  var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
+  (function(){
+    var heroBadge = document.getElementById('heroBadge');
+    var heroBadgeText = document.getElementById('heroBadgeText');
+    var regStatus = document.getElementById('regStatus');
+    var regStatusText = document.getElementById('regStatusText');
+    var regNote = document.getElementById('regNote');
+    var waBtn = document.getElementById('regWaBtn');
+    if(PENDAFTARAN_DIBUKA){
+      heroBadge.classList.add('open');
+      heroBadgeText.textContent = 'Pendaftaran murid baru dibuka';
+      regStatus.classList.add('open');
+      regStatusText.textContent = 'Pendaftaran Sedang Dibuka';
+    } else {
+      heroBadge.classList.add('closed');
+      heroBadgeText.textContent = 'Pendaftaran sementara ditutup';
+      regStatus.classList.add('closed');
+      regStatusText.textContent = 'Pendaftaran Sedang Ditutup';
+      regNote.textContent = PESAN_TUTUP;
+      regNote.style.display = 'block';
+      waBtn.textContent = '💬 Tanya Info Gelombang Berikutnya';
+      waBtn.href = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
+    }
+  })();
 
   // Scroll progress bar
   var progress = document.getElementById('progress');
