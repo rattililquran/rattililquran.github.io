@@ -7,14 +7,22 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="#0d1f35"/>
-<meta name="description" content="Rattililqur'an — Lembaga Tahsin & Tahfidz Al-Qur'an. Belajar membaca Al-Qur'an dengan tartil bersama pengajar berpengalaman dan metode terstruktur."/>
-<meta property="og:title" content="Rattililqur'an — Belajar Al-Qur'an dengan Tartil"/>
+<meta name="description" content="Rattililqur'an — Sebuah ikhtiar menjadi sahabat Al-Qur'an. Lembaga Tahsin & Tahfidz dengan halaqah kecil, pengajar berpengalaman, dan metode pembelajaran terstruktur."/>
+<link rel="canonical" href="https://rattililquran.github.io/"/>
+<meta property="og:title" content="Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an"/>
 <meta property="og:description" content="Lembaga Tahsin & Tahfidz Al-Qur'an. Bergabunglah dalam halaqah pembelajaran yang terstruktur dan penuh berkah."/>
 <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://rattililquran.github.io/"/>
+<meta property="og:image" content="https://rattililquran.github.io/assets/icons/icon-192.png"/>
+<meta property="og:locale" content="id_ID"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an"/>
+<meta name="twitter:description" content="Lembaga Tahsin & Tahfidz Al-Qur'an dengan halaqah kecil, pengajar berpengalaman, dan metode pembelajaran terstruktur."/>
+<meta name="twitter:image" content="https://rattililquran.github.io/assets/icons/icon-192.png"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Rattililqur'an — Belajar Al-Qur'an dengan Tartil</title>
+<title>Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
 /* ════════════════════════════════════════════════════════════
@@ -140,7 +148,16 @@ html.theme-dark .bg-noise{opacity:.05}
 .fab-top{position:relative;width:42px;height:42px;background:var(--card);color:var(--primary);border:1px solid var(--line);opacity:0;pointer-events:none;transform:translateY(8px)}
 .fab-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
 .fab-top svg{width:20px;height:20px}
-@media(max-width:640px){.fab-group{right:14px;bottom:14px}.fab-wa{width:50px;height:50px}.fab-wa svg{width:25px;height:25px}}
+@media(max-width:640px){.fab-group{right:14px;bottom:78px}.fab-wa{width:50px;height:50px}.fab-wa svg{width:25px;height:25px}}
+
+/* ── MOBILE STICKY CTA ── */
+.mobile-cta{display:none}
+@media(max-width:640px){
+  body{padding-bottom:72px}
+  .mobile-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:65;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -10px 24px rgba(15,23,42,.08)}
+  html.theme-dark .mobile-cta{box-shadow:0 -10px 24px rgba(0,0,0,.45)}
+  .mobile-cta .btn{flex:1;padding:13px 16px;font-size:14px}
+}
 
 /* ── SECTION ── */
 .section{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:90px 22px}
@@ -151,7 +168,9 @@ html.theme-dark .bg-noise{opacity:.05}
   .strip,.grid{margin-top:28px}
   .scroll-hint{margin-top:28px}
 }
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px}
+.sec-num{position:absolute;top:-8px;right:22px;font-size:clamp(54px,8vw,120px);font-weight:900;line-height:1;letter-spacing:-.04em;color:var(--primary);opacity:.07;pointer-events:none;z-index:0;user-select:none}
+@media(max-width:640px){.sec-num{font-size:52px;top:-2px;right:14px}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px;position:relative;z-index:1}
 .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary)}
 .title{font-size:clamp(28px,4.4vw,44px);font-weight:800;letter-spacing:-.025em;color:var(--ink);line-height:1.15}
 .sub{font-size:clamp(15px,2vw,17px);color:var(--ink-3);margin-top:16px;max-width:620px}
@@ -389,6 +408,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ TENTANG ══ -->
 <section class="section" id="tentang">
+  <span class="sec-num" aria-hidden="true">01</span>
   <div class="grid grid-2" style="align-items:center">
     <div data-reveal>
       <span class="eyebrow">Tentang Kami</span>
@@ -411,6 +431,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ PROGRAM ══ -->
 <section class="section center" id="program">
+  <span class="sec-num" aria-hidden="true">02</span>
   <span class="eyebrow" data-reveal>Program Belajar</span>
   <h2 class="title" data-reveal>Halaqah &amp; Kajian</h2>
   <p class="sub" data-reveal>Beragam program disusun sesuai jenjang kemampuan, dari pemula hingga tahfidz.</p>
@@ -426,6 +447,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ PENDAFTARAN ══ -->
 <section class="section center" id="pendaftaran">
+  <span class="sec-num" aria-hidden="true">03</span>
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara Bergabung</h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
@@ -443,6 +465,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ TESTIMONI ══ -->
 <section class="section center" id="testimoni">
+  <span class="sec-num" aria-hidden="true">04</span>
   <span class="eyebrow" data-reveal>Testimoni</span>
   <h2 class="title" data-reveal>Kata Mereka</h2>
   <p class="sub" data-reveal>Pengalaman murid dan orang tua bersama Rattililqur'an.</p>
@@ -457,6 +480,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ FAQ ══ -->
 <section class="section center" id="faq">
+  <span class="sec-num" aria-hidden="true">05</span>
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan Umum</h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
@@ -482,6 +506,7 @@ html.theme-dark .hero-logo.dark{display:block}
 
 <!-- ══ KONTAK ══ -->
 <section class="section center" id="kontak" style="padding-top:0">
+  <span class="sec-num" aria-hidden="true">06</span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; Informasi</h2>
   <p class="sub" data-reveal>Punya pertanyaan? Jangan ragu menghubungi kami melalui kanal berikut.</p>
@@ -527,6 +552,12 @@ html.theme-dark .hero-logo.dark{display:block}
     <p>&copy; <span id="year"></span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
   </div>
 </footer>
+
+<!-- ══ MOBILE STICKY CTA ══ -->
+<div class="mobile-cta">
+  <a href="#program" class="btn btn-ghost">Lihat Program</a>
+  <a href="#pendaftaran" class="btn btn-primary">Daftar Sekarang</a>
+</div>
 
 <!-- ══ FLOATING ACTIONS ══ -->
 <div class="fab-group">
