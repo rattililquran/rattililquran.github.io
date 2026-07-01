@@ -619,7 +619,7 @@ html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
   </div>
   <div style="margin-top:42px" data-reveal>
     <!-- [EDIT] ganti nomor WhatsApp pada href -->
-    <a href="https://wa.me/6282316993233?text=Assalamualaikum,%20saya%20ingin%20mendaftar%20program%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-wa btn-lg" id="regWaBtn">💬 Daftar via WhatsApp</a>
+    <a href="https://tilawahku.okegas.app/rattil-alfatihah" target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="regWaBtn">📝 Daftar Online Sekarang</a>
   </div>
 </section>
 
@@ -755,7 +755,7 @@ html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
 
   // ══ STATUS PENDAFTARAN ══
   // [EDIT] ubah PENDAFTARAN_DIBUKA ke false saat pendaftaran ditutup, lalu sesuaikan PESAN_TUTUP
-  var PENDAFTARAN_DIBUKA = false;
+  var PENDAFTARAN_DIBUKA = true;
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
     var heroBadge = document.getElementById('heroBadge');
@@ -778,6 +778,8 @@ html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
       regNote.style.display = 'block';
       waBtn.textContent = '💬 Tanya Info Gelombang Berikutnya';
       waBtn.href = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
+      waBtn.classList.remove('btn-primary');
+      waBtn.classList.add('btn-wa');
     }
   })();
 
