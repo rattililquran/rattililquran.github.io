@@ -281,9 +281,15 @@ html.theme-dark .hero-logo.dark{display:block}
 
 /* ── GRID / CARDS ── */
 .grid{display:grid;gap:20px;margin-top:46px}
+.grid-4{grid-template-columns:repeat(4,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-2{grid-template-columns:1.05fr .95fr}
+@media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+@media(max-width:640px){.grid-4{grid-template-columns:1fr}}
+.program-sub-title{font-size:20px;font-weight:800;color:var(--ink-2);margin-top:40px;text-align:center;position:relative;z-index:1}
+.card-feat.highlight-card{border-color:rgba(14,165,233,.3);background:linear-gradient(180deg,var(--card),var(--soft))}
+html.theme-dark .card-feat.highlight-card{border-color:rgba(56,189,248,.35)}
 .card-feat{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;box-shadow:var(--sh);transition:transform .22s,box-shadow .22s;overflow:hidden}
 .card-feat::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(14,165,233,.4),transparent 40%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s}
 .card-feat:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
@@ -319,8 +325,10 @@ html.theme-dark .hero-logo.dark{display:block}
 .step p{font-size:13.5px;color:var(--ink-3)}
 
 /* ── JADWAL HALAQAH ── */
-.sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;text-align:left}
+.sched-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:46px;text-align:left}
 @media(max-width:860px){.sched-grid{grid-template-columns:1fr}}
+.sched-card.highlight-card{border-color:rgba(14,165,233,.3);background:linear-gradient(180deg,var(--card),var(--soft))}
+html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
 .sched-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
 .sched-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
 .sched-card h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:10px}
@@ -536,10 +544,21 @@ html.theme-dark .hero-logo.dark{display:block}
   <span class="eyebrow" data-reveal>Program Belajar</span>
   <h2 class="title" data-reveal>Halaqah &amp; <span class="grad-text">Kajian</span></h2>
   <p class="sub" data-reveal>Beragam program disusun sesuai jenjang kemampuan, dari pemula hingga tahfidz.</p>
-  <div class="grid grid-3">
+  
+  <h3 class="program-sub-title" data-reveal>Program Pembelajaran</h3>
+  <div class="grid grid-4" style="margin-top:20px; margin-bottom:40px;">
+    <div class="card-feat highlight-card" data-reveal>
+      <div class="ico"><svg><use href="#i-target"/></svg></div>
+      <h3>Tahsin Al-Fatihah</h3>
+      <p>Program akselerasi 8 pertemuan untuk memperbaiki bacaan Surah Al-Fatihah secara intensif agar terbebas dari Lahn Jali (kesalahan fatal).</p>
+    </div>
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-type"/></svg></div><h3>Tahsin Dasar</h3><p>Belajar makharijul huruf dan kaidah tajwid dari nol hingga lancar membaca Al-Qur'an dengan benar.</p></div>
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-repeat"/></svg></div><h3>Tahfidz</h3><p>Program menghafal Al-Qur'an dengan target bertahap, disimak dan dimuraja'ah rutin oleh pengajar.</p></div>
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-book"/></svg></div><h3>Kajian At-Tibyan</h3><p>Kajian adab penghafal Al-Qur'an mengikuti kitab At-Tibyan karya Imam An-Nawawi rahimahullah.</p></div>
+  </div>
+
+  <h3 class="program-sub-title" data-reveal>Fasilitas &amp; Fitur KBM</h3>
+  <div class="grid grid-3" style="margin-top:20px;">
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-clock"/></svg></div><h3>Jadwal Fleksibel</h3><p>Halaqah dijadwalkan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div>
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-trending-up"/></svg></div><h3>Laporan Progres</h3><p>Setiap murid mendapat raport perkembangan: presensi, nilai, dan capaian hafalan per periode.</p></div>
     <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-smartphone"/></svg></div><h3>Portal Digital</h3><p>Akses materi, jadwal, nilai, dan pengumuman kapan saja melalui aplikasi portal modern.</p></div>
@@ -554,6 +573,11 @@ html.theme-dark .hero-logo.dark{display:block}
   <h2 class="title" data-reveal>Jadwal <span class="grad-text">Halaqah</span></h2>
   <p class="sub" data-reveal>Gambaran umum jadwal pekanan setiap program. Penempatan kelompok &amp; jadwal pasti disesuaikan saat pendaftaran.</p>
   <div class="sched-grid">
+    <div class="sched-card highlight-card" data-reveal>
+      <h3><div class="ico"><svg><use href="#i-target"/></svg></div>Tahsin Al-Fatihah</h3>
+      <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Daurah Intensif 8 Hari</b>Dibuka berkala per gelombang · Durasi 8 Sesi Kelas</div></div>
+      <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Fleksibel</b>Menyesuaikan kesepakatan kelompok &amp; pengajar</div></div>
+    </div>
     <div class="sched-card" data-reveal>
       <h3><div class="ico"><svg><use href="#i-type"/></svg></div>Tahsin Dasar</h3>
       <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Senin &amp; Rabu</b>16.00–17.30 WIB · Kelompok Sore</div></div>
@@ -634,8 +658,9 @@ html.theme-dark .hero-logo.dark{display:block}
     <input type="text" id="faqSearch" placeholder="Cari pertanyaan, mis. biaya, jadwal, online..." aria-label="Cari pertanyaan FAQ">
   </div>
   <div class="faq" id="faqList" style="text-align:left">
+    <div class="qa" data-reveal><button class="qa-q">Apa itu program Daurah Tahsin Al-Fatihah?<span class="chev">+</span></button><div class="qa-a"><p>Daurah Tahsin Al-Fatihah adalah program akselerasi singkat selama 8 pertemuan yang berfokus membersihkan bacaan Surah Al-Fatihah dari kesalahan fatal (Lahn Jali) dan ringan (Lahn Khafi), guna memastikan rukun qauli dalam shalat Anda terpenuhi dengan benar.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Apakah pemula yang belum bisa baca Al-Qur'an boleh ikut?<span class="chev">+</span></button><div class="qa-a"><p>Tentu boleh. Program Tahsin Dasar kami dirancang khusus dari nol — mulai dari mengenal huruf hijaiyah hingga lancar membaca dengan tajwid.</p></div></div>
-    <div class="qa" data-reveal><button class="qa-q">Bagaimana jadwal halaqahnya?<span class="chev">+</span></button><div class="qa-a"><p>Halaqah diadakan beberapa kali sepekan dan disesuaikan dengan kelompok serta jenjang. Detail jadwal akan disampaikan saat pendaftaran.</p></div></div>
+    <div class="qa" data-reveal><button class="qa-q">Bagaimana jadwal halaqahnya?<span class="chev">+</span></button><div class="qa-a"><p>Halaqah diadakan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Apakah ada biaya pendaftaran?<span class="chev">+</span></button><div class="qa-a"><p>Informasi biaya dan infak program akan dijelaskan oleh admin saat Anda menghubungi via WhatsApp. Silakan tanyakan langsung.</p></div></div>
     <div class="qa" data-reveal><button class="qa-q">Apakah bisa belajar secara online?<span class="chev">+</span></button><div class="qa-a"><p>Ya, sebagian halaqah dilaksanakan secara daring. Perkembangan belajar tetap terpantau melalui portal digital kami.</p></div></div>
     <p class="faq-empty" id="faqEmpty" style="display:none">Tidak ada pertanyaan yang cocok. Coba kata kunci lain atau hubungi kami langsung via WhatsApp.</p>
