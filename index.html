@@ -339,7 +339,11 @@ html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
 .sched-row:first-of-type{border-top:none;padding-top:0}
 .sched-row svg{width:16px;height:16px;color:var(--primary);flex-shrink:0;margin-top:2px}
 .sched-row b{color:var(--ink-2);font-weight:700;display:block}
-.sched-note{max-width:680px;margin:18px auto 0;font-size:13px;color:var(--ink-4);text-align:center}
+.sched-note-box{max-width:720px;margin:28px auto 0;padding:16px 20px;background:var(--soft);border:1px solid rgba(14,165,233,.2);border-radius:14px;display:inline-flex;align-items:center;gap:12px;text-align:left;box-shadow:var(--sh-sm);box-sizing:border-box}
+html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
+.sched-note-box p{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin:0;font-weight:600}
+.sched-note-box .note-icon{font-size:18px;flex-shrink:0}
+@media(max-width:640px){.sched-note-box{flex-direction:column;text-align:center;align-items:center;padding:14px}}
 
 /* ── TESTIMONI ── */
 .tg{position:relative;max-width:640px;margin:46px auto 0}
@@ -591,7 +595,10 @@ html.theme-dark .sched-card.highlight-card{border-color:rgba(56,189,248,.35)}
       <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Ahad</b>19.30 WIB–Selesai</div></div>
     </div>
   </div>
-  <p class="sched-note" data-reveal>* Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
+  <div class="sched-note-box" data-reveal>
+    <span class="note-icon">💡</span>
+    <p>Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
+  </div>
 </section>
 
 <!-- ══ PENDAFTARAN ══ -->
