@@ -24,6 +24,8 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <script type="application/ld+json">
 {
@@ -94,13 +96,14 @@ body{
 /* ── BACKGROUND ── */
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .bg-orb{position:absolute;border-radius:50%;filter:blur(130px);animation:floatOrb 24s ease-in-out infinite alternate}
-.orb1{width:760px;height:760px;background:#cfe6ff;opacity:.55;top:-260px;left:-220px}
-.orb2{width:640px;height:640px;background:#e2e0ff;opacity:.5;bottom:-220px;right:-160px;animation-duration:21s;animation-delay:-9s}
-.orb3{width:460px;height:460px;background:#d6f5ec;opacity:.4;top:42%;left:48%;animation-duration:28s;animation-delay:-15s}
-html.theme-dark .orb1{background:#13345c;opacity:.45}
-html.theme-dark .orb2{background:#23275e;opacity:.4}
-html.theme-dark .orb3{background:#0d3b30;opacity:.3}
+.orb1{width:760px;height:760px;background:linear-gradient(135deg,#cfe6ff,#c4d4ff);opacity:.55;top:-260px;left:-220px;animation:floatOrb 24s ease-in-out infinite alternate, orbGlow 8s ease-in-out infinite alternate}
+.orb2{width:640px;height:640px;background:linear-gradient(135deg,#e2e0ff,#d4c6ff);opacity:.5;bottom:-220px;right:-160px;animation:floatOrb 21s ease-in-out infinite alternate, orbGlow 10s ease-in-out infinite alternate;animation-delay:-9s}
+.orb3{width:460px;height:460px;background:linear-gradient(135deg,#d6f5ec,#c0ece4);opacity:.4;top:42%;left:48%;animation:floatOrb 28s ease-in-out infinite alternate, orbGlow 12s ease-in-out infinite alternate;animation-delay:-15s}
+html.theme-dark .orb1{background:linear-gradient(135deg,#13345c,#1a2860);opacity:.45}
+html.theme-dark .orb2{background:linear-gradient(135deg,#23275e,#2d1f5e);opacity:.4}
+html.theme-dark .orb3{background:linear-gradient(135deg,#0d3b30,#0d2f3b);opacity:.3}
 @keyframes floatOrb{0%{transform:translate(0,0) scale(1)}100%{transform:translate(34px,-28px) scale(1.08)}}
+@keyframes orbGlow{0%{filter:blur(130px) brightness(1)}50%{filter:blur(140px) brightness(1.15)}100%{filter:blur(130px) brightness(1)}}
 .bg-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
   background-image:radial-gradient(circle at 1px 1px,rgba(99,102,241,.12) 1px,transparent 0);
@@ -264,7 +267,7 @@ html.theme-dark .hero-logo.dark{display:block}
 .stat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:36px;height:3px;border-radius:0 0 3px 3px;background:var(--grad)}
 .stat .ico{font-size:22px;margin-bottom:8px;display:flex;justify-content:center;color:var(--primary)}
 .stat .ico svg{width:24px;height:24px}
-.stat-num{font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-num{font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
 .stat-lbl{font-size:11.5px;color:var(--ink-4);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:9px}
 
 /* ── KEUNGGULAN STRIP ── */
@@ -499,7 +502,7 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
 <header class="hero">
   <div class="hero-badge h-anim" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran murid baru dibuka</span></div>
   <img class="hero-logo light h-anim" style="animation-delay:.12s" src="assets/images/logo-abu.png"   alt="Rattililqur'an" onerror="this.style.display='none'">
-  <img class="hero-logo dark  h-anim" style="animation-delay:.12s" src="assets/images/logo-putih.png" alt="Rattililqur'an" onerror="this.style.display='none'">
+  <img class="hero-logo dark  h-anim" style="animation-delay:.12s" src="assets/images/logo-putih.png" alt="Rattililqur'an" loading="lazy" onerror="this.style.display='none'">
   <div class="hero-arabic h-anim" style="animation-delay:.20s">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
   <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
   <p class="lead h-anim" style="animation-delay:.44s">Lembaga tahsin &amp; tahfidz yang membimbing setiap muslim membaca Al-Qur'an
@@ -599,6 +602,13 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
       <span class="note-icon">💡</span>
       <p>Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
     </div>
+  </div>
+
+  <h3 class="program-sub-title" data-reveal>Fasilitas &amp; Fitur KBM</h3>
+  <div class="grid grid-3" style="margin-top:20px;">
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-clock"/></svg></div><h3>Jadwal Fleksibel</h3><p>Halaqah dijadwalkan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-trending-up"/></svg></div><h3>Laporan Progres</h3><p>Setiap murid mendapat raport perkembangan: presensi, nilai, dan capaian hafalan per periode.</p></div>
+    <div class="card-feat" data-reveal><div class="ico"><svg><use href="#i-smartphone"/></svg></div><h3>Portal Digital</h3><p>Akses materi, jadwal, nilai, dan pengumuman kapan saja melalui aplikasi portal modern.</p></div>
   </div>
 </section>
 
