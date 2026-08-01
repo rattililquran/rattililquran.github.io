@@ -398,6 +398,24 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
 .qa-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
 .qa-a p{padding:0 22px 20px;font-size:14.5px;color:var(--ink-3);margin:0}
 
+/* ── BEASISWA ── */
+.beasiswa-intro{max-width:720px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 32px;text-align:center;box-shadow:var(--sh)}
+.beasiswa-intro .ar{font-family:'Amiri',serif;font-size:22px;color:var(--primary);direction:rtl;margin-bottom:12px}
+.beasiswa-intro p{font-size:15px;color:var(--ink-3);line-height:1.7}
+.beasiswa-list{max-width:780px;margin:40px auto 0;display:flex;flex-direction:column;gap:20px}
+.beasiswa-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;box-shadow:var(--sh);transition:box-shadow .2s}
+.beasiswa-item:hover{box-shadow:var(--sh-lg)}
+.beasiswa-item-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.beasiswa-item-num{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--primary)}
+.beasiswa-item h4{font-size:16px;font-weight:800;color:var(--ink);margin:0;padding-top:8px}
+.beasiswa-item ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.beasiswa-item ul li{font-size:14.5px;color:var(--ink-3);padding-left:22px;position:relative;line-height:1.65}
+.beasiswa-item ul li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary);opacity:.6}
+.beasiswa-doa{max-width:720px;margin:36px auto 0;background:var(--grad-soft);border:1px solid rgba(var(--primary-rgb,13,115,119),.15);border-radius:var(--r-lg);padding:28px 32px;text-align:center}
+.beasiswa-doa p{font-size:15px;color:var(--ink-2);line-height:1.75;margin:0}
+.beasiswa-doa .ar{font-family:'Amiri',serif;font-size:22px;color:var(--primary);direction:rtl;margin-top:16px}
+@media(max-width:640px){.beasiswa-intro,.beasiswa-doa{padding:20px 18px}.beasiswa-item{padding:20px 18px}.beasiswa-item-header{gap:12px}}
+
 /* ── CTA BANNER ── */
 .cta-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px 80px}
 .cta{position:relative;background:var(--grad);border-radius:var(--r-xl);padding:clamp(40px,6vw,72px) 22px;text-align:center;overflow:hidden;box-shadow:var(--sh-lg)}
@@ -491,6 +509,7 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
       <a href="#tentang"     class="nav-link">Tentang</a>
       <a href="#program"     class="nav-link">Program &amp; Jadwal</a>
       <a href="#pendaftaran" class="nav-link">Pendaftaran</a>
+      <a href="#beasiswa"   class="nav-link">Beasiswa</a>
       <a href="#faq"         class="nav-link">FAQ</a>
       <a href="#kontak"      class="nav-link">Kontak</a>
       <a href="/Portal-Halaqah-Rattililquran/index.html" class="btn btn-primary nav-cta" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
@@ -662,9 +681,90 @@ Baarakallahu fiikum</div>
   </div>
 </section>
 
+<!-- ══ BEASISWA ══ -->
+<section class="section center" id="beasiswa">
+  <span class="sec-num" aria-hidden="true">04</span>
+  <span class="eyebrow" data-reveal>Beasiswa</span>
+  <h2 class="title" data-reveal>Syarat &amp; Komitmen <span class="grad-text">Beasiswa Tahsin</span></h2>
+  <p class="sub" data-reveal>Beasiswa Program Tahsin Al-Qur'an adalah amanah. Setiap peserta diharapkan menjaganya dengan kesungguhan, adab, dan komitmen dalam belajar.</p>
+
+  <div class="beasiswa-intro" data-reveal>
+    <p class="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+    <p>Adapun persyaratan dan komitmen peserta penerima beasiswa adalah sebagai berikut:</p>
+  </div>
+
+  <div class="beasiswa-list">
+    <div class="beasiswa-item" data-reveal>
+      <div class="beasiswa-item-header">
+        <div class="beasiswa-item-num">1</div>
+        <h4>Niat dan Kesungguhan Belajar</h4>
+      </div>
+      <ul>
+        <li>Memiliki niat yang ikhlas untuk memperbaiki bacaan Al-Qur'an dan meningkatkan kedekatan kepada Allah ﷻ.</li>
+        <li>Bersungguh-sungguh mengikuti proses pembelajaran hingga selesai.</li>
+        <li>Menjadikan program ini sebagai kesempatan untuk memperbaiki diri dan mengambil manfaat sebanyak-banyaknya.</li>
+      </ul>
+    </div>
+
+    <div class="beasiswa-item" data-reveal>
+      <div class="beasiswa-item-header">
+        <div class="beasiswa-item-num">2</div>
+        <h4>Komitmen Mengikuti Program</h4>
+      </div>
+      <ul>
+        <li>Bersedia mengikuti seluruh rangkaian pembelajaran sesuai jadwal yang telah ditentukan.</li>
+        <li>Berusaha hadir tepat waktu dan mengikuti pembelajaran dengan penuh perhatian.</li>
+        <li>Bersedia mengikuti evaluasi perkembangan bacaan sebagai bagian dari proses pembelajaran.</li>
+        <li>Apabila terdapat kendala kehadiran, peserta bersedia menyampaikan informasi dengan baik kepada pengelola program.</li>
+      </ul>
+    </div>
+
+    <div class="beasiswa-item" data-reveal>
+      <div class="beasiswa-item-header">
+        <div class="beasiswa-item-num">3</div>
+        <h4>Menjaga Amanah Beasiswa</h4>
+      </div>
+      <ul>
+        <li>Memahami bahwa beasiswa yang diberikan adalah amanah yang perlu dijaga dan dipertanggungjawabkan.</li>
+        <li>Menggunakan kesempatan belajar ini dengan sebaik-baiknya dan tidak menyia-nyiakannya.</li>
+        <li>Bersedia menjaga nama baik program dengan menunjukkan sikap, adab, dan komitmen yang baik.</li>
+      </ul>
+    </div>
+
+    <div class="beasiswa-item" data-reveal>
+      <div class="beasiswa-item-header">
+        <div class="beasiswa-item-num">4</div>
+        <h4>Adab terhadap Al-Qur'an dan Pengajar</h4>
+      </div>
+      <ul>
+        <li>Menjaga adab dalam belajar Al-Qur'an.</li>
+        <li>Menghormati para pengajar dan mengikuti arahan selama proses pembelajaran.</li>
+        <li>Berusaha menerapkan ilmu yang telah dipelajari dalam kehidupan sehari-hari.</li>
+      </ul>
+    </div>
+
+    <div class="beasiswa-item" data-reveal>
+      <div class="beasiswa-item-header">
+        <div class="beasiswa-item-num">5</div>
+        <h4>Kesediaan Menjadi Bagian dari Kebaikan</h4>
+      </div>
+      <ul>
+        <li>Bersedia menjadi bagian dari komunitas pembelajar Al-Qur'an.</li>
+        <li>Berusaha memberikan manfaat kepada orang lain dengan ilmu yang telah diperoleh.</li>
+        <li>Menjadi pribadi yang terus bertumbuh dalam tilawah, pemahaman, dan pengamalan Al-Qur'an.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="beasiswa-doa" data-reveal>
+    <p>Semoga Allah ﷻ memberikan keberkahan pada program ini, menjadikan ilmu yang dipelajari sebagai amal jariyah, serta menjadikan para peserta sebagai hamba-hamba yang senantiasa dekat dengan Al-Qur'an.</p>
+    <p class="ar">جزاكم الله خيرًا</p>
+  </div>
+</section>
+
 <!-- ══ TESTIMONI ══ -->
 <section class="section center" id="testimoni">
-  <span class="sec-num" aria-hidden="true">04</span>
+  <span class="sec-num" aria-hidden="true">05</span>
   <span class="eyebrow" data-reveal>Testimoni</span>
   <h2 class="title" data-reveal>Kata <span class="grad-text">Mereka</span></h2>
   <p class="sub" data-reveal>Pengalaman murid bersama Rattililqur'an.</p>
@@ -687,7 +787,7 @@ Baarakallahu fiikum</div>
 
 <!-- ══ FAQ ══ -->
 <section class="section center" id="faq">
-  <span class="sec-num" aria-hidden="true">05</span>
+  <span class="sec-num" aria-hidden="true">06</span>
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan <span class="grad-text">Umum</span></h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
@@ -719,7 +819,7 @@ Baarakallahu fiikum</div>
 
 <!-- ══ KONTAK ══ -->
 <section class="section center" id="kontak" style="padding-top:0">
-  <span class="sec-num" aria-hidden="true">06</span>
+  <span class="sec-num" aria-hidden="true">07</span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; <span class="grad-text">Informasi</span></h2>
   <p class="sub" data-reveal>Punya pertanyaan? Jangan ragu menghubungi kami melalui kanal berikut.</p>
@@ -747,6 +847,7 @@ Baarakallahu fiikum</div>
       <a href="#tentang">Tentang</a>
       <a href="#program">Program &amp; Jadwal</a>
       <a href="#pendaftaran">Pendaftaran</a>
+      <a href="#beasiswa">Beasiswa</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="footer-col">
