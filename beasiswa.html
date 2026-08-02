@@ -306,6 +306,13 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
     toggle.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', open);
   });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('show');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   // Theme toggle
   (function(){
