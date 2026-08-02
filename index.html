@@ -825,8 +825,8 @@ Baarakallahu fiikum</div>
 
   // ══ COUNTDOWN PENDAFTARAN ══
   // [EDIT] isi salah satu tanggal di bawah (format ISO 'YYYY-MM-DDTHH:mm:ss'), kosongkan ('') jika tidak dipakai
-  var TANGGAL_TUTUP_PENDAFTARAN = ''; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59'
-  var TANGGAL_BUKA_BERIKUTNYA = '2026-08-05T00:00:00';   // dipakai jika PENDAFTARAN_DIBUKA = false, mis. '2026-08-01T00:00:00'
+  var TANGGAL_TUTUP_PENDAFTARAN = ''; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59+07:00'
+  var TANGGAL_BUKA_BERIKUTNYA = '2026-08-05T00:00:00+07:00';   // dipakai jika PENDAFTARAN_DIBUKA = false
   (function(){
     var targetStr = PENDAFTARAN_DIBUKA ? TANGGAL_TUTUP_PENDAFTARAN : TANGGAL_BUKA_BERIKUTNYA;
     if(!targetStr) return;
