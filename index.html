@@ -291,17 +291,31 @@ html.theme-dark .hero-logo.dark{display:block}
 @media(max-width:860px){.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
 @media(max-width:640px){.grid-4{grid-template-columns:1fr}}
 .program-sub-title{font-size:20px;font-weight:800;color:var(--ink-2);margin-top:40px;text-align:center;position:relative;z-index:1}
+/* ── CARD FEAT ENHANCED ── */
 .card-feat.highlight-card{border-color:rgba(14,165,233,.3);background:linear-gradient(180deg,var(--card),var(--soft))}
 html.theme-dark .card-feat.highlight-card{border-color:rgba(56,189,248,.35)}
-.card-feat{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;box-shadow:var(--sh);transition:transform .22s,box-shadow .22s;overflow:hidden}
+.card-feat{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;box-shadow:var(--sh);transition:transform .22s,box-shadow .22s;overflow:hidden;text-align:left}
 .card-feat::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(14,165,233,.4),transparent 40%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s}
+.card-feat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r-lg) var(--r-lg) 0 0;background:var(--card-accent,var(--grad));opacity:.7;transition:opacity .22s}
 .card-feat:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
 .card-feat:hover::before{opacity:1}
-.card-feat .ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--grad-soft);margin-bottom:18px;color:var(--primary);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-.card-feat .ico svg{width:28px;height:28px}
+.card-feat:hover::after{opacity:1}
+.card-feat .ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--card-ico-bg,var(--grad-soft));margin-bottom:16px;color:var(--card-ico-color,var(--primary));transition:transform .35s cubic-bezier(.34,1.56,.64,1);flex-shrink:0}
+.card-feat .ico svg{width:26px;height:26px}
 .card-feat:hover .ico{transform:scale(1.1) rotate(-6deg)}
-.card-feat h3{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:9px}
-.card-feat p{font-size:14.5px;color:var(--ink-3)}
+.card-feat h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.card-feat p{font-size:14px;color:var(--ink-3);line-height:1.65}
+.card-feat .card-meta{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.card-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:var(--card-badge-bg,var(--grad-soft));color:var(--card-badge-color,var(--primary));border:1px solid var(--card-badge-border,rgba(13,115,119,.15))}
+.card-badge-popular{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border:none;animation:pulseDot 2.4s ease-in-out infinite}
+.card-level{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--ink-4);padding:4px 9px;border-radius:99px;background:var(--soft);border:1px solid var(--line)}
+.card-level::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--level-dot,var(--ink-4));flex-shrink:0}
+/* per-card color themes */
+.card-feat.card-teal{--card-accent:linear-gradient(90deg,#0d7377,#14a085);--card-ico-bg:rgba(13,115,119,.1);--card-ico-color:#0d7377;--card-badge-bg:rgba(13,115,119,.08);--card-badge-color:#0d7377;--card-badge-border:rgba(13,115,119,.2);--level-dot:#0d7377}
+.card-feat.card-blue{--card-accent:linear-gradient(90deg,#0ea5e9,#6366f1);--card-ico-bg:rgba(14,165,233,.1);--card-ico-color:#0ea5e9;--card-badge-bg:rgba(14,165,233,.08);--card-badge-color:#0ea5e9;--card-badge-border:rgba(14,165,233,.2);--level-dot:#0ea5e9}
+.card-feat.card-violet{--card-accent:linear-gradient(90deg,#8b5cf6,#a78bfa);--card-ico-bg:rgba(139,92,246,.1);--card-ico-color:#8b5cf6;--card-badge-bg:rgba(139,92,246,.08);--card-badge-color:#8b5cf6;--card-badge-border:rgba(139,92,246,.2);--level-dot:#8b5cf6}
+.card-feat.card-amber{--card-accent:linear-gradient(90deg,#f59e0b,#f97316);--card-ico-bg:rgba(245,158,11,.1);--card-ico-color:#d97706;--card-badge-bg:rgba(245,158,11,.08);--card-badge-color:#d97706;--card-badge-border:rgba(245,158,11,.2);--level-dot:#d97706}
+.card-feat.card-emerald{--card-accent:linear-gradient(90deg,#10b981,#059669);--card-ico-bg:rgba(16,185,129,.1);--card-ico-color:#059669;--card-badge-bg:rgba(16,185,129,.08);--card-badge-color:#059669;--card-badge-border:rgba(16,185,129,.2);--level-dot:#059669}
 
 /* ── ABOUT ── */
 .about-visual{background:var(--grad);border-radius:var(--r-lg);padding:40px 34px;color:#fff;box-shadow:var(--sh-lg);position:relative;overflow:hidden}
@@ -565,35 +579,55 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
   
   <h3 class="program-sub-title" data-reveal>Program Pembelajaran &amp; Jadwal</h3>
   <div class="grid grid-3" style="margin-top:20px; margin-bottom:20px;">
-    <div class="card-feat highlight-card" data-reveal>
+    <div class="card-feat card-blue highlight-card" data-reveal>
+      <div class="card-meta">
+        <span class="card-badge card-badge-popular">⭐ Populer</span>
+        <span class="card-level" style="--level-dot:#0ea5e9">Pemula</span>
+      </div>
       <div class="ico"><svg><use href="#i-target"/></svg></div>
       <h3>Tahsin Al-Fatihah</h3>
       <p>Program akselerasi 8 pertemuan untuk memperbaiki bacaan Surah Al-Fatihah secara intensif agar terbebas dari Lahn Jali (kesalahan fatal).</p>
       <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Daurah Intensif 8 Hari</b>Dibuka berkala per gelombang · Durasi 8 Sesi Kelas</div></div>
       <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Fleksibel</b>Menyesuaikan kesepakatan kelompok &amp; pengajar</div></div>
     </div>
-    <div class="card-feat" data-reveal>
+    <div class="card-feat card-teal" data-reveal>
+      <div class="card-meta">
+        <span class="card-badge">Tahsin</span>
+        <span class="card-level" style="--level-dot:#0d7377">Menengah</span>
+      </div>
       <div class="ico"><svg><use href="#i-type"/></svg></div>
       <h3>Kelas Riyadhatulhuruf</h3>
-      <p>Kelas tahsin berjenjang fokus kepada latihan membaca huruf per huruf.</p>
+      <p>Kelas tahsin berjenjang fokus kepada latihan membaca huruf per huruf secara terstruktur dan terbimbing.</p>
       <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Halaqah:</b>Pilihan jadwal tersedia saat mengisi form pendaftaran</div></div>
     </div>
-    <div class="card-feat" data-reveal>
+    <div class="card-feat card-violet" data-reveal>
+      <div class="card-meta">
+        <span class="card-badge">Tahfidz</span>
+        <span class="card-level" style="--level-dot:#8b5cf6">Lanjut</span>
+      </div>
       <div class="ico"><svg><use href="#i-repeat"/></svg></div>
       <h3>Qiyam Bilqur'an</h3>
-      <p>Kelas tahfidz bertarget sesuai kemampuan yang dilaksanakan di sepertiga malam terakhir.</p>
+      <p>Kelas tahfidz bertarget sesuai kemampuan yang dilaksanakan di sepertiga malam terakhir bersama kelompok.</p>
       <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Sepertiga Malam Terakhir</b>Pilihan hari tersedia saat mengisi form pendaftaran</div></div>
     </div>
-    <div class="card-feat" data-reveal>
+    <div class="card-feat card-amber" data-reveal>
+      <div class="card-meta">
+        <span class="card-badge">Kajian</span>
+        <span class="card-level" style="--level-dot:#d97706">Semua Jenjang</span>
+      </div>
       <div class="ico"><svg><use href="#i-book"/></svg></div>
       <h3>Kajian At-Tibyan</h3>
       <p>Kajian adab penghafal Al-Qur'an mengikuti kitab At-Tibyan karya Imam An-Nawawi rahimahullah.</p>
       <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Ahad</b>19.30 WIB–Selesai</div></div>
     </div>
-    <div class="card-feat" data-reveal>
+    <div class="card-feat card-emerald" data-reveal>
+      <div class="card-meta">
+        <span class="card-badge">Pembinaan</span>
+        <span class="card-level" style="--level-dot:#059669">Asatidzah</span>
+      </div>
       <div class="ico"><svg><use href="#i-graduation-cap"/></svg></div>
-      <h3>Microteaching</h3>
-      <p>Program pelatihan dan praktik mengajar bagi calon asatidzah untuk memantapkan metodologi pengajaran tajwid dan standarisasi kurikulum.</p>
+      <h3>Halaqah Asatidzah</h3>
+      <p>Program pembinaan dan peningkatan kualitas para pengajar Rattililqur'an secara berkelanjutan.</p>
       <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Halaqah:</b>Diatur berkala dalam program pembinaan asatidzah</div></div>
     </div>
   </div>
