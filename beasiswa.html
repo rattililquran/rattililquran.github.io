@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+(function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1f35"/>
+<meta name="description" content="Syarat dan Komitmen Penerima Beasiswa Program Tahsin Al-Qur'an — Rattililqur'an"/>
+<link rel="canonical" href="https://rattililquran.github.io/beasiswa.html"/>
+<meta property="og:title" content="Beasiswa Tahsin Al-Qur'an — Rattililqur'an"/>
+<meta property="og:description" content="Syarat dan komitmen peserta penerima beasiswa program Tahsin Al-Qur'an Rattililqur'an."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://rattililquran.github.io/beasiswa.html"/>
+<meta property="og:image" content="https://rattililquran.github.io/assets/icons/icon-192.png"/>
+<meta property="og:locale" content="id_ID"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Beasiswa Tahsin Al-Qur'an — Rattililqur'an</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+/* ── RESET & BASE ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#0d7377;--primary-2:#0a5c60;--primary-3:#084a4d;
+  --accent:#10b981;
+  --grad:linear-gradient(135deg,#0d7377 0%,#14a085 100%);
+  --grad-soft:rgba(13,115,119,.09);
+  --bg:#f8fafc;--card:#fff;--ink:#0f172a;--ink-2:#1e293b;--ink-3:#475569;--ink-4:#94a3b8;
+  --line:rgba(15,23,42,.08);--soft:rgba(13,115,119,.07);
+  --glass:rgba(255,255,255,.72);
+  --r:14px;--r-lg:18px;--r-xl:24px;
+  --sh:0 2px 12px rgba(15,23,42,.07);--sh-sm:0 1px 6px rgba(15,23,42,.06);--sh-lg:0 8px 32px rgba(15,23,42,.12)
+}
+html.theme-dark{
+  --bg:#0d1117;--card:#161b22;--ink:#e6edf3;--ink-2:#c9d1d9;--ink-3:#8b949e;--ink-4:#484f58;
+  --line:rgba(230,237,243,.08);--soft:rgba(13,115,119,.14);
+  --glass:rgba(22,27,34,.72)
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:60;backdrop-filter:saturate(180%) blur(16px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--ink);letter-spacing:-.01em;text-decoration:none;text-transform:uppercase}
+.nav-brand img{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:14px;font-weight:600;color:var(--ink-3);padding:9px 14px;border-radius:11px;text-decoration:none;transition:.18s;position:relative}
+.nav-link:hover{color:var(--primary);background:var(--soft)}
+.nav-link.active{color:var(--primary);background:var(--soft)}
+.nav-cta{margin-left:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:15px;font-weight:700;padding:13px 26px;border-radius:12px;text-decoration:none;cursor:pointer;border:none;transition:.2s;letter-spacing:-.01em}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(13,115,119,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(13,115,119,.36)}
+.btn-ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--line)}
+.btn-ghost:hover{background:var(--soft);color:var(--primary);border-color:var(--primary)}
+@media(max-width:768px){
+  .nav-links{position:fixed;inset:62px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-link{padding:13px 14px;font-size:15px}
+  .nav-cta{margin:6px 0 0}
+  .nav-toggle{display:flex}
+}
+.nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.nav-toggle span{display:block;width:18px;height:2px;background:var(--ink-2);border-radius:2px;transition:.25s}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 14px 5px 6px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-3);transition:.18s}
+.theme-toggle:hover{color:var(--primary);border-color:var(--primary)}
+.theme-toggle .icon{width:26px;height:26px;border-radius:50%;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{max-width:1180px;margin:0 auto;padding:20px 22px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-4)}
+.breadcrumb a{color:var(--ink-4);text-decoration:none;transition:.15s}
+.breadcrumb a:hover{color:var(--primary)}
+.breadcrumb span{color:var(--ink-4)}
+
+/* ── SECTION ── */
+.section{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:60px 22px 80px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.title{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.025em;color:var(--ink);line-height:1.15}
+.title .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:clamp(14px,2vw,16px);color:var(--ink-3);margin-top:14px;line-height:1.7}
+
+/* ── BEASISWA CONTENT ── */
+.beasiswa-intro{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 32px;text-align:center;box-shadow:var(--sh);margin-top:36px}
+.beasiswa-intro .ar{font-family:'Amiri',serif;font-size:24px;color:var(--primary);direction:rtl;margin-bottom:14px;display:block}
+.beasiswa-intro p{font-size:15px;color:var(--ink-3);line-height:1.75}
+.beasiswa-list{margin:32px 0 0;display:flex;flex-direction:column;gap:20px}
+.beasiswa-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;box-shadow:var(--sh);transition:box-shadow .2s}
+.beasiswa-item:hover{box-shadow:var(--sh-lg)}
+.beasiswa-item-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.beasiswa-item-num{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--primary)}
+.beasiswa-item h4{font-size:16.5px;font-weight:800;color:var(--ink);margin:0;padding-top:9px}
+.beasiswa-item ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.beasiswa-item ul li{font-size:14.5px;color:var(--ink-3);padding-left:22px;position:relative;line-height:1.7}
+.beasiswa-item ul li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary);opacity:.6}
+.beasiswa-doa{margin:36px 0 0;background:var(--grad-soft);border:1px solid rgba(13,115,119,.15);border-radius:var(--r-lg);padding:32px;text-align:center}
+.beasiswa-doa p{font-size:15.5px;color:var(--ink-2);line-height:1.8;margin:0}
+.beasiswa-doa .ar{font-family:'Amiri',serif;font-size:24px;color:var(--primary);direction:rtl;margin-top:18px;display:block}
+.back-btn{margin-top:44px;display:inline-flex}
+@media(max-width:640px){
+  .beasiswa-intro,.beasiswa-doa{padding:20px 18px}
+  .beasiswa-item{padding:20px 18px}
+  .beasiswa-item-header{gap:12px}
+}
+
+/* ── FOOTER ── */
+.footer{position:relative;z-index:1;border-top:1px solid var(--line);background:var(--card)}
+.footer-inner{max-width:1180px;margin:0 auto;padding:54px 22px 30px;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+@media(max-width:760px){.footer-inner{grid-template-columns:1fr;gap:28px}}
+.footer-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:17px;color:var(--ink);margin-bottom:12px}
+.footer-brand img{height:34px}
+.footer-col h5{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px}
+.footer-col a{display:block;font-size:14px;color:var(--ink-3);text-decoration:none;padding:5px 0;transition:.16s}
+.footer-col a:hover{color:var(--primary)}
+.footer p.desc{font-size:14px;color:var(--ink-3);max-width:320px}
+.footer-bottom{max-width:1180px;margin:0 auto;padding:20px 22px;border-top:1px solid var(--line);text-align:center}
+.footer-bottom p{font-size:12.5px;color:var(--ink-4)}
+.footer-bottom .ar{font-family:'Amiri',serif;font-size:15px;color:var(--primary);direction:rtl;margin-bottom:4px}
+
+/* ── REVEAL ANIMATION ── */
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+[data-reveal].revealed{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'">
+      <span>Rattililqur'an</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><span class="icon" id="themeIcon">☀️</span><span id="themeLabel">Tema</span></button>
+      <a href="/#tentang"     class="nav-link">Tentang</a>
+      <a href="/#program"     class="nav-link">Program &amp; Jadwal</a>
+      <a href="/#pendaftaran" class="nav-link">Pendaftaran</a>
+      <a href="beasiswa.html" class="nav-link active">Beasiswa</a>
+      <a href="/#faq"         class="nav-link">FAQ</a>
+      <a href="/#kontak"      class="nav-link">Kontak</a>
+      <a href="/Portal-Halaqah-Rattililquran/index.html" class="btn btn-primary nav-cta" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+    </div>
+  </div>
+</nav>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">Beranda</a>
+  <span>›</span>
+  <span>Beasiswa</span>
+</nav>
+
+<main>
+  <section class="section">
+    <span class="eyebrow" data-reveal>Beasiswa</span>
+    <h1 class="title" data-reveal>Syarat &amp; Komitmen <span class="grad-text">Beasiswa Tahsin</span></h1>
+    <p class="sub" data-reveal>Beasiswa Program Tahsin Al-Qur'an adalah amanah dari Allah ﷻ. Setiap peserta diharapkan menjaganya dengan kesungguhan, adab, dan komitmen yang tulus dalam belajar.</p>
+
+    <div class="beasiswa-intro" data-reveal>
+      <span class="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+      <p>Beasiswa Program Tahsin Al-Qur'an ini merupakan bentuk amanah dan kesempatan yang Allah berikan untuk mendekatkan diri kepada Al-Qur'an. Oleh karena itu, setiap peserta yang mendapatkan kesempatan ini diharapkan dapat menjaganya dengan kesungguhan, adab, dan komitmen dalam belajar.</p>
+      <p style="margin-top:10px;font-size:14px;color:var(--ink-4)">Adapun persyaratan dan komitmen peserta adalah sebagai berikut:</p>
+    </div>
+
+    <div class="beasiswa-list">
+
+      <div class="beasiswa-item" data-reveal>
+        <div class="beasiswa-item-header">
+          <div class="beasiswa-item-num">1</div>
+          <h4>Niat dan Kesungguhan Belajar</h4>
+        </div>
+        <ul>
+          <li>Memiliki niat yang ikhlas untuk memperbaiki bacaan Al-Qur'an dan meningkatkan kedekatan kepada Allah ﷻ.</li>
+          <li>Bersungguh-sungguh mengikuti proses pembelajaran hingga selesai.</li>
+          <li>Menjadikan program ini sebagai kesempatan untuk memperbaiki diri dan mengambil manfaat sebanyak-banyaknya.</li>
+        </ul>
+      </div>
+
+      <div class="beasiswa-item" data-reveal>
+        <div class="beasiswa-item-header">
+          <div class="beasiswa-item-num">2</div>
+          <h4>Komitmen Mengikuti Program</h4>
+        </div>
+        <ul>
+          <li>Bersedia mengikuti seluruh rangkaian pembelajaran sesuai jadwal yang telah ditentukan.</li>
+          <li>Berusaha hadir tepat waktu dan mengikuti pembelajaran dengan penuh perhatian.</li>
+          <li>Bersedia mengikuti evaluasi perkembangan bacaan sebagai bagian dari proses pembelajaran.</li>
+          <li>Apabila terdapat kendala kehadiran, peserta bersedia menyampaikan informasi dengan baik kepada pengelola program.</li>
+        </ul>
+      </div>
+
+      <div class="beasiswa-item" data-reveal>
+        <div class="beasiswa-item-header">
+          <div class="beasiswa-item-num">3</div>
+          <h4>Menjaga Amanah Beasiswa</h4>
+        </div>
+        <ul>
+          <li>Memahami bahwa beasiswa yang diberikan adalah amanah yang perlu dijaga dan dipertanggungjawabkan.</li>
+          <li>Menggunakan kesempatan belajar ini dengan sebaik-baiknya dan tidak menyia-nyiakannya.</li>
+          <li>Bersedia menjaga nama baik program dengan menunjukkan sikap, adab, dan komitmen yang baik.</li>
+        </ul>
+      </div>
+
+      <div class="beasiswa-item" data-reveal>
+        <div class="beasiswa-item-header">
+          <div class="beasiswa-item-num">4</div>
+          <h4>Adab terhadap Al-Qur'an dan Pengajar</h4>
+        </div>
+        <ul>
+          <li>Menjaga adab dalam belajar Al-Qur'an.</li>
+          <li>Menghormati para pengajar dan mengikuti arahan selama proses pembelajaran.</li>
+          <li>Berusaha menerapkan ilmu yang telah dipelajari dalam kehidupan sehari-hari.</li>
+        </ul>
+      </div>
+
+      <div class="beasiswa-item" data-reveal>
+        <div class="beasiswa-item-header">
+          <div class="beasiswa-item-num">5</div>
+          <h4>Kesediaan Menjadi Bagian dari Kebaikan</h4>
+        </div>
+        <ul>
+          <li>Bersedia menjadi bagian dari komunitas pembelajar Al-Qur'an.</li>
+          <li>Berusaha memberikan manfaat kepada orang lain dengan ilmu yang telah diperoleh.</li>
+          <li>Menjadi pribadi yang terus bertumbuh dalam tilawah, pemahaman, dan pengamalan Al-Qur'an.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="beasiswa-doa" data-reveal>
+      <p>Semoga Allah ﷻ memberikan keberkahan pada program ini, menjadikan ilmu yang dipelajari sebagai amal jariyah, serta menjadikan para peserta sebagai hamba-hamba yang senantiasa dekat dengan Al-Qur'an.</p>
+      <span class="ar">جزاكم الله خيرًا</span>
+    </div>
+
+    <div class="back-btn" data-reveal>
+      <a href="/" class="btn btn-ghost">← Kembali ke Beranda</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"><span>Rattililqur'an</span></div>
+      <p class="desc">Lembaga Tahsin &amp; Tahfidz Al-Qur'an. Membimbing setiap muslim membaca Al-Qur'an dengan tartil.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigasi</h5>
+      <a href="/#tentang">Tentang</a>
+      <a href="/#program">Program &amp; Jadwal</a>
+      <a href="/#pendaftaran">Pendaftaran</a>
+      <a href="beasiswa.html">Beasiswa</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h5>Tautan</h5>
+      <a href="/Portal-Halaqah-Rattililquran/index.html">Masuk Portal</a>
+      <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener">Channel WA</a>
+      <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://youtube.com/@Rattililquran01" target="_blank" rel="noopener">YouTube</a>
+      <a href="mailto:rattililquran.id@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="ar">بَارَكَ اللَّهُ فِيكُمْ</p>
+    <p>&copy; <span id="year"></span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  var toggle = document.getElementById('navToggle'), links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('show');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  // Theme toggle
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    var icon = document.getElementById('themeIcon');
+    var label = document.getElementById('themeLabel');
+    function applyTheme(t){
+      var dark = t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('theme-dark', dark);
+      icon.textContent = dark ? '🌙' : '☀️';
+      label.textContent = dark ? 'Gelap' : 'Terang';
+    }
+    applyTheme(localStorage.getItem('theme')||'system');
+    btn.addEventListener('click', function(){
+      var isDark = document.documentElement.classList.contains('theme-dark');
+      var next = isDark ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    });
+  })();
+
+  // Reveal animation
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); } });
+  }, {threshold:0.08});
+  revealEls.forEach(function(el){ io.observe(el); });
+</script>
+
+</body>
+</html>
