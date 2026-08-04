@@ -801,7 +801,7 @@ Baarakallahu fiikum</div>
 <!-- ══ MOBILE STICKY CTA ══ -->
 <div class="mobile-cta">
   <a href="#program" class="btn btn-ghost">Lihat Program</a>
-  <a href="https://rattililquran.github.io/pendaftaran" target="_blank" rel="noopener" class="btn btn-primary">Daftar</a>
+  <a href="https://rattililquran.github.io/pendaftaran" target="_blank" rel="noopener" class="btn btn-primary" id="ctaDaftarBar">Daftar</a>
 </div>
 
 <!-- ══ FLOATING ACTIONS ══ -->
@@ -834,6 +834,7 @@ Baarakallahu fiikum</div>
     var regStatusText = document.getElementById('regStatusText');
     var regNote = document.getElementById('regNote');
     var waBtn = document.getElementById('regWaBtn');
+    var ctaBar = document.getElementById('ctaDaftarBar');
     if(PENDAFTARAN_DIBUKA){
       heroBadge.classList.add('open');
       heroBadgeText.textContent = 'Pendaftaran murid baru dibuka';
@@ -846,10 +847,16 @@ Baarakallahu fiikum</div>
       regStatusText.textContent = 'Pendaftaran Sedang Ditutup';
       regNote.textContent = PESAN_TUTUP;
       regNote.style.display = 'block';
+      var waHref = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
       waBtn.textContent = '💬 Tanya Info Gelombang Berikutnya';
-      waBtn.href = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
+      waBtn.href = waHref;
+      waBtn.target = '_blank';
       waBtn.classList.remove('btn-primary');
       waBtn.classList.add('btn-wa');
+      if(ctaBar){
+        ctaBar.textContent = 'Tanya Info';
+        ctaBar.href = waHref;
+      }
     }
   })();
 
