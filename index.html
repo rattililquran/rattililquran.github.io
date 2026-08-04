@@ -825,7 +825,7 @@ Baarakallahu fiikum</div>
 
   // ══ STATUS PENDAFTARAN ══
   // [EDIT] ubah PENDAFTARAN_DIBUKA ke false saat pendaftaran ditutup, lalu sesuaikan PESAN_TUTUP
-  var PENDAFTARAN_DIBUKA = false;
+  var PENDAFTARAN_DIBUKA = true;
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
     var heroBadge = document.getElementById('heroBadge');
@@ -855,7 +855,7 @@ Baarakallahu fiikum</div>
 
   // ══ COUNTDOWN PENDAFTARAN ══
   // [EDIT] isi salah satu tanggal di bawah (format ISO 'YYYY-MM-DDTHH:mm:ss'), kosongkan ('') jika tidak dipakai
-  var TANGGAL_TUTUP_PENDAFTARAN = ''; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59+07:00'
+  var TANGGAL_TUTUP_PENDAFTARAN = '2026-08-12T23:59:59+07:00'; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59+07:00'
   var TANGGAL_BUKA_BERIKUTNYA = '2026-08-05T00:00:00+07:00';   // dipakai jika PENDAFTARAN_DIBUKA = false
   (function(){
     var targetStr = PENDAFTARAN_DIBUKA ? TANGGAL_TUTUP_PENDAFTARAN : TANGGAL_BUKA_BERIKUTNYA;
@@ -865,7 +865,7 @@ Baarakallahu fiikum</div>
     var box = document.getElementById('regCountdown');
     var label = document.getElementById('countdownLabel');
     var dEl = document.getElementById('cdDays'), hEl = document.getElementById('cdHours'), mEl = document.getElementById('cdMins'), sEl = document.getElementById('cdSecs');
-    label.textContent = PENDAFTARAN_DIBUKA ? 'Pendaftaran ditutup dalam' : 'Gelombang berikutnya dibuka dalam';
+    label.textContent = PENDAFTARAN_DIBUKA ? 'Ditutup 12 Agustus 2026 — atau lebih awal jika kuota penuh · sisa waktu' : 'Gelombang berikutnya dibuka dalam';
     box.style.display = 'block';
     function pad(n){ return String(n).padStart(2,'0'); }
     function tick(){
