@@ -825,7 +825,7 @@ Baarakallahu fiikum</div>
 
   // ══ STATUS PENDAFTARAN ══
   // [EDIT] ubah PENDAFTARAN_DIBUKA ke false saat pendaftaran ditutup, lalu sesuaikan PESAN_TUTUP
-  var PENDAFTARAN_DIBUKA = true;
+  var PENDAFTARAN_DIBUKA = false;
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
     var heroBadge = document.getElementById('heroBadge');
@@ -863,7 +863,7 @@ Baarakallahu fiikum</div>
   // ══ COUNTDOWN PENDAFTARAN ══
   // [EDIT] isi salah satu tanggal di bawah (format ISO 'YYYY-MM-DDTHH:mm:ss'), kosongkan ('') jika tidak dipakai
   var TANGGAL_TUTUP_PENDAFTARAN = '2026-08-12T23:59:59+07:00'; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59+07:00'
-  var TANGGAL_BUKA_BERIKUTNYA = '2026-08-05T00:00:00+07:00';   // dipakai jika PENDAFTARAN_DIBUKA = false
+  var TANGGAL_BUKA_BERIKUTNYA = '2026-10-12T00:00:00+07:00';   // dipakai jika PENDAFTARAN_DIBUKA = false, isi jika jadwal gelombang berikutnya sudah pasti
   (function(){
     var targetStr = PENDAFTARAN_DIBUKA ? TANGGAL_TUTUP_PENDAFTARAN : TANGGAL_BUKA_BERIKUTNYA;
     if(!targetStr) return;
