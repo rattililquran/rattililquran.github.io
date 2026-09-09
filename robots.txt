@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rattililquran.github.io/sitemap.xml
+Sitemap: https://rattililquran.com/sitemap.xml
