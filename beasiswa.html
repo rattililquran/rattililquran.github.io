@@ -59,18 +59,18 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(13,115,119,.36)}
 .btn-ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--line)}
 .btn-ghost:hover{background:var(--soft);color:var(--primary);border-color:var(--primary)}
-@media(max-width:768px){
-  .nav-links{position:fixed;inset:62px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
-  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
-  .nav-link{padding:13px 14px;font-size:15px}
-  .nav-cta{margin:6px 0 0}
-  .nav-toggle{display:flex}
-}
 .nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
 .nav-toggle span{display:block;width:18px;height:2px;background:var(--ink-2);border-radius:2px;transition:.25s}
 .nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:1050px){
+  .nav-links{position:fixed;inset:64px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 64px);overflow-y:auto}
+  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-link{padding:13px 14px;font-size:15px}
+  .nav-cta{margin:6px 0 0}
+  .nav-toggle{display:flex}
+}
 
 /* ── THEME TOGGLE ── */
 .theme-toggle{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 14px 5px 6px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-3);transition:.18s}
@@ -131,7 +131,11 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 /* ── REVEAL ANIMATION ── */
 [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 [data-reveal].revealed{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}
+}
 </style>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 

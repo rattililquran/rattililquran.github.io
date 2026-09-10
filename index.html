@@ -184,6 +184,8 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-ghost:hover{border-color:var(--c-primary);color:var(--c-primary);transform:translateY(-2px)}
 .btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.32)}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(37,211,102,.42)}
+.btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 20px rgba(220,38,38,.35)}
+.btn-danger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(220,38,38,.45)}
 .btn-lg{padding:16px 32px;font-size:15.5px;border-radius:15px}
 
 /* ── FLOATING ACTIONS ── */
@@ -479,6 +481,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
   [data-reveal],.h-anim,.hero-visual,.hero h1 .w{opacity:1!important;transform:none!important}
 }
 </style>
+<noscript><style>[data-reveal],.h-anim,.hero-visual,.hero h1 .w{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </head>
 <body>
 
@@ -542,7 +545,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
 <header class="hero">
   <div class="hero-grid">
     <div class="hero-copy">
-      <div class="hero-badge h-anim" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran murid baru dibuka</span></div>
+      <div class="hero-badge h-anim closed" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran sementara ditutup</span></div>
       <div class="hero-arabic h-anim" style="animation-delay:.12s" lang="ar" dir="rtl">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
       <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
       <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata.</p>
@@ -678,7 +681,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara <span class="grad-text">Bergabung</span></h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
-  <div class="reg-status" id="regStatus" data-reveal><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Dibuka</span></div>
+  <div class="reg-status closed" id="regStatus" data-reveal><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Ditutup</span></div>
   <p class="reg-note" id="regNote" data-reveal style="display:none"></p>
   <div class="countdown" id="regCountdown" data-reveal style="display:none">
     <p class="countdown-label" id="countdownLabel"></p>
@@ -691,7 +694,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
   </div>
   <div style="margin-top:28px" data-reveal>
     <!-- [EDIT] ganti nomor WhatsApp pada href -->
-    <a href="https://rattililquran.com/pendaftaran" target="_blank" rel="noopener" class="btn btn-lg" id="regWaBtn" style="background:#dc2626;color:#fff;box-shadow:0 6px 20px rgba(220,38,38,.35)">📝 Daftar Online Sekarang</a>
+    <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20tahu%20info%20gelombang%20pendaftaran%20Rattililqur'an%20berikutnya" target="_blank" rel="noopener" class="btn btn-wa btn-lg" id="regWaBtn">💬 Tanya Info Gelombang Berikutnya</a>
   </div>
   <div class="steps">
     <div class="step" data-reveal style="--i:0"><div class="step-num">1</div><h4>Share Info Pendaftaran</h4><p>Mari bersama menyebar info kebaikan ini melalui medsos yang ada, semoga menjadi amal jariyah untuk bersama.</p></div>
@@ -831,7 +834,7 @@ Baarakallahu fiikum</div>
 <!-- ══ MOBILE STICKY CTA ══ -->
 <div class="mobile-cta">
   <a href="#program" class="btn btn-ghost">Lihat Program</a>
-  <a href="https://rattililquran.com/pendaftaran" target="_blank" rel="noopener" class="btn btn-primary" id="ctaDaftarBar">Daftar</a>
+  <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20tahu%20info%20gelombang%20pendaftaran%20Rattililqur'an%20berikutnya" target="_blank" rel="noopener" class="btn btn-wa" id="ctaDaftarBar">Tanya Info</a>
 </div>
 
 <!-- ══ FLOATING ACTIONS ══ -->
@@ -874,13 +877,27 @@ Baarakallahu fiikum</div>
     var waBtn = document.getElementById('regWaBtn');
     var ctaBar = document.getElementById('ctaDaftarBar');
     if(PENDAFTARAN_DIBUKA){
+      heroBadge.classList.remove('closed');
       heroBadge.classList.add('open');
       heroBadgeText.textContent = 'Pendaftaran murid baru dibuka';
+      regStatus.classList.remove('closed');
       regStatus.classList.add('open');
       regStatusText.textContent = 'Pendaftaran Sedang Dibuka';
+      waBtn.textContent = '📝 Daftar Online Sekarang';
+      waBtn.href = 'https://rattililquran.com/pendaftaran';
+      waBtn.classList.remove('btn-wa');
+      waBtn.classList.add('btn-primary');
+      if(ctaBar){
+        ctaBar.textContent = 'Daftar';
+        ctaBar.href = 'https://rattililquran.com/pendaftaran';
+        ctaBar.classList.remove('btn-wa');
+        ctaBar.classList.add('btn-primary');
+      }
     } else {
+      heroBadge.classList.remove('open');
       heroBadge.classList.add('closed');
       heroBadgeText.textContent = 'Pendaftaran sementara ditutup';
+      regStatus.classList.remove('open');
       regStatus.classList.add('closed');
       regStatusText.textContent = 'Pendaftaran Sedang Ditutup';
       regNote.textContent = PESAN_TUTUP;
@@ -894,6 +911,8 @@ Baarakallahu fiikum</div>
       if(ctaBar){
         ctaBar.textContent = 'Tanya Info';
         ctaBar.href = waHref;
+        ctaBar.classList.remove('btn-primary');
+        ctaBar.classList.add('btn-wa');
       }
     }
   })();
