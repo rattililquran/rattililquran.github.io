@@ -138,19 +138,20 @@ html.theme-dark .bg-noise{opacity:.05}
 
 /* ── NAVBAR (floating pill → solid on scroll) ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:60;padding:12px 16px;transition:padding var(--dur) var(--ease-smooth)}
-.nav-inner{max-width:960px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-glass);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);box-shadow:var(--sh-sm);transition:max-width 350ms var(--ease-smooth),padding 350ms var(--ease-smooth),background 350ms var(--ease-smooth),border-color 350ms var(--ease-smooth),box-shadow 350ms var(--ease-smooth),border-radius 350ms var(--ease-smooth)}
+.nav-inner{max-width:960px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-glass);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);box-shadow:var(--sh-sm);transition:max-width 350ms var(--ease-smooth),padding 350ms var(--ease-smooth),background 350ms var(--ease-smooth),border-color 350ms var(--ease-smooth),box-shadow 350ms var(--ease-smooth),border-radius 350ms var(--ease-smooth)}
 .nav.scrolled{padding:0}
 .nav.scrolled .nav-inner{max-width:100%;padding:12px 22px;border-radius:0;background:var(--c-glass);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-color:transparent;border-bottom:1px solid var(--c-line);box-shadow:var(--sh-sm)}
 .nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--c-ink);letter-spacing:-.01em;text-decoration:none;text-transform:uppercase}
 .nav-brand img{height:34px;width:auto}
 .nav-links{display:flex;align-items:center;gap:2px}
-.nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 13px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);position:relative}
-.nav-link::after{content:'';position:absolute;left:13px;right:13px;bottom:5px;height:2px;border-radius:2px;background:var(--c-primary);transform:scaleX(0);transform-origin:center;transition:transform var(--dur) var(--ease-spring)}
+.nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 11px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);position:relative}
+.nav-link::after{content:'';position:absolute;left:11px;right:11px;bottom:5px;height:2px;border-radius:2px;background:var(--c-primary);transform:scaleX(0);transform-origin:center;transition:transform var(--dur) var(--ease-spring)}
 .nav-link:hover{color:var(--c-primary)}
 .nav-link:hover::after{transform:scaleX(1)}
 .nav-link.active{color:var(--c-primary)}
 .nav-link.active::after{transform:scaleX(1)}
 .nav-cta{margin-left:6px}
+.nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
 .theme-toggle{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--c-line);background:var(--c-card);color:var(--c-ink-2);border-radius:11px;cursor:pointer;transition:color var(--dur-fast),border-color var(--dur-fast);flex-shrink:0}
 .theme-toggle:hover{color:var(--c-primary);border-color:var(--c-primary)}
 .theme-toggle svg{width:18px;height:18px}
@@ -162,14 +163,13 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-@media(max-width:900px){
+@media(max-width:1050px){
   .nav-links{position:fixed;inset:84px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
   .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-link::after{display:none}
   .nav-cta{margin:6px 0 0}
   .nav-toggle{display:flex}
-  #navLinks .theme-toggle{align-self:flex-start;margin-bottom:6px}
 }
 
 /* ── BUTTONS ── */
@@ -229,17 +229,13 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 
 /* ── HERO ── */
 .hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:118px 22px 40px}
-.hero-grid{display:grid;grid-template-columns:1fr min(420px,34vw);gap:clamp(28px,5vw,48px);align-items:center;min-height:clamp(560px,calc(100svh - 160px),900px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) min(420px,34vw);gap:clamp(28px,5vw,48px);align-items:center;min-height:clamp(560px,calc(100svh - 160px),900px)}
 .hero-copy{text-align:left}
 .hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--c-ink-2);background:var(--c-glass);backdrop-filter:blur(10px);border:1px solid var(--c-line);padding:8px 16px;border-radius:99px;box-shadow:var(--sh-sm)}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--c-accent);box-shadow:0 0 0 4px rgba(5,150,105,.18);animation:pulseDot 2.4s ease-in-out infinite}
 .hero-badge.closed .dot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.18);animation:none}
 @keyframes pulseDot{0%,100%{box-shadow:0 0 0 4px rgba(5,150,105,.18)}50%{box-shadow:0 0 0 7px rgba(5,150,105,.05)}}
-.hero-logo{width:112px;max-width:42%;margin:24px 0 6px;display:block}
-.hero-logo.dark{display:none}
-html.theme-dark .hero-logo.light{display:none}
-html.theme-dark .hero-logo.dark{display:block}
-.hero-arabic{font-family:'Amiri','Plus Jakarta Sans',serif;font-size:clamp(26px,4.6vw,40px);color:var(--c-primary);font-weight:700;margin:6px 0;direction:rtl;line-height:1.6}
+.hero-arabic{font-family:'Amiri','Plus Jakarta Sans',serif;font-size:clamp(26px,4.6vw,40px);color:var(--c-primary);font-weight:700;margin:20px 0 0;direction:rtl;line-height:1.6;text-align:left}
 @keyframes wordUp{to{opacity:1;transform:translateY(0)}}
 .hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--c-ink);margin-top:12px;display:flex;flex-wrap:wrap;gap:.22em}
 .hero h1 .w{display:inline-block;opacity:0;transform:translateY(28px);animation:wordUp .8s var(--ease-spring) forwards}
@@ -252,25 +248,23 @@ html.theme-dark .hero-logo.dark{display:block}
 @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 .hero p.lead{font-size:clamp(16px,2.1vw,18px);color:var(--c-ink-3);max-width:560px;margin:22px 0 0}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.hero-panel{opacity:0;animation:panelIn .9s var(--ease-spring) .35s both;background:var(--c-glass);backdrop-filter:saturate(160%) blur(16px);-webkit-backdrop-filter:saturate(160%) blur(16px);border:1px solid var(--c-line);border-radius:var(--r-xl);padding:clamp(22px,3vw,36px);box-shadow:var(--sh-lg)}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;opacity:0;animation:panelIn .9s var(--ease-spring) .35s both}
 @keyframes panelIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-.hero-panel .ayat{font-family:'Amiri',serif;font-size:clamp(24px,3vw,32px);direction:rtl;line-height:1.7;color:var(--c-primary);text-align:center}
-.hero-panel .ayat-tr{font-size:14px;color:var(--c-ink-3);font-style:italic;text-align:center;margin-top:12px}
-.hero-panel .ayat-src{font-size:12px;font-weight:700;color:var(--c-ink-2);text-align:center;margin-top:8px}
-.hero-panel .panel-div{height:1px;background:var(--c-line);margin:20px 0}
-.hero-panel .panel-points{display:flex;flex-direction:column;gap:12px}
-.hero-panel .panel-point{display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:600;color:var(--c-ink-2)}
-.hero-panel .panel-point .pi{flex-shrink:0;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--grad-soft);color:var(--c-primary)}
-.hero-panel .panel-point .pi svg{width:16px;height:16px}
+.hv-inner{position:relative;width:100%;display:flex;align-items:center;justify-content:center;transition:transform .35s var(--ease-smooth)}
+.hv-glow{position:absolute;width:78%;aspect-ratio:1/1;border-radius:50%;background:radial-gradient(circle,var(--c-primary) 0%,transparent 68%);opacity:.16;filter:blur(40px);animation:hvPulse 7s ease-in-out infinite;pointer-events:none}
+.hv-img{position:relative;width:100%;max-width:520px;height:auto;display:block;filter:drop-shadow(0 26px 46px rgba(2,132,199,.22));animation:hvFloat 6.5s ease-in-out infinite}
+html.theme-dark .hv-img{filter:drop-shadow(0 26px 50px rgba(0,0,0,.5))}
+@keyframes hvFloat{0%,100%{transform:translateY(-12px) rotate(-1.2deg)}50%{transform:translateY(12px) rotate(1.2deg)}}
+@keyframes hvPulse{0%,100%{opacity:.14;transform:scale(1)}50%{opacity:.26;transform:scale(1.09)}}
 @media(max-width:900px){
   .hero{padding:104px 18px 32px}
   .hero-grid{grid-template-columns:1fr;gap:0;min-height:0}
   .hero-copy{text-align:center}
-  .hero-panel{display:none}
+  .hero-visual{display:none}
+  .hero-arabic{text-align:center}
   .hero h1{justify-content:center}
   .hero p.lead{margin-left:auto;margin-right:auto}
   .hero-cta{justify-content:center}
-  .hero-logo{margin-left:auto;margin-right:auto}
 }
 
 /* ── TRUSTED STRIP (marquee) ── */
@@ -482,7 +476,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  [data-reveal],.h-anim,.hero-panel,.hero h1 .w{opacity:1!important;transform:none!important}
+  [data-reveal],.h-anim,.hero-visual,.hero h1 .w{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
@@ -498,8 +492,6 @@ html.theme-dark .reg-status.closed{color:#f87171}
 
 <svg style="display:none" aria-hidden="true">
   <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/><circle cx="17" cy="8" r="2.6"/><path d="M22 21v-1a4 4 0 0 0-3-3.85"/></symbol>
-  <symbol id="i-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3.4.81-4.5 2.09C10.9 3.81 9.26 3 7.5 3A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></symbol>
   <symbol id="i-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
   <symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13 4 9l3-3 4.5 4.5"/><path d="m16 13 4-4-3-3-4.5 4.5"/><path d="M8 13l2.5 2.5a2 2 0 0 0 2.83 0L19 10"/></symbol>
@@ -526,12 +518,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
       <img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'">
       <span>Rattililqur'an</span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
-      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
-        <svg class="i-sun"><use href="#i-sun"/></svg>
-        <svg class="i-moon"><use href="#i-moon"/></svg>
-      </button>
       <a href="#tentang"     class="nav-link">Tentang</a>
       <a href="#program"     class="nav-link">Program &amp; Jadwal</a>
       <a href="#pendaftaran" class="nav-link">Pendaftaran</a>
@@ -541,6 +528,13 @@ html.theme-dark .reg-status.closed{color:#f87171}
       <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="nav-link">Modul</a>
       <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
     </div>
+    <div class="nav-actions">
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -549,8 +543,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
   <div class="hero-grid">
     <div class="hero-copy">
       <div class="hero-badge h-anim" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran murid baru dibuka</span></div>
-      <img class="hero-logo light h-anim" style="animation-delay:.12s" src="assets/images/logo-abu.png"   alt="Rattililqur'an" onerror="this.style.display='none'">
-      <img class="hero-logo dark  h-anim" style="animation-delay:.12s" src="assets/images/logo-putih.png" alt="Rattililqur'an" loading="lazy" onerror="this.style.display='none'">
+      <div class="hero-arabic h-anim" style="animation-delay:.12s" lang="ar" dir="rtl">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
       <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
       <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata.</p>
       <div class="hero-cta h-anim" style="animation-delay:.58s">
@@ -558,15 +551,10 @@ html.theme-dark .reg-status.closed{color:#f87171}
         <a href="#program" class="btn btn-ghost btn-lg">Lihat Program</a>
       </div>
     </div>
-    <aside class="hero-panel">
-      <div class="ayat">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
-      <div class="ayat-tr">"…dan bacalah Al-Qur'an itu dengan tartil (perlahan-lahan)."</div>
-      <div class="ayat-src">— QS. Al-Muzzammil: 4</div>
-      <div class="panel-div"></div>
-      <div class="panel-points">
-        <div class="panel-point"><span class="pi"><svg><use href="#i-users"/></svg></span> Halaqah Kecil — maks. 10 murid per kelompok</div>
-        <div class="panel-point"><span class="pi"><svg><use href="#i-graduation-cap"/></svg></span> Pengajar Tersertifikasi</div>
-        <div class="panel-point"><span class="pi"><svg><use href="#i-bar-chart"/></svg></span> Progres Terpantau Digital</div>
+    <aside class="hero-visual">
+      <div class="hv-inner" id="hvInner">
+        <span class="hv-glow"></span>
+        <img class="hv-img" src="assets/images/Rattil.png" alt="Ilustrasi Rattililqur'an — belajar Al-Qur'an dengan tartil" fetchpriority="high" decoding="async" draggable="false">
       </div>
     </aside>
   </div>
@@ -1045,6 +1033,31 @@ Baarakallahu fiikum</div>
   // Combined scroll handler for parallax
   window.addEventListener('scroll', function(){ onSecParallax(); }, { passive:true });
   onSecParallax();
+
+  // Cursor parallax pada ilustrasi hero
+  (function(){
+    var inner = document.getElementById('hvInner');
+    var visual = document.querySelector('.hero-visual');
+    if(!inner || !visual) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(window.matchMedia('(hover: none)').matches) return;
+    var raf = null, tx = 0, ty = 0;
+    function apply(){
+      raf = null;
+      inner.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0)';
+    }
+    visual.addEventListener('mousemove', function(e){
+      var r = visual.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      var dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      tx = dx * 22; ty = dy * 22;
+      if(!raf) raf = requestAnimationFrame(apply);
+    });
+    visual.addEventListener('mouseleave', function(){
+      tx = 0; ty = 0;
+      if(!raf) raf = requestAnimationFrame(apply);
+    });
+  })();
 
   // FAQ accordion
   document.querySelectorAll('.qa-q').forEach(function(btn){
