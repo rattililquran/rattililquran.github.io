@@ -83,6 +83,8 @@
   --ease-spring:cubic-bezier(.16,1,.3,1);
   --ease-smooth:cubic-bezier(.4,0,.2,1);
   --dur-fast:160ms; --dur:280ms; --dur-slow:700ms;
+  /* Typography */
+  --font-mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono','Courier New',monospace;
 }
 html.theme-dark{
   --c-bg:#070e1c; --c-card:#0d1b30; --c-soft:#0f2138; --c-glass:rgba(13,27,48,.65); --c-nav:rgba(7,14,28,.9);
@@ -538,7 +540,7 @@ html.theme-dark .slide-art svg{filter:drop-shadow(0 18px 38px rgba(0,0,0,.55))}
 .turn-list{display:flex;flex-direction:column;max-width:960px;margin:0 auto;text-align:left}
 .turn-item{display:grid;grid-template-columns:80px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--c-line)}
 .turn-item:last-child{border-bottom:1px solid var(--c-line)}
-.turn-item-no{font-family:var(--font-mono,'Space Mono',monospace);font-size:24px;font-weight:900;letter-spacing:.06em;color:var(--c-primary);line-height:1}
+.turn-item-no{font-family:var(--font-mono);font-size:24px;font-weight:900;letter-spacing:.06em;color:var(--c-primary);line-height:1}
 .turn-item-body h4{font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--c-ink);line-height:1.3;margin-bottom:8px;letter-spacing:-.02em}
 .turn-item-body h4 .hook-red{color:#e11d48}
 html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
@@ -564,6 +566,7 @@ html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
   border-bottom:1px solid var(--c-line);
   padding:0 22px;
   max-width:100%;
+  scroll-margin-top:100px;
 }
 html.theme-dark #tentang{
   background:#070e1c;
@@ -1638,9 +1641,9 @@ Baarakallahu fiikum</div>
     }
 
     // ── Bab 03 Mobile: saat pilar 5 selesai, logo naik duluan keluar layar ──
-    if(window.innerWidth <= 900 && nikolaCard5DocTop > 0){
-      var mobileHero = document.querySelector('.nikola-right-sticky');
-      if(mobileHero){
+    var mobileHero = document.querySelector('.nikola-right-sticky');
+    if(mobileHero){
+      if(window.innerWidth <= 900 && nikolaCard5DocTop > 0){
         var trigY = nikolaCard5DocTop - 312;
         if(y > trigY){
           var lift = Math.min(260, Math.round((y - trigY) * 1.5));
@@ -1648,6 +1651,9 @@ Baarakallahu fiikum</div>
         } else if(mobileHero.style.transform && mobileHero.style.transform !== 'none'){
           mobileHero.style.transform = 'none';
         }
+      } else if(mobileHero.style.transform && mobileHero.style.transform !== 'none'){
+        // Kembali ke desktop / mobile tanpa kartu ke-5: bersihkan sisa transform lift
+        mobileHero.style.transform = 'none';
       }
     }
 
@@ -1838,7 +1844,17 @@ Baarakallahu fiikum</div>
     var box = document.getElementById('regCountdown');
     var label = document.getElementById('countdownLabel');
     var dEl = document.getElementById('cdDays'), hEl = document.getElementById('cdHours'), mEl = document.getElementById('cdMins'), sEl = document.getElementById('cdSecs');
-    label.textContent = PENDAFTARAN_DIBUKA ? 'Ditutup 12 Agustus 2026 — atau lebih awal jika kuota penuh · sisa waktu' : 'Gelombang berikutnya dibuka dalam';
+    // Label dibuat dinamis dari tanggal target (bukan teks hardcoded) agar tidak pernah bentrok saat tanggal diubah
+    var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    function fmtTanggal(str){
+      // Baca literal YYYY-MM-DD agar tidak bergeser oleh zona waktu browser
+      var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(str);
+      if(!m) return str;
+      return parseInt(m[3], 10) + ' ' + BULAN[parseInt(m[2], 10) - 1] + ' ' + m[1];
+    }
+    label.textContent = PENDAFTARAN_DIBUKA
+      ? 'Ditutup ' + fmtTanggal(targetStr) + ' — atau lebih awal jika kuota penuh · sisa waktu'
+      : 'Gelombang berikutnya dibuka dalam';
     box.style.display = 'block';
     function pad(n){ return String(n).padStart(2,'0'); }
     function tick(){
@@ -1945,10 +1961,17 @@ Baarakallahu fiikum</div>
   })();
 
   // FAQ accordion
+  function closeAllQa(){
+    document.querySelectorAll('.qa.open').forEach(function(o){
+      o.classList.remove('open');
+      var a = o.querySelector('.qa-a');
+      if(a) a.style.maxHeight = null;
+    });
+  }
   document.querySelectorAll('.qa-q').forEach(function(btn){
     btn.addEventListener('click', function(){
       var qa = btn.parentElement, ans = qa.querySelector('.qa-a'), isOpen = qa.classList.contains('open');
-      document.querySelectorAll('.qa.open').forEach(function(o){ o.classList.remove('open'); o.querySelector('.qa-a').style.maxHeight = null; });
+      closeAllQa();
       if(!isOpen){ qa.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
     });
   });
@@ -1959,6 +1982,8 @@ Baarakallahu fiikum</div>
     var faqItems = document.querySelectorAll('#faqList .qa');
     var faqEmpty = document.getElementById('faqEmpty');
     faqSearch.addEventListener('input', function(){
+      // Tutup kembali panel yang terbuka agar state accordion tidak usang setelah difilter
+      closeAllQa();
       var q = faqSearch.value.trim().toLowerCase();
       var visible = 0;
       faqItems.forEach(function(item){
@@ -1980,6 +2005,7 @@ Baarakallahu fiikum</div>
     var slides = track.children.length;
     var idx = 0, timer = null;
     var carouselVisible = !document.hidden;
+    if(!slides) return;
     for(var i = 0; i < slides; i++){
       var dot = document.createElement('button');
       dot.className = 'tg-dot' + (i === 0 ? ' active' : '');
@@ -1993,6 +2019,8 @@ Baarakallahu fiikum</div>
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
       dots.forEach(function(d, j){ d.classList.toggle('active', j === idx); });
     }
+    // Sinkronkan ulang posisi & dot dengan indeks aktif (mis. setelah tab kembali aktif / konten berubah)
+    function sync(){ goTo(idx); }
     function next(){ goTo(idx + 1); }
     function prev(){ goTo(idx - 1); }
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }
@@ -2009,7 +2037,7 @@ Baarakallahu fiikum</div>
     }, { passive:true });
     document.addEventListener('visibilitychange', function(){
       carouselVisible = !document.hidden;
-      if(carouselVisible) restart(); else stop();
+      if(carouselVisible){ sync(); restart(); } else { stop(); }
     });
     restart();
   })();
