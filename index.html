@@ -1138,9 +1138,11 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
    kedua produk ini ada, lalu mengarahkan ke halaman khusus.
    Bentuknya bergantian (teks–gambar, gambar–teks) supaya tidak terasa
    sebagai dua blok kembar. Nada warna mengikuti token yang sudah ada:
-   biru untuk Portal, indigo untuk Modul. */
+   biru untuk Portal, indigo untuk Modul.
+   Ujung terang gradasi sengaja dijaga ≥5.6:1 di atas putih (#0369a1 untuk
+   nada biru) karena dipakai teks judul besar. */
 .hook{
-  --hk-a:#075985;--hk-b:#0ea5e9;
+  --hk-a:#075985;--hk-b:#0369a1;
   position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:90px 22px;
   scroll-margin-top:76px
 }
@@ -1203,6 +1205,23 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
 @media(prefers-reduced-motion:reduce){
   .hook-link{transition:none}
 }
+
+/* ══ HOOK: BEASISWA PENUH ══
+   Macrostructure Statement — satu pernyataan tegas di tengah, tanpa gambar,
+   tanpa grid kartu. Sengaja berbeda dari hook produk agar terasa seperti
+   pengumuman, bukan katalog. Memakai ulang .hook-title (em gradien),
+   .hook-points, dan .hook-actions yang sudah ada. */
+.hook--beasiswa{
+  --hk-a:#075985;--hk-b:#0ea5e9;
+  text-align:center
+}
+.hook--beasiswa .hook-title,
+.hook--beasiswa .hook-sub,
+.hook--beasiswa .hook-points,
+.hook--beasiswa .hook-actions{margin-left:auto;margin-right:auto}
+.hook--beasiswa .hook-sub{max-width:62ch}
+.hook--beasiswa .hook-points{max-width:640px;text-align:left}
+.hook--beasiswa .hook-actions{justify-content:center;max-width:640px}
 
 
 /* ── TESTIMONI ── */
@@ -1967,9 +1986,27 @@ Baarakallahu fiikum</p>
   </div>
 </section>
 
+<!-- ══ HOOK 3 · BEASISWA PENUH ══ -->
+<section class="hook hook--beasiswa" id="beasiswa">
+  <span class="hook-eyebrow" data-reveal>Beasiswa Penuh</span>
+  <h2 class="hook-title" data-reveal>Keterbatasan ekonomi <em>bukan penghalang</em> untuk belajar.</h2>
+  <p class="hook-sub" data-reveal>Program Beasiswa Penuh Rattililqur'an membebaskan biaya SPP pribadi murid secara penuh (100%), agar siapa pun bisa mempelajari kitabullah.</p>
+
+  <ul class="hook-points" data-reveal>
+    <li>Pembebasan penuh biaya SPP pribadi — bukan potongan, bukan cicilan.</li>
+    <li>Berlaku untuk murid yang sungguh-sungguh: hadir, beradab, dan menjaga nilai.</li>
+    <li>Syarat lengkapnya tertulis jelas di satu halaman, tanpa syarat tersembunyi.</li>
+  </ul>
+
+  <div class="hook-actions" data-reveal>
+    <a href="beasiswa.html" class="btn btn-primary">Lihat syarat &amp; komitmen</a>
+    <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost">Tanya admin</a>
+  </div>
+</section>
+
 <!-- ══ TESTIMONI & BUKTI ══ -->
 <section class="section center" id="testimoni">
-  <span class="sec-num" aria-hidden="true">08</span>
+  <span class="sec-num" aria-hidden="true">09</span>
   <h2 class="title" data-reveal>Rattil dalam <span class="grad-text">Angka</span></h2>
   <p class="sub" data-reveal>Sebelum Anda percaya, biarkan angkanya berbicara — dan cerita mereka yang sudah melangkah lebih dulu.</p>
 
@@ -2013,7 +2050,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ FAQ ══ -->
 <section class="section center" id="faq">
-  <span class="sec-num" aria-hidden="true">09</span>
+  <span class="sec-num" aria-hidden="true">10</span>
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan <span class="grad-text">Umum</span></h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
@@ -2045,7 +2082,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ KONTAK ══ -->
 <section class="section center" id="kontak" style="padding-top:0">
-  <span class="sec-num" aria-hidden="true">10</span>
+  <span class="sec-num" aria-hidden="true">11</span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; <span class="grad-text">Informasi</span></h2>
   <p class="sub" data-reveal>Punya pertanyaan? Jangan ragu menghubungi kami melalui kanal berikut.</p>
