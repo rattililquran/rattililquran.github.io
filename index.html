@@ -3,6 +3,9 @@
 <head>
 <script>
 (function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+// Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
+// Tanpa ini, halaman tanpa JavaScript akan menyisakan elemen yang tak terlihat.
+document.documentElement.classList.add('js');
 </script>
 <meta charset="UTF-8"/>
 <meta name="google-site-verification" content="sTilhX3bCU2Qq35i1FYT9OktC3XqZ81PhK7-h01PFLQ"/>
@@ -694,13 +697,52 @@ html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
   .turn-item{grid-template-columns:1fr;gap:8px;padding:26px 0}
   .turn-item-no{font-size:18px}
 }
-.evidence-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);overflow:hidden}
-.evidence-stat{padding:32px 20px;text-align:center;border-right:1px solid var(--c-line);transition:background var(--dur-fast)}
-.evidence-stat:last-child{border-right:none}
+/* ── RATTIL DALAM ANGKA ──
+   Tiap kolom punya nada gradasi sendiri (--sa/--sb) yang senada dengan rail
+   alur pendaftaran. Angka memakai background-image (bukan shorthand) agar
+   background-clip:text tidak tereset. Nilai asli tetap ada di HTML supaya
+   halaman tetap benar tanpa JavaScript. */
+.evidence-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:40px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm)}
+.evidence-stat{position:relative;isolation:isolate;padding:36px 22px 32px;text-align:center;border-left:1px solid var(--c-line);transition:background var(--dur-fast)}
+.evidence-stat:first-child{border-left:0}
+/* rail gradasi di tepi atas: redup, menyala saat hover */
+.evidence-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sa),var(--sb));opacity:.3;transition:opacity var(--dur)}
+/* garis aksen pendek di bawah angka — pengganti pendar yang mudah keruh */
+.evidence-stat b::after{content:'';display:block;width:22px;height:2px;margin:12px auto 0;border-radius:2px;background:linear-gradient(90deg,var(--sa),var(--sb));opacity:.55;transition:width var(--dur),opacity var(--dur)}
 .evidence-stat:hover{background:var(--c-soft)}
-.evidence-stat b{display:block;font-size:clamp(32px,4.5vw,48px);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.evidence-stat span{display:block;font-size:12px;font-weight:800;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em;margin-top:6px}
-@media(max-width:640px){.evidence-stats{grid-template-columns:1fr}.evidence-stat{border-right:none;border-bottom:1px solid var(--c-line)}.evidence-stat:last-child{border-bottom:none}}
+.evidence-stat:hover::before{opacity:1}
+.evidence-stat:hover b::after{width:38px;opacity:1}
+.stat-no{display:block;font-family:var(--font-mono);font-size:10.5px;font-weight:700;font-style:normal;letter-spacing:.16em;color:var(--c-ink-4);margin-bottom:12px}
+.evidence-stat b{display:block;font-size:clamp(38px,5.4vw,58px);font-weight:800;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;background-image:linear-gradient(135deg,var(--sa),var(--sb));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{display:block;font-size:11.5px;font-weight:800;color:var(--c-ink-3);text-transform:uppercase;letter-spacing:.15em;margin-top:10px}
+html.theme-dark .evidence-stat b{background-image:linear-gradient(135deg,color-mix(in srgb,var(--sa) 62%,#ffffff),color-mix(in srgb,var(--sb) 58%,#ffffff))}
+html.theme-dark .stat-label{color:var(--c-ink-2)}
+html.theme-dark .evidence-stat b::after{opacity:.75}
+html.theme-dark .evidence-stat:hover b::after{opacity:1}
+/* HP: jadikan baris ledger (indeks · label · angka) supaya rapi & hemat tinggi */
+@media(max-width:640px){
+  .evidence-stats{grid-template-columns:1fr}
+  .evidence-stat{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:18px 18px;text-align:left;border-left:0;border-top:1px solid var(--c-line)}
+  .evidence-stat:first-child{border-top:0}
+  .stat-no{grid-column:1;grid-row:1;margin:0}
+  .stat-label{grid-column:2;grid-row:1;margin:0}
+  .evidence-stat b{grid-column:3;grid-row:1;font-size:30px;letter-spacing:-.035em}
+  .evidence-stat b::after{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .evidence-stat::before,.evidence-stat b::after{transition:none}
+  .evidence-stat{opacity:1!important;transform:none!important;animation:none!important}
+}
+/* Kolom masuk berurutan saat kartu terlihat.
+   Wadah memakai data-reveal="stagger" (tanpa fade sendiri) agar stagger
+   anaknya tidak tertutup animasi induk.
+   Keadaan tersembunyi digerbangi .js — tanpa JavaScript kolom tetap terlihat. */
+@keyframes statIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+html.js .evidence-stat{opacity:0}
+html.js .evidence-stats.in .evidence-stat{animation:statIn .6s var(--ease-spring) both}
+html.js .evidence-stats.in .evidence-stat:nth-child(1){animation-delay:.05s}
+html.js .evidence-stats.in .evidence-stat:nth-child(2){animation-delay:.17s}
+html.js .evidence-stats.in .evidence-stat:nth-child(3){animation-delay:.29s}
 
 /* ── BAB 03 · BAGAIMANA KAMI MENEMANI (STACKING HERO — 1 KOLOM, SEMUA LAYAR) ── */
 #tentang{
@@ -1161,6 +1203,7 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
 }
 </style>
 <noscript><style>[data-reveal],.h-anim,.hero h1 .w,
+.evidence-stat,
 .turn-hero[data-reveal="stagger"] .title,.turn-hero[data-reveal="stagger"] .sub,
 .turn-item[data-reveal="stagger"] .turn-item-no,.turn-item[data-reveal="stagger"] .turn-item-body h4,.turn-item[data-reveal="stagger"] .turn-item-body p
 {opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
@@ -1769,10 +1812,24 @@ Baarakallahu fiikum</p>
   <h2 class="title" data-reveal>Rattil dalam <span class="grad-text">Angka</span></h2>
   <p class="sub" data-reveal>Sebelum Anda percaya, biarkan angkanya berbicara — dan cerita mereka yang sudah melangkah lebih dulu.</p>
 
-  <div class="evidence-stats" data-reveal>
-    <div class="evidence-stat"><b data-count="384" data-suffix="+">0</b><span>Murid Aktif</span></div>
-    <div class="evidence-stat"><b data-count="37" data-suffix="+">0</b><span>Halaqah</span></div>
-    <div class="evidence-stat"><b data-count="8" data-suffix="+">0</b><span>Pengajar</span></div>
+  <!-- [EDIT] Angka statistik — ubah data-count; teks di dalamnya adalah nilai
+       statis (dipakai bila JavaScript mati / sebelum animasi jalan). -->
+  <div class="evidence-stats" data-reveal="stagger">
+    <div class="evidence-stat" style="--sa:#0369a1;--sb:#0ea5e9">
+      <span class="stat-no" aria-hidden="true">01</span>
+      <b data-count="370">370</b>
+      <span class="stat-label">Murid</span>
+    </div>
+    <div class="evidence-stat" style="--sa:#4338ca;--sb:#6366f1">
+      <span class="stat-no" aria-hidden="true">02</span>
+      <b data-count="11">11</b>
+      <span class="stat-label">Guru</span>
+    </div>
+    <div class="evidence-stat" style="--sa:#7e22ce;--sb:#a855f7">
+      <span class="stat-no" aria-hidden="true">03</span>
+      <b data-count="34">34</b>
+      <span class="stat-label">Halaqah</span>
+    </div>
   </div>
 
   <h3 class="program-sub-title" data-reveal style="margin-top:56px">Kata Mereka yang Sudah Belajar</h3>
@@ -2316,18 +2373,31 @@ Baarakallahu fiikum</p>
   links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle.classList.remove('open'); links.classList.remove('show'); }); });
 
   // Reveal on scroll
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold:.12 });
-  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  // Tanpa IntersectionObserver, tampilkan semua agar tidak ada konten tersembunyi.
+  if(!('IntersectionObserver' in window)){
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var t = +el.getAttribute('data-count') || 0;
+      el.textContent = t.toLocaleString('id-ID') + (el.getAttribute('data-suffix') || '');
+    });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:.12 });
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  }
 
   // Count-up stats
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function countUp(el){
     var target = +el.getAttribute('data-count') || 0, suffix = el.getAttribute('data-suffix') || '';
+    // Hormati preferensi pengguna: tampilkan angka final tanpa animasi
+    if(reduceMotion){ el.textContent = target.toLocaleString('id-ID') + suffix; return; }
     var dur = 1500, start = performance.now();
     function tick(now){
       var p = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target) + (p === 1 ? suffix : '');
+      // toLocaleString agar 370/1.234 tetap terbaca benar
+      el.textContent = Math.round(eased * target).toLocaleString('id-ID') + (p === 1 ? suffix : '');
       if(p < 1) requestAnimationFrame(tick);
       else el.animate(
         [{ transform:'scale(1.2)' }, { transform:'scale(1)' }],
@@ -2336,10 +2406,12 @@ Baarakallahu fiikum</p>
     }
     requestAnimationFrame(tick);
   }
-  var statIO = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); statIO.unobserve(e.target); } });
-  }, { threshold:.5 });
-  document.querySelectorAll('[data-count]').forEach(function(el){ statIO.observe(el); });
+  if('IntersectionObserver' in window){
+    var statIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); statIO.unobserve(e.target); } });
+    }, { threshold:.5 });
+    document.querySelectorAll('[data-count]').forEach(function(el){ statIO.observe(el); });
+  }
 
   // FAQ accordion
   function closeAllQa(){
