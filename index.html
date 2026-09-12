@@ -768,40 +768,139 @@ html.theme-dark .nikola-stack-card{box-shadow:0 -10px 30px rgba(0,0,0,.55), 0 4p
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-2{grid-template-columns:1.05fr .95fr}
 @media(max-width:860px){.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
-.program-sub-title{font-size:20px;font-weight:800;color:var(--c-ink-2);margin-top:40px;text-align:center;position:relative;z-index:1}
+/* Hallmark · macrostructure: Index-First · theme: brand-catalog (paper #f8fafc · accent #0284c7 · display Plus Jakarta Sans + mono) · enrichment: none (typography + hairline only) */
+/* ══ PROGRAM — DAFTAR PROGRAM (Index-First) ══
+   Setiap program = satu kartu mandiri dengan penanda visual yang berbeda
+   (nomor, warna jenjang, chip level, aksen sisi kiri) sehingga sekali baca
+   langsung terbedakan. Background foto full-bleed diberi veil agar teks tetap
+   kontras di tema terang maupun gelap. */
 
-/* ── BENTO PROGRAM ── */
-.bento{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:46px;text-align:left}
-.bento-featured{grid-column:1/-1}
-.bento-facility{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:6px}
-@media(max-width:860px){.bento{grid-template-columns:1fr}.bento-facility{grid-template-columns:1fr}}
-@media(max-width:640px){.bento-facility{grid-template-columns:1fr}}
+/* ── Background foto + veil kontras ── */
+#program{position:relative;isolation:isolate}
+.program-bg{
+  position:absolute;z-index:-2;top:0;bottom:0;left:50%;
+  transform:translateX(-50%);width:100vw;overflow:hidden;pointer-events:none;
+}
+.program-bg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+#program::before{
+  content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;
+  transform:translateX(-50%);width:100vw;pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(248,250,252,.96) 0%,
+    rgba(248,250,252,.90) 26%,
+    rgba(248,250,252,.74) 54%,
+    rgba(248,250,252,.92) 100%);
+}
+html.theme-dark #program::before{
+  background:linear-gradient(180deg,
+    rgba(7,14,28,.96) 0%,
+    rgba(7,14,28,.92) 26%,
+    rgba(7,14,28,.80) 54%,
+    rgba(7,14,28,.94) 100%);
+}
+#program .eyebrow{background:var(--c-card);border:1px solid var(--c-line)}
 
-/* ── CARD FEAT (EDITORIAL STYLE) ── */
-.card-feat{position:relative;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r);padding:26px 22px;transition:border-color var(--dur-fast),background var(--dur-fast);overflow:hidden;text-align:left}
-.card-feat:hover{border-color:var(--c-primary)}
-.card-feat .ico{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;background:transparent;margin-bottom:12px;color:var(--c-primary);flex-shrink:0}
-.card-feat .ico svg{width:22px;height:22px}
-.card-feat h3{font-size:16.5px;font-weight:800;color:var(--c-ink);margin-bottom:6px;line-height:1.3}
-.card-feat p{font-size:14px;color:var(--c-ink-3);line-height:1.65}
-.card-feat .card-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.card-feat-featured{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center;padding:30px 28px}
-@media(max-width:760px){.card-feat-featured{grid-template-columns:1fr;gap:18px;padding:24px 20px}}
-.card-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:var(--c-soft);color:var(--c-primary);border:1px solid var(--c-line)}
-.card-badge-popular{background:var(--grad);color:#fff;border:none}
-.card-level{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--c-ink-4);padding:3px 8px;border-radius:99px;background:var(--c-soft);border:1px solid var(--c-line)}
-.card-level::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--level-dot,var(--c-primary));flex-shrink:0}
+/* Kepala daftar: label kolom, hanya tampil di layar lebar */
+.reg-head{
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.72fr) minmax(0,1.1fr);
+  gap:0 24px;
+  margin-top:44px;padding:0 24px 12px 34px;
+  border-bottom:2px solid var(--c-ink);
+  font-size:11px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3);
+  text-align:left;
+}
+.reg-list{list-style:none;margin:0;padding:0;text-align:left;display:grid;gap:14px}
 
-/* ── SCHEDULE ROWS ── */
-.sched-row{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--c-ink-3);padding:10px 0;border-top:1px solid var(--c-line)}
-.sched-row:first-of-type{border-top:none;padding-top:0}
-.sched-row svg{width:16px;height:16px;color:var(--c-primary);flex-shrink:0;margin-top:2px}
-.sched-row b{color:var(--c-ink-2);font-weight:700;display:block}
-.sched-note-box{max-width:720px;margin:28px auto 0;padding:16px 20px;background:var(--c-soft);border:1px solid rgba(2,132,199,.2);border-radius:14px;display:inline-flex;align-items:center;gap:12px;text-align:left;box-shadow:var(--sh-sm);box-sizing:border-box}
-html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
-.sched-note-box p{font-size:13.5px;color:var(--c-ink-2);line-height:1.5;margin:0;font-weight:600}
-.sched-note-box .note-icon{font-size:18px;flex-shrink:0}
-@media(max-width:640px){.sched-note-box{flex-direction:column;text-align:center;align-items:center;padding:14px}}
+/* Kartu program — 3 zona sejajar kepala daftar, aksen warna jenjang */
+.reg-item{
+  /* --lvl-c diisi per baris lewat style inline; --lvl-ink menyesuaikan tema
+     agar warna jenjang selalu cukup kontras di latar terang maupun gelap. */
+  --lvl-ink:var(--lvl-c,var(--c-primary));
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.72fr) minmax(0,1.1fr);
+  gap:6px 24px;align-items:start;
+  padding:22px 24px 22px 34px;
+  background:var(--c-glass);border:1px solid var(--c-line);border-radius:var(--r);
+  box-shadow:var(--sh);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:transform var(--dur) var(--ease-spring),box-shadow var(--dur),border-color var(--dur);
+}
+html.theme-dark .reg-item{--lvl-ink:color-mix(in srgb,var(--lvl-c,var(--c-primary)) 58%,#ffffff)}
+.reg-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:var(--lvl-ink);
+}
+.reg-item:hover{transform:translateY(-2px);box-shadow:var(--sh-lg);border-color:var(--lvl-ink)}
+.reg-item:hover .reg-name{color:var(--lvl-ink)}
+
+/* Zona 1 — Nama program (paling menonjol) */
+.reg-main{position:relative;z-index:1}
+.reg-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px}
+.reg-no{
+  flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:9px;margin-top:1px;
+  font-size:12.5px;font-weight:900;letter-spacing:.02em;font-variant-numeric:tabular-nums;
+  color:var(--lvl-ink);background:var(--c-card);
+  border:1.5px solid var(--lvl-ink);
+}
+.reg-name{
+  font-size:clamp(18px,1.65vw,21px);font-weight:800;color:var(--c-ink);
+  line-height:1.25;letter-spacing:-.02em;margin:0;
+  transition:color var(--dur-fast);
+}
+.reg-flag{
+  display:inline-block;vertical-align:2px;margin-left:9px;
+  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:#dc2626;background:var(--c-card);border:1px solid currentColor;border-radius:99px;
+  padding:2px 8px;white-space:nowrap;
+}
+html.theme-dark .reg-flag{color:#f87171}
+.reg-about{font-size:14px;line-height:1.6;color:var(--c-ink-2);margin:0;max-width:48ch}
+
+/* Label zona di dalam kartu — hanya muncul saat kepala daftar disembunyikan */
+.reg-label{display:none}
+
+/* Zona 2 — Untuk siapa */
+.reg-who,.reg-when{position:relative;z-index:1;margin:0;display:flex;flex-direction:column;gap:5px}
+.reg-level{
+  display:inline-flex;align-items:center;gap:7px;width:fit-content;
+  font-size:12.5px;font-weight:800;letter-spacing:.01em;
+  color:var(--lvl-ink);background:var(--c-card);
+  border:1px solid var(--lvl-ink);border-radius:99px;padding:4px 11px;
+}
+.reg-level::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--lvl-ink);flex-shrink:0}
+.reg-who-note{font-size:12.5px;font-weight:400;color:var(--c-ink-3);line-height:1.45}
+
+/* Zona 3 — Kapan (alasan orang memilih; ditulis sebagai kalimat, bukan label) */
+.reg-when-main{font-size:14px;font-weight:700;color:var(--c-ink);line-height:1.5}
+.reg-when-note{font-size:12.5px;font-weight:400;color:var(--c-ink-3);line-height:1.45}
+
+/* Kartu unggulan: diberi penekanan, tetap tanpa kartu ganda */
+.reg-item.is-lead{box-shadow:var(--sh-lg);border-color:var(--lvl-ink)}
+.reg-item.is-lead .reg-name{font-size:clamp(19px,1.85vw,23px)}
+
+.reg-note{margin:30px auto 0;max-width:64ch;text-align:center;font-size:13.5px;line-height:1.65;color:var(--c-ink-2)}
+
+@media(max-width:900px){
+  /* Mobile: tiap kartu jadi blok baca atas→bawah dengan label zona sendiri */
+  .reg-head{display:none}
+  .reg-item{grid-template-columns:1fr;gap:0;padding:20px 18px 20px 24px}
+  .reg-top{gap:10px;margin-bottom:8px}
+  .reg-no{width:28px;height:28px;border-radius:8px;font-size:12px}
+  .reg-name{font-size:19px}
+  .reg-item.is-lead .reg-name{font-size:20px}
+  .reg-flag{margin-left:0;display:inline-block;margin-top:6px}
+  .reg-about{font-size:14px;max-width:100%}
+  .reg-label{
+    display:block;font-size:10.5px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--c-ink-4);margin-bottom:3px;
+  }
+  .reg-who{margin-top:16px}
+  .reg-when{margin-top:14px}
+  .reg-when-main{font-size:14px}
+  .reg-note{margin-top:24px;text-align:left;font-size:13px}
+}
 
 /* ── REGISTRATION STATUS ── */
 .reg-status{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700;padding:9px 18px;border-radius:99px;margin-top:20px;border:1px solid var(--c-line)}
@@ -813,7 +912,6 @@ html.theme-dark .sched-note-box{border-color:rgba(56,189,248,.18)}
 .reg-status.closed .dot{background:#ef4444}
 html.theme-dark .reg-status.open{color:#34d399}
 html.theme-dark .reg-status.closed{color:#f87171}
-.reg-note{max-width:560px;margin:14px auto 0;font-size:13.5px;color:var(--c-ink-3)}
 
 /* ── COUNTDOWN ── */
 .countdown{margin:22px auto 0;max-width:380px}
@@ -1316,72 +1414,130 @@ html.theme-dark .reg-status.closed{color:#f87171}
 
 <!-- ══ PROGRAM ══ -->
 <section class="section center" id="program">
+  <picture class="program-bg" aria-hidden="true">
+    <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Program-mobile-780.webp 780w, assets/images/Program-mobile-1170.webp 1170w" sizes="100vw">
+    <source media="(max-width:900px)" srcset="assets/images/Program-mobile-780.jpg 780w, assets/images/Program-mobile-1170.jpg 1170w" sizes="100vw">
+    <source type="image/webp" srcset="assets/images/Program-desktop-1280.webp 1280w, assets/images/Program-desktop-1920.webp 1920w" sizes="100vw">
+    <source srcset="assets/images/Program-desktop-1280.jpg 1280w, assets/images/Program-desktop-1920.jpg 1920w" sizes="100vw">
+    <img src="assets/images/Program-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  </picture>
   <span class="sec-num" aria-hidden="true">04</span>
   <span class="eyebrow" data-reveal>Program Belajar</span>
   <h2 class="title" data-reveal>Halaqah &amp; <span class="grad-text">Kajian</span></h2>
   <p class="sub" data-reveal>Beragam program disusun sesuai jenjang kemampuan, dari pemula hingga Qiyam Bilqur'an.</p>
 
-  <h3 class="program-sub-title" data-reveal>Program Pembelajaran &amp; Jadwal</h3>
-  <div class="bento">
-    <!-- Featured: Tahsin Al-Fatihah -->
-    <div class="card-feat card-blue highlight-card bento-featured card-feat-featured" data-reveal>
-      <div>
-        <div class="card-meta">
-          <span class="card-badge card-badge-popular">⭐ Populer</span>
-          <span class="card-level" style="--level-dot:#0284c7">Pemula</span>
-        </div>
-        <div class="ico"><svg><use href="#i-target"/></svg></div>
-        <h3>Tahsin Al-Fatihah</h3>
-        <p>Program akselerasi 8 pertemuan untuk memperbaiki bacaan Surah Al-Fatihah secara intensif agar terbebas dari Lahn Jali (kesalahan fatal).</p>
-      </div>
-      <div>
-        <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Daurah Intensif 8 Hari</b>Dibuka berkala per gelombang · Durasi 8 Sesi Kelas</div></div>
-        <div class="sched-row"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Fleksibel</b>Menyesuaikan kesepakatan kelompok &amp; pengajar</div></div>
-      </div>
-    </div>
-    <!-- 4 card kecil -->
-    <div class="card-feat card-teal" data-reveal style="--i:0">
-      <div class="card-meta"><span class="card-badge">Tahsin</span><span class="card-level" style="--level-dot:#0d7377">Menengah</span></div>
-      <div class="ico"><svg><use href="#i-type"/></svg></div>
-      <h3>Kelas Riyadhatulhuruf</h3>
-      <p>Kelas tahsin berjenjang fokus kepada latihan membaca huruf per huruf secara terstruktur dan terbimbing.</p>
-      <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Halaqah:</b>Pilihan jadwal tersedia saat mengisi form pendaftaran</div></div>
-    </div>
-    <div class="card-feat card-violet" data-reveal style="--i:1">
-      <div class="card-meta"><span class="card-badge">Tahfidz</span><span class="card-level" style="--level-dot:#8b5cf6">Lanjut</span></div>
-      <div class="ico"><svg><use href="#i-repeat"/></svg></div>
-      <h3>Qiyam Bilqur'an</h3>
-      <p>Kelas tahfidz bertarget sesuai kemampuan yang dilaksanakan di sepertiga malam terakhir bersama kelompok.</p>
-      <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Sepertiga Malam Terakhir</b>Pilihan hari tersedia saat mengisi form pendaftaran</div></div>
-    </div>
-    <div class="card-feat card-amber" data-reveal style="--i:2">
-      <div class="card-meta"><span class="card-badge">Kajian</span><span class="card-level" style="--level-dot:#d97706">Semua Jenjang</span></div>
-      <div class="ico"><svg><use href="#i-book"/></svg></div>
-      <h3>Kajian At-Tibyan</h3>
-      <p>Kajian adab penghafal Al-Qur'an mengikuti kitab At-Tibyan karya Imam An-Nawawi rahimahullah.</p>
-      <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Ahad</b>19.30 WIB–Selesai</div></div>
-    </div>
-    <div class="card-feat card-emerald" data-reveal style="--i:3">
-      <div class="card-meta"><span class="card-badge">Pembinaan</span><span class="card-level" style="--level-dot:#059669">Asatidzah</span></div>
-      <div class="ico"><svg><use href="#i-graduation-cap"/></svg></div>
-      <h3>Microteaching</h3>
-      <p>Program pelatihan dan praktik mengajar bagi calon asatidzah untuk memantapkan metodologi pengajaran tajwid dan standarisasi kurikulum.</p>
-      <div class="sched-row" style="margin-top:14px"><svg><use href="#i-calendar"/></svg><div><b>Jadwal Halaqah:</b>Diatur berkala dalam program pembinaan asatidzah</div></div>
-    </div>
-    <!-- Fasilitas mini-row -->
-    <div class="bento-facility">
-      <div class="card-feat" data-reveal style="--i:0"><div class="ico"><svg><use href="#i-clock"/></svg></div><h3>Jadwal Fleksibel</h3><p>Halaqah dijadwalkan beberapa kali sepekan, menyesuaikan kelompok dan jenjang masing-masing.</p></div>
-      <div class="card-feat" data-reveal style="--i:1"><div class="ico"><svg><use href="#i-trending-up"/></svg></div><h3>Laporan Progres</h3><p>Setiap murid mendapat raport perkembangan: presensi, nilai, dan capaian hafalan per periode.</p></div>
-      <div class="card-feat" data-reveal style="--i:2"><div class="ico"><svg><use href="#i-smartphone"/></svg></div><h3>Portal Digital</h3><p>Akses materi, jadwal, nilai, dan pengumuman kapan saja melalui aplikasi portal modern.</p></div>
-    </div>
+  <!-- ── Daftar Program: tiga kolom berlabel agar sekali baca langsung paham ── -->
+  <div class="reg-head" aria-hidden="true">
+    <span>Program</span>
+    <span>Untuk Siapa</span>
+    <span>Jadwal</span>
   </div>
 
-  <div class="center" style="margin-top:28px">
-    <div class="sched-note-box" data-reveal>
-      <span class="note-icon">💡</span>
-      <p>Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
-    </div>
-  </div>
+  <ul class="reg-list" role="list">
+    <li class="reg-item" data-reveal style="--i:0;--lvl-c:#0284c7">
+      <div class="reg-main">
+        <div class="reg-top">
+          <span class="reg-no" aria-hidden="true">01</span>
+          <h3 class="reg-name">Tahsin Al-Fatihah</h3>
+        </div>
+        <p class="reg-about">Program akselerasi 8 pertemuan untuk memperbaiki bacaan Surah Al-Fatihah agar terbebas dari kesalahan yang mengubah makna.</p>
+      </div>
+      <div class="reg-who">
+        <span class="reg-label">Untuk Siapa</span>
+        <span class="reg-level">Pemula</span>
+        <span class="reg-who-note">Tanpa prasyarat</span>
+      </div>
+      <div class="reg-when">
+        <span class="reg-label">Jadwal</span>
+        <span class="reg-when-main">Daurah intensif 8 sesi, dibuka berkala per gelombang</span>
+        <span class="reg-when-note">Tersedia beberapa pilihan jadwal</span>
+      </div>
+    </li>
+
+    <li class="reg-item is-lead" data-reveal style="--i:1;--lvl-c:#0d7377">
+      <div class="reg-main">
+        <div class="reg-top">
+          <span class="reg-no" aria-hidden="true">02</span>
+          <h3 class="reg-name">Kelas Riyadhatulhuruf <span class="reg-flag">Paling Diminati</span></h3>
+        </div>
+        <p class="reg-about">Melatih membaca huruf per huruf secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat.</p>
+      </div>
+      <div class="reg-who">
+        <span class="reg-label">Untuk Siapa</span>
+        <span class="reg-level">Pemula &amp; Menengah</span>
+        <span class="reg-who-note">Setelah dasar makhraj</span>
+      </div>
+      <div class="reg-when">
+        <span class="reg-label">Jadwal</span>
+        <span class="reg-when-main">Dua kali sepekan</span>
+        <span class="reg-when-note">Jadwal dipilih saat mendaftar</span>
+      </div>
+    </li>
+
+    <li class="reg-item" data-reveal style="--i:2;--lvl-c:#8b5cf6">
+      <div class="reg-main">
+        <div class="reg-top">
+          <span class="reg-no" aria-hidden="true">03</span>
+          <h3 class="reg-name">Qiyam Bilqur'an</h3>
+        </div>
+        <p class="reg-about">Kelas tahfidz bertarget sesuai kemampuan, dilaksanakan di sepertiga malam terakhir bersama kelompok agar hafalan terjaga.</p>
+      </div>
+      <div class="reg-who">
+        <span class="reg-label">Untuk Siapa</span>
+        <span class="reg-level">Lanjut</span>
+        <span class="reg-who-note">Sudah lancar membaca</span>
+      </div>
+      <div class="reg-when">
+        <span class="reg-label">Jadwal</span>
+        <span class="reg-when-main">Sepertiga malam terakhir</span>
+        <span class="reg-when-note">Hari dipilih saat mendaftar</span>
+      </div>
+    </li>
+
+    <li class="reg-item" data-reveal style="--i:3;--lvl-c:#d97706">
+      <div class="reg-main">
+        <div class="reg-top">
+          <span class="reg-no" aria-hidden="true">04</span>
+          <h3 class="reg-name">Kajian At-Tibyan</h3>
+        </div>
+        <p class="reg-about">Kajian adab penghafal Al-Qur'an dari kitab At-Tibyan karya Imam An-Nawawi — membangun niat dan perilaku sebelum hafalan.</p>
+      </div>
+      <div class="reg-who">
+        <span class="reg-label">Untuk Siapa</span>
+        <span class="reg-level">Semua Jenjang</span>
+        <span class="reg-who-note">Terbuka untuk umum</span>
+      </div>
+      <div class="reg-when">
+        <span class="reg-label">Jadwal</span>
+        <span class="reg-when-main">Ahad, 19.30 WIB</span>
+        <span class="reg-when-note">Sampai selesai</span>
+      </div>
+    </li>
+
+    <li class="reg-item" data-reveal style="--i:4;--lvl-c:#059669">
+      <div class="reg-main">
+        <div class="reg-top">
+          <span class="reg-no" aria-hidden="true">05</span>
+          <h3 class="reg-name">Microteaching</h3>
+        </div>
+        <p class="reg-about">Pelatihan dan praktik mengajar bagi calon asatidzah untuk memantapkan metodologi pengajaran tajwid dan kurikulum.</p>
+      </div>
+      <div class="reg-who">
+        <span class="reg-label">Untuk Siapa</span>
+        <span class="reg-level">Semua Jenjang</span>
+        <span class="reg-who-note">Program pembinaan</span>
+      </div>
+      <div class="reg-when">
+        <span class="reg-label">Jadwal</span>
+        <span class="reg-when-main">Berkala</span>
+        <span class="reg-when-note">Diatur dalam program pembinaan</span>
+      </div>
+    </li>
+  </ul>
+
+
+
+  <p class="reg-note" data-reveal>Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
 </section>
 
 <!-- ══ PENDAFTARAN ══ -->
