@@ -26,6 +26,8 @@
 <title>Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" imagesrcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" imagesizes="100vw" type="image/webp" media="(max-width:900px)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" imagesizes="100vw" type="image/webp" media="(min-width:901px)" fetchpriority="high">
 <link rel="stylesheet" href="assets/fonts.css">
 <script type="application/ld+json">
 {
@@ -165,11 +167,14 @@ html.theme-dark .bg-noise{opacity:.05}
 [data-reveal="right"].in{animation:fadeRight .85s var(--ease-spring) both}
 [data-reveal="slide-right"].in{animation:slideFromRight .95s var(--ease-spring) both}
 [data-reveal="slide-left"].in{animation:slideFromLeft .95s var(--ease-spring) both}
+/* "stagger": wadah tanpa animasi sendiri, efek diberikan ke anak-anaknya (lihat Bab 02) */
+[data-reveal="stagger"]{opacity:1}
+[data-reveal="stagger"].in{animation:none}
 @keyframes heroIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 .h-anim{opacity:0;animation:heroIn .85s var(--ease-spring) both}
 
 /* ── NAVBAR (floating pill → solid on scroll) ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding:12px 16px;transition:padding var(--dur) var(--ease-smooth)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding:22px 16px 12px;transition:padding var(--dur) var(--ease-smooth)}
 .nav-inner{max-width:1060px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-nav);box-shadow:var(--sh-sm);transition:max-width 350ms var(--ease-smooth),padding 350ms var(--ease-smooth),background 350ms var(--ease-smooth),border-color 350ms var(--ease-smooth),box-shadow 350ms var(--ease-smooth),border-radius 350ms var(--ease-smooth)}
 .nav.scrolled{padding:0}
 .nav.scrolled .nav-inner{max-width:100%;padding:12px 22px;border-radius:0;background:var(--c-nav);border-color:transparent;border-bottom:1px solid var(--c-line);box-shadow:var(--sh-sm)}
@@ -212,7 +217,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media(max-width:1050px){
-  .nav-links{position:fixed;inset:84px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  .nav-links{position:fixed;inset:96px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
   .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-link::after{display:none}
@@ -275,16 +280,42 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 
 /* ── HERO ── */
 .hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:118px 22px 40px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) min(420px,34vw);gap:clamp(28px,5vw,48px);align-items:center;min-height:clamp(560px,calc(100svh - 160px),900px)}
-.hero-copy{text-align:left}
-.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--c-ink-2);background:var(--c-glass);border:1px solid var(--c-line);padding:8px 16px;border-radius:99px;box-shadow:var(--sh-sm)}
+/* Foto latar khusus halaman 1 (hero) — full-bleed lebar layar.
+   Memakai <picture> (art-direction): gambar terpisah untuk HP & desktop,
+   WebP dengan fallback JPEG, sehingga hanya 1 berkas yang diunduh. */
+.hero-bg{position:absolute;z-index:-2;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;overflow:hidden;pointer-events:none}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+/* Veil: menenangkan foto agar teks selalu kontras & profesional.
+   Fokus gelap/terang berada tepat di zona teks, lalu memudar halus di ujung hero. */
+.hero::after{
+  content:'';position:absolute;z-index:-1;top:0;bottom:0;
+  left:50%;transform:translateX(-50%);
+  width:100vw;
+  background:linear-gradient(180deg,
+    rgba(248,250,252,.90) 0%,
+    rgba(248,250,252,.88) 42%,
+    rgba(248,250,252,.82) 62%,
+    rgba(248,250,252,.55) 84%,
+    rgba(248,250,252,0) 100%);
+}
+html.theme-dark .hero::after{
+  background:linear-gradient(180deg,
+    rgba(7,14,28,.90) 0%,
+    rgba(7,14,28,.90) 42%,
+    rgba(7,14,28,.86) 62%,
+    rgba(7,14,28,.62) 84%,
+    rgba(7,14,28,0) 100%);
+}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start;min-height:clamp(560px,calc(100svh - 160px),900px)}
+.hero-copy{text-align:left;max-width:760px;margin:0;padding-top:clamp(24px,5.5vh,64px)}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--c-ink);background:var(--c-glass);border:1px solid var(--c-line);padding:8px 16px;border-radius:99px;box-shadow:var(--sh-sm)}
 .hero-badge .dot{position:relative;width:8px;height:8px;border-radius:50%;background:var(--c-accent);box-shadow:0 0 0 4px rgba(5,150,105,.18)}
 .hero-badge .dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--c-accent);animation:dotPulse 2.4s ease-out infinite}
 .hero-badge.closed .dot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.18)}
 .hero-badge.closed .dot::after{display:none}
 @keyframes dotPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(3);opacity:0}}
 @keyframes wordUp{to{opacity:1;transform:translateY(0)}}
-.hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--c-ink);margin-top:12px;display:flex;flex-wrap:wrap;gap:.22em}
+.hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--c-ink);margin-top:12px;display:flex;flex-wrap:wrap;gap:.22em;justify-content:flex-start}
 .hero h1 .w{display:inline-block;opacity:0;transform:translateY(28px);animation:wordUp .8s var(--ease-spring) forwards}
 .hero h1 .w:nth-child(1){animation-delay:.30s}
 .hero h1 .w:nth-child(2){animation-delay:.38s}
@@ -293,16 +324,9 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .hero h1 .grad{background:linear-gradient(110deg,var(--c-primary),var(--c-primary-2),var(--c-primary));background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards,shimmer 4.5s linear 3}
 @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-.hero p.lead{font-size:clamp(17px,1.4vw,20px);color:var(--c-ink-3);max-width:620px;margin:22px 0 0;line-height:1.7}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;opacity:0;animation:panelIn .9s var(--ease-spring) .35s both}
-@keyframes panelIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-.hv-inner{position:relative;width:100%;display:flex;align-items:center;justify-content:center;will-change:transform}
-.hv-glow{position:absolute;width:78%;aspect-ratio:1/1;border-radius:50%;background:radial-gradient(circle,var(--c-primary) 0%,transparent 68%);opacity:.16;filter:blur(40px);animation:hvPulse 7s ease-in-out infinite;pointer-events:none}
-.hv-img{position:relative;width:100%;max-width:520px;height:auto;display:block;filter:drop-shadow(0 26px 46px rgba(2,132,199,.22));animation:hvFloat 6.5s ease-in-out infinite}
-html.theme-dark .hv-img{filter:drop-shadow(0 26px 50px rgba(0,0,0,.5))}
-@keyframes hvFloat{0%,100%{transform:translateY(-12px) rotate(-1.2deg)}50%{transform:translateY(12px) rotate(1.2deg)}}
-@keyframes hvPulse{0%,100%{opacity:.14;transform:scale(1)}50%{opacity:.26;transform:scale(1.09)}}
+.hero p.lead{font-size:clamp(17px,1.4vw,20px);color:var(--c-ink);max-width:660px;margin:22px 0 0;line-height:1.7}
+.hero p.lead .lead-em{display:block;margin-top:.9em;font-style:italic;font-weight:600;color:inherit}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start}
 @media(max-width:900px){
   .hero{
     padding:88px 18px 28px;
@@ -319,10 +343,7 @@ html.theme-dark .hv-img{filter:drop-shadow(0 26px 50px rgba(0,0,0,.5))}
     width:100%;
     margin:auto 0;
   }
-  .hero-copy{text-align:center}
-  .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;margin-top:14px}
-  .hero-visual .hv-glow{width:60%;opacity:.16}
-  .hero-visual .hv-img{max-width:clamp(180px,46vw,225px)}
+  .hero-copy{text-align:center;max-width:100%}
   .hero h1{
     font-size:clamp(32px,8vw,44px);
     justify-content:center;
@@ -538,13 +559,67 @@ html.theme-dark .slide-art svg{filter:drop-shadow(0 18px 38px rgba(0,0,0,.55))}
 /* ── TITIK BALIK (EDITORIAL HAIRLINE LIST - TANPA KARTU KOTAK) ── */
 .turn-hero{text-align:center;max-width:780px;margin:0 auto 40px}
 .turn-list{display:flex;flex-direction:column;max-width:960px;margin:0 auto;text-align:left}
-.turn-item{display:grid;grid-template-columns:80px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--c-line)}
+.turn-item{position:relative;display:grid;grid-template-columns:80px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--c-line);overflow:hidden}
 .turn-item:last-child{border-bottom:1px solid var(--c-line)}
 .turn-item-no{font-family:var(--font-mono);font-size:24px;font-weight:900;letter-spacing:.06em;color:var(--c-primary);line-height:1}
 .turn-item-body h4{font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--c-ink);line-height:1.3;margin-bottom:8px;letter-spacing:-.02em}
 .turn-item-body h4 .hook-red{color:#e11d48}
 html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
 .turn-item-body p{font-size:clamp(15.5px,1.4vw,17.5px);color:var(--c-ink-3);line-height:1.75;max-width:720px}
+
+/* ── EFEK MASUK 3 POIN (nomor, heading, paragraf, garis) ── */
+/* Kondisi awal tersembunyi — hanya berlaku pada wadah data-reveal="stagger" */
+.turn-hero[data-reveal="stagger"] .title,
+.turn-hero[data-reveal="stagger"] .sub,
+.turn-item[data-reveal="stagger"] .turn-item-no,
+.turn-item[data-reveal="stagger"] .turn-item-body h4,
+.turn-item[data-reveal="stagger"] .turn-item-body p{opacity:0}
+@keyframes turnNumIn{from{opacity:0;transform:translateY(20px) scale(.72)}60%{transform:translateY(-3px) scale(1.04)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes turnHeadingIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes turnBodyIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes turnRuleGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* garis atas: tumbuh dari kiri + kilau tipis saat kartu masuk */
+.turn-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--c-primary),transparent);
+  transform:scaleX(0);transform-origin:left;opacity:0;
+}
+.turn-item.in::before{
+  animation:turnRuleGrow .9s var(--ease-spring) both, turnRuleFade 1.2s ease-out .35s both;
+}
+@keyframes turnRuleFade{from{opacity:1}to{opacity:0}}
+/* nomor: memantul masuk lebih dulu */
+.turn-item.in .turn-item-no{
+  animation:turnNumIn .78s var(--ease-spring) both;
+  animation-delay:calc(var(--i,0) * 90ms + 60ms);
+}
+/* heading: menyusul menenangkan */
+.turn-item.in .turn-item-body h4{
+  animation:turnHeadingIn .75s var(--ease-spring) both;
+  animation-delay:calc(var(--i,0) * 90ms + 180ms);
+}
+/* paragraf: masuk terakhir, paling lembut */
+.turn-item.in .turn-item-body p{
+  animation:turnBodyIn .78s var(--ease-spring) both;
+  animation-delay:calc(var(--i,0) * 90ms + 300ms);
+}
+/* hero bab: judul & sub naik halus */
+@keyframes turnHeroIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.turn-hero.in .title{animation:turnHeroIn .8s var(--ease-spring) both}
+.turn-hero.in .sub{animation:turnHeroIn .8s var(--ease-spring) .12s both}
+@media (prefers-reduced-motion:reduce){
+  .turn-item.in::before,
+  .turn-item.in .turn-item-no,
+  .turn-item.in .turn-item-body h4,
+  .turn-item.in .turn-item-body p,
+  .turn-hero.in .title,
+  .turn-hero.in .sub{animation:none!important;opacity:1!important;transform:none!important}
+  .turn-hero[data-reveal="stagger"] .title,
+  .turn-hero[data-reveal="stagger"] .sub,
+  .turn-item[data-reveal="stagger"] .turn-item-no,
+  .turn-item[data-reveal="stagger"] .turn-item-body h4,
+  .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1!important}
+}
 @media(max-width:640px){
   .turn-item{grid-template-columns:1fr;gap:8px;padding:26px 0}
   .turn-item-no{font-size:18px}
@@ -557,7 +632,7 @@ html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
 .evidence-stat span{display:block;font-size:12px;font-weight:800;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em;margin-top:6px}
 @media(max-width:640px){.evidence-stats{grid-template-columns:1fr}.evidence-stat{border-right:none;border-bottom:1px solid var(--c-line)}.evidence-stat:last-child{border-bottom:none}}
 
-/* ── BAB 03 · BAGAIMANA KAMI MENEMANI (NIKOLA RADESKI DOCKING HERO) ── */
+/* ── BAB 03 · BAGAIMANA KAMI MENEMANI (STACKING HERO — 1 KOLOM, SEMUA LAYAR) ── */
 #tentang{
   position:relative;
   z-index:5;
@@ -573,158 +648,115 @@ html.theme-dark #tentang{
 }
 .nikola-wrap{max-width:1180px;margin:0 auto;position:relative}
 
-/* Grid 2-Kolom: Kiri pilar bertumpuk, Kanan hero card yang mendarat */
-.nikola-layout{display:grid;grid-template-columns:1fr 400px;gap:clamp(32px,5vw,64px);align-items:start;position:relative}
+/* Layout 1-kolom: header (logo+judul) sticky di atas, 5 pilar menumpuk di bawah */
+.nikola-layout{display:flex;flex-direction:column;gap:0;position:relative}
 
-/* Kolom Kiri: spacer layar pertama + 5 pilar */
+/* Kolom Kiri: 5 pilar */
 .nikola-left-col{display:flex;flex-direction:column;min-width:0;position:relative}
-.nikola-intro-spacer{height:60vh;min-height:420px}
 
-/* Kolom Kanan: hero card sticky di bawah navbar */
-.nikola-right-sticky{position:sticky;top:80px;height:auto;min-height:460px;display:flex;align-items:flex-start;padding-top:20px;padding-bottom:0}
+/* Header sticky: logo + judul, mengambang di bawah navbar */
+.nikola-right-sticky{
+  position:sticky;
+  top:74px;
+  height:auto;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  width:100%;
+  z-index:20;
+  order:-1;
+  padding:0;
+  background:transparent;
+  border:none;
+  text-align:center;
+}
 .nikola-brand-card{
   background:transparent;
   border:none;
   border-radius:0;
   padding:0;
   width:100%;
-  text-align:left;
+  max-width:820px;
+  margin:0 auto;
+  text-align:center;
   box-shadow:none;
   display:flex;
   flex-direction:column;
-  gap:18px;
-  will-change:transform;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 }
-.nikola-hero-logo img{width:clamp(140px,15vw,210px);height:auto;display:block;filter:drop-shadow(0 14px 30px rgba(2,132,199,.18))}
+.nikola-hero-logo{display:flex;justify-content:center;align-items:center;width:100%}
+.nikola-hero-logo img{width:clamp(96px,7.4vw,124px);height:auto;display:block;margin:0 auto 2px;filter:drop-shadow(0 14px 30px rgba(2,132,199,.18))}
 .nikola-hero-logo img.dark{display:none}
 html.theme-dark .nikola-hero-logo img{filter:drop-shadow(0 14px 30px rgba(0,0,0,.6))}
 html.theme-dark .nikola-hero-logo img.light{display:none}
 html.theme-dark .nikola-hero-logo img.dark{display:block}
-.nikola-hero-title{font-size:clamp(32px,3.8vw,50px);font-weight:800;line-height:1.12;letter-spacing:-.03em;color:var(--c-ink);margin:0}
-/* Saat diam: benar-benar terpusat vertikal & horizontal, judul 1 baris */
-.nikola-brand-card.is-centered{text-align:center;align-items:center}
-.nikola-brand-card.is-centered .nikola-hero-title{font-size:clamp(26px,3vw,40px);white-space:nowrap}
+.nikola-hero-title,
+.nikola-brand-card.is-centered .nikola-hero-title{
+  font-size:clamp(28px,3.4vw,40px);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.025em;
+  color:var(--c-ink);
+  margin:0 auto;
+  text-align:center;
+  white-space:normal;
+  width:100%;
+  display:block;
+}
+/* Satu baris: "Bagaimana Kami Menemani" */
+.nikola-hero-title .nh-line{display:inline}
 .nikola-hero-title .hook-red{color:#e11d48}
 html.theme-dark .nikola-hero-title .hook-red{color:#fb7185}
-.nikola-hero-sub{font-size:clamp(14.5px,1.3vw,17px);color:var(--c-ink-3);line-height:1.7;margin:0}
+.nikola-hero-sub{
+  font-size:clamp(14px,1.12vw,16.5px);
+  color:var(--c-ink-3);
+  line-height:1.55;
+  max-width:94%;
+  margin:2px auto 0;
+  text-align:center;
+}
 
-/* Kiri: 5 Pilar Stacking Cards (menumpuk saat scroll) */
+/* 5 Pilar bertumpuk (sticky) */
 .nikola-stack-list{
   display:flex;
   flex-direction:column;
-  gap:36px;
+  gap:18px;
+  margin-top:18px;
+  padding-bottom:130px;
   position:relative;
-  padding-bottom:18vh;
 }
 .nikola-stack-card{
   position:sticky;
-  top:var(--stack-top, 110px);
+  top:var(--stack-top, 300px);
   background:var(--c-bg);
   border:1px solid var(--c-line);
-  border-radius:var(--r-lg);
-  padding:34px 32px;
-  box-shadow:0 -6px 24px rgba(12,24,37,.06), 0 4px 16px rgba(12,24,37,.04);
+  border-radius:var(--r);
+  padding:22px 24px;
+  box-shadow:0 -10px 30px rgba(12,24,37,.10), 0 4px 16px rgba(12,24,37,.05);
   text-align:left;
-  transition:border-color var(--dur-fast);
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
 }
-html.theme-dark .nikola-stack-card{box-shadow:0 -6px 24px rgba(0,0,0,.45)}
+html.theme-dark .nikola-stack-card{box-shadow:0 -10px 30px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.35)}
 .nikola-stack-card:hover{border-color:var(--c-primary)}
-.nikola-stack-no{font-family:var(--font-mono,'Space Mono',monospace);font-size:13px;font-weight:900;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase;margin-bottom:10px;display:block}
-.nikola-stack-card h3{font-size:clamp(24px,3vw,34px);font-weight:800;color:var(--c-ink);line-height:1.24;margin-bottom:12px;letter-spacing:-.02em}
-.nikola-stack-card p{font-size:clamp(16px,1.5vw,19px);color:var(--c-ink-3);line-height:1.65}
+.nikola-stack-no{font-family:var(--font-mono);font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase;margin-bottom:5px;display:block}
+.nikola-stack-card h3{font-size:clamp(18px,2.1vw,23px);font-weight:800;color:var(--c-ink);line-height:1.26;margin-bottom:7px;letter-spacing:-.02em}
+.nikola-stack-card p{font-size:clamp(14px,1.15vw,16.5px);color:var(--c-ink-3);line-height:1.6}
 
 @media(max-width:900px){
   #tentang{padding:18px 18px 10px}
-  .nikola-layout{display:flex;flex-direction:column;gap:0;position:relative}
-  .nikola-intro-spacer{display:none}
-  .nikola-left-col{width:100%;position:relative}
-  .nikola-right-sticky{
-    position:sticky;
-    top:60px;
-    height:auto;
-    min-height:0!important;
-    padding:16px 0 0;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-start!important;
-    align-items:center;
-    width:100%;
-    z-index:20;
-    order:-1;
-    background:transparent!important;
-    border:none;
-    text-align:center;
-  }
-  html.theme-dark .nikola-right-sticky{
-    background:transparent!important;
-    border:none;
-  }
-  .nikola-brand-card{
-    padding:0;
-    gap:2px;
-    transform:none!important;
-    text-align:center;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    margin:0 auto;
-    background:transparent!important;
-    border:none;
-    box-shadow:none;
-  }
-  .nikola-hero-logo{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    background:transparent!important;
-  }
-  .nikola-hero-logo img{
-    width:76px;
-    margin:0 auto 3px;
-    display:block;
-    background:transparent!important;
-  }
+  .nikola-right-sticky{padding:16px 0 0;top:60px}
+  .nikola-brand-card{gap:2px;max-width:100%}
+  .nikola-hero-logo img{width:76px;margin:0 auto 3px}
   .nikola-hero-title,
-  .nikola-brand-card.is-centered .nikola-hero-title{
-    font-size:clamp(21px,5.4vw,25px);
-    white-space:normal;
-    line-height:1.15;
-    margin:0 auto;
-    text-align:center;
-    width:100%;
-    display:block;
-    background:transparent!important;
-  }
-  .nikola-hero-title .nh-line{
-    display:block;
-  }
-  .nikola-hero-sub{
-    display:block;
-    font-size:11px;
-    line-height:1.36;
-    color:var(--c-ink-3);
-    max-width:92%;
-    margin:4px auto 0;
-    text-align:center;
-    background:transparent!important;
-  }
-  
-  /* Pilar menumpuk rapi di bawah header seperti di laptop */
-  .nikola-stack-list{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-    margin-top:16px;
-    padding-bottom:24px;
-    position:relative;
-  }
-  .nikola-stack-card{
-    position:sticky;
-    top:var(--m-stack-top, 256px);
-    padding:18px 16px;
-    border-radius:var(--r);
-  }
+  .nikola-brand-card.is-centered .nikola-hero-title{font-size:clamp(21px,5.4vw,25px)}
+  .nikola-hero-title .nh-line{display:block}
+  .nikola-hero-sub{font-size:11px;line-height:1.36}
+  .nikola-stack-list{gap:20px;margin-top:16px;padding-bottom:120px}
+  .nikola-stack-card{padding:18px 16px}
   .nikola-stack-no{font-size:11px;margin-bottom:4px}
   .nikola-stack-card h3{font-size:clamp(16px,4vw,19px);margin-bottom:5px}
   .nikola-stack-card p{font-size:clamp(13px,3.3vw,14.5px);line-height:1.5}
@@ -901,10 +933,13 @@ html.theme-dark .reg-status.closed{color:#f87171}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  [data-reveal],.h-anim,.hero-visual,.hero h1 .w{opacity:1!important;transform:none!important}
+  [data-reveal],.h-anim,.hero h1 .w{opacity:1!important;transform:none!important}
 }
 </style>
-<noscript><style>[data-reveal],.h-anim,.hero-visual,.hero h1 .w{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
+<noscript><style>[data-reveal],.h-anim,.hero h1 .w,
+.turn-hero[data-reveal="stagger"] .title,.turn-hero[data-reveal="stagger"] .sub,
+.turn-item[data-reveal="stagger"] .turn-item-no,.turn-item[data-reveal="stagger"] .turn-item-body h4,.turn-item[data-reveal="stagger"] .turn-item-body p
+{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </head>
 <body>
 
@@ -1041,18 +1076,19 @@ html.theme-dark .reg-status.closed{color:#f87171}
 
 <!-- ══ HERO ══ -->
 <header class="hero">
+  <picture class="hero-bg">
+    <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
+    <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
+    <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
+    <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
+    <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+  </picture>
   <div class="hero-grid">
     <div class="hero-copy">
       <div class="hero-badge h-anim closed" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran sementara ditutup</span></div>
       <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
-      <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata.</p>
+      <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata. <em class="lead-em">Biidznillah</em></p>
     </div>
-    <aside class="hero-visual">
-      <div class="hv-inner" id="hvInner">
-        <span class="hv-glow"></span>
-        <img class="hv-img" src="assets/images/Rattil.png" alt="Ilustrasi Rattililqur'an — belajar Al-Qur'an dengan tartil" fetchpriority="high" decoding="async" draggable="false">
-      </div>
-    </aside>
   </div>
 </header>
 
@@ -1069,7 +1105,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
     <!-- Header Bab & Progress Indicator -->
     <div class="pinned-header">
       <div class="pinned-progress-indicator" style="margin-left:auto">
-        <span id="pnum">01</span><span class="p-total"> / 06</span>
+        <span id="pnum">00</span><span class="p-total"> / 05</span>
         <div class="p-bar"><div class="p-fill" id="pfill"></div></div>
       </div>
     </div>
@@ -1090,7 +1126,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
         <div class="pinned-slide" data-enter="right">
           <div class="slide-grid">
             <div class="slide-copy">
-              <span class="slide-tag">02 / 06 &middot; Ibu &amp; Anak</span>
+              <span class="slide-tag">01 / 05 &middot; Ibu &amp; Anak</span>
               <h3>Ingin Mengajari Anak, Tapi <span class="hook-red">Diri Sendiri Masih Terbata-bata</span></h3>
               <p>Kerinduan menjadi ibu yang bisa membimbing anak tercinta membaca Al-Qur'an adalah cita-cita mulia. Namun rasa cemas muncul ketika menyadari bacaan diri sendiri belum fasih dan masih sering keliru di makhraj dasar.</p>
             </div>
@@ -1109,7 +1145,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
               <svg viewBox="0 0 160 160" aria-hidden="true"><use href="#i-ill-muslim-man"/></svg>
             </div>
             <div class="slide-copy">
-              <span class="slide-tag">03 / 06 &middot; Keberanian Shalat</span>
+              <span class="slide-tag">02 / 05 &middot; Keberanian Shalat</span>
               <h3><span class="hook-red">Khawatir Salah Baca</span> saat Memimpin Shalat</h3>
               <p>Malu dan ragu saat mendadak diminta menjadi imam shalat di rumah, masjid, atau mushalla. Rasa khawatir jika ada bacaan tajwid yang salah dan mengurangi kesempurnaan ibadah bersama.</p>
             </div>
@@ -1120,7 +1156,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
         <div class="pinned-slide" data-enter="left">
           <div class="slide-grid">
             <div class="slide-copy">
-              <span class="slide-tag">04 / 06 &middot; Bimbingan Talaqqi</span>
+              <span class="slide-tag">03 / 05 &middot; Bimbingan Talaqqi</span>
               <h3>Sudah Mencoba Otodidak, Tapi <span class="hook-red">Tak Ada yang Mengoreksi</span></h3>
               <p>Mencoba belajar sendiri melalui buku atau video, namun tetap bingung harus mulai dari mana. Tanpa bimbingan guru (talaqqi), tidak ada yang mengoreksi saat pengucapan huruf atau hukum bacaan kita keliru.</p>
             </div>
@@ -1139,7 +1175,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
               <svg viewBox="0 0 160 160" aria-hidden="true"><use href="#i-ill-progress"/></svg>
             </div>
             <div class="slide-copy">
-              <span class="slide-tag">05 / 06 &middot; Progres Istiqamah</span>
+              <span class="slide-tag">04 / 05 &middot; Progres Istiqamah</span>
               <h3>Merasa Waktu Terus Berjalan, Tapi <span class="hook-red">Kemampuan Mandek</span></h3>
               <p>Hari berganti tahun, usia terus bertambah, namun kualitas bacaan Al-Qur'an terasa masih di tempat yang sama. Ada rasa rindu yang belum terobati untuk bisa membaca dengan tartil dan percaya diri.</p>
             </div>
@@ -1149,7 +1185,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
         <!-- Slide 06: Penutup / Closing -->
         <div class="pinned-slide" data-enter="scale">
           <div class="slide-close">
-            <span class="sc-eyebrow">06 / 06 &middot; Anda Tidak Sendirian</span>
+            <span class="sc-eyebrow">05 / 05 &middot; Anda Tidak Sendirian</span>
             <h3>Jika Anda pernah merasakan hal-hal di atas,<br><strong>Anda tidak sendirian.</strong></h3>
             <p>Banyak ibu, bapak, dan muslim dewasa mengalami perasaan yang sama. Kerinduan itu nyata — dan ada jalan untuk mewujudkannya bersama bimbingan yang tepat.</p>
           </div>
@@ -1180,13 +1216,13 @@ html.theme-dark .reg-status.closed{color:#f87171}
 <!-- ══ BAB 02 · TITIK BALIK ══ -->
 <section class="section" id="harapan">
   <span class="sec-num" aria-hidden="true">02</span>
-  <div class="turn-hero" data-reveal>
+  <div class="turn-hero" data-reveal="stagger">
     <h2 class="title">Tidak Ada Kata <span class="grad-text">Terlambat untuk Memulai</span></h2>
     <p class="sub" style="margin-left:auto;margin-right:auto">Mereka yang hari ini fasih membaca pun pernah berada di titik terbata-bata. Perbedaan satu-satunya adalah keberanian untuk mengambil langkah pertama bersama guru yang tepat.</p>
   </div>
 
   <div class="turn-list">
-    <div class="turn-item" data-reveal style="--i:0">
+    <div class="turn-item" data-reveal="stagger" style="--i:0">
       <span class="turn-item-no">01</span>
       <div class="turn-item-body">
         <h4>Setiap Orang Memiliki <span class="hook-red">Titik Awal</span></h4>
@@ -1194,7 +1230,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
       </div>
     </div>
 
-    <div class="turn-item" data-reveal style="--i:1">
+    <div class="turn-item" data-reveal="stagger" style="--i:1">
       <span class="turn-item-no">02</span>
       <div class="turn-item-body">
         <h4>Keliru Makhraj Adalah <span class="hook-red">Pintu Kebaikan</span></h4>
@@ -1202,7 +1238,7 @@ html.theme-dark .reg-status.closed{color:#f87171}
       </div>
     </div>
 
-    <div class="turn-item" data-reveal style="--i:2">
+    <div class="turn-item" data-reveal="stagger" style="--i:2">
       <span class="turn-item-no">03</span>
       <div class="turn-item-body">
         <h4>Langkah Kecil yang <span class="hook-red">Terus Istiqamah</span></h4>
@@ -1225,35 +1261,35 @@ html.theme-dark .reg-status.closed{color:#f87171}
         <div class="nikola-stack-list">
 
           <!-- Kartu 01 -->
-          <div class="nikola-stack-card" style="--stack-top: 110px; --m-stack-top: 256px;">
+          <div class="nikola-stack-card" style="--stack-top: 110px;">
             <span class="nikola-stack-no">Pilar 01 &middot; Kurikulum Dasar</span>
             <h3>01. Metode Terstruktur</h3>
             <p>Kurikulum berlevel dari nol makhraj huruf hingga tartil penuh. Setiap sesi terarah dengan indikator capaian yang terukur dan terbimbing secara sistematis.</p>
           </div>
 
           <!-- Kartu 02 -->
-          <div class="nikola-stack-card" style="--stack-top: 135px; --m-stack-top: 270px;">
+          <div class="nikola-stack-card" style="--stack-top: 135px;">
             <span class="nikola-stack-no">Pilar 02 &middot; Akses Inklusif</span>
             <h3>02. Reguler &amp; Beasiswa</h3>
             <p>Tersedia program beasiswa penuh bagi yang membutuhkan. Mempelajari Al-Qur'an adalah hak setiap muslim tanpa terhalang kendala biaya.</p>
           </div>
 
           <!-- Kartu 03 -->
-          <div class="nikola-stack-card" style="--stack-top: 160px; --m-stack-top: 284px;">
+          <div class="nikola-stack-card" style="--stack-top: 160px;">
             <span class="nikola-stack-no">Pilar 03 &middot; Tahapan Pembelajaran</span>
             <h3>03. Kurikulum Berjenjang</h3>
             <p>Setiap level dirancang membangun fondasi kokoh sebelum naik ke tahap berikutnya — dari pengenalan makhraj huruf dasar hingga tartil dan hafalan.</p>
           </div>
 
           <!-- Kartu 04 -->
-          <div class="nikola-stack-card" style="--stack-top: 185px; --m-stack-top: 298px;">
+          <div class="nikola-stack-card" style="--stack-top: 185px;">
             <span class="nikola-stack-no">Pilar 04 &middot; Pantauan Hasil</span>
             <h3>04. Evaluasi Berkala</h3>
             <p>Ujian bulanan dan laporan progres digital memastikan setiap murid tahu persis posisi capaian dan area yang perlu diperbaiki secara transparan.</p>
           </div>
 
           <!-- Kartu 05 -->
-          <div class="nikola-stack-card" style="--stack-top: 210px; --m-stack-top: 312px;">
+          <div class="nikola-stack-card" style="--stack-top: 210px;">
             <span class="nikola-stack-no">Pilar 05 &middot; Kualitas Pengajar</span>
             <h3>05. Pengajar Tersertifikasi</h3>
             <p>Seluruh asatidzah telah melalui standarisasi Microteaching internal — menjamin kesabaran, metodologi, dan kenyamanan belajar di setiap halaqah.</p>
@@ -1547,7 +1583,10 @@ Baarakallahu fiikum</div>
   var needMeasure = true;
   var navScrolled = null, backTopShown = null, lastProgress = -1;
   var nikolaDock = { active:false, dx:0, dy:0, last:null, lastDy:null };
-  var nikolaCard5DocTop = 0;
+  var nikolaTrigY = 0;        // scrollY saat lift mulai (dihitung dari geometri nyata)
+  var nikolaMaxLift = 0;      // jarak angkat maksimum (cukup agar header keluar layar)
+  var nikolaHeaderH = 0;      // tinggi header (logo+judul) Bab 03
+  var nikolaHeaderTop = 74;   // = top sticky .nikola-right-sticky (desktop); mobile di-set dari CSS
 
   function measure(){
     needMeasure = false;
@@ -1564,31 +1603,40 @@ Baarakallahu fiikum</div>
   }
 
   function measureNikolaDock(){
-    var card = document.getElementById('nikolaBrandCard');
-    var wrap = document.querySelector('.nikola-wrap');
-    if(!card || !wrap || window.innerWidth <= 900){
-      nikolaDock.active = false;
-      if(window.innerWidth <= 900){
-        var c5 = document.querySelectorAll('.nikola-stack-card')[4];
-        if(c5){
-          var node5 = c5; nikolaCard5DocTop = 0;
-          while(node5){ nikolaCard5DocTop += node5.offsetTop; node5 = node5.offsetParent; }
-        }
+    // Layout Bab 03 kini 1-kolom (stacking) di SEMUA lebar layar.
+    // Docking 2-kolom lama dinonaktifkan total; yang dipakai hanya logika lift header.
+    nikolaDock.active = false;
+    function docTopOf(el){ var n = el, t = 0; while(n){ t += n.offsetTop; n = n.offsetParent; } return t; }
+    var hero = document.querySelector('.nikola-right-sticky');
+    var list = document.querySelector('.nikola-stack-list');
+    var cards = document.querySelectorAll('.nikola-stack-card');
+    var c1 = cards[0], c5 = cards[4];
+    if(hero && list && c1 && c5){
+      nikolaHeaderH = hero.offsetHeight;
+      // Baca top sticky aktual dari CSS (desktop 74px, mobile 60px) agar selalu sinkron
+      nikolaHeaderTop = parseFloat(window.getComputedStyle(hero).top) || 0;
+
+      // Hitung posisi tumpukan pilar secara dinamis dari tinggi header nyata,
+      // sehingga layout tetap presisi di lebar layar mana pun (HP → laptop).
+      var headerBottom = nikolaHeaderTop + nikolaHeaderH;
+      var gap  = (window.innerWidth <= 900) ? 21 : 26;   // jarak estetika kartu pertama dari header
+      var step = (window.innerWidth <= 900) ? 24 : 30;   // jarak antar kartu saat menumpuk
+      for(var i = 0; i < cards.length; i++){
+        cards[i].style.setProperty('--stack-top', Math.round(headerBottom + gap + i * step) + 'px');
       }
-      return;
+
+      // Trigger lift dihitung dari geometri nyata:
+      // Seluruh tumpukan kartu mulai terdorong naik saat kartu terakhir (P5)
+      // menyentuh batas bawah container: scrollY = listBottom - P5_top - P5_height.
+      // Lift header harus mulai tepat SEBELUM (margin 16px) kartu terdorong naik.
+      var listBottom = docTopOf(list) + list.offsetHeight;
+      var c5Top = parseFloat(c5.style.getPropertyValue('--stack-top')) || 0;
+      var c5H = c5.offsetHeight;
+      nikolaTrigY = listBottom - c5Top - c5H - 16;        // 16px margin aman sebelum tumpukan naik
+      nikolaMaxLift = Math.round(headerBottom + 24);       // cukup mengangkat header keluar layar
+    } else {
+      nikolaTrigY = 0;
     }
-    var prev = card.style.transform;
-    card.style.transform = 'none';
-    var cr = card.getBoundingClientRect();
-    var wr = wrap.getBoundingClientRect();
-    // Horizontal: geser dari kolom kanan ke tengah halaman saat diam
-    nikolaDock.dx = (wr.left + wr.width / 2) - (cr.left + cr.width / 2);
-    // Vertical: ditangani flex centering pada kolom sticky (height:100vh), jadi dy = 0
-    nikolaDock.dy = 0;
-    nikolaDock.active = true;
-    nikolaDock.last = null;
-    nikolaDock.lastDy = null;
-    card.style.transform = prev;
   }
 
   function runScrollFrame(){
@@ -1616,43 +1664,18 @@ Baarakallahu fiikum</div>
       if(off !== s.last){ s.last = off; s.el.style.transform = 'translate3d(0,' + off + 'px,0)'; }
     }
 
-    // ── Bab 03: hero card meluncur dari tengah → dock kanan saat scroll (Desktop) ──
-    if(nikolaDock.active){
-      var heroCard = document.getElementById('nikolaBrandCard');
-      var tentangSec = document.getElementById('tentang');
-      if(heroCard && tentangSec){
-        var tRect = tentangSec.getBoundingClientRect();
-        var progD = (-tRect.top) / (vh * 0.40);
-        progD = progD < 0 ? 0 : (progD > 1 ? 1 : progD);
-        var dx = Math.round(nikolaDock.dx * (1 - progD));
-        var dy = Math.round(nikolaDock.dy * (1 - progD));
-        if(dx !== nikolaDock.last || dy !== nikolaDock.lastDy){
-          nikolaDock.last = dx;
-          nikolaDock.lastDy = dy;
-          heroCard.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
-        }
-        // 2 baris saat diam, 3 baris saat mulai bergerak turun
-        var isCentered = progD < 0.1;
-        if(isCentered !== heroCard._centered){
-          heroCard._centered = isCentered;
-          heroCard.classList.toggle('is-centered', isCentered);
-        }
-      }
-    }
-
-    // ── Bab 03 Mobile: saat pilar 5 selesai, logo naik duluan keluar layar ──
+    // ── Bab 03: header (logo+judul) naik keluar layar saat pilar terakhir selesai ──
     var mobileHero = document.querySelector('.nikola-right-sticky');
     if(mobileHero){
-      if(window.innerWidth <= 900 && nikolaCard5DocTop > 0){
-        var trigY = nikolaCard5DocTop - 312;
-        if(y > trigY){
-          var lift = Math.min(260, Math.round((y - trigY) * 1.5));
+      if(nikolaTrigY > 0){
+        if(y > nikolaTrigY){
+          var lift = Math.min(nikolaMaxLift, Math.round((y - nikolaTrigY) * 1.6));
           mobileHero.style.transform = 'translate3d(0,-' + lift + 'px,0)';
         } else if(mobileHero.style.transform && mobileHero.style.transform !== 'none'){
           mobileHero.style.transform = 'none';
         }
       } else if(mobileHero.style.transform && mobileHero.style.transform !== 'none'){
-        // Kembali ke desktop / mobile tanpa kartu ke-5: bersihkan sisa transform lift
+        // Tanpa data geometri: bersihkan sisa transform lift
         mobileHero.style.transform = 'none';
       }
     }
@@ -1684,6 +1707,7 @@ Baarakallahu fiikum</div>
     var slides   = track ? [].slice.call(track.querySelectorAll('.pinned-slide')) : [];
     var total    = slides.length; // 6
     var cur      = -1;
+    var lastFillPct = -1;
 
     if(!section || !track || total === 0) return;
 
@@ -1704,7 +1728,11 @@ Baarakallahu fiikum</div>
       });
 
       // counter & bar
-      if(pnumEl)  pnumEl.textContent  = (cur + 1 < 10 ? '0' : '') + (cur + 1);
+      // Slide 1 = intro → ditampilkan sebagai "00", slide konten = 01..05
+      if(pnumEl){
+        var numLabel = cur === 0 ? 0 : cur; // intro=00, lalu 01..05
+        pnumEl.textContent = (numLabel < 10 ? '0' : '') + numLabel;
+      }
       if(pfillEl) pfillEl.style.width = ((cur + 1) / total * 100) + '%';
 
       // scroll hint: hide after first slide
@@ -1712,20 +1740,28 @@ Baarakallahu fiikum</div>
     }
 
     function onScroll(){
-      var rect    = section.getBoundingClientRect();
-      var secH    = section.offsetHeight;
-      var viewH   = window.innerHeight;
-      // scrolled distance from section top
-      var scrolled = -rect.top;
+      var viewH = window.innerHeight;
+      var secH  = section.offsetHeight;
       // total scrollable = secH - viewH
       var scrollable = secH - viewH;
       if(scrollable <= 0) return;
 
+      // Early-exit saat section jauh dari viewport → hindari layout read/write tiap event scroll
+      var rect    = section.getBoundingClientRect();
+      var scrolled = -rect.top;
+      if(scrolled < -viewH || scrolled > scrollable + viewH) return;
+
       // clamp 0..1
       var pct = Math.max(0, Math.min(1, scrolled / scrollable));
 
-      // progress bar fill
-      if(progFill) progFill.style.width = (pct * 100) + '%';
+      // progress bar fill (hanya tulis bila berubah)
+      if(progFill){
+        var fillPct = Math.round(pct * 1000) / 10;
+        if(fillPct !== lastFillPct){
+          lastFillPct = fillPct;
+          progFill.style.width = fillPct + '%';
+        }
+      }
 
       // which slide? divide range into `total` equal segments
       var slideIdx = Math.min(total - 1, Math.floor(pct * (total - 1) + 0.5));
@@ -1773,7 +1809,15 @@ Baarakallahu fiikum</div>
       }
     });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // rAF-throttle: banyak event scroll (touchpad/HP) → maksimal 1 eksekusi per frame
+    var storyRaf = 0;
+    function onScrollThrottled(){
+      if(storyRaf) return;
+      storyRaf = requestAnimationFrame(function(){ storyRaf = 0; onScroll(); });
+    }
+
+    window.addEventListener('scroll', onScrollThrottled, { passive: true });
+    window.addEventListener('resize', onScrollThrottled, { passive: true });
     onScroll(); // init on load
   })();
 
@@ -1928,37 +1972,6 @@ Baarakallahu fiikum</div>
     entries.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); statIO.unobserve(e.target); } });
   }, { threshold:.5 });
   document.querySelectorAll('[data-count]').forEach(function(el){ statIO.observe(el); });
-
-  // Cursor parallax pada ilustrasi hero (lerp + rAF, tanpa transition retarget)
-  (function(){
-    var inner = document.getElementById('hvInner');
-    var visual = document.querySelector('.hero-visual');
-    if(!inner || !visual) return;
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if(window.matchMedia('(hover: none)').matches) return;
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, active = false;
-    var halfW = 0, halfH = 0, rectL = 0, rectT = 0;
-    function refreshRect(){ var r = visual.getBoundingClientRect(); rectL = r.left; rectT = r.top; halfW = r.width / 2; halfH = r.height / 2; }
-    function loop(){
-      cx += (tx - cx) * 0.14;
-      cy += (ty - cy) * 0.14;
-      inner.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
-      if(active || Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1){ raf = requestAnimationFrame(loop); }
-      else { raf = 0; inner.style.transform = 'translate3d(0,0,0)'; }
-    }
-    refreshRect();
-    window.addEventListener('resize', refreshRect, { passive:true });
-    visual.addEventListener('mousemove', function(e){
-      active = true;
-      tx = ((e.clientX - rectL - halfW) / (halfW || 1)) * 18;
-      ty = ((e.clientY - rectT - halfH) / (halfH || 1)) * 18;
-      if(!raf) raf = requestAnimationFrame(loop);
-    });
-    visual.addEventListener('mouseleave', function(){
-      active = false; tx = 0; ty = 0;
-      if(!raf) raf = requestAnimationFrame(loop);
-    });
-  })();
 
   // FAQ accordion
   function closeAllQa(){
