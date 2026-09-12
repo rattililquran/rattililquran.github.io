@@ -242,6 +242,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 20px rgba(220,38,38,.35)}
 .btn-danger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(220,38,38,.45)}
 .btn-lg{padding:16px 32px;font-size:15.5px;border-radius:15px}
+.btn svg{width:17px;height:17px;flex-shrink:0}
 
 /* ── FLOATING ACTIONS ── */
 .fab-group{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;align-items:center;gap:12px}
@@ -279,7 +280,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .center .eyebrow{margin-left:auto;margin-right:auto}
 
 /* ── HERO ── */
-.hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:118px 22px 40px}
+.hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:118px 22px 88px}
 /* Foto latar khusus halaman 1 (hero) — full-bleed lebar layar.
    Memakai <picture> (art-direction): gambar terpisah untuk HP & desktop,
    WebP dengan fallback JPEG, sehingga hanya 1 berkas yang diunduh. */
@@ -321,12 +322,70 @@ html.theme-dark .hero::after{
 .hero h1 .w:nth-child(2){animation-delay:.38s}
 .hero h1 .w:nth-child(3){animation-delay:.46s}
 .hero h1 .w:nth-child(4){animation-delay:.54s}
-.hero h1 .grad{background:linear-gradient(110deg,var(--c-primary),var(--c-primary-2),var(--c-primary));background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards,shimmer 4.5s linear 3}
-@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+/* "Sahabat Al-Qur'an" — merah dengan efek kilat, sama seperti aksen navbar.
+   Catatan: pakai background-image (bukan shorthand) agar background-clip:text tidak tereset. */
+.hero h1 .grad{
+  background-image:linear-gradient(90deg,#b91c1c 0%,#dc2626 30%,#f87171 44%,#fef08a 50%,#f87171 56%,#dc2626 70%,#b91c1c 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  will-change:background-position;
+}
+.hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards,brandShimmer 2.8s linear infinite}
+html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%,#ef4444 30%,#fca5a5 44%,#fef9c3 50%,#fca5a5 56%,#ef4444 70%,#f87171 100%);background-size:200% auto}
+@media (prefers-reduced-motion:reduce){
+  .hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards}
+  .hero h1 .grad{background-image:none;-webkit-text-fill-color:#dc2626;color:#dc2626}
+  html.theme-dark .hero h1 .grad{background-image:none;-webkit-text-fill-color:#f87171;color:#f87171}
+}
 .hero p.lead{font-size:clamp(17px,1.4vw,20px);color:var(--c-ink);max-width:660px;margin:22px 0 0;line-height:1.7}
 .hero p.lead .lead-em{display:block;margin-top:.9em;font-style:italic;font-weight:600;color:inherit}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start}
+/* Hitung mundur gelombang di hero — angka besar + label kecil di bawahnya,
+   permukaan kaca tipis tanpa border tebal supaya terasa ringan. */
+.hero-cd{
+  margin-top:42px;display:inline-flex;align-items:center;gap:22px;flex-wrap:wrap;
+  padding:16px 22px;border-radius:18px;
+  background:var(--c-glass);
+  -webkit-backdrop-filter:blur(16px) saturate(1.25);backdrop-filter:blur(16px) saturate(1.25);
+  border:1px solid transparent;
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 12px 32px -18px rgba(15,23,42,.35);
+}
+.hero-cd[hidden]{display:none}
+.hero-cd-label{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-ink-3);white-space:nowrap}
+.hero-cd-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-primary);box-shadow:0 0 0 3px rgba(2,132,199,.16);flex-shrink:0}
+.hero-cd-sep{width:1px;align-self:stretch;min-height:38px;background:var(--c-line)}
+.hero-cd-row{display:flex;align-items:center;gap:20px}
+.hc-box{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:30px}
+.hc-num{font-size:23px;font-weight:800;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
+.hc-unit{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--c-ink-4)}
+/* Panduan gulir di dasar hero — teks berdenyut dalam chip agar selalu terbaca di atas foto */
+.hero-scroll-cue{
+  position:absolute;left:50%;bottom:52px;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  pointer-events:none;transition:opacity .5s var(--ease-smooth)
+}
+.hero-scroll-cue .cue-text{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:800;line-height:1;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--c-ink);
+  background:var(--c-glass);border:1px solid var(--c-line);border-radius:99px;
+  padding:8px 15px;box-shadow:var(--sh-sm);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  animation:cuePulse 2.4s var(--ease-smooth) infinite
+}
+.hero-scroll-cue .cue-text::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--c-primary);animation:cueDot 2.4s var(--ease-smooth) infinite}
+.hero-scroll-cue .cue-line{width:1px;height:26px;position:relative;overflow:hidden;background:linear-gradient(180deg,var(--c-line),transparent)}
+.hero-scroll-cue .cue-line::after{content:'';position:absolute;left:0;top:-14px;width:1px;height:14px;background:linear-gradient(180deg,transparent,var(--c-primary));animation:cueSlide 2.4s var(--ease-smooth) infinite}
+@keyframes cuePulse{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes cueDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes cueSlide{0%{transform:translateY(0)}100%{transform:translateY(42px)}}
+/* `.h-anim` memakai animation-fill-mode:both sehingga keyframe akhir (opacity:1)
+   mengunci nilai dan mengalahkan kelas ini — animation:none wajib agar bisa tersembunyi. */
+.hero-scroll-cue.is-hidden{animation:none;opacity:0!important}
+@media(prefers-reduced-motion:reduce){
+  .hero-scroll-cue .cue-text,.hero-scroll-cue .cue-text::after,.hero-scroll-cue .cue-line::after{animation:none}
+}
 @media(max-width:900px){
   .hero{
     padding:88px 18px 28px;
@@ -358,6 +417,17 @@ html.theme-dark .hero::after{
     max-width:94%;
   }
   .hero-cta{justify-content:center}
+  .hero-cd{display:flex;width:100%;max-width:330px;margin:22px auto 0;flex-direction:column;align-items:center;gap:12px;padding:15px 18px;border-radius:16px}
+  .hero-cd-label{text-align:center}
+  .hero-cd-sep{width:100%;height:1px;min-height:0}
+  .hero-cd-row{width:100%;justify-content:space-between;gap:0}
+  .hc-box{min-width:0;flex:1}
+  .hc-num{font-size:22px}
+}
+/* Layar pendek: konten hero lebih tinggi dari viewport, cue akan menimpa
+   countdown. Sembunyikan di situ saja — di layar tinggi tetap tampil. */
+@media(max-width:900px) and (max-height:740px){
+  .hero-scroll-cue{display:none}
 }
 
 /* ── TRUSTED STRIP (marquee) ── */
@@ -902,51 +972,107 @@ html.theme-dark .reg-flag{color:#f87171}
   .reg-note{margin-top:24px;text-align:left;font-size:13px}
 }
 
-/* ── REGISTRATION STATUS ── */
-.reg-status{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700;padding:9px 18px;border-radius:99px;margin-top:20px;border:1px solid var(--c-line)}
-.reg-status .dot{position:relative;width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.reg-status.open{color:#059669;background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.25)}
-.reg-status.open .dot{background:#059669;box-shadow:0 0 0 4px rgba(5,150,105,.18)}
+/* ── ALUR PENDAFTARAN (kartu utama) ──
+   Satu rail gradasi vertikal di gutter menandai arah alur; tiap langkah
+   duduk di atasnya dengan nada yang naik dari biru ke magenta. */
+.alur{
+  --g1a:#075985;--g1b:#0369a1;
+  --g2a:#3730a3;--g2b:#4338ca;
+  --g3a:#6b21a8;--g3b:#7e22ce;
+  --g4a:#9d174d;--g4b:#be185d;
+  list-style:none;position:relative;width:100%;max-width:820px;margin:38px auto 0;
+  background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);
+  overflow:hidden;text-align:left;box-shadow:var(--sh-sm)}
+.alur-step{display:grid;grid-template-columns:82px minmax(0,1fr);align-items:stretch}
+.alur-step + .alur-step{border-top:1px solid var(--c-line)}
+.alur-step:nth-child(1){--ga:var(--g1a);--gb:var(--g1b)}
+.alur-step:nth-child(2){--ga:var(--g2a);--gb:var(--g2b)}
+.alur-step:nth-child(3){--ga:var(--g3a);--gb:var(--g3b)}
+.alur-step:nth-child(4){--ga:var(--g4a);--gb:var(--g4b)}
+/* konektor rail: segmen atas (dari tepi langkah ke badge) & segmen bawah (badge ke langkah berikutnya) */
+.alur-no{position:relative;z-index:1;display:flex;justify-content:center;padding:26px 0 0}
+.alur-no::before,
+.alur-no::after{content:'';position:absolute;left:50%;width:2px;margin-left:-1px;background:linear-gradient(180deg,var(--ga),var(--gb))}
+.alur-no::before{top:0;height:26px}
+.alur-no::after{top:60px;bottom:0}
+.alur-step:first-child .alur-no::before{display:none}
+.alur-step:last-child .alur-no::after{display:none}
+.alur-no b{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0;color:#fff;font-variant-numeric:tabular-nums;background:linear-gradient(135deg,var(--ga),var(--gb))}
+.alur-body{padding:25px 30px 27px 22px;min-width:0}
+.alur-body h4{font-size:16px;font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.35;overflow-wrap:anywhere}
+.alur-body p{font-size:13.5px;color:var(--c-ink-3);line-height:1.62;margin-top:6px;max-width:54ch}
+/* mode gelap: badge dilembutkan agar tetap terbaca di kartu gelap */
+html.theme-dark .alur-no b{background:linear-gradient(135deg,color-mix(in srgb,var(--ga) 82%,#0d1b30),color-mix(in srgb,var(--gb) 74%,#0d1b30))}
+
+/* ── Bagi teks: baris ringkas + pratinjau yang bisa dilipat ── */
+.share-inline{margin-top:8px}
+.share-inline > summary{display:flex;align-items:center;gap:10px;padding:13px 0;border-top:1px solid var(--c-line);cursor:pointer;list-style:none;font-size:13px;font-weight:700;color:var(--c-ink-2);transition:color var(--dur-fast)}
+.share-inline > summary::-webkit-details-marker{display:none}
+.share-inline > summary:hover{color:var(--c-ink)}
+.share-inline > summary:focus-visible{outline:2px solid var(--c-primary);outline-offset:2px;border-radius:6px}
+.share-toggle-ico{flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--c-ink-4);transition:transform var(--dur) var(--ease-spring),color var(--dur-fast)}
+.share-toggle-ico svg{width:14px;height:14px}
+.share-inline[open] .share-toggle-ico{transform:rotate(180deg);color:var(--c-primary)}
+.share-hint{margin-left:auto;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.share-hint::after{content:'Buka'}
+.share-inline[open] .share-hint::after{content:'Tutup'}
+.share-preview{padding:2px 0 16px}
+.alur-body .share-preview p{font-size:13px;color:var(--c-ink-2);line-height:1.62;white-space:pre-line;max-width:none;margin:0;user-select:all}
+.share-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:16px}
+.share-actions .btn{width:100%;min-width:0;padding:11px 12px;font-size:12.5px;font-weight:700;border-radius:10px;gap:7px;background:var(--c-card);border:1px solid var(--c-line);color:var(--c-ink-2);box-shadow:none}
+.share-actions .btn:hover{transform:none;border-color:var(--c-ink-4);color:var(--c-ink);box-shadow:none}
+.share-actions .btn:focus-visible{outline:2px solid var(--c-primary);outline-offset:2px}
+.share-actions .btn svg{width:15px;height:15px}
+.share-actions .btn-wa svg{color:#16a34a}
+.share-actions .btn-ghost svg{color:var(--c-primary)}
+.btn.is-done{border-color:var(--c-accent);color:var(--c-accent)}
+.btn.is-done svg{color:var(--c-accent)}
+
+/* ── STATUS & TENGGAT (kartu aksi di bawah alur) ── */
+.gelombang{display:flex;flex-wrap:wrap;align-items:stretch;width:100%;max-width:820px;margin:16px auto 0;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden;text-align:left;box-shadow:var(--sh-sm)}
+.gelombang-info{flex:1 1 320px;min-width:0;padding:26px 30px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.reg-status{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-ink-2)}
+.reg-status .dot{position:relative;width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.reg-status.open{color:#047857;background:rgba(5,150,105,.08);border-color:rgba(5,150,105,.24)}
+.reg-status.open .dot{background:#059669}
 .reg-status.open .dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:#059669;animation:dotPulse 2.4s ease-out infinite}
-.reg-status.closed{color:#dc2626;background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.25)}
+.reg-status.closed{color:#b91c1c;background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.22)}
 .reg-status.closed .dot{background:#ef4444}
-html.theme-dark .reg-status.open{color:#34d399}
-html.theme-dark .reg-status.closed{color:#f87171}
+html.theme-dark .reg-status.open{color:#6ee7b7}
+html.theme-dark .reg-status.closed{color:#fca5a5}
+.gelombang-info .reg-note{margin:0;max-width:46ch;text-align:left;font-size:13.5px;line-height:1.6}
+.gelombang-info .btn{align-self:flex-start}
 
-/* ── COUNTDOWN ── */
-.countdown{margin:22px auto 0;max-width:380px}
-.countdown-label{font-size:13px;font-weight:700;color:var(--c-ink-3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
-.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.cd-box{background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r);padding:12px 4px;box-shadow:var(--sh)}
-.cd-num{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.cd-unit{display:block;font-size:10.5px;color:var(--c-ink-4);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
-
-/* ── TIMELINE STEPS ── */
-.steps{display:flex;flex-direction:row;align-items:flex-start;gap:0;margin-top:46px;position:relative;text-align:left}
-.step{position:relative;flex:1;padding:0 14px}
-.step-num{position:relative;z-index:2;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;background:var(--grad);box-shadow:0 6px 16px rgba(2,132,199,.35);margin-bottom:16px}
-.step:not(:last-child)::after{content:'';position:absolute;top:23px;left:62px;right:-14px;height:2px;background:var(--c-line);z-index:1}
-.step h4{font-size:16px;font-weight:800;color:var(--c-ink);margin-bottom:6px}
-.step p{font-size:13.5px;color:var(--c-ink-3)}
-@media(max-width:767px){
-  .steps{flex-direction:column;gap:0}
-  .step{flex:none;padding:0 0 26px 66px}
-  .step:last-child{padding-bottom:0}
-  .step-num{position:absolute;left:0;top:0;margin-bottom:0}
-  .step:not(:last-child)::after{top:52px;left:23px;right:auto;bottom:-4px;width:2px;height:auto}
+.countdown{flex:0 1 auto;max-width:400px;padding:26px 30px;border-left:1px solid var(--c-line);display:flex;flex-direction:column;gap:9px;justify-content:center}
+.countdown-label{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-ink-4);margin:0;line-height:1.5}
+.countdown-row{display:flex;align-items:flex-start;gap:16px}
+.cd-box{display:flex;flex-direction:column;align-items:flex-start}
+.cd-num{font-size:clamp(24px,4.2vw,32px);font-weight:800;line-height:1;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
+.cd-box:last-child .cd-num{color:var(--c-primary)}
+.cd-unit{font-size:9.5px;font-weight:700;color:var(--c-ink-4);margin-top:7px;text-transform:uppercase;letter-spacing:.12em}
+@media(max-width:640px){
+  .alur{margin-top:30px}
+  .alur-step{grid-template-columns:56px minmax(0,1fr)}
+  .alur-no{padding-top:22px}
+  .alur-no::before{height:22px}
+  .alur-no::after{top:52px}
+  .alur-no b{width:30px;height:30px;font-size:11px}
+  .alur-body{padding:21px 20px 23px 16px}
+  .alur-body h4{font-size:15.5px}
+  .share-actions{grid-template-columns:1fr;gap:8px}
+  .share-hint{display:none}
+  .gelombang{margin-top:14px}
+  .gelombang-info{padding:22px 20px}
+  .gelombang .btn{width:100%}
+  .countdown{flex:1 1 100%;max-width:none;border-left:0;border-top:1px solid var(--c-line);padding:22px 20px}
+  .countdown-row{gap:0;justify-content:space-between}
+  .cd-box{flex:1}
+  .cd-num{font-size:clamp(24px,7vw,30px)}
 }
 
-/* ── SHARE WIDGET ── */
-.share-box-widget{max-width:760px;margin:32px auto 0;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh);text-align:left;box-sizing:border-box}
-.share-box-header{display:flex;gap:14px;align-items:center;margin-bottom:16px}
-.share-box-header .share-icon{font-size:24px;background:var(--c-soft);color:var(--c-primary);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.share-box-header h4{font-size:16px;font-weight:800;color:var(--c-ink)}
-.share-box-header p{font-size:13px;color:var(--c-ink-3);margin-top:2px}
-.share-box-content{display:flex;flex-direction:column;gap:16px}
-.share-text-preview{background:var(--c-bg);border:1px solid var(--c-line);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--c-ink-2);line-height:1.6;font-style:italic;user-select:all}
-.share-box-actions{display:flex;gap:10px;flex-wrap:wrap}
-.share-box-actions .btn{padding:10px 18px;font-size:13px;border-radius:10px;box-shadow:none;height:auto;flex:1;min-width:140px}
-@media(max-width:640px){.share-box-header{flex-direction:column;text-align:center}.share-box-actions{flex-direction:column}.share-box-actions .btn{width:100%;flex:none}}
+/* Hallmark · #pendaftaran · macrostructure: papan-tahapan (ledger) · enrichment: none
+   · theme: brand-catalog (paper #f8fafc · accent #0284c7 · display Plus Jakarta Sans + mono)
+   · hlm. pendaftaran · contrast: pass · slop: pass · mobile: pass */
 
 /* ── TESTIMONI ── */
 .tg{position:relative;max-width:640px;margin:46px auto 0}
@@ -1070,6 +1196,9 @@ html.theme-dark .reg-status.closed{color:#f87171}
   <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
   <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
   <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
   <symbol id="i-mother-child" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="2.5"/><path d="M4 21v-3.5A3.5 3.5 0 0 1 7.5 14h1A3.5 3.5 0 0 1 12 17.5V21"/><circle cx="16.5" cy="9.5" r="2"/><path d="M13.5 21v-2.6a3 3 0 0 1 3-3h.5a3 3 0 0 1 3 3V21"/></symbol>
   <symbol id="i-mihrab" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V11.5a7 7 0 0 1 14 0V21"/><path d="M3.5 21h17"/><path d="M12 6.5V9"/><circle cx="12" cy="5.5" r="1.2"/></symbol>
   <symbol id="i-magnify-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h9M3 9h9M3 12.5h6"/><circle cx="15" cy="15" r="5"/><path d="m19 19 2.5 2.5"/></symbol>
@@ -1186,7 +1315,25 @@ html.theme-dark .reg-status.closed{color:#f87171}
       <div class="hero-badge h-anim closed" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran sementara ditutup</span></div>
       <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
       <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata. <em class="lead-em">Biidznillah</em></p>
+
+      <!-- Hitung mundur gelombang: diisi oleh skrip yang sama dengan section #pendaftaran -->
+      <div class="hero-cd h-anim" id="heroCountdown" hidden style="animation-delay:.5s">
+        <span class="hero-cd-label" id="heroCdLabel"></span>
+        <span class="hero-cd-sep" aria-hidden="true"></span>
+        <div class="hero-cd-row">
+          <span class="hc-box"><span class="hc-num" id="hcDays">00</span><span class="hc-unit">Hari</span></span>
+          <span class="hc-box"><span class="hc-num" id="hcHours">00</span><span class="hc-unit">Jam</span></span>
+          <span class="hc-box"><span class="hc-num" id="hcMins">00</span><span class="hc-unit">Menit</span></span>
+          <span class="hc-box"><span class="hc-num" id="hcSecs">00</span><span class="hc-unit">Detik</span></span>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Panduan gulir: teks berdenyut, disembunyikan begitu halaman mulai digulir -->
+  <div class="hero-scroll-cue h-anim" id="heroScrollCue" aria-hidden="true" style="animation-delay:.75s">
+    <span class="cue-text">Gulir</span>
+    <span class="cue-line"></span>
   </div>
 </header>
 
@@ -1546,45 +1693,71 @@ html.theme-dark .reg-status.closed{color:#f87171}
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara <span class="grad-text">Bergabung</span></h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
-  <div class="reg-status closed" id="regStatus" data-reveal><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Ditutup</span></div>
-  <p class="reg-note" id="regNote" data-reveal style="display:none"></p>
-  <div class="countdown" id="regCountdown" data-reveal style="display:none">
-    <p class="countdown-label" id="countdownLabel"></p>
-    <div class="countdown-grid">
-      <div class="cd-box"><span class="cd-num" id="cdDays">00</span><span class="cd-unit">Hari</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdHours">00</span><span class="cd-unit">Jam</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdMins">00</span><span class="cd-unit">Menit</span></div>
-      <div class="cd-box"><span class="cd-num" id="cdSecs">00</span><span class="cd-unit">Detik</span></div>
-    </div>
-  </div>
-  <div style="margin-top:28px" data-reveal>
-    <!-- [EDIT] ganti nomor WhatsApp pada href -->
-    <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20tahu%20info%20gelombang%20pendaftaran%20Rattililqur'an%20berikutnya" target="_blank" rel="noopener" class="btn btn-wa btn-lg" id="regWaBtn">💬 Tanya Info Gelombang Berikutnya</a>
-  </div>
-  <div class="steps">
-    <div class="step" data-reveal style="--i:0"><div class="step-num">1</div><h4>Share Info Pendaftaran</h4><p>Mari bersama menyebar info kebaikan ini melalui medsos yang ada, semoga menjadi amal jariyah untuk bersama.</p></div>
-    <div class="step" data-reveal style="--i:1"><div class="step-num">2</div><h4>Isi Data Diri</h4><p>Lengkapi formulir pendaftaran yang ada di link pendaftaran.</p></div>
-    <div class="step" data-reveal style="--i:2"><div class="step-num">3</div><h4>Ramah Tamah</h4><p>Sesi diskusi dan wawancara dengan para pengajar Rattililquran.</p></div>
-    <div class="step" data-reveal style="--i:3"><div class="step-num">4</div><h4>Mulai Belajar</h4><p>Dapatkan akun portal dan mulai mengikuti halaqah. Barakallahu fiikum!</p></div>
-  </div>
 
-  <!-- Share Box Widget -->
-  <div class="share-box-widget" data-reveal>
-    <div class="share-box-header">
-      <div class="share-icon">📢</div>
-      <div>
-        <h4>Bagikan Kebaikan Ini</h4>
-        <p>Ajak keluarga, teman, dan kerabat untuk bersama-sama menjadi sahabat Al-Qur'an.</p>
+  <ol class="alur" role="list">
+    <li class="alur-step" data-reveal style="--i:0">
+      <span class="alur-no" aria-hidden="true"><b>01</b></span>
+      <div class="alur-body">
+        <h4>Share Info Pendaftaran</h4>
+        <p>Mari bersama menyebar info kebaikan ini melalui medsos yang ada, semoga menjadi amal jariyah untuk bersama.</p>
+
+        <!-- Aset siap-bagikan untuk langkah 01. Teksnya dilipat agar hemat ruang di HP. -->
+        <details class="share-inline">
+          <summary>
+            <span class="share-toggle-ico" aria-hidden="true"><svg><use href="#i-chevron-down"/></svg></span>
+            <span>Teks siap dibagikan</span>
+            <span class="share-hint" aria-hidden="true"></span>
+          </summary>
+          <div class="share-preview">
+            <p id="shareTextPreview">Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, Rattililqur'an sekarang membuka pendaftaran. Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info &amp; pendaftaran: https://rattililquran.com
+
+Baarakallahu fiikum</p>
+          </div>
+        </details>
+        <div class="share-actions">
+          <a href="https://api.whatsapp.com/send?text=Bismillah.%20Bagi%20Anda%20yang%20ingin%20memperbaiki%20kualitas%20bacaan%20Al-Qur'an%20dan%20Ibadah%20lainnya%2C%20Rattililqur'an%20sekarang%20membuka%20pendaftaran.%20Belajar%20bersama%20secara%20terstruktur%20dalam%20halaqah%20kecil%20bersama%20pengajar%20berpengalaman%2C%20dengan%20progres%20terpantau%20lewat%20portal%20digital.%20Yuk%2C%20jadikan%20ini%20langkah%20awal%20menjadi%20sahabat%20Al-Qur'an.%20Info%20%26%20pendaftaran%3A%20https%3A%2F%2Frattililquran.com%0A%0ABaarakallahu%20fiikum" target="_blank" rel="noopener" class="btn btn-wa"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Kirim via WhatsApp</a>
+          <button type="button" onclick="copyShareLink(this)" class="btn btn-ghost"><svg aria-hidden="true"><use href="#i-copy"/></svg><span class="btn-label">Salin Teks</span></button>
+        </div>
       </div>
-    </div>
-    <div class="share-box-content">
-      <div class="share-text-preview" id="shareTextPreview">Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, Rattililqur'an sekarang membuka pendaftaran. Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info &amp; pendaftaran: https://rattililquran.com
+    </li>
+    <li class="alur-step" data-reveal style="--i:1">
+      <span class="alur-no" aria-hidden="true"><b>02</b></span>
+      <div class="alur-body">
+        <h4>Isi Data Diri</h4>
+        <p>Lengkapi formulir pendaftaran yang ada di link pendaftaran.</p>
+      </div>
+    </li>
+    <li class="alur-step" data-reveal style="--i:2">
+      <span class="alur-no" aria-hidden="true"><b>03</b></span>
+      <div class="alur-body">
+        <h4>Ramah Tamah</h4>
+        <p>Sesi diskusi dan wawancara dengan para pengajar Rattililquran.</p>
+      </div>
+    </li>
+    <li class="alur-step" data-reveal style="--i:3">
+      <span class="alur-no" aria-hidden="true"><b>04</b></span>
+      <div class="alur-body">
+        <h4>Mulai Belajar</h4>
+        <p>Dapatkan akun portal dan mulai mengikuti halaqah. Barakallahu fiikum!</p>
+      </div>
+    </li>
+  </ol>
 
-Baarakallahu fiikum</div>
-      <div class="share-box-actions">
-        <a href="https://api.whatsapp.com/send?text=Bismillah.%20Bagi%20Anda%20yang%20ingin%20memperbaiki%20kualitas%20bacaan%20Al-Qur'an%20dan%20Ibadah%20lainnya%2C%20Rattililqur'an%20sekarang%20membuka%20pendaftaran.%20Belajar%20bersama%20secara%20terstruktur%20dalam%20halaqah%20kecil%20bersama%20pengajar%20berpengalaman%2C%20dengan%20progres%20terpantau%20lewat%20portal%20digital.%20Yuk%2C%20jadikan%20ini%20langkah%20awal%20menjadi%20sahabat%20Al-Qur'an.%20Info%20%26%20pendaftaran%3A%20https%3A%2F%2Frattililquran.com%0A%0ABaarakallahu%20fiikum" target="_blank" rel="noopener" class="btn btn-wa">💬 Bagikan ke WhatsApp</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Frattililquran.com" target="_blank" rel="noopener" class="btn btn-primary" style="background:#1877F2;">📘 Bagikan ke Facebook</a>
-        <button onclick="copyShareLink(this)" class="btn btn-ghost">🔗 Salin Teks Info</button>
+  <div class="gelombang" data-reveal>
+    <div class="gelombang-info">
+      <span class="reg-status closed" id="regStatus"><span class="dot"></span><span id="regStatusText">Pendaftaran Sedang Ditutup</span></span>
+      <p class="reg-note" id="regNote" style="display:none"></p>
+      <!-- [EDIT] ganti nomor WhatsApp pada href -->
+      <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20tahu%20info%20gelombang%20pendaftaran%20Rattililqur'an%20berikutnya" target="_blank" rel="noopener" class="btn btn-wa" id="regWaBtn"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg><span id="regWaText">Tanya Info Gelombang Berikutnya</span></a>
+    </div>
+
+    <div class="countdown" id="regCountdown" style="display:none">
+      <p class="countdown-label" id="countdownLabel"></p>
+      <div class="countdown-row">
+        <div class="cd-box"><span class="cd-num" id="cdDays">00</span><span class="cd-unit">Hari</span></div>
+        <div class="cd-box"><span class="cd-num" id="cdHours">00</span><span class="cd-unit">Jam</span></div>
+        <div class="cd-box"><span class="cd-num" id="cdMins">00</span><span class="cd-unit">Menit</span></div>
+        <div class="cd-box"><span class="cd-num" id="cdSecs">00</span><span class="cd-unit">Detik</span></div>
       </div>
     </div>
   </div>
@@ -1738,6 +1911,7 @@ Baarakallahu fiikum</div>
   var secMetrics = [];
   var needMeasure = true;
   var navScrolled = null, backTopShown = null, lastProgress = -1;
+  var heroCue = document.getElementById('heroScrollCue'), heroCueHidden = null;
   var nikolaDock = { active:false, dx:0, dy:0, last:null, lastDy:null };
   var nikolaTrigY = 0;        // scrollY saat lift mulai (dihitung dari geometri nyata)
   var nikolaMaxLift = 0;      // jarak angkat maksimum (cukup agar header keluar layar)
@@ -1806,6 +1980,12 @@ Baarakallahu fiikum</div>
     // Back-to-top
     var showTop = y > 500;
     if(showTop !== backTopShown){ backTopShown = showTop; backToTop.classList.toggle('show', showTop); }
+
+    // Panduan gulir hero — hilang setelah pengguna mulai menggulir
+    if(heroCue){
+      var cueHidden = y > 40;
+      if(cueHidden !== heroCueHidden){ heroCueHidden = cueHidden; heroCue.classList.toggle('is-hidden', cueHidden); }
+    }
 
     // Progress bar (compositor-only transform)
     var pct = Math.round(Math.min(y / navMetrics.range, 1) * 1000) / 1000;
@@ -1990,7 +2170,12 @@ Baarakallahu fiikum</div>
     var regStatusText = document.getElementById('regStatusText');
     var regNote = document.getElementById('regNote');
     var waBtn = document.getElementById('regWaBtn');
+    var waBtnText = document.getElementById('regWaText');
     var ctaBar = document.getElementById('ctaDaftarBar');
+    function setWaLabel(text){
+      if(waBtnText){ waBtnText.textContent = text; }
+      else { waBtn.textContent = text; }
+    }
     if(PENDAFTARAN_DIBUKA){
       heroBadge.classList.remove('closed');
       heroBadge.classList.add('open');
@@ -1998,7 +2183,7 @@ Baarakallahu fiikum</div>
       regStatus.classList.remove('closed');
       regStatus.classList.add('open');
       regStatusText.textContent = 'Pendaftaran Sedang Dibuka';
-      waBtn.textContent = '📝 Daftar Online Sekarang';
+      setWaLabel('Daftar Online Sekarang');
       waBtn.href = 'https://rattililquran.com/pendaftaran';
       waBtn.classList.remove('btn-wa');
       waBtn.classList.add('btn-primary');
@@ -2018,7 +2203,7 @@ Baarakallahu fiikum</div>
       regNote.textContent = PESAN_TUTUP;
       regNote.style.display = 'block';
       var waHref = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
-      waBtn.textContent = '💬 Tanya Info Gelombang Berikutnya';
+      setWaLabel('Tanya Info Gelombang Berikutnya');
       waBtn.href = waHref;
       waBtn.target = '_blank';
       waBtn.classList.remove('btn-primary');
@@ -2041,9 +2226,6 @@ Baarakallahu fiikum</div>
     if(!targetStr) return;
     var target = new Date(targetStr);
     if(isNaN(target.getTime())) return;
-    var box = document.getElementById('regCountdown');
-    var label = document.getElementById('countdownLabel');
-    var dEl = document.getElementById('cdDays'), hEl = document.getElementById('cdHours'), mEl = document.getElementById('cdMins'), sEl = document.getElementById('cdSecs');
     // Label dibuat dinamis dari tanggal target (bukan teks hardcoded) agar tidak pernah bentrok saat tanggal diubah
     var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     function fmtTanggal(str){
@@ -2052,22 +2234,52 @@ Baarakallahu fiikum</div>
       if(!m) return str;
       return parseInt(m[3], 10) + ' ' + BULAN[parseInt(m[2], 10) - 1] + ' ' + m[1];
     }
-    label.textContent = PENDAFTARAN_DIBUKA
+    var labelLong = PENDAFTARAN_DIBUKA
       ? 'Ditutup ' + fmtTanggal(targetStr) + ' — atau lebih awal jika kuota penuh · sisa waktu'
       : 'Gelombang berikutnya dibuka dalam';
-    box.style.display = 'block';
+    var labelShort = PENDAFTARAN_DIBUKA
+      ? 'Ditutup dalam'
+      : 'Dibuka dalam';
+
+    // Kumpulkan semua target: hero (label ringkas) + kartu pendaftaran (label lengkap)
+    var sets = [];
+    function collect(boxId, labelId, ids, short){
+      var box = document.getElementById(boxId);
+      if(!box) return;
+      var cells = ids.map(function(id){ return document.getElementById(id); });
+      if(cells.some(function(el){ return !el; })) return;
+      var label = document.getElementById(labelId);
+      if(label) label.textContent = short ? labelShort : labelLong;
+      sets.push({ box:box, cells:cells });
+    }
+    collect('heroCountdown', 'heroCdLabel', ['hcDays','hcHours','hcMins','hcSecs'], true);
+    collect('regCountdown', 'countdownLabel', ['cdDays','cdHours','cdMins','cdSecs'], false);
+    if(!sets.length) return;
+
     function pad(n){ return String(n).padStart(2,'0'); }
+    function show(){
+      sets.forEach(function(s){ s.box.hidden = false; s.box.style.removeProperty('display'); });
+    }
+    function hide(){
+      sets.forEach(function(s){ s.box.hidden = true; s.box.style.display = 'none'; });
+    }
     function tick(){
       var diff = target.getTime() - Date.now();
-      if(diff <= 0){ dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = '00'; stop(); return; }
-      dEl.textContent = pad(Math.floor(diff / 86400000));
-      hEl.textContent = pad(Math.floor(diff % 86400000 / 3600000));
-      mEl.textContent = pad(Math.floor(diff % 3600000 / 60000));
-      sEl.textContent = pad(Math.floor(diff % 60000 / 1000));
+      if(diff <= 0){ hide(); stop(); return; }
+      var vals = [
+        pad(Math.floor(diff / 86400000)),
+        pad(Math.floor(diff % 86400000 / 3600000)),
+        pad(Math.floor(diff % 3600000 / 60000)),
+        pad(Math.floor(diff % 60000 / 1000))
+      ];
+      sets.forEach(function(s){
+        for(var i = 0; i < 4; i++){ s.cells[i].textContent = vals[i]; }
+      });
     }
     var timer = null, ticking = true;
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }
     function start(){ stop(); if(ticking) timer = setInterval(tick, 1000); }
+    show();
     tick();
     start();
     document.addEventListener('visibilitychange', function(){
@@ -2241,9 +2453,20 @@ Baarakallahu fiikum</div>
     }
   }
   function showSuccess(btn) {
-    var orig = btn.innerHTML;
-    btn.innerHTML = "✅ Tersalin!";
-    setTimeout(function() { btn.innerHTML = orig; }, 2000);
+    var label = btn.querySelector('.btn-label');
+    if (label) {
+      var orig = label.textContent;
+      label.textContent = "Tersalin!";
+      btn.classList.add('is-done');
+      setTimeout(function() {
+        label.textContent = orig;
+        btn.classList.remove('is-done');
+      }, 2000);
+      return;
+    }
+    var origHtml = btn.innerHTML;
+    btn.innerHTML = "Tersalin!";
+    setTimeout(function() { btn.innerHTML = origHtml; }, 2000);
   }
   function fallbackCopyText(text, btn) {
     var textArea = document.createElement("textarea");
