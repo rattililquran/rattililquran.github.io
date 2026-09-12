@@ -65,12 +65,13 @@ a{color:inherit}
 /* ── NAVBAR ── */
 .nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--c-bg) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-line)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.nav-brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:16px;color:var(--c-ink);letter-spacing:.02em;text-decoration:none;text-transform:uppercase}
+.nav-brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:16px;color:var(--c-ink);letter-spacing:.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
+.nav-brand span{white-space:nowrap}
 .nav-brand img{height:36px;width:auto}
 .brand-accent{background:linear-gradient(90deg,#dc2626 0%,#f87171 38%,#fef08a 50%,#f87171 62%,#dc2626 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:850;letter-spacing:.02em;will-change:background-position;animation:brandShimmer 2.4s linear infinite;display:inline-block}
 @keyframes brandShimmer{0%{background-position:0% center}100%{background-position:200% center}}
-.nav-links{display:flex;align-items:center;gap:2px}
-.nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 9px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:2px;flex-wrap:nowrap}
+.nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 9px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);white-space:nowrap;flex-shrink:0}
 .nav-link:hover,.nav-link.active{color:var(--c-primary)}
 .nav-cta{margin-left:6px}
 .nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--c-line);background:var(--c-card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;margin-left:auto;flex-shrink:0}
@@ -87,7 +88,7 @@ a{color:inherit}
 .theme-toggle .i-moon{display:none}
 html.theme-dark .theme-toggle .i-sun{display:none}
 html.theme-dark .theme-toggle .i-moon{display:block}
-@media(max-width:1050px){
+@media(max-width:1110px){
   .nav-links{position:fixed;inset:96px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
   .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
