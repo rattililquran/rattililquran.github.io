@@ -459,14 +459,26 @@ nominal rupiah:
 
 ## 9. Urutan Pengerjaan
 
-1. ~~**Ambil & sensor tangkapan layar** (§7)~~ — **SELESAI**, 6 aset siap.
-2. **Putuskan §10** (terutama label angka & nasib tautan navbar).
-3. Bangun **Hook 1** (Portal) di beranda — pakai `Portal-beranda-*`.
-4. Bangun **Hook 2** (Modul) di beranda — pakai `Modul-daftar-materi-*`.
-5. Bangun **`portal-modul.html`** — pakai keenam aset.
-6. Geser penomoran + perbarui navbar & footer di **kedua** berkas
-   (`index.html` dan `beasiswa.html` bila tautannya berubah).
-7. Verifikasi §11.
+**Status: SELESAI semua** (commit `3f7ece1`).
+
+1. ~~**Ambil & sensor tangkapan layar** (§7)~~ — **SELESAI**, 6 aset.
+2. ~~**Putuskan §10**~~ — **SELESAI**, lihat §10.
+3. ~~Bangun **Hook 1** (Portal) di beranda~~ — **SELESAI** (`#portal-murid`).
+4. ~~Bangun **Hook 2** (Modul) di beranda~~ — **SELESAI** (`#modul-belajar`).
+5. ~~Bangun **`portal-modul.html`**~~ — **SELESAI**, 8 bagian.
+6. ~~Geser penomoran + perbarui navbar & footer~~ — **SELESAI** di
+   `index.html`, `beasiswa.html`, dan `portal-modul.html`.
+7. ~~Verifikasi §11~~ — **SELESAI**; 18 kombinasi (3 halaman × 6 lebar) tanpa
+   overflow nyata, tanpa JavaScript tetap tampil, light+dark lolos.
+
+### Yang belum
+
+- [ ] Konfirmasi pemilik produk untuk publikasi tangkapan layar (§2.3).
+- [ ] Hapus akun murid dummy yang dipakai untuk pengambilan tangkapan layar.
+- [ ] Bila tangkapan layar diubah: ulangi prosedur sensor §7.1, jangan
+      memotret layar manual dengan akun asli.
+- [ ] Bila label angka diseragamkan: `Portal-masuk-*` perlu difoto ulang.
+
 
 ---
 
