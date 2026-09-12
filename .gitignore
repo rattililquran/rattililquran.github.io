@@ -1,2 +1,6 @@
 .DS_Store
 .kilo/
+
+# Dokumen internal — jangan ikut tayang di GitHub Pages
+rencana_portal_dan_modul.md
+laporan_seo_google.md
