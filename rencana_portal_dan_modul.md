@@ -472,22 +472,24 @@ nominal rupiah:
 
 ## 10. Keputusan yang Masih Terbuka
 
-- [ ] **Label angka:** portal memakai "Murid Aktif / Pengajar / Halaqah";
-      beranda memakai "Murid / Guru / Halaqah". Mana acuannya?
-      *(Screenshot `Portal-masuk-*` ikut menampilkan versi portal — bila
-      label diseragamkan, screenshot perlu diambil ulang.)*
+### Sudah diputuskan
+
+- [x] **Penempatan:** Opsi A — dua hook sebelum `#pendaftaran`. *(dibangun)*
+- [x] **Tautan navbar:** **tambah** menu "Portal & Modul" ke `portal-modul.html`.
+- [x] **Label angka:** **dibiarkan** — portal tetap "Murid Aktif / Pengajar",
+      beranda tetap "Murid / Guru". Tidak perlu foto ulang `Portal-masuk-*`.
+- [x] **KhatamKu & TarbiyahKu:** **tidak dijelaskan** di halaman khusus;
+      fokus pada Portal & Modul saja.
+- [x] **Tombol video:** playlist YouTube "Portal Halaqah" ditautkan sebagai
+      tombol merah **Video Portal** di hook dan footer. *(dibangun)*
+
+### Masih terbuka
+
 - [ ] **Urutan angka:** portal "370 · 34 · 11" vs beranda "370 · 11 · 34".
-      Diseragamkan?
-- [ ] **Tautan navbar:** tambah "Portal & Modul", atau alihkan tautan
-      "Modul" yang sudah ada ke halaman khusus?
-- [ ] **Tampilkan KhatamKu & TarbiyahKu?** Keduanya ada di portal dan modul
-      menautkan KhatamKu. Ikut dijelaskan atau cukup disebut sekilas?
-- [ ] **Sebut angka pencapaian?** Portal punya PWA, 21 halaman, dan
-      v8.15 — mana yang layak ditonjolkan?
+      Diseragamkan? (label dibiarkan, tapi urutan bisa jadi pertanyaan lain)
 - [ ] **Izin publikasi:** sudahkah pemilik produk menyetujui pemakaian
-      tangkapan layar?
-- [ ] **Akun dummy untuk tangkapan layar:** akan dihapus atau dibiarkan?
-- [ ] **Penempatan:** setuju Opsi A?
+      tangkapan layar? *(aset sudah live sejak commit cc9438b)*
+- [ ] **Akun dummy:** dihapus atau dibiarkan?
 
 ---
 
