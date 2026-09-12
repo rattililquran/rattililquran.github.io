@@ -164,8 +164,10 @@ html.theme-dark .bg-noise{opacity:.05}
 @keyframes fadeRight{from{opacity:0;transform:translate3d(70px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes slideFromRight{from{opacity:0;transform:translate3d(110px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes slideFromLeft{from{opacity:0;transform:translate3d(-110px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
-[data-reveal]{opacity:0}
-[data-reveal].in{animation:fadeUp .7s var(--ease-spring) both;animation-delay:calc(var(--i,0) * 80ms)}
+/* Keadaan tersembunyi digerbangi .js (dipasang skrip di <head>).
+   Tanpa JavaScript, konten tetap terlihat — bukan halaman kosong. */
+html.js [data-reveal]{opacity:0}
+html.js [data-reveal].in{animation:fadeUp .7s var(--ease-spring) both;animation-delay:calc(var(--i,0) * 80ms)}
 [data-reveal="left"].in{animation:fadeLeft .85s var(--ease-spring) both}
 [data-reveal="right"].in{animation:fadeRight .85s var(--ease-spring) both}
 [data-reveal="slide-right"].in{animation:slideFromRight .95s var(--ease-spring) both}
@@ -174,6 +176,7 @@ html.theme-dark .bg-noise{opacity:.05}
 [data-reveal="stagger"]{opacity:1}
 [data-reveal="stagger"].in{animation:none}
 @keyframes heroIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+/* Animasi CSS murni — tetap selesai walau JavaScript mati, jadi tidak perlu digerbangi */
 .h-anim{opacity:0;animation:heroIn .85s var(--ease-spring) both}
 
 /* ── NAVBAR (floating pill → solid on scroll) ── */
@@ -242,6 +245,14 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-ghost:hover{border-color:var(--c-primary);color:var(--c-primary);transform:translateY(-2px)}
 .btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.32)}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(37,211,102,.42)}
+/* Merah YouTube — mengikuti pola tombol brand lain (.btn-wa, .btn-danger).
+   Efek kilau disamakan dengan .btn-primary agar kedua tombol di hook seragam. */
+.btn-yt{background:#FF0000;color:#fff;box-shadow:0 8px 24px rgba(255,0,0,.3)}
+.btn-yt:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 34px rgba(255,0,0,.42)}
+.btn-yt:active{transform:translateY(0) scale(1)}
+.btn-yt::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg)}
+.btn-yt:hover::after{animation:shine .9s ease}
+.btn-yt svg{width:20px;height:20px;stroke-width:2.1}
 .btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 20px rgba(220,38,38,.35)}
 .btn-danger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(220,38,38,.45)}
 .btn-lg{padding:16px 32px;font-size:15.5px;border-radius:15px}
@@ -647,6 +658,12 @@ html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
 .turn-item[data-reveal="stagger"] .turn-item-no,
 .turn-item[data-reveal="stagger"] .turn-item-body h4,
 .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:0}
+/* Tanpa JavaScript, semua elemen ini harus tetap terlihat */
+html:not(.js) .turn-hero[data-reveal="stagger"] .title,
+html:not(.js) .turn-hero[data-reveal="stagger"] .sub,
+html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-no,
+html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body h4,
+html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1}
 @keyframes turnNumIn{from{opacity:0;transform:translateY(20px) scale(.72)}60%{transform:translateY(-3px) scale(1.04)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes turnHeadingIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes turnBodyIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
@@ -1116,6 +1133,78 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
    · theme: brand-catalog (paper #f8fafc · accent #0284c7 · display Plus Jakarta Sans + mono)
    · hlm. pendaftaran · contrast: pass · slop: pass · mobile: pass */
 
+/* ══ HOOK: PORTAL MURID & MODUL BELAJAR ══
+   Dua section ringkas sebelum #pendaftaran. Tugasnya: memberi tahu bahwa
+   kedua produk ini ada, lalu mengarahkan ke halaman khusus.
+   Bentuknya bergantian (teks–gambar, gambar–teks) supaya tidak terasa
+   sebagai dua blok kembar. Nada warna mengikuti token yang sudah ada:
+   biru untuk Portal, indigo untuk Modul. */
+.hook{
+  --hk-a:#075985;--hk-b:#0ea5e9;
+  position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:90px 22px;
+  scroll-margin-top:76px
+}
+.hook-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.16fr);gap:clamp(28px,4vw,60px);align-items:center}
+.hook-copy{min-width:0}
+.hook-eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-ink-4);margin-bottom:16px}
+.hook-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--hk-a),var(--hk-b));flex-shrink:0}
+.hook-title{font-size:clamp(28px,3.2vw,42px);font-weight:800;letter-spacing:-.025em;line-height:1.15;color:var(--c-ink)}
+.hook-title em{font-style:normal;background-image:linear-gradient(135deg,var(--hk-a),var(--hk-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hook-sub{font-size:clamp(15px,1.35vw,18px);color:var(--c-ink-3);line-height:1.7;margin-top:16px;max-width:56ch}
+.hook-points{list-style:none;margin-top:26px;border-top:1px solid var(--c-line)}
+.hook-points li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;padding:15px 0;border-bottom:1px solid var(--c-line);font-size:14px;color:var(--c-ink-2);line-height:1.62}
+.hook-points li::before{content:'';width:5px;height:5px;margin-top:9px;border-radius:1px;background:linear-gradient(135deg,var(--hk-a),var(--hk-b));flex-shrink:0}
+.hook-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;align-items:center}
+.hook-link{font-size:14px;font-weight:700;color:var(--hk-a);text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:gap var(--dur-fast),color var(--dur-fast)}
+.hook-link:hover{gap:11px;color:var(--c-ink)}
+.hook-link svg{width:15px;height:15px}
+.hook-note{font-size:12.5px;color:var(--c-ink-3);line-height:1.6}
+/* tautan di dalam catatan mengikuti ukuran teks catatan agar tidak melompat */
+.hook-note .hook-link{font-size:inherit;font-weight:700;gap:5px}
+.hook-note .hook-link svg{width:13px;height:13px}
+
+/* Media: tangkapan layar asli dibingkai tipis 1px — tanpa chrome browser palsu */
+.hook-media{min-width:0}
+.hook-shot{position:relative;margin:0;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);overflow:hidden;box-shadow:var(--sh-sm)}
+.hook-shot picture{display:block}
+.hook-shot img{display:block;width:100%;height:auto}
+.hook-shot figcaption{display:block;padding:11px 16px;border-top:1px solid var(--c-line);font-size:11.5px;font-weight:600;color:var(--c-ink-4);line-height:1.5}
+
+/* Daftar materi modul — baris ledger, bukan grid kartu */
+.modul-list{list-style:none;margin-top:26px;border-top:1px solid var(--c-line)}
+.modul-list li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--c-line)}
+.modul-list .ml-no{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--c-ink-4)}
+.modul-list .ml-name{font-size:14px;font-weight:700;color:var(--c-ink);overflow-wrap:anywhere}
+.modul-list .ml-tag{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--hk-a);border:1px solid currentColor;border-radius:99px;padding:3px 9px;white-space:nowrap}
+
+/* Varian Hook 2 · Modul Belajar (nada indigo, gambar di kiri) */
+.hook--modul{--hk-a:#3730a3;--hk-b:#6366f1}
+html.theme-dark .hook-link{color:color-mix(in srgb,var(--hk-b) 68%,#ffffff)}
+html.theme-dark .modul-list .ml-tag{color:color-mix(in srgb,var(--hk-b) 62%,#ffffff)}
+html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix(in srgb,var(--hk-a) 62%,#ffffff),color-mix(in srgb,var(--hk-b) 58%,#ffffff))}
+@media(min-width:901px){
+  .hook--modul .hook-grid{grid-template-columns:minmax(0,1.16fr) minmax(0,1fr)}
+  .hook--modul .hook-copy{order:2}
+  .hook--modul .hook-media{order:1}
+}
+@media(max-width:900px){
+  .hook-grid{grid-template-columns:1fr;gap:26px}
+  .hook-media{order:-1}
+  .hook-title{font-size:clamp(25px,6.2vw,32px)}
+}
+@media(max-width:640px){
+  .hook{padding:64px 18px}
+  /* batasi tinggi agar tangkapan layar tidak mendominasi layar HP */
+  .hook-shot{max-height:62vh}
+  .hook-shot img{object-fit:cover;object-position:top center;max-height:62vh}
+  .modul-list li{grid-template-columns:auto minmax(0,1fr);gap:4px 10px}
+  .modul-list .ml-tag{grid-column:2;justify-self:start;margin-top:3px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hook-link{transition:none}
+}
+
+
 /* ── TESTIMONI ── */
 .tg{position:relative;max-width:640px;margin:46px auto 0}
 .tg-viewport{overflow:hidden;border-radius:var(--r-lg)}
@@ -1239,6 +1328,7 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
   <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
   <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
   <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.1 8.9v6.2l5.1-3.1z" fill="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
   <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
@@ -1730,9 +1820,78 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
   <p class="reg-note" data-reveal>Jadwal dapat menyesuaikan ketersediaan pengajar dan jumlah peserta per kelompok. Hubungi admin untuk konfirmasi jadwal terbaru.</p>
 </section>
 
+<!-- ══ HOOK 1 · PORTAL MURID ══ -->
+<section class="hook" id="portal-murid">
+  <div class="hook-grid">
+    <div class="hook-copy">
+      <span class="hook-eyebrow" data-reveal>Portal Murid</span>
+      <h2 class="hook-title" data-reveal>Progres Anda <em>tercatat</em>, bukan cuma dirasakan.</h2>
+      <p class="hook-sub" data-reveal>Setiap pertemuan terangkum: kehadiran, materi, latihan, dan raport. Murid bisa membukanya kapan saja — dan pengajar melihat catatan yang sama.</p>
+
+      <ul class="hook-points" data-reveal>
+        <li>Presensi dan sesi KBM tercatat realtime, bukan direkap ulang di akhir bulan.</li>
+        <li>Raport disusun otomatis per periode, jadi angka yang Anda lihat sama dengan yang dilihat pengajar.</li>
+        <li>Akun memakai NIS dari pengajar, dan bisa dipasang di layar utama HP seperti aplikasi.</li>
+      </ul>
+
+      <div class="hook-actions" data-reveal>
+        <a href="#pendaftaran" class="btn btn-primary">Daftar untuk dapat akun</a>
+        <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener" class="btn btn-yt"><svg aria-hidden="true"><use href="#i-play"/></svg>Video Portal</a>
+      </div>
+      <p class="hook-note" data-reveal style="margin-top:14px">Belum punya NIS? <a href="#pendaftaran" class="hook-link">Lihat cara bergabung <svg aria-hidden="true"><use href="#i-chevron-right"/></svg></a></p>
+    </div>
+
+    <div class="hook-media" data-reveal>
+      <figure class="hook-shot">
+        <picture>
+          <source type="image/webp" srcset="assets/images/Portal-beranda-1280.webp 1280w, assets/images/Portal-beranda-1920.webp 1920w" sizes="(max-width:900px) 94vw, 620px">
+          <img src="assets/images/Portal-beranda-1280.jpg" alt="Beranda portal murid: jadwal halaqah berikutnya, kalender kegiatan, dan capaian kehadiran." loading="lazy" decoding="async" width="1920" height="1822">
+        </picture>
+        <figcaption>Tangkapan layar Portal Murid — jadwal halaqah, kalender kegiatan, dan capaian kehadiran.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOOK 2 · MODUL BELAJAR ══ -->
+<section class="hook hook--modul" id="modul-belajar">
+  <div class="hook-grid">
+    <div class="hook-copy">
+      <span class="hook-eyebrow" data-reveal>Modul Belajar</span>
+      <h2 class="hook-title" data-reveal>Coba dulu modulnya — <em>terbuka dan gratis</em>.</h2>
+      <p class="hook-sub" data-reveal>Riyāḍat al-Ḥurūf: latihan makhraj dan sifat huruf, dengan dalil dan latihan. Bisa dibuka siapa saja, termasuk yang belum bergabung, supaya Anda bisa menilai sendiri sebelum memutuskan.</p>
+
+      <ul class="modul-list" data-reveal>
+        <li><span class="ml-no">01</span><span class="ml-name">Materi Rujukan</span><span></span></li>
+        <li><span class="ml-no">02</span><span class="ml-name">Huruf Hijaiyah</span><span></span></li>
+        <li><span class="ml-no">03</span><span class="ml-name">Bank Mind Map Tajwid</span><span></span></li>
+        <li><span class="ml-no">04</span><span class="ml-name">Materi Microteaching</span><span class="ml-tag">Murid</span></li>
+        <li><span class="ml-no">05</span><span class="ml-name">Materi At-Tibyan</span><span class="ml-tag">Murid</span></li>
+        <li><span class="ml-no">06</span><span class="ml-name">Panduan 5 Level</span><span></span></li>
+      </ul>
+
+      <div class="hook-actions" data-reveal>
+        <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-primary">Buka Modul</a>
+        <a href="#pendaftaran" class="hook-link">Ingin materi khusus murid? <svg aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+      </div>
+      <p class="hook-note" data-reveal style="margin-top:14px">Modul ini masih terus disusun dan disempurnakan. Bila Anda menemukan kekeliruan, tersedia form Saran &amp; Masukan.</p>
+    </div>
+
+    <div class="hook-media" data-reveal>
+      <figure class="hook-shot">
+        <picture>
+          <source type="image/webp" srcset="assets/images/Modul-daftar-materi-1280.webp 1280w, assets/images/Modul-daftar-materi-1920.webp 1920w" sizes="(max-width:900px) 94vw, 620px">
+          <img src="assets/images/Modul-daftar-materi-1280.jpg" alt="Daftar materi modul Riyāḍat al-Ḥurūf, termasuk dua materi khusus murid Rattililqur'an." loading="lazy" decoding="async" width="1920" height="1370">
+        </picture>
+        <figcaption>Situs modul — enam materi, termasuk dua yang khusus untuk murid Rattililqur'an.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ══ PENDAFTARAN ══ -->
 <section class="section center" id="pendaftaran">
-  <span class="sec-num" aria-hidden="true">05</span>
+  <span class="sec-num" aria-hidden="true">07</span>
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara <span class="grad-text">Bergabung</span></h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
@@ -1808,7 +1967,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ TESTIMONI & BUKTI ══ -->
 <section class="section center" id="testimoni">
-  <span class="sec-num" aria-hidden="true">06</span>
+  <span class="sec-num" aria-hidden="true">08</span>
   <h2 class="title" data-reveal>Rattil dalam <span class="grad-text">Angka</span></h2>
   <p class="sub" data-reveal>Sebelum Anda percaya, biarkan angkanya berbicara — dan cerita mereka yang sudah melangkah lebih dulu.</p>
 
@@ -1852,7 +2011,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ FAQ ══ -->
 <section class="section center" id="faq">
-  <span class="sec-num" aria-hidden="true">07</span>
+  <span class="sec-num" aria-hidden="true">09</span>
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan <span class="grad-text">Umum</span></h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
@@ -1884,7 +2043,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ KONTAK ══ -->
 <section class="section center" id="kontak" style="padding-top:0">
-  <span class="sec-num" aria-hidden="true">08</span>
+  <span class="sec-num" aria-hidden="true">10</span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; <span class="grad-text">Informasi</span></h2>
   <p class="sub" data-reveal>Punya pertanyaan? Jangan ragu menghubungi kami melalui kanal berikut.</p>
@@ -1920,6 +2079,7 @@ Baarakallahu fiikum</p>
         <div>
           <a href="https://portal.rattililquran.com/">Masuk Portal</a>
           <a href="https://modul.rattililquran.com" target="_blank" rel="noopener">Modul Belajar</a>
+          <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">Video Portal</a>
           <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
           <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
           <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener">YouTube</a>
