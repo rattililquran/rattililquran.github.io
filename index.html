@@ -1419,11 +1419,9 @@ html.theme-dark .hook--beasiswa{
 .ccard .cc-body{min-width:0;display:flex;flex-direction:column;gap:2px}
 .ccard h4{font-size:14.5px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em}
 .ccard p{font-size:13.5px;color:var(--c-ink-2);overflow-wrap:anywhere}
-/* Empat kartu tautan berbentuk baris satis; kartu Alamat punya divider (angka
-   + judul) karena isinya keterangan, bukan tautan — supaya tetap sejajar. */
-.ccard .cc-meta{display:inline-flex;align-items:center;gap:7px;margin-right:auto}
-.ccard .cc-meta b{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--c-ink-3)}
-.ccard .cc-meta i{width:5px;height:5px;border-radius:1px;background:linear-gradient(135deg,var(--cc-a),var(--cc-b));flex:0 0 auto}
+/* Kartu berbentuk baris satis: ikon, isi, lalu panah. Kartu Alamat tidak punya
+   panah karena isinya keterangan, bukan tautan — teksnya otomatis mengisi
+   kolom ketiga yang kosong, jadi tepi kanannya sejajar dengan kartu lain. */
 .ccard .cc-arrow{flex:0 0 auto;color:var(--c-ink-4);transition:color var(--dur),transform var(--dur) var(--ease-spring)}
 .ccard .cc-arrow svg{width:16px;height:16px;display:block}
 .ccard:hover .cc-arrow{color:var(--cc-a);transform:translateX(3px)}
@@ -2285,7 +2283,7 @@ Baarakallahu fiikum</p>
     </div>
     <div class="hero-cta">
       <a href="https://portal.rattililquran.com/" class="btn btn-light btn-lg">Masuk Portal</a>
-      <a href="#pendaftaran" class="btn btn-clear btn-lg">Belum Punya Akun?</a>
+      <a href="#pendaftaran" class="btn btn-clear btn-lg">Cara Dapat Akun</a>
     </div>
   </div>
 </div>
@@ -2336,7 +2334,6 @@ Baarakallahu fiikum</p>
     <div class="ccard cc-alm">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6.5" fill="#0F766E"/><path d="M12 5.6c-2.9 0-5.2 2.3-5.2 5.2 0 3.9 5.2 7.6 5.2 7.6s5.2-3.7 5.2-7.6c0-2.9-2.3-5.2-5.2-5.2zm0 7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z" fill="#fff"/></svg></span>
       <span class="cc-body"><h4>Alamat</h4><p>Bondowoso, Jawa Timur — kelas daring &amp; tatap muka menurut jadwal halaqah.</p></span>
-      <span class="cc-meta"><b>05</b><i aria-hidden="true"></i></span>
     </div>
   </div>
 </section>
