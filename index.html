@@ -1209,20 +1209,93 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
 
 /* ══ HOOK: BEASISWA PENUH ══
    Macrostructure Statement — satu pernyataan tegas di tengah, tanpa gambar,
-   tanpa grid kartu. Sengaja berbeda dari hook produk agar terasa seperti
-   pengumuman, bukan katalog. Memakai ulang .hook-title (em gradien),
-   .hook-points, dan .hook-actions yang sudah ada. */
+   tanpa grid kartu. Berbeda dari hook produk, hook ini diberi satu panel
+   sendiri: mesh gradient yang bergerak di belakang halaman bisa menimpa area
+   mana pun, sehingga teks redup (--c-ink-3/4) dan garis pemisah 1px
+   kehilangan kontras di tema terang. Panel kaca menjamin latar teks selalu
+   terkendali, sekaligus memberi bobot "pengumuman" alih-alih katalog.
+   Warna teks di dalam panel memakai token tema apa adanya (bukan warna
+   redup tambahan) agar rasio kontras tetap ≥ 4.5:1 di terang maupun gelap. */
 .hook--beasiswa{
-  --hk-a:#075985;--hk-b:#0ea5e9;
+  --hk-a:#075985;--hk-b:#0369a1;
+  --bs-surface:linear-gradient(180deg,color-mix(in srgb,var(--c-card) 97%,transparent),color-mix(in srgb,var(--c-card) 91%,transparent));
+  --bs-line:color-mix(in srgb,var(--c-line) 90%,transparent);
+  --bs-rule:color-mix(in srgb,var(--c-primary) 14%,var(--c-line));
+  --bs-ink-2:#4f6177;
+  --bs-shadow:0 34px 90px -40px rgba(2,132,199,.45),0 10px 30px -14px rgba(12,24,37,.22);
   text-align:center
 }
-.hook--beasiswa .hook-title,
-.hook--beasiswa .hook-sub,
+.hook--beasiswa .bs-panel{
+  position:relative;max-width:860px;margin:0 auto;
+  padding:clamp(36px,4.8vw,62px) clamp(22px,4.4vw,60px);
+  border:1px solid var(--bs-line);border-radius:var(--r-xl);
+  background:var(--bs-surface);box-shadow:var(--bs-shadow);
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  backdrop-filter:blur(24px) saturate(150%);
+  overflow:hidden;
+  transform:translate3d(0,0,0)
+}
+/* Cahaya lembut di balik judul + garis rambut di tepi atas panel.
+   Keduanya murni dekoratif dan tidak menambah beban informasi. */
+.hook--beasiswa .bs-panel::before{
+  content:'';position:absolute;top:-46%;left:50%;width:min(640px,96%);height:min(440px,82%);
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--hk-b) 20%,transparent),transparent 70%)
+}
+.hook--beasiswa .bs-panel::after{
+  content:'';position:absolute;top:0;left:12%;right:12%;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--hk-b) 60%,transparent),transparent)
+}
+.hook--beasiswa .bs-panel > *{position:relative}
+/* Eyebrow & sub tidak memakai --c-ink-3/4 mentah: di atas panel, nilainya
+   hanya ±4.66:1 (lolos tipis) sementara ukurannya kecil. Campuran ini
+   menaikkannya ke ±6.2:1 tanpa menghapus hierarki terhadap judul. */
+.hook--beasiswa .hook-eyebrow,
+.hook--beasiswa .hook-sub{color:var(--bs-ink-2)}
+.hook--beasiswa .hook-eyebrow{margin-bottom:18px}
+.hook--beasiswa .hook-eyebrow::before{box-shadow:0 0 0 3px color-mix(in srgb,var(--hk-b) 16%,transparent)}
+.hook--beasiswa .hook-title{margin:0 auto;max-width:24ch;text-wrap:balance}
+.hook--beasiswa .hook-sub{max-width:58ch;margin:18px auto 0}
+/* Jaga frasa bergradien tetap utuh saat ruang cukup — memotong "bukan
+   penghalang" di tengah baris membuat dua warna bertabrakan. */
+@media(min-width:641px){.hook--beasiswa .hook-title em{white-space:nowrap}}
+.hook--beasiswa .hook-points{max-width:640px;margin:34px auto 0;text-align:left}
 .hook--beasiswa .hook-points,
-.hook--beasiswa .hook-actions{margin-left:auto;margin-right:auto}
-.hook--beasiswa .hook-sub{max-width:62ch}
-.hook--beasiswa .hook-points{max-width:640px;text-align:left}
-.hook--beasiswa .hook-actions{justify-content:center;max-width:640px}
+.hook--beasiswa .hook-points li{border-color:var(--bs-rule)}
+.hook--beasiswa .hook-points li{padding:16px 0;font-size:14.5px}
+.hook--beasiswa .hook-points li::before{width:6px;height:6px;margin-top:8px;border-radius:2px}
+.hook--beasiswa .hook-actions{justify-content:center;max-width:640px;margin:34px auto 0}
+/* Tombol utama memakai gradien yang digelapkan sedikit. Gradien global
+   (#0284c7 → #6366f1) hanya mencapai 4.10:1 untuk teks putih di ujung
+   terangnya, dan di tema gelap token --c-primary jadi #38bdf8 yang jatuh
+   ke ±2.5:1. Versi tergelap ini tetap satu keluarga warna, tapi label
+   putih aman dibaca di kedua tema (5.9:1 → 4.9:1 → 6.3:1). */
+.hook--beasiswa .btn-primary{
+  background:linear-gradient(135deg,#0369a1,#4f46e5);
+  box-shadow:0 8px 24px rgba(2,40,90,.28)
+}
+html.theme-dark .hook--beasiswa .btn-primary{
+  background:linear-gradient(135deg,#075985,#4338ca);
+  box-shadow:0 10px 28px rgba(0,0,0,.5)
+}
+/* Garis tepi tombol sekunder dinaikkan ke ±3:1 — var(--c-line) mentah
+   nyaris tak terlihat di atas panel, di kedua tema. */
+.hook--beasiswa .btn-ghost{
+  background:transparent;
+  border-color:color-mix(in srgb,var(--c-primary) 38%,var(--c-ink-4))
+}
+html.theme-dark .hook--beasiswa .btn-ghost{
+  border-color:color-mix(in srgb,var(--c-primary) 65%,var(--c-bg))
+}
+.hook--beasiswa .btn-ghost:hover{border-color:var(--c-primary)}
+html.theme-dark .hook--beasiswa{
+  --bs-rule:rgba(255,255,255,.13);
+  --bs-shadow:0 34px 90px -42px rgba(0,0,0,.78),0 10px 30px -14px rgba(0,0,0,.55)
+}
+@media(max-width:640px){
+  .hook--beasiswa .bs-panel{padding:30px 20px;border-radius:var(--r-lg)}
+  .hook--beasiswa .hook-points li{padding:14px 4px}
+}
 
 
 /* ── TESTIMONI ── */
@@ -1264,34 +1337,130 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
 .qa-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease-spring)}
 .qa-a p{padding:0 22px 20px;font-size:14.5px;color:var(--c-ink-3);margin:0}
 
-/* ── CTA BANNER ── */
-.cta-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px 80px}
-.cta{position:relative;background:var(--grad);border-radius:var(--r-xl);padding:clamp(40px,6vw,72px) 22px;text-align:center;overflow:hidden;box-shadow:var(--sh-lg)}
-.cta::before{content:'';position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.13);top:-140px;right:-90px;animation:blobFloat 18s ease-in-out infinite alternate}
-.cta::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.1);bottom:-130px;left:-70px;animation:blobFloat 22s ease-in-out infinite alternate-reverse}
-@keyframes blobFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-28px,24px) scale(1.12)}}
-.cta h2{position:relative;font-size:clamp(26px,4.2vw,40px);font-weight:800;color:#fff;letter-spacing:-.025em}
-.cta p{position:relative;color:rgba(255,255,255,.92);font-size:16.5px;margin-top:14px;max-width:540px;margin-left:auto;margin-right:auto}
-.cta .hero-cta{margin-top:30px;justify-content:center}
+/* ── CTA BANNER ──
+   Satu baris ringkas: teks di kiri, tombol di kanan, bukan lagi blok penuh
+   lebar dengan dua blob dan dua tombol bertumpuk. Padding, judul, dan jarak
+   antarunsur dikecilkan supaya tinggi banner turun dari ±368px ke ±150px,
+   sehingga tidak lagi mendominasi sebelum section kontak. */
+.cta-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px 64px}
+.cta{
+  position:relative;display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(22px,3.4vw,48px);
+  /* Gradien global --grad (#0284c7→#6366f1) hanya memberi 4.10:1 untuk teks
+     putih, dan 3.23:1 untuk label di tombol transparan — di bawah ambang 4.5:1.
+     Versi tergelap ini menaikkannya ke 5.5–6.1:1 tanpa keluar dari keluarga
+     warna biru→indigo yang sama. */
+  background:linear-gradient(135deg,#075985,#4338ca);
+  border-radius:var(--r-lg);
+  padding:clamp(22px,3vw,34px) clamp(24px,3.4vw,40px);
+  overflow:hidden;box-shadow:var(--sh)
+}
+/* Satu glow tipis di sudut berlawanan dari tombol. Tombol ada di kanan, jadi
+   glow ditaruh di kiri-bawah: sebelumnya ia duduk di belakang tombol sekunder
+   dan menaikkan latar sampai #9a9fdc — teks putih di sana hanya 2.28:1. */
+.cta::before{
+  content:'';position:absolute;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.07),rgba(255,255,255,0) 70%);
+  bottom:-170px;left:-90px;pointer-events:none
+}
+.cta::after{content:none}
+.cta-copy{position:relative;min-width:0}
+.cta h2{font-size:clamp(20px,2.3vw,27px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2}
+.cta p{color:rgba(255,255,255,.92);font-size:14.5px;margin-top:8px;max-width:56ch;line-height:1.6}
+.cta .hero-cta{position:relative;margin:0;flex:0 0 auto;gap:10px;flex-wrap:wrap}
+.cta .btn{padding:11px 20px;font-size:14px;border-radius:11px}
 .cta .btn-light{background:#fff;color:#1e3a8a}
-.cta .btn-light:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.2)}
-.cta .btn-clear{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.34)}
-.cta .btn-clear:hover{background:rgba(255,255,255,.26);color:#fff;transform:translateY(-2px)}
+.cta .btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.18)}
+.cta .btn-clear{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.42)}
+.cta .btn-clear:hover{background:rgba(255,255,255,.24);color:#fff;transform:translateY(-2px)}
+@media(max-width:820px){
+  .cta{flex-direction:column;align-items:stretch;text-align:left}
+  .cta .hero-cta{justify-content:flex-start}
+  .cta-wrap{padding-bottom:52px}
+}
 
-/* ── CONTACT ── */
-.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-top:46px}
-@media(max-width:860px){.cgrid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.cgrid{grid-template-columns:1fr}}
-.ccard{background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:30px 24px;text-align:center;box-shadow:var(--sh);text-decoration:none;display:block;transition:transform var(--dur) var(--ease-spring),box-shadow var(--dur)}
-.ccard:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
-.ccard .ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--grad-soft);margin:0 auto 14px;transition:transform .35s var(--ease-spring)}
-.ccard:hover .ico{transform:scale(1.08)}
-.ccard .ico.ico-brand{background:transparent}
-.ccard .ico.ico-brand svg{width:42px;height:42px}
-.ccard h4{font-size:15.5px;font-weight:800;color:var(--c-ink);margin-bottom:5px}
-.ccard p{font-size:14px;color:var(--c-ink-3)}
+/* ── CONTACT ──
+   Kartu kanal: baris ledger bertingkat (ikon — label — keterangan — panah),
+   bukan lagi tiga kolom ikon besar di tengah. Logamerek asli (WhatsApp,
+   Instagram, YouTube, Gmail) hanya tampil di dalam kotak 38px yang selalu
+   berlatar putih — supaya tidak pernah ada logo gelap di atas kartu gelap.
+   Nomor/alamat jadi teks utama, karena itulah yang dibutuhkan pengunjung. */
+.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:44px;text-align:left}
+@media(max-width:760px){.cgrid{grid-template-columns:1fr}}
 
-/* ── FOOTER ── */
+.ccard{
+  position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;gap:16px;padding:17px 20px;
+  background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r);
+  text-decoration:none;overflow:hidden;
+  transition:transform var(--dur) var(--ease-spring),border-color var(--dur),box-shadow var(--dur)
+}
+/* Garis aksen tipis di tepi kiri saat hover — afordansi, bukan hiasan. */
+.ccard::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--cc-a),var(--cc-b));
+  transform:scaleY(0);transform-origin:center;
+  transition:transform var(--dur) var(--ease-spring)
+}
+.ccard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--cc-a) 45%,var(--c-line));box-shadow:var(--sh)}
+.ccard:hover::before{transform:scaleY(1)}
+
+/* Ikon 38px: latar selalu terang (logo asli butuh dasar putih), aksen warna
+   kanal dipakai di garis tepinya. */
+.ccard .ico{
+  flex:0 0 auto;width:38px;height:38px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:#fff;border:1px solid var(--c-line);
+  transition:border-color var(--dur)
+}
+.ccard:hover .ico{border-color:color-mix(in srgb,var(--cc-a) 55%,var(--c-line))}
+.ccard .ico svg{width:20px;height:20px;display:block}
+
+.ccard .cc-body{min-width:0;display:flex;flex-direction:column;gap:2px}
+.ccard h4{font-size:14.5px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em}
+.ccard p{font-size:13.5px;color:var(--c-ink-2);overflow-wrap:anywhere}
+/* Empat kartu tautan berbentuk baris satis; kartu Alamat punya divider (angka
+   + judul) karena isinya keterangan, bukan tautan — supaya tetap sejajar. */
+.ccard .cc-meta{display:inline-flex;align-items:center;gap:7px;margin-right:auto}
+.ccard .cc-meta b{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--c-ink-3)}
+.ccard .cc-meta i{width:5px;height:5px;border-radius:1px;background:linear-gradient(135deg,var(--cc-a),var(--cc-b));flex:0 0 auto}
+.ccard .cc-arrow{flex:0 0 auto;color:var(--c-ink-4);transition:color var(--dur),transform var(--dur) var(--ease-spring)}
+.ccard .cc-arrow svg{width:16px;height:16px;display:block}
+.ccard:hover .cc-arrow{color:var(--cc-a);transform:translateX(3px)}
+
+/* Aksen per kanal — hanya menyentuh border/panah, tidak pernah teks. */
+.cc-wa{--cc-a:#128c7e;--cc-b:#25d366}
+.cc-ig{--cc-a:#c13584;--cc-b:#f59e0b}
+.cc-yt{--cc-a:#c00;--cc-b:#ef4444}
+.cc-mail{--cc-a:#c5221f;--cc-b:#ea4335}
+.cc-alm{--cc-a:#0f766e;--cc-b:#14b8a6}
+
+@media(max-width:520px){
+  .ccard{padding:15px 16px;gap:14px}
+  .ccard .ico{width:34px;height:34px;border-radius:10px}
+  .ccard .ico svg{width:18px;height:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ccard,.ccard::before,.ccard .cc-arrow,.ccard .ico{transition:none}
+  .ccard:hover{transform:none}
+  .ccard:hover .cc-arrow{transform:none}
+}
+
+/* Baris ajakan mengikuti kanal — satu baris, bukan kartu, supaya judul section
+   tetap jadi hal pertama yang dibaca. Ikon bel saja yang berwarna; teksnya
+   memakai token ink agar kontrasnya tidak bergantung pada nada aksen. */
+.kontak-cue{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:20px;padding:9px 18px;
+  border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);
+  font-size:13.5px;line-height:1.5;color:var(--c-ink-2);text-align:left
+}
+.kontak-cue svg{width:16px;height:16px;flex:0 0 auto;color:var(--c-primary)}
+.kontak-cue b{font-weight:800;color:var(--c-ink)}
+@media(max-width:560px){
+  .kontak-cue{border-radius:var(--r);padding:12px 16px;font-size:13px;text-align:center}
+}
+
 .footer{position:relative;z-index:1;border-top:1px solid var(--c-line);background:var(--c-card)}
 .footer-inner{max-width:1180px;margin:0 auto;padding:54px 22px 30px;display:grid;grid-template-columns:1.5fr 1fr;gap:36px}
 @media(max-width:760px){.footer-inner{grid-template-columns:1fr;gap:28px}}
@@ -1305,7 +1474,6 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
 .footer-bottom{max-width:1180px;margin:0 auto;padding:20px 22px;border-top:1px solid var(--c-line);text-align:center}
 .footer-bottom p{font-size:12.5px;color:var(--c-ink-4)}
 .footer-bottom .ar{font-family:'Amiri',serif;font-size:15px;color:var(--c-primary);direction:rtl;margin-bottom:4px}
-
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   [data-reveal],.h-anim,.hero h1 .w{opacity:1!important;transform:none!important}
@@ -1338,6 +1506,7 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
   <symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M13.73 20a2 2 0 0 1-3.46 0"/></symbol>
   <symbol id="i-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
   <symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
   <symbol id="i-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12.5V17c0 1.1 2.7 3 6 3s6-1.9 6-3v-4.5"/><path d="M22 10v6"/></symbol>
@@ -1989,19 +2158,21 @@ Baarakallahu fiikum</p>
 
 <!-- ══ HOOK 3 · BEASISWA PENUH ══ -->
 <section class="hook hook--beasiswa" id="beasiswa">
-  <span class="hook-eyebrow" data-reveal>Beasiswa Penuh</span>
-  <h2 class="hook-title" data-reveal>Keterbatasan ekonomi <em>bukan penghalang</em> untuk belajar.</h2>
-  <p class="hook-sub" data-reveal>Program Beasiswa Penuh Rattililqur'an membebaskan biaya SPP pribadi murid secara penuh (100%), agar siapa pun bisa mempelajari kitabullah.</p>
+  <div class="bs-panel" data-reveal>
+    <span class="hook-eyebrow">Beasiswa Penuh</span>
+    <h2 class="hook-title">Keterbatasan ekonomi <em>bukan penghalang</em> untuk belajar.</h2>
+    <p class="hook-sub">Program Beasiswa Penuh Rattililqur'an membebaskan biaya SPP pribadi murid secara penuh (100%), agar siapa pun bisa mempelajari kitabullah.</p>
 
-  <ul class="hook-points" data-reveal>
-    <li>Pembebasan penuh biaya SPP pribadi — bukan potongan, bukan cicilan.</li>
-    <li>Berlaku untuk murid yang sungguh-sungguh: hadir, beradab, dan menjaga nilai.</li>
-    <li>Syarat lengkapnya tertulis jelas di satu halaman, tanpa syarat tersembunyi.</li>
-  </ul>
+    <ul class="hook-points">
+      <li>Pembebasan penuh biaya SPP pribadi — bukan potongan, bukan cicilan.</li>
+      <li>Berlaku untuk murid yang sungguh-sungguh: hadir, beradab, dan menjaga nilai.</li>
+      <li>Syarat lengkapnya tertulis jelas di satu halaman, tanpa syarat tersembunyi.</li>
+    </ul>
 
-  <div class="hook-actions" data-reveal>
-    <a href="beasiswa.html" class="btn btn-primary">Lihat syarat &amp; komitmen</a>
-    <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost">Tanya admin</a>
+    <div class="hook-actions">
+      <a href="beasiswa.html" class="btn btn-primary">Lihat syarat &amp; komitmen</a>
+      <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost">Tanya admin</a>
+    </div>
   </div>
 </section>
 
@@ -2017,7 +2188,7 @@ Baarakallahu fiikum</p>
     <div class="evidence-stat" style="--sa:#0369a1;--sb:#0ea5e9">
       <span class="stat-no" aria-hidden="true">01</span>
       <b data-count="370">370</b>
-      <span class="stat-label">Murid</span>
+      <span class="stat-label">Murid Aktif</span>
     </div>
     <div class="evidence-stat" style="--sa:#4338ca;--sb:#6366f1">
       <span class="stat-no" aria-hidden="true">02</span>
@@ -2072,8 +2243,10 @@ Baarakallahu fiikum</p>
 <!-- ══ CTA ══ -->
 <div class="cta-wrap">
   <div class="cta" data-reveal>
-    <h2>Siap Perbaiki Bacaan Al-Qur'an?</h2>
-    <p>Bergabung bersama 384+ murid yang sudah merasakan manfaatnya. Halaqah kecil, pengajar berpengalaman, progres terpantau nyata.</p>
+    <div class="cta-copy">
+      <h2>Siap Perbaiki Bacaan Al-Qur'an?</h2>
+      <p>Sejak 2020, sudah 500-an thalib dan thalibah yang belajar bersama kami. Halaqah kecil, pengajar berpengalaman, progres terpantau nyata.</p>
+    </div>
     <div class="hero-cta">
       <a href="https://portal.rattililquran.com/" class="btn btn-light btn-lg">Masuk Portal</a>
       <a href="#pendaftaran" class="btn btn-clear btn-lg">Belum Punya Akun?</a>
@@ -2086,16 +2259,49 @@ Baarakallahu fiikum</p>
   <span class="sec-num" aria-hidden="true">11</span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; <span class="grad-text">Informasi</span></h2>
-  <p class="sub" data-reveal>Punya pertanyaan? Jangan ragu menghubungi kami melalui kanal berikut.</p>
-  <div class="cgrid">
+  <p class="sub" data-reveal>Ada yang ingin ditanyakan? Pilih kanal yang paling nyaman untuk Anda — dan ikuti kanal sosial kami supaya tidak ketinggalan informasi jadwal, gelombang pendaftaran, serta materi baru.</p>
+  <p class="kontak-cue" data-reveal><svg aria-hidden="true"><use href="#i-bell"/></svg><span>Info terbaru kami bagikan lebih dulu di <b>Instagram</b>, <b>Channel WhatsApp</b>, dan <b>YouTube</b>.</span></p>
+
+  <div class="cgrid" data-reveal="stagger">
     <!-- [EDIT] nomor WhatsApp -->
-    <a href="https://wa.me/6282316993233" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico ico-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.479 2.03 7.78L0 32l8.413-2.21A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z"/><path fill="#fff" d="M23.47 19.27c-.347-.173-2.05-1.012-2.367-1.128-.318-.116-.55-.173-.78.174-.232.346-.897 1.127-1.1 1.359-.202.232-.405.26-.752.087-.346-.173-1.46-.538-2.78-1.715-1.028-.916-1.722-2.048-1.923-2.394-.202-.346-.022-.533.152-.706.156-.155.346-.405.52-.607.172-.202.23-.346.346-.578.115-.232.057-.434-.029-.607-.086-.173-.78-1.879-1.07-2.573-.282-.677-.568-.585-.78-.596-.202-.01-.434-.012-.665-.012-.232 0-.607.087-.925.434-.318.346-1.214 1.187-1.214 2.893 0 1.706 1.243 3.355 1.416 3.587.173.232 2.445 3.733 5.92 5.235.827.357 1.473.57 1.977.73.83.264 1.585.227 2.182.138.666-.1 2.05-.838 2.34-1.647.289-.81.289-1.504.202-1.648-.086-.144-.318-.231-.665-.404z"/></svg></div><h4>WhatsApp</h4><p>+62 823-1699-3233</p></a>
+    <a href="https://wa.me/6282316993233" target="_blank" rel="noopener" class="ccard cc-wa">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path fill="#25D366" d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.479 2.03 7.78L0 32l8.413-2.21A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z"/><path fill="#fff" d="M23.47 19.27c-.347-.173-2.05-1.012-2.367-1.128-.318-.116-.55-.173-.78.174-.232.346-.897 1.127-1.1 1.359-.202.232-.405.26-.752.087-.346-.173-1.46-.538-2.78-1.715-1.028-.916-1.722-2.048-1.923-2.394-.202-.346-.022-.533.152-.706.156-.155.346-.405.52-.607.172-.202.23-.346.346-.578.115-.232.057-.434-.029-.607-.086-.173-.78-1.879-1.07-2.573-.282-.677-.568-.585-.78-.596-.202-.01-.434-.012-.665-.012-.232 0-.607.087-.925.434-.318.346-1.214 1.187-1.214 2.893 0 1.706 1.243 3.355 1.416 3.587.173.232 2.445 3.733 5.92 5.235.827.357 1.473.57 1.977.73.83.264 1.585.227 2.182.138.666-.1 2.05-.838 2.34-1.647.289-.81.289-1.504.202-1.648-.086-.144-.318-.231-.665-.404z"/></svg></span>
+      <span class="cc-body"><h4>WhatsApp</h4><p>+62 823-1699-3233</p></span>
+      <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
+    </a>
+
     <!-- [EDIT] username Instagram -->
-    <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico ico-brand"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#5851DB"/></linearGradient></defs><rect width="24" height="24" rx="6.5" fill="url(#igGrad)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="#fff"/></svg></div><h4>Instagram</h4><p>@rattililquran</p></a>
+    <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener" class="ccard cc-ig">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#5851DB"/></linearGradient></defs><rect width="24" height="24" rx="6.5" fill="url(#igGrad)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="#fff"/></svg></span>
+      <span class="cc-body"><h4>Instagram</h4><p>@rattililquran</p></span>
+      <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
+    </a>
+
     <!-- [EDIT] email -->
-    <a href="mailto:rattililquran.id@gmail.com" class="ccard" data-reveal><div class="ico ico-brand"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="mailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><rect x="1" y="4" width="22" height="16" rx="4" fill="url(#mailGrad)"/><path d="M2.5 6.2 12 13l9.5-6.8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Email</h4><p>rattililquran.id@gmail.com</p></a>
-    <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico ico-brand"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M5 9.5v5a1.2 1.2 0 0 0 1.2 1.2h.8l4.3 3v-13.4l-4.3 3H6.2A1.2 1.2 0 0 0 5 9.5z"/><path d="M14.8 8.2a4.4 4.4 0 0 1 0 7.6" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M17 5.6a8 8 0 0 1 0 12.8" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".65"/></svg></div><h4>Channel WA</h4><p>Rattililqur'an</p></a>
-    <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener" class="ccard" data-reveal><div class="ico ico-brand"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/><path d="M10 8.7v6.6l6-3.3z" fill="#fff"/></svg></div><h4>YouTube</h4><p>@rattililquranindonesia</p></a>
+    <a href="mailto:rattililquran.id@gmail.com" class="ccard cc-mail">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="mailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><rect x="1" y="4" width="22" height="16" rx="4" fill="url(#mailGrad)"/><path d="M2.5 6.2 12 13l9.5-6.8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="cc-body"><h4>Email</h4><p>rattililquran.id@gmail.com</p></span>
+      <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
+    </a>
+
+    <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener" class="ccard cc-wa">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M5 9.5v5a1.2 1.2 0 0 0 1.2 1.2h.8l4.3 3v-13.4l-4.3 3H6.2A1.2 1.2 0 0 0 5 9.5z"/><path d="M14.8 8.2a4.4 4.4 0 0 1 0 7.6" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M17 5.6a8 8 0 0 1 0 12.8" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".65"/></svg></span>
+      <span class="cc-body"><h4>Channel WhatsApp</h4><p>Rattililqur'an</p></span>
+      <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
+    </a>
+
+    <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener" class="ccard cc-yt">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/><path d="M10 8.7v6.6l6-3.3z" fill="#fff"/></svg></span>
+      <span class="cc-body"><h4>YouTube</h4><p>@rattililquranindonesia</p></span>
+      <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
+    </a>
+
+    <!-- Alamat: keterangan, bukan tautan -->
+    <div class="ccard cc-alm">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6.5" fill="#0F766E"/><path d="M12 5.6c-2.9 0-5.2 2.3-5.2 5.2 0 3.9 5.2 7.6 5.2 7.6s5.2-3.7 5.2-7.6c0-2.9-2.3-5.2-5.2-5.2zm0 7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z" fill="#fff"/></svg></span>
+      <span class="cc-body"><h4>Alamat</h4><p>Bondowoso, Jawa Timur — kelas daring &amp; tatap muka menurut jadwal halaqah.</p></span>
+      <span class="cc-meta"><b>05</b><i aria-hidden="true"></i></span>
+    </div>
   </div>
 </section>
 
