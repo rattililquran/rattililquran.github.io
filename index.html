@@ -1591,9 +1591,10 @@ html.theme-dark{--c-ink-micro:#94a3b8}
   .nav-links .nav-cta-mobile{padding:13px 20px!important}
   .fab-top{width:44px;height:44px}
   /* Logo: area ketuk diperluas lewat pseudo-element supaya tinggi navbar
-     tidak ikut berubah. */
+     tidak ikut berubah. inset -8px karena tinggi logo di 390px hanya 34px,
+     butuh 10px di tiap sisi untuk mencapai 44px. */
   .nav-brand{position:relative}
-  .nav-brand::after{content:'';position:absolute;inset:-6px -10px}
+  .nav-brand::after{content:'';position:absolute;inset:-8px -10px}
 }
 
 @media(max-width:640px){

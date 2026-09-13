@@ -271,6 +271,17 @@ html.theme-dark{--c-ink-micro:#94a3b8}
   .ledger .tag{color:color-mix(in srgb,var(--c-primary) 72%,#0c4a6e)}
 }
 
+/* ── T-09 · pada 320px .nav-actions melampaui viewport sehingga tombol tema
+   terpotong. Ruang didapat dengan merapatkan padding dan mengecilkan logo,
+   bukan dengan memperkecil area ketuk. ── */
+@media(max-width:360px){
+  .nav-inner{padding:9px 12px;gap:8px}
+  .nav-brand{font-size:14.5px;gap:9px;min-height:44px}
+  .nav-brand img{height:28px}
+  .nav-actions{gap:6px}
+  .theme-toggle,.nav-toggle{width:44px;height:44px}
+}
+
 @supports(padding:max(0px)){
   .nav-inner{padding-top:max(13px,env(safe-area-inset-top))}
   .fab-group{right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}

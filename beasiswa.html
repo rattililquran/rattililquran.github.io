@@ -194,8 +194,10 @@ html.theme-dark{--ink-micro:#8b949e}
   .nav-toggle{width:44px;height:44px}
   .theme-toggle{min-height:44px}
   .nav-brand{min-height:44px}
-  /* CTA punya padding inline di markup (10px 20px) sehingga tingginya 42px. */
-  .nav-links .nav-cta{padding:11px 20px!important}
+  /* CTA punya padding inline di markup (10px 20px) sehingga tingginya 42px.
+     Dipakai 12px, bukan 11px: dengan line-height 21.6px + border 2px, 11px
+     hanya menghasilkan 43.59px — dibulatkan 44 tapi sebenarnya kurang. */
+  .nav-links .nav-cta{padding:12px 20px!important}
 }
 
 @media(max-width:640px){
