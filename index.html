@@ -224,7 +224,10 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media(max-width:1100px){
-  .nav-links{position:fixed;inset:96px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  /* Panel menu: top dirapatkan ke navbar dan dibuat bisa di-scroll, supaya
+     seluruh item tetap terjangkau di layar pendek maupun saat HP dimiringkan. */
+  .nav-links{position:fixed;inset:92px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 104px);overflow-y:auto;overscroll-behavior:contain}
+  .nav.scrolled .nav-links{top:74px;max-height:calc(100dvh - 86px)}
   .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-link::after{display:none}
@@ -374,9 +377,12 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 .hc-box{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:30px}
 .hc-num{font-size:23px;font-weight:800;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
 .hc-unit{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--c-ink-4)}
-/* Panduan gulir di dasar hero — teks berdenyut dalam chip agar selalu terbaca di atas foto */
+/* Panduan gulir di dasar hero — teks berdenyut dalam chip agar selalu terbaca di atas foto.
+   Centering memakai left/right + margin auto, BUKAN translateX(-50%): animasi heroIn
+   berakhir di transform:translateY(0) dan akan menimpa translateX sehingga cue meleset. */
 .hero-scroll-cue{
-  position:absolute;left:50%;bottom:52px;transform:translateX(-50%);z-index:2;
+  position:absolute;left:0;right:0;bottom:52px;margin:0 auto;z-index:2;
+  width:max-content;
   display:flex;flex-direction:column;align-items:center;gap:9px;
   pointer-events:none;transition:opacity .5s var(--ease-smooth)
 }
@@ -403,7 +409,9 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 }
 @media(max-width:900px){
   .hero{
-    padding:88px 18px 28px;
+    /* Padding bawah diperbesar supaya blok isi (badge, judul, countdown)
+       terdorong naik oleh centering, dan panduan gulir tetap punya ruang. */
+    padding:96px 18px 104px;
     min-height:100svh;
     min-height:100dvh;
     display:flex;
@@ -417,7 +425,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
     width:100%;
     margin:auto 0;
   }
-  .hero-copy{text-align:center;max-width:100%}
+  .hero-copy{text-align:center;max-width:100%;padding-top:0}
   .hero h1{
     font-size:clamp(32px,8vw,44px);
     justify-content:center;
@@ -439,10 +447,26 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   .hc-box{min-width:0;flex:1}
   .hc-num{font-size:22px}
 }
-/* Layar pendek: konten hero lebih tinggi dari viewport, cue akan menimpa
-   countdown. Sembunyikan di situ saja — di layar tinggi tetap tampil. */
-@media(max-width:900px) and (max-height:740px){
+/* Layar sangat pendek (mis. 320×568): countdown masih bertemu area panduan
+   gulir. Sembunyikan hanya di situ — pada 360×640 ke atas sudah aman. */
+@media(max-width:340px){
   .hero-scroll-cue{display:none}
+}
+/* Panduan gulir dinaikkan di HP supaya tidak berdesakan dengan blok countdown. */
+@media(max-width:900px){
+  .hero-scroll-cue{bottom:26px;gap:7px}
+}
+/* Layar HP sangat pendek (mis. 320×568): isi hero lebih tinggi daripada layar
+   sehingga countdown jatuh di bawah fold. Rapatkan jarak antarunsur dan
+   kecilkan blok countdown supaya seluruh isi tetap terlihat tanpa menggulir. */
+@media(max-width:900px) and (max-height:640px){
+  .hero{padding:72px 16px 72px}
+  .hero h1{font-size:clamp(26px,7.6vw,32px)}
+  .hero p.lead{margin-top:9px;font-size:14px;line-height:1.5}
+  .hero-cd{margin-top:14px;gap:8px;padding:11px 13px;border-radius:13px}
+  .hc-num{font-size:20px}
+  .hc-box{gap:4px}
+  .hero-scroll-cue{bottom:16px}
 }
 
 /* ── TRUSTED STRIP (marquee) ── */
@@ -1197,9 +1221,9 @@ html.theme-dark .hook-title em{background-image:linear-gradient(135deg,color-mix
 }
 @media(max-width:640px){
   .hook{padding:64px 18px}
-  /* batasi tinggi agar tangkapan layar tidak mendominasi layar HP */
-  .hook-shot{max-height:62vh}
-  .hook-shot img{object-fit:cover;object-position:top center;max-height:62vh}
+  /* Batasi tinggi pada <img> saja. Kalau batas itu dikenakan juga ke <figure>
+     yang punya overflow:hidden, figcaption akan tertutup dan terpotong. */
+  .hook-shot img{object-fit:cover;object-position:top center;max-height:52vh}
   .modul-list li{grid-template-columns:auto minmax(0,1fr);gap:4px 10px}
   .modul-list .ml-tag{grid-column:2;justify-self:start;margin-top:3px}
 }
@@ -1511,6 +1535,128 @@ html.theme-dark .hook--beasiswa{
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   [data-reveal],.h-anim,.hero h1 .w{opacity:1!important;transform:none!important}
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PERBAIKAN LAYAR HP
+   Semua aturan di bawah dibungkus media query / @supports sehingga
+   tampilan desktop dan laptop tidak berubah sama sekali.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Token teks mikro. --c-ink-4 (#94a3b8) hanya 2.45:1 di latar terang —
+   jauh di bawah ambang 4.5:1 untuk teks sekecil ini. Nilai baru 5.2:1. */
+:root{--c-ink-micro:#5c6b7e}
+html.theme-dark{--c-ink-micro:#94a3b8}
+
+/* ── T-02 · Area ketuk minimal 44px pada dot navigasi ──
+   Dot diperbesar lewat pseudo-element sehingga bentuk visualnya tetap
+   8px/9px, dan jarak antar-dot dilebarkan supaya area ketuk tidak saling
+   tumpang tindih (tanpa ini, klik selalu mendarat di dot paling kiri).
+   Hanya berlaku di layar sentuh; desktop tidak tersentuh. */
+@media(pointer:coarse){
+  .pinned-dot,.tg-dot{position:relative}
+  .pinned-dot::after,.tg-dot::after{content:'';position:absolute;inset:-18px;border-radius:50%}
+  .pinned-dots{gap:44px}
+  .tg-dots{gap:44px}
+}
+
+@media(max-width:900px){
+  /* ── T-02 · .hook-link hanya 20–23px tingginya ── */
+  .hook-link{padding:12px 0}
+  /* ── T-09 · navbar meluber di layar sempit ── */
+  .nav-actions{gap:8px}
+}
+
+@media(max-width:360px){
+  /* ── T-09 · pada 320px .nav-actions melampaui viewport 8–10px sehingga
+     tombol tema terpotong. Ruang didapat dengan merapatkan padding dan
+     mengecilkan logo, bukan dengan memperkecil area ketuk. ── */
+  .nav{padding:18px 10px 10px}
+  .nav-inner{padding:9px 12px;gap:8px}
+  .nav-brand{font-size:14.5px;gap:9px;min-height:44px}
+  .nav-brand img{height:28px}
+  .nav-actions{gap:6px}
+  .theme-toggle,.nav-toggle{width:44px;height:44px}
+}
+
+/* ── T-02 · tombol navbar 40/42px → 44px ──
+   Sengaja dibatasi 900px, bukan 1100px: pada 901–1100px (laptop kecil)
+   ukuran tombol tetap persis seperti semula. */
+@media(max-width:900px){
+  .theme-toggle{width:44px;height:44px}
+  .nav-toggle{width:44px;height:44px}
+  /* Tombol CTA punya padding inline di markup, jadi perlu !important.
+     Selector dipersempit ke .nav-cta-mobile agar .nav-cta-desktop tidak
+     tersentuh. */
+  .nav-links .nav-cta-mobile{padding:13px 20px!important}
+  .fab-top{width:44px;height:44px}
+  /* Logo: area ketuk diperluas lewat pseudo-element supaya tinggi navbar
+     tidak ikut berubah. */
+  .nav-brand{position:relative}
+  .nav-brand::after{content:'';position:absolute;inset:-6px -10px}
+}
+
+@media(max-width:640px){
+  /* ── T-01 · Skala tipografi HP ──
+     index.html punya 31 ukuran font berbeda, 4 di antaranya di bawah 11px.
+     Blok ini hanya menaikkan yang tidak terbaca; nilai ≥16px tidak disentuh. */
+  .hc-unit,.cd-unit,.hero-cd-label,.stat-no,.countdown-label,.reg-label{font-size:11.5px}
+  .hook-eyebrow,.modul-list .ml-no,.nikola-stack-no{font-size:12px}
+  .hook-shot figcaption,.stat-label,.reg-flag{font-size:12.5px}
+  /* .modul-list .ml-tag butuh selector penuh — tanpa .modul-list, aturan
+     dasar di baris 1184 lebih spesifik dan tetap menang. */
+  .slide-tag,.p-total,#pnum,.nikola-hero-sub,.slide-close .sc-eyebrow{font-size:13px}
+  .modul-list .ml-tag{font-size:11.5px;padding:4px 10px}
+  .footer-col h5{font-size:12.5px}
+
+  /* ── T-02 · Area ketuk sisa ── */
+  .hook-link{display:inline-flex;min-height:44px}
+  .share-actions .btn{padding:14px 12px}
+  .footer-col a{padding:11px 0}
+
+  /* Isi bacaan: minimum 15px. */
+  .qa-a p,.slide-copy p{font-size:15.5px}
+  .reg-about,.hook-points li{font-size:15px}
+  .hero p.lead{font-size:16px}
+  .reg-when-note,.reg-who-note,.tcard .who span{font-size:13px}
+
+  /* ── T-05 · Kontras teks mikro di latar terang ── */
+  .hc-unit,.cd-unit,.hero-cd-label,.stat-no,.countdown-label,.reg-label,
+  .hook-eyebrow,.modul-list .ml-no,.stat-label,.reg-flag,
+  .hook-shot figcaption,.modul-list .ml-tag,.reg-when-note,.reg-who-note,
+  .share-hint,.p-total,.slide-close .sc-eyebrow,.tcard .who span,
+  .nikola-hero-sub,.qa-a p,.reg-about,.hook-points li,.slide-copy p{color:var(--c-ink-micro)}
+
+  /* Aksen biru #0284c7 hanya 3.91:1 di latar --c-bg. Versi tergelap ini
+     5.67:1 dan tetap dalam keluarga warna yang sama. */
+  #pnum,.slide-tag,.nikola-stack-no,.eyebrow,.reg-no,.reg-level{color:color-mix(in srgb,var(--c-primary) 72%,#0c4a6e)}
+  /* Nomor & label jenjang memakai --lvl-c inline. Di mode terang nilainya
+     < 4.5:1, jadi digelapkan. Aturan ini TIDAK boleh ikut mode gelap karena
+     di sana sudah ada token --lvl-ink (campuran ke putih) yang sudah lulus. */
+  html:not(.theme-dark) .reg-no,html:not(.theme-dark) .reg-level{color:color-mix(in srgb,var(--lvl-c,var(--c-primary)) 76%,#000)}
+
+  /* ── T-05 · Tombol: putih di #25D366 hanya 1.98:1, di #FF0000 hanya 4.0:1 ── */
+  .btn-wa{background:#25d366;color:#0b3d2c}
+  .btn-yt{background:#c4302b}
+
+  /* ── T-07 · input 14.5px memicu auto-zoom di Safari iOS ── */
+  .faq-search input{font-size:16px}
+}
+
+/* ── T-10 · Safe-area iPhone (notch & home indicator) ──
+   @supports + max() membuat blok ini diabaikan total oleh browser desktop,
+   dan bernilai nol di perangkat tanpa notch. ── */
+@supports(padding:max(0px)){
+  .nav{padding-top:max(22px,env(safe-area-inset-top))}
+  .fab-group{right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}
+}
+/* Padding safe-area panel menu hanya berlaku saat panel memang dipakai
+   (<=1100px). Di desktop .nav-links adalah baris menu biasa, jadi padding
+   kiri/kanan tidak boleh ditambahkan. */
+@media(max-width:1100px){
+  @supports(padding:max(0px)){
+    .nav-links{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+  }
 }
 </style>
 <noscript><style>[data-reveal],.h-anim,.hero h1 .w,

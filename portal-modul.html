@@ -88,8 +88,10 @@ a{color:inherit}
 .theme-toggle .i-moon{display:none}
 html.theme-dark .theme-toggle .i-sun{display:none}
 html.theme-dark .theme-toggle .i-moon{display:block}
-@media(max-width:1110px){
-  .nav-links{position:fixed;inset:96px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+@media(max-width:1100px){
+  /* Panel menu: top dirapatkan ke navbar dan dibuat bisa di-scroll, supaya
+     seluruh item tetap terjangkau di layar pendek maupun saat HP dimiringkan. */
+  .nav-links{position:fixed;inset:76px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 88px);overflow-y:auto;overscroll-behavior:contain}
   .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-cta{margin:6px 0 0}
@@ -226,6 +228,58 @@ html.js [data-reveal].in{animation:fadeUp .65s var(--ease-spring) both}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   html.js [data-reveal]{opacity:1!important;transform:none!important}
   .brand-accent{animation:none;background:none;-webkit-text-fill-color:#dc2626;color:#dc2626}
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PERBAIKAN LAYAR HP
+   Semua aturan di bawah dibungkus media query / @supports sehingga
+   tampilan desktop dan laptop tidak berubah sama sekali.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Token teks mikro: --c-ink-4 (#94a3b8) hanya 2.45:1 di latar terang. */
+:root{--c-ink-micro:#5c6b7e}
+html.theme-dark{--c-ink-micro:#94a3b8}
+
+/* ── T-02 · Tombol navbar 40px → 44px ── */
+/* Sengaja 900px, bukan 1100px: pada 901–1100px (laptop kecil) ukuran
+   tombol tetap persis seperti semula. */
+@media(max-width:900px){
+  .theme-toggle{width:44px;height:44px}
+  .nav-toggle{width:44px;height:44px}
+  .nav-brand{min-height:44px}
+  /* CTA punya padding inline di markup; selector dipersempit ke .nav-links
+     agar tombol desktop .nav-cta-desktop tidak ikut berubah. */
+  .nav-links .nav-cta-mobile{padding:13px 20px!important}
+}
+
+@media(max-width:640px){
+  /* ── T-01 · Skala tipografi HP ── */
+  .sec-label,.ledger .no,.groups .g{font-size:12px}
+  .breadcrumb,.hero-meta,.ledger .d{font-size:14px}
+  .ledger .tag{font-size:11.5px;padding:3px 9px}
+  figure.shot figcaption{font-size:13px}
+
+  /* ── T-02 · Area ketuk ── */
+  .breadcrumb a{display:inline-flex;align-items:center;min-height:44px;padding:0 2px}
+
+  /* ── T-05 · Kontras teks mikro ── */
+  /* Breadcrumb: selector harus sepanjang aturan dasar (baris 118–120)
+     supaya tidak kalah spesifisitas. */
+  .breadcrumb,.breadcrumb span,.breadcrumb a{color:var(--c-ink-micro)}
+  .sec-label,.ledger .no,.groups .g,figure.shot figcaption,.hero-meta{color:var(--c-ink-micro)}
+  /* #0284c7 hanya 3.91:1 di latar --c-bg; nilai ini 5.67:1. */
+  .ledger .tag{color:color-mix(in srgb,var(--c-primary) 72%,#0c4a6e)}
+}
+
+@supports(padding:max(0px)){
+  .nav-inner{padding-top:max(13px,env(safe-area-inset-top))}
+  .fab-group{right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}
+}
+/* Padding safe-area panel menu hanya saat panel dipakai (<=1100px). */
+@media(max-width:1100px){
+  @supports(padding:max(0px)){
+    .nav-links{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+  }
 }
 </style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
