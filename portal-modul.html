@@ -29,6 +29,11 @@ document.documentElement.classList.add('js');
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
+/* <picture> adalah elemen inline yang menambah tinggi baris. Untuk logo,
+   tinggi barisnya dinolkan agar tinggi tetap ditentukan <img> seperti semula. */
+.nav-brand picture,.footer-brand picture,.nikola-hero-logo picture{line-height:0;font-size:0}
+.nav-brand picture img,.footer-brand picture img,.nikola-hero-logo picture img{display:block}
+
 /* ══ SISTEM GAYA — mengikuti token & tipografi index.html ══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -91,8 +96,8 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 @media(max-width:1100px){
   /* Panel menu: top dirapatkan ke navbar dan dibuat bisa di-scroll, supaya
      seluruh item tetap terjangkau di layar pendek maupun saat HP dimiringkan. */
-  .nav-links{position:fixed;inset:76px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 88px);overflow-y:auto;overscroll-behavior:contain}
-  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-links{position:fixed;inset:76px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;max-height:calc(100dvh - 88px);overflow-y:auto;overscroll-behavior:contain}
+  .nav-links.show{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-cta{margin:6px 0 0}
   .nav-toggle{display:flex}
@@ -309,10 +314,10 @@ html.theme-dark{--c-ink-micro:#94a3b8}
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'">
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
       <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <a href="/#tentang"     class="nav-link">Tentang</a>
       <a href="/#program"     class="nav-link">Program &amp; Jadwal</a>
@@ -658,7 +663,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     </nav>
 
     <div class="footer-meta">
-      <div class="footer-brand"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
       <p class="footer-copy">&copy; <span id="year"></span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
     </div>
 
@@ -683,17 +688,29 @@ html.theme-dark{--c-ink-micro:#94a3b8}
   (function(){
     var t=document.getElementById('navToggle'), l=document.getElementById('navLinks');
     if(!t||!l) return;
-    t.addEventListener('click',function(){
-      var open=l.classList.toggle('show');
+    function setMenu(open){
+      l.classList.toggle('show',open);
       t.classList.toggle('open',open);
       t.setAttribute('aria-expanded', open?'true':'false');
-    });
+    }
+    t.addEventListener('click',function(){ setMenu(!l.classList.contains('show')); });
     l.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click',function(){
-        l.classList.remove('show'); t.classList.remove('open');
-        t.setAttribute('aria-expanded','false');
-      });
+      a.addEventListener('click',function(){ setMenu(false); });
     });
+    // Escape menutup menu, dan fokus dikembalikan ke tombolnya.
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&l.classList.contains('show')){ setMenu(false); t.focus(); }
+    });
+
+  // Klik di luar menu menutupnya. Sebelumnya perilaku ini datang tidak sengaja
+  // dari menu yang masih terlihat; setelah panel memakai visibility:hidden
+  // perlu ditangani secara eksplisit.
+  document.addEventListener('click', function(e){
+    if(!l.classList.contains('show')) return;
+    if(t.contains(e.target) || l.contains(e.target)) return;
+    setMenu(false);
+  });
+
   })();
 
   // Reveal saat digulir. Tanpa IntersectionObserver, tampilkan semua.

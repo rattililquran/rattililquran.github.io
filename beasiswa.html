@@ -23,6 +23,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
+/* <picture> adalah elemen inline yang menambah tinggi baris. Untuk logo,
+   tinggi barisnya dinolkan agar tinggi tetap ditentukan <img> seperti semula. */
+.nav-brand picture,.footer-brand picture,.nikola-hero-logo picture{line-height:0;font-size:0}
+.nav-brand picture img,.footer-brand picture img,.nikola-hero-logo picture img{display:block}
+
 /* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -80,8 +85,8 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media(max-width:1120px){
-  .nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 74px);overflow-y:auto}
-  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;max-height:calc(100dvh - 74px);overflow-y:auto}
+  .nav-links.show{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-cta{margin:6px 0 0}
   .nav-toggle{display:flex}
@@ -232,10 +237,10 @@ html.theme-dark{--ink-micro:#8b949e}
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'">
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
       <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><span class="icon" id="themeIcon">☀️</span><span id="themeLabel">Tema</span></button>
       <a href="/#tentang"     class="nav-link">Tentang</a>
@@ -402,7 +407,7 @@ html.theme-dark{--ink-micro:#8b949e}
     </nav>
 
     <div class="footer-meta">
-      <div class="footer-brand"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
       <p class="footer-copy">&copy; <span id="year"></span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
     </div>
 
@@ -415,11 +420,27 @@ html.theme-dark{--ink-micro:#8b949e}
 
   // Mobile nav toggle
   var toggle = document.getElementById('navToggle'), links = document.getElementById('navLinks');
-  toggle.addEventListener('click', function(){
-    var open = links.classList.toggle('show');
+  function setMenu(open){
+    links.classList.toggle('show', open);
     toggle.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function(){ setMenu(!links.classList.contains('show')); });
+  links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  // Escape menutup menu, dan fokus dikembalikan ke tombolnya.
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && links.classList.contains('show')){ setMenu(false); toggle.focus(); }
   });
+
+  // Klik di luar menu menutupnya. Sebelumnya perilaku ini datang tidak sengaja
+  // dari menu yang masih terlihat; setelah panel memakai visibility:hidden
+  // perlu ditangani secara eksplisit.
+  document.addEventListener('click', function(e){
+    if(!links.classList.contains('show')) return;
+    if(toggle.contains(e.target) || links.contains(e.target)) return;
+    setMenu(false);
+  });
+
   links.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){
       links.classList.remove('show');

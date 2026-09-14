@@ -57,6 +57,12 @@ document.documentElement.classList.add('js');
 }
 </script>
 <style>
+/* <picture> adalah elemen inline yang menambah tinggi baris. Untuk logo,
+   tinggi barisnya dinolkan agar tinggi tetap ditentukan <img> seperti semula. */
+.nav-brand picture,.footer-brand picture,.nikola-hero-logo picture{line-height:0;font-size:0}
+.nav-brand picture img,.footer-brand picture img,.nikola-hero-logo picture img{display:block}
+
+
 /* ════════════════════════════════════════════════════════════
    Rattililqur'an — Landing Page
    [EDIT] Konten yang perlu diisi ditandai dengan komentar [EDIT]:
@@ -226,9 +232,9 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 @media(max-width:1100px){
   /* Panel menu: top dirapatkan ke navbar dan dibuat bisa di-scroll, supaya
      seluruh item tetap terjangkau di layar pendek maupun saat HP dimiringkan. */
-  .nav-links{position:fixed;inset:92px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 104px);overflow-y:auto;overscroll-behavior:contain}
+  .nav-links{position:fixed;inset:92px 12px auto 12px;flex-direction:column;align-items:stretch;gap:4px;padding:16px 18px 22px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;max-height:calc(100dvh - 104px);overflow-y:auto;overscroll-behavior:contain}
   .nav.scrolled .nav-links{top:74px;max-height:calc(100dvh - 86px)}
-  .nav-links.show{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-links.show{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
   .nav-link{padding:13px 14px;font-size:15px}
   .nav-link::after{display:none}
   .nav-cta{margin:6px 0 0}
@@ -249,7 +255,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-ghost:hover{border-color:var(--c-primary);color:var(--c-primary);transform:translateY(-2px)}
 .btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.32)}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(37,211,102,.42)}
-/* Merah YouTube — mengikuti pola tombol brand lain (.btn-wa, .btn-danger).
+/* Merah YouTube — mengikuti pola tombol brand lain (.btn-wa).
    Efek kilau disamakan dengan .btn-primary agar kedua tombol di hook seragam. */
 .btn-yt{background:#FF0000;color:#fff;box-shadow:0 8px 24px rgba(255,0,0,.3)}
 .btn-yt:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 34px rgba(255,0,0,.42)}
@@ -257,8 +263,6 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-yt::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg)}
 .btn-yt:hover::after{animation:shine .9s ease}
 .btn-yt svg{width:20px;height:20px;stroke-width:2.1}
-.btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 20px rgba(220,38,38,.35)}
-.btn-danger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(220,38,38,.45)}
 .btn-lg{padding:16px 32px;font-size:15.5px;border-radius:15px}
 .btn svg{width:17px;height:17px;flex-shrink:0}
 
@@ -470,17 +474,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 }
 
 /* ── TRUSTED STRIP (marquee) ── */
-.trusted{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 0 8px}
-.trusted-inner{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:22px 22px;border-top:1px solid var(--c-line);border-bottom:1px solid var(--c-line);background:var(--c-bg)}
-.trust-item{display:flex;align-items:baseline;gap:8px}
-.trust-item b{font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.trust-item span{font-size:12.5px;font-weight:700;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.08em}
-.trust-sep{width:5px;height:5px;border-radius:50%;background:var(--c-ink-4);opacity:.5}
-@media(max-width:640px){
-  .trusted-inner{gap:10px;padding:18px 16px}
-  .trust-item b{font-size:22px}
-  .trust-item span{font-size:11px}
-}
+@media(max-width:640px){}
 
 /* ── STORY CHAPTERS (SCROLLYTELLING) ── */
 /* Outer scroller: height = 100vh * (slides+1) to give scroll room */
@@ -510,7 +504,6 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 .pinned-progress-indicator{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:900;color:var(--c-primary)}
 .pinned-progress-indicator .p-bar{width:64px;height:3px;background:var(--c-line);border-radius:3px;overflow:hidden}
 .pinned-progress-indicator .p-fill{height:100%;width:25%;background:var(--c-primary);transition:width .4s var(--ease-smooth)}
-.pinned-title{font-size:clamp(22px,3.4vw,34px);font-weight:800;color:var(--c-ink);text-align:center;margin:0 0 24px}
 
 /* Scroll progress bar at top of sticky panel */
 .pinned-scroll-progress{
@@ -564,15 +557,6 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   background:var(--c-line);transition:background .25s,transform .25s,width .25s}
 .pinned-dot.pd-active{background:var(--c-primary);width:24px;border-radius:4px}
 
-/* Arrow buttons */
-.pinned-arrows{display:flex;justify-content:center;gap:12px;margin-top:12px;flex-shrink:0}
-.pinned-arrow{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--c-line);
-  background:var(--c-card);color:var(--c-ink-3);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .2s,color .2s,background .2s}
-.pinned-arrow:hover{border-color:var(--c-primary);color:var(--c-primary);background:var(--grad-soft)}
-.pinned-arrow:disabled{opacity:.35;cursor:default;pointer-events:none}
-.pinned-arrow svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 /* Scroll hint arrow (shown on first slide) */
 .pinned-scroll-hint{
@@ -844,10 +828,14 @@ html.theme-dark #tentang{
 }
 .nikola-hero-logo{display:flex;justify-content:center;align-items:center;width:100%}
 .nikola-hero-logo img{width:clamp(96px,7.4vw,124px);height:auto;display:block;margin:0 auto 2px;filter:drop-shadow(0 14px 30px rgba(2,132,199,.18))}
-.nikola-hero-logo img.dark{display:none}
+/* Logo dibungkus <picture> (WebP + fallback PNG), jadi yang disembunyikan
+   harus pembungkusnya. Menyembunyikan <img>-nya saja membuat <picture> tetap
+   memakan ruang dan tinggi logo jatuh ke 0. */
+.nikola-hero-logo picture{display:block}
+.nikola-hero-logo picture.dark{display:none}
 html.theme-dark .nikola-hero-logo img{filter:drop-shadow(0 14px 30px rgba(0,0,0,.6))}
-html.theme-dark .nikola-hero-logo img.light{display:none}
-html.theme-dark .nikola-hero-logo img.dark{display:block}
+html.theme-dark .nikola-hero-logo picture.light{display:none}
+html.theme-dark .nikola-hero-logo picture.dark{display:block}
 .nikola-hero-title,
 .nikola-brand-card.is-centered .nikola-hero-title{
   font-size:clamp(28px,3.4vw,40px);
@@ -1780,7 +1768,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'">
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
       <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
     </a>
     <div class="nav-links" id="navLinks">
@@ -1795,7 +1783,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     </div>
     <div class="nav-actions">
       <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-desktop" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
       <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
         <svg class="i-sun"><use href="#i-sun"/></svg>
         <svg class="i-moon"><use href="#i-moon"/></svg>
@@ -2050,8 +2038,8 @@ html.theme-dark{--c-ink-micro:#94a3b8}
       <div class="nikola-right-sticky">
         <div class="nikola-brand-card is-centered" id="nikolaBrandCard">
           <div class="nikola-hero-logo">
-            <img class="light" src="assets/images/logo-abu.png" alt="Rattililqur'an">
-            <img class="dark" src="assets/images/logo-putih.png" alt="Rattililqur'an" loading="lazy">
+            <picture class="light"><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an"></picture>
+            <picture class="dark"><source type="image/webp" srcset="assets/images/logo-putih-512.webp"><img src="assets/images/logo-putih.png" alt="Rattililqur'an" loading="lazy"></picture>
           </div>
           <h2 class="nikola-hero-title"><span class="nh-line">Bagaimana Kami</span> <span class="hook-red">Menemani</span></h2>
           <p class="nikola-hero-sub">Kabar baiknya: keresahan ini bisa dijawab langkah demi langkah — dengan metode yang terstruktur, pengajar yang sabar, dan progres yang terpantau, Biidznillah.</p>
@@ -2521,7 +2509,7 @@ Baarakallahu fiikum</p>
     </nav>
 
     <div class="footer-meta">
-      <div class="footer-brand"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
       <p class="footer-copy">&copy; <span id="year"></span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
     </div>
 
@@ -2964,8 +2952,27 @@ Baarakallahu fiikum</p>
 
   // Mobile menu
   var toggle = document.getElementById('navToggle'), links = document.getElementById('navLinks');
-  toggle.addEventListener('click', function(){ toggle.classList.toggle('open'); links.classList.toggle('show'); });
-  links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle.classList.remove('open'); links.classList.remove('show'); }); });
+  function setMenu(open){
+    links.classList.toggle('show', open);
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function(){ setMenu(!links.classList.contains('show')); });
+  links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  // Escape menutup menu, dan fokus dikembalikan ke tombolnya.
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && links.classList.contains('show')){ setMenu(false); toggle.focus(); }
+  });
+
+  // Klik di luar menu menutupnya. Sebelumnya perilaku ini datang tidak sengaja
+  // dari menu yang masih terlihat; setelah panel memakai visibility:hidden
+  // perlu ditangani secara eksplisit.
+  document.addEventListener('click', function(e){
+    if(!links.classList.contains('show')) return;
+    if(toggle.contains(e.target) || links.contains(e.target)) return;
+    setMenu(false);
+  });
+
 
   // Reveal on scroll
   // Tanpa IntersectionObserver, tampilkan semua agar tidak ada konten tersembunyi.
@@ -3072,7 +3079,9 @@ Baarakallahu fiikum</p>
     function next(){ goTo(idx + 1); }
     function prev(){ goTo(idx - 1); }
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }
-    function restart(){ stop(); if(carouselVisible) timer = setInterval(next, 6000); }
+    // Hormati prefers-reduced-motion: pengguna yang sensitif terhadap gerakan
+    // tetap bisa memakai tombol/dot, tetapi carousel tidak berganti sendiri.
+    function restart(){ stop(); if(carouselVisible && !reduceMotion) timer = setInterval(next, 6000); }
     nextBtn.addEventListener('click', function(){ next(); restart(); });
     prevBtn.addEventListener('click', function(){ prev(); restart(); });
     var startX = null;
