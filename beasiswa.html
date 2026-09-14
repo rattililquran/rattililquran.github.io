@@ -13,8 +13,16 @@
 <meta property="og:description" content="Syarat dan komitmen peserta penerima beasiswa program Tahsin Al-Qur'an Rattililqur'an."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://rattililquran.com/beasiswa.html"/>
-<meta property="og:image" content="https://rattililquran.com/assets/icons/icon-192.png"/>
+<meta property="og:image" content="https://rattililquran.com/assets/images/og-beasiswa.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Kartu beasiswa Tahsin penuh untuk yang terhalang biaya"/>
+<meta property="og:image:type" content="image/jpeg"/>
 <meta property="og:locale" content="id_ID"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Beasiswa Tahsin Al-Qur'an — Rattililqur'an"/>
+<meta name="twitter:description" content="Syarat dan komitmen peserta penerima beasiswa program Tahsin Al-Qur'an Rattililqur'an."/>
+<meta name="twitter:image" content="https://rattililquran.com/assets/images/og-beasiswa.jpg"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -52,7 +60,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.nav-brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:16px;color:var(--ink);letter-spacing:0.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
+.nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--ink);letter-spacing:0.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
 .nav-brand span{white-space:nowrap}
 .nav-brand img{height:36px;width:auto}
 .brand-accent{
@@ -60,7 +68,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
   background-size:200% auto;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
-  font-weight:850;letter-spacing:0.02em;
+  font-weight:800;letter-spacing:0.02em;
   will-change:background-position;
   animation:brandShimmer 2.4s linear infinite;
   display:inline-block;
@@ -119,8 +127,8 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 .beasiswa-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;box-shadow:var(--sh);transition:box-shadow .2s}
 .beasiswa-item:hover{box-shadow:var(--sh-lg)}
 .beasiswa-item-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
-.beasiswa-item-num{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--primary)}
-.beasiswa-item h4{font-size:16.5px;font-weight:800;color:var(--ink);margin:0;padding-top:9px}
+.beasiswa-item-num{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--primary)}
+.beasiswa-item h2{font-size:16.5px;font-weight:800;color:var(--ink);margin:0;padding-top:9px}
 .beasiswa-item ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .beasiswa-item ul li{font-size:14.5px;color:var(--ink-3);padding-left:22px;position:relative;line-height:1.7}
 .beasiswa-item ul li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary);opacity:.6}
@@ -151,7 +159,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 
 .footer-nav{display:flex;flex-direction:column;gap:12px;margin-top:clamp(34px,4.5vw,52px)}
 .footer-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
-.footer-row h5{flex:0 0 auto;width:104px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0;line-height:1.2}
+.footer-row h2{flex:0 0 auto;width:104px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0;line-height:1.2}
 .footer-row a{font-size:14.5px;line-height:1.2;color:var(--ink-3);text-decoration:none;white-space:nowrap;transition:color .16s}
 .footer-row a:hover{color:var(--primary)}
 .footer-row a:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
@@ -168,7 +176,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
   .footer-cta{width:100%}
   .footer-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;margin-top:clamp(30px,7vw,40px)}
   .footer-row{display:contents}
-  .footer-row h5{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .footer-row h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .footer-row a{display:flex;align-items:center;min-height:44px;font-size:15px}
   .footer-meta{display:block;padding:18px 0 42px}
   .footer-brand{margin-bottom:10px}
@@ -280,7 +288,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">1</div>
-          <h4>Ketidaksanggupan Membayar</h4>
+          <h2>Ketidaksanggupan Membayar</h2>
         </div>
         <ul>
           <li>Beasiswa diperuntukkan bagi peserta yang betul-betul <strong>tidak sanggup membayar</strong> biaya pembelajaran sebesar Rp75.000/bulan.</li>
@@ -291,7 +299,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">2</div>
-          <h4>Komitmen Hadir hingga Akhir Level</h4>
+          <h2>Komitmen Hadir hingga Akhir Level</h2>
         </div>
         <ul>
           <li>Wajib mengikuti kelas sampai akhir level, tidak mengambil izin lebih dari <strong>3 kali</strong>.</li>
@@ -303,7 +311,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">3</div>
-          <h4>Standar Nilai Ujian</h4>
+          <h2>Standar Nilai Ujian</h2>
         </div>
         <ul>
           <li>Nilai <strong>Ujian Bulanan</strong> dan <strong>rata-rata Nilai Akhir</strong> minimal <strong>80</strong>.</li>
@@ -313,7 +321,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">4</div>
-          <h4>Aktif di Halaqah dan Grup WA</h4>
+          <h2>Aktif di Halaqah dan Grup WA</h2>
         </div>
         <ul>
           <li>Aktif berpartisipasi selama kegiatan halaqah berlangsung.</li>
@@ -324,7 +332,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">5</div>
-          <h4>Tepat Waktu &amp; Adab Bermajelis</h4>
+          <h2>Tepat Waktu &amp; Adab Bermajelis</h2>
         </div>
         <ul>
           <li>Selalu hadir <strong>tepat waktu</strong> di setiap sesi halaqah.</li>
@@ -335,7 +343,7 @@ html.theme-dark{--ink-micro:#8b949e}
       <div class="beasiswa-item" data-reveal>
         <div class="beasiswa-item-header">
           <div class="beasiswa-item-num">6</div>
-          <h4>Menyebarkan Ilmu</h4>
+          <h2>Menyebarkan Ilmu</h2>
         </div>
         <ul>
           <li>Siap <strong>mengajarkan ilmu yang telah didapat</strong>, di mana pun berada.</li>
@@ -344,8 +352,8 @@ html.theme-dark{--ink-micro:#8b949e}
 
       <div class="beasiswa-item" data-reveal style="border-color:rgba(220,38,38,.3);">
         <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num" style="background:rgba(220,38,38,.1);color:#dc2626;font-size:20px;font-weight:900;">!</div>
-          <h4 style="color:#dc2626;">Konsekuensi Pelanggaran</h4>
+          <div class="beasiswa-item-num" style="background:rgba(220,38,38,.1);color:#dc2626;font-size:20px;font-weight:800;">!</div>
+          <h2 style="color:#dc2626;">Konsekuensi Pelanggaran</h2>
         </div>
         <ul>
           <li>Apabila poin-poin di atas tidak dijalankan sebagaimana mestinya, program beasiswa akan <strong>dicabut sewaktu-waktu</strong>.</li>
@@ -384,7 +392,7 @@ html.theme-dark{--ink-micro:#8b949e}
 
     <nav class="footer-nav" aria-label="Tautan footer">
       <div class="footer-row">
-        <h5>Jelajahi</h5>
+        <h2>Jelajahi</h2>
         <a href="/#tentang">Tentang</a>
         <a href="/#program">Program &amp; Jadwal</a>
         <a href="/#pendaftaran">Pendaftaran</a>
@@ -392,13 +400,13 @@ html.theme-dark{--ink-micro:#8b949e}
         <a href="/#faq">FAQ</a>
       </div>
       <div class="footer-row">
-        <h5>Portal</h5>
+        <h2>Portal</h2>
         <a href="portal.html">Portal Murid</a>
         <a href="modul.html">Modul Belajar</a>
         <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">Video Portal</a>
       </div>
       <div class="footer-row">
-        <h5>Terhubung</h5>
+        <h2>Terhubung</h2>
         <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener">Channel WA</a>
         <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>

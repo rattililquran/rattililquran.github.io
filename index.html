@@ -17,12 +17,16 @@ document.documentElement.classList.add('js');
 <meta property="og:description" content="Lembaga Tahsin & Tahfidz Al-Qur'an. Bergabunglah dalam halaqah pembelajaran yang terstruktur dan penuh berkah."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://rattililquran.com/"/>
-<meta property="og:image" content="https://rattililquran.com/assets/icons/icon-192.png"/>
+<meta property="og:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Kartu Rattililqur'an: belajar Al-Qur'an dengan tartil, terstruktur & terpantau"/>
+<meta property="og:image:type" content="image/jpeg"/>
 <meta property="og:locale" content="id_ID"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an"/>
 <meta name="twitter:description" content="Lembaga Tahsin & Tahfidz Al-Qur'an dengan halaqah kecil, pengajar berpengalaman, dan metode pembelajaran terstruktur."/>
-<meta name="twitter:image" content="https://rattililquran.com/assets/icons/icon-192.png"/>
+<meta name="twitter:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -95,7 +99,11 @@ document.documentElement.classList.add('js');
   --ease-smooth:cubic-bezier(.4,0,.2,1);
   --dur-fast:160ms; --dur:280ms; --dur-slow:700ms;
   /* Typography */
-  --font-mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono','Courier New',monospace;
+  /* Label & angka. Sebelumnya monospace sistem, sehingga bentuk huruf dan
+     lebar angkanya berbeda antar-OS (macOS Menlo, Windows Consolas, Android
+     fallback tak tentu). Kini memakai font yang sudah dimuat, dengan angka
+     tabular supaya lebarnya seragam di semua perangkat tanpa unduhan tambahan. */
+  --font-label:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 html.theme-dark{
   --c-bg:#070e1c; --c-card:#0d1b30; --c-soft:#0f2138; --c-glass:rgba(13,27,48,.65); --c-nav:rgba(7,14,28,.9);
@@ -190,7 +198,7 @@ html.js [data-reveal].in{animation:fadeUp .7s var(--ease-spring) both;animation-
 .nav-inner{max-width:1090px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-nav);box-shadow:var(--sh-sm);transition:max-width 350ms var(--ease-smooth),padding 350ms var(--ease-smooth),background 350ms var(--ease-smooth),border-color 350ms var(--ease-smooth),box-shadow 350ms var(--ease-smooth),border-radius 350ms var(--ease-smooth)}
 .nav.scrolled{padding:0}
 .nav.scrolled .nav-inner{max-width:100%;padding:12px 22px;border-radius:0;background:var(--c-nav);border-color:transparent;border-bottom:1px solid var(--c-line);box-shadow:var(--sh-sm)}
-.nav-brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:16px;color:var(--c-ink);letter-spacing:0.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
+.nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--c-ink);letter-spacing:0.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
 .nav-brand span{white-space:nowrap}
 .nav-brand img{height:34px;width:auto}
 .brand-accent{
@@ -198,7 +206,7 @@ html.js [data-reveal].in{animation:fadeUp .7s var(--ease-spring) both;animation-
   background-size:200% auto;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
-  font-weight:850;letter-spacing:0.02em;
+  font-weight:800;letter-spacing:0.02em;
   will-change:background-position;
   animation:brandShimmer 2.4s linear infinite;
   display:inline-block;
@@ -290,7 +298,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
   .section.tight{padding-top:24px}
   .grid{margin-top:28px}
 }
-.sec-num{position:absolute;top:-8px;right:22px;font-size:clamp(54px,8vw,120px);font-weight:900;line-height:1;letter-spacing:-.04em;color:var(--c-primary);opacity:.07;pointer-events:none;z-index:0;user-select:none;will-change:transform}
+.sec-num{position:absolute;top:-8px;right:22px;font-size:clamp(54px,8vw,120px);font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--c-primary);opacity:.07;pointer-events:none;z-index:0;user-select:none;will-change:transform}
 @media(max-width:640px){.sec-num{font-size:52px;top:-2px;right:14px}}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--c-primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px;position:relative;z-index:1}
 .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-primary)}
@@ -501,7 +509,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   overflow:hidden;
 }
 .pinned-header{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;margin-bottom:12px}
-.pinned-progress-indicator{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:900;color:var(--c-primary)}
+.pinned-progress-indicator{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:var(--c-primary)}
 .pinned-progress-indicator .p-bar{width:64px;height:3px;background:var(--c-line);border-radius:3px;overflow:hidden}
 .pinned-progress-indicator .p-fill{height:100%;width:25%;background:var(--c-primary);transition:width .4s var(--ease-smooth)}
 
@@ -580,7 +588,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 .slide-grid.art-left .slide-copy{grid-column:2;grid-row:1}
 
 .slide-copy{display:flex;flex-direction:column;gap:16px;max-width:560px}
-.slide-tag{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:900;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase}
+.slide-tag{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase}
 .slide-tag::before{content:'';width:20px;height:2px;background:var(--c-primary)}
 .slide-copy h3{font-size:clamp(24px,2.4vw,38px);font-weight:800;color:var(--c-ink);line-height:1.24;letter-spacing:-.02em}
 .slide-copy h3 .hook-red{color:#e11d48}
@@ -654,10 +662,10 @@ html.theme-dark .slide-art svg{filter:drop-shadow(0 18px 38px rgba(0,0,0,.55))}
 .turn-list{display:flex;flex-direction:column;max-width:960px;margin:0 auto;text-align:left}
 .turn-item{position:relative;display:grid;grid-template-columns:80px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--c-line);overflow:hidden}
 .turn-item:last-child{border-bottom:1px solid var(--c-line)}
-.turn-item-no{font-family:var(--font-mono);font-size:24px;font-weight:900;letter-spacing:.06em;color:var(--c-primary);line-height:1}
-.turn-item-body h4{font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--c-ink);line-height:1.3;margin-bottom:8px;letter-spacing:-.02em}
-.turn-item-body h4 .hook-red{color:#e11d48}
-html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
+.turn-item-no{font-family:var(--font-label);font-size:24px;font-weight:700;letter-spacing:.06em;color:var(--c-primary);line-height:1}
+.turn-item-body h3{font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--c-ink);line-height:1.3;margin-bottom:8px;letter-spacing:-.02em}
+.turn-item-body h3 .hook-red{color:#e11d48}
+html.theme-dark .turn-item-body h3 .hook-red{color:#fb7185}
 .turn-item-body p{font-size:clamp(15.5px,1.4vw,17.5px);color:var(--c-ink-3);line-height:1.75;max-width:720px}
 
 /* ── EFEK MASUK 3 POIN (nomor, heading, paragraf, garis) ── */
@@ -665,13 +673,13 @@ html.theme-dark .turn-item-body h4 .hook-red{color:#fb7185}
 .turn-hero[data-reveal="stagger"] .title,
 .turn-hero[data-reveal="stagger"] .sub,
 .turn-item[data-reveal="stagger"] .turn-item-no,
-.turn-item[data-reveal="stagger"] .turn-item-body h4,
+.turn-item[data-reveal="stagger"] .turn-item-body h3,
 .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:0}
 /* Tanpa JavaScript, semua elemen ini harus tetap terlihat */
 html:not(.js) .turn-hero[data-reveal="stagger"] .title,
 html:not(.js) .turn-hero[data-reveal="stagger"] .sub,
 html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-no,
-html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body h4,
+html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body h3,
 html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1}
 @keyframes turnNumIn{from{opacity:0;transform:translateY(20px) scale(.72)}60%{transform:translateY(-3px) scale(1.04)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes turnHeadingIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
@@ -693,7 +701,7 @@ html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1}
   animation-delay:calc(var(--i,0) * 90ms + 60ms);
 }
 /* heading: menyusul menenangkan */
-.turn-item.in .turn-item-body h4{
+.turn-item.in .turn-item-body h3{
   animation:turnHeadingIn .75s var(--ease-spring) both;
   animation-delay:calc(var(--i,0) * 90ms + 180ms);
 }
@@ -709,14 +717,14 @@ html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1}
 @media (prefers-reduced-motion:reduce){
   .turn-item.in::before,
   .turn-item.in .turn-item-no,
-  .turn-item.in .turn-item-body h4,
+  .turn-item.in .turn-item-body h3,
   .turn-item.in .turn-item-body p,
   .turn-hero.in .title,
   .turn-hero.in .sub{animation:none!important;opacity:1!important;transform:none!important}
   .turn-hero[data-reveal="stagger"] .title,
   .turn-hero[data-reveal="stagger"] .sub,
   .turn-item[data-reveal="stagger"] .turn-item-no,
-  .turn-item[data-reveal="stagger"] .turn-item-body h4,
+  .turn-item[data-reveal="stagger"] .turn-item-body h3,
   .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1!important}
 }
 @media(max-width:640px){
@@ -738,7 +746,7 @@ html:not(.js) .turn-item[data-reveal="stagger"] .turn-item-body p{opacity:1}
 .evidence-stat:hover{background:var(--c-soft)}
 .evidence-stat:hover::before{opacity:1}
 .evidence-stat:hover b::after{width:38px;opacity:1}
-.stat-no{display:block;font-family:var(--font-mono);font-size:10.5px;font-weight:700;font-style:normal;letter-spacing:.16em;color:var(--c-ink-4);margin-bottom:12px}
+.stat-no{display:block;font-family:var(--font-label);font-size:10.5px;font-weight:700;font-style:normal;letter-spacing:.16em;color:var(--c-ink-4);margin-bottom:12px}
 .evidence-stat b{display:block;font-size:clamp(38px,5.4vw,58px);font-weight:800;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;background-image:linear-gradient(135deg,var(--sa),var(--sb));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .stat-label{display:block;font-size:11.5px;font-weight:800;color:var(--c-ink-3);text-transform:uppercase;letter-spacing:.15em;margin-top:10px}
 html.theme-dark .evidence-stat b{background-image:linear-gradient(135deg,color-mix(in srgb,var(--sa) 62%,#ffffff),color-mix(in srgb,var(--sb) 58%,#ffffff))}
@@ -884,7 +892,7 @@ html.theme-dark .nikola-hero-title .hook-red{color:#fb7185}
 }
 html.theme-dark .nikola-stack-card{box-shadow:0 -10px 30px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.35)}
 .nikola-stack-card:hover{border-color:var(--c-primary)}
-.nikola-stack-no{font-family:var(--font-mono);font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase;margin-bottom:5px;display:block}
+.nikola-stack-no{font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--c-primary);text-transform:uppercase;margin-bottom:5px;display:block}
 .nikola-stack-card h3{font-size:clamp(18px,2.1vw,23px);font-weight:800;color:var(--c-ink);line-height:1.26;margin-bottom:7px;letter-spacing:-.02em}
 .nikola-stack-card p{font-size:clamp(14px,1.15vw,16.5px);color:var(--c-ink-3);line-height:1.6}
 
@@ -982,7 +990,7 @@ html.theme-dark .reg-item{--lvl-ink:color-mix(in srgb,var(--lvl-c,var(--c-primar
 .reg-no{
   flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
   width:30px;height:30px;border-radius:9px;margin-top:1px;
-  font-size:12.5px;font-weight:900;letter-spacing:.02em;font-variant-numeric:tabular-nums;
+  font-size:12.5px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;
   color:var(--lvl-ink);background:var(--c-card);
   border:1.5px solid var(--lvl-ink);
 }
@@ -1069,9 +1077,9 @@ html.theme-dark .reg-flag{color:#f87171}
 .alur-no::after{top:60px;bottom:0}
 .alur-step:first-child .alur-no::before{display:none}
 .alur-step:last-child .alur-no::after{display:none}
-.alur-no b{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0;color:#fff;font-variant-numeric:tabular-nums;background:linear-gradient(135deg,var(--ga),var(--gb))}
+.alur-no b{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:0;color:#fff;font-variant-numeric:tabular-nums;background:linear-gradient(135deg,var(--ga),var(--gb))}
 .alur-body{padding:25px 30px 27px 22px;min-width:0}
-.alur-body h4{font-size:16px;font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.35;overflow-wrap:anywhere}
+.alur-body h3{font-size:16px;font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.35;overflow-wrap:anywhere}
 .alur-body p{font-size:13.5px;color:var(--c-ink-3);line-height:1.62;margin-top:6px;max-width:54ch}
 /* mode gelap: badge dilembutkan agar tetap terbaca di kartu gelap */
 html.theme-dark .alur-no b{background:linear-gradient(135deg,color-mix(in srgb,var(--ga) 82%,#0d1b30),color-mix(in srgb,var(--gb) 74%,#0d1b30))}
@@ -1085,7 +1093,7 @@ html.theme-dark .alur-no b{background:linear-gradient(135deg,color-mix(in srgb,v
 .share-toggle-ico{flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--c-ink-4);transition:transform var(--dur) var(--ease-spring),color var(--dur-fast)}
 .share-toggle-ico svg{width:14px;height:14px}
 .share-inline[open] .share-toggle-ico{transform:rotate(180deg);color:var(--c-primary)}
-.share-hint{margin-left:auto;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.share-hint{margin-left:auto;font-family:var(--font-label);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
 .share-hint::after{content:'Buka'}
 .share-inline[open] .share-hint::after{content:'Tutup'}
 .share-preview{padding:2px 0 16px}
@@ -1130,7 +1138,7 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
   .alur-no::after{top:52px}
   .alur-no b{width:30px;height:30px;font-size:11px}
   .alur-body{padding:21px 20px 23px 16px}
-  .alur-body h4{font-size:15.5px}
+  .alur-body h3{font-size:15.5px}
   .share-actions{grid-template-columns:1fr;gap:8px}
   .share-hint{display:none}
   .gelombang{margin-top:14px}
@@ -1161,7 +1169,7 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
 }
 .hook-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.16fr);gap:clamp(28px,4vw,60px);align-items:center}
 .hook-copy{min-width:0}
-.hook-eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-ink-4);margin-bottom:16px}
+.hook-eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-ink-4);margin-bottom:16px}
 .hook-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--hk-a),var(--hk-b));flex-shrink:0}
 .hook-title{font-size:clamp(28px,3.2vw,42px);font-weight:800;letter-spacing:-.025em;line-height:1.15;color:var(--c-ink)}
 .hook-title em{font-style:normal;background-image:linear-gradient(135deg,var(--hk-a),var(--hk-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -1188,9 +1196,9 @@ html.theme-dark .reg-status.closed{color:#fca5a5}
 /* Daftar materi modul — baris ledger, bukan grid kartu */
 .modul-list{list-style:none;margin-top:26px;border-top:1px solid var(--c-line)}
 .modul-list li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--c-line)}
-.modul-list .ml-no{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--c-ink-4)}
+.modul-list .ml-no{font-family:var(--font-label);font-size:11px;font-weight:700;color:var(--c-ink-4)}
 .modul-list .ml-name{font-size:14px;font-weight:700;color:var(--c-ink);overflow-wrap:anywhere}
-.modul-list .ml-tag{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--hk-a);border:1px solid currentColor;border-radius:99px;padding:3px 9px;white-space:nowrap}
+.modul-list .ml-tag{font-family:var(--font-label);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--hk-a);border:1px solid currentColor;border-radius:99px;padding:3px 9px;white-space:nowrap}
 
 /* Varian Hook 2 · Modul Belajar (nada indigo, gambar di kiri) */
 .hook--modul{--hk-a:#3730a3;--hk-b:#6366f1}
@@ -1316,7 +1324,7 @@ html.theme-dark .hook--beasiswa{
 .tg-track{display:flex;transition:transform .45s var(--ease-smooth)}
 .tg-track .tcard{flex:0 0 100%;box-sizing:border-box}
 .tcard{position:relative;overflow:hidden;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:28px 26px;box-shadow:var(--sh);transition:transform var(--dur),box-shadow var(--dur)}
-.tcard::before{content:'\201C';position:absolute;top:-6px;right:18px;font-family:Georgia,serif;font-size:80px;font-weight:900;line-height:1;color:var(--c-primary);opacity:.08;pointer-events:none}
+.tcard::before{content:'\201C';position:absolute;top:-6px;right:18px;font-family:Georgia,serif;font-size:80px;font-weight:700;line-height:1;color:var(--c-primary);opacity:.08;pointer-events:none}
 .tg-track .tcard:hover{transform:none;box-shadow:var(--sh)}
 .tcard .stars{color:#f59e0b;font-size:15px;letter-spacing:2px;margin-bottom:14px}
 .tcard p{font-size:15px;color:var(--c-ink-2);line-height:1.7;margin-bottom:20px}
@@ -1429,7 +1437,7 @@ html.theme-dark .hook--beasiswa{
 .ccard .ico svg{width:20px;height:20px;display:block}
 
 .ccard .cc-body{min-width:0;display:flex;flex-direction:column;gap:2px}
-.ccard h4{font-size:14.5px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em}
+.ccard h3{font-size:14.5px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em}
 .ccard p{font-size:13.5px;color:var(--c-ink-2);overflow-wrap:anywhere}
 /* Kartu berbentuk baris satis: ikon, isi, lalu panah. Kartu Alamat tidak punya
    panah karena isinya keterangan, bukan tautan — teksnya otomatis mengisi
@@ -1489,7 +1497,7 @@ html.theme-dark .hook--beasiswa{
 
 .footer-nav{display:flex;flex-direction:column;gap:12px;margin-top:clamp(34px,4.5vw,52px)}
 .footer-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
-.footer-row h5{flex:0 0 auto;width:104px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3);margin:0;line-height:1.2}
+.footer-row h2{flex:0 0 auto;width:104px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3);margin:0;line-height:1.2}
 .footer-row a{font-size:14.5px;line-height:1.2;color:var(--c-ink-3);text-decoration:none;white-space:nowrap;transition:color var(--dur-fast)}
 .footer-row a:hover{color:var(--c-primary)}
 .footer-row a:focus-visible{outline:2px solid var(--c-primary);outline-offset:3px;border-radius:4px}
@@ -1515,7 +1523,7 @@ html.theme-dark .hook--beasiswa{
      ada di DOM agar pembaca layar tetap mendapat konteks pengelompokan. */
   .footer-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;margin-top:clamp(30px,7vw,40px)}
   .footer-row{display:contents}
-  .footer-row h5{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .footer-row h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .footer-row a{display:flex;align-items:center;min-height:44px;font-size:15px}
   .footer-meta{padding:18px 0 42px}
 }
@@ -1647,11 +1655,17 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     .nav-links{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
   }
 }
+
+/* Angka tabular: lebar digit seragam, jadi '01' dan '09' sama lebar
+   dan tidak menggeser tata letak di perangkat mana pun. */
+.turn-item-no,.stat-no,.alur-no b,.modul-list .ml-no,.ledger .no{font-variant-numeric:tabular-nums}
+
+
 </style>
 <noscript><style>[data-reveal],.h-anim,.hero h1 .w,
 .evidence-stat,
 .turn-hero[data-reveal="stagger"] .title,.turn-hero[data-reveal="stagger"] .sub,
-.turn-item[data-reveal="stagger"] .turn-item-no,.turn-item[data-reveal="stagger"] .turn-item-body h4,.turn-item[data-reveal="stagger"] .turn-item-body p
+.turn-item[data-reveal="stagger"] .turn-item-no,.turn-item[data-reveal="stagger"] .turn-item-body h3,.turn-item[data-reveal="stagger"] .turn-item-body p
 {opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </head>
 <body>
@@ -1962,7 +1976,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     <div class="turn-item" data-reveal="stagger" style="--i:0">
       <span class="turn-item-no">01</span>
       <div class="turn-item-body">
-        <h4>Setiap Orang Memiliki <span class="hook-red">Titik Awal</span></h4>
+        <h3>Setiap Orang Memiliki <span class="hook-red">Titik Awal</span></h3>
         <p>Rasa ragu dan cemas adalah hal manusiawi. Yang terpenting bukanlah di mana posisi bacaan Anda hari ini, melainkan keberanian Anda untuk mengambil langkah pertama ke depan.</p>
       </div>
     </div>
@@ -1970,7 +1984,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     <div class="turn-item" data-reveal="stagger" style="--i:1">
       <span class="turn-item-no">02</span>
       <div class="turn-item-body">
-        <h4>Keliru Makhraj Adalah <span class="hook-red">Pintu Kebaikan</span></h4>
+        <h3>Keliru Makhraj Adalah <span class="hook-red">Pintu Kebaikan</span></h3>
         <p>Di halaqah kami, salah baca bukan aib yang memalukan. Justru saat Anda dikoreksi dengan sabar oleh asatidzah, di sanalah ilmu mengalir dan pahala perbaikan dicatat.</p>
       </div>
     </div>
@@ -1978,7 +1992,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     <div class="turn-item" data-reveal="stagger" style="--i:2">
       <span class="turn-item-no">03</span>
       <div class="turn-item-body">
-        <h4>Langkah Kecil yang <span class="hook-red">Terus Istiqamah</span></h4>
+        <h3>Langkah Kecil yang <span class="hook-red">Terus Istiqamah</span></h3>
         <p>Belajar rutin 2–3 kali sepekan dalam halaqah kecil (maksimal 10 orang) jauh lebih berbuah nyata dan terasa progresnya dibanding belajar sendiri tanpa ada yang mengoreksi.</p>
       </div>
     </div>
@@ -2262,7 +2276,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
     <li class="alur-step" data-reveal style="--i:0">
       <span class="alur-no" aria-hidden="true"><b>01</b></span>
       <div class="alur-body">
-        <h4>Share Info Pendaftaran</h4>
+        <h3>Share Info Pendaftaran</h3>
         <p>Mari bersama menyebar info kebaikan ini melalui medsos yang ada, semoga menjadi amal jariyah untuk bersama.</p>
 
         <!-- Aset siap-bagikan untuk langkah 01. Teksnya dilipat agar hemat ruang di HP. -->
@@ -2287,21 +2301,21 @@ Baarakallahu fiikum</p>
     <li class="alur-step" data-reveal style="--i:1">
       <span class="alur-no" aria-hidden="true"><b>02</b></span>
       <div class="alur-body">
-        <h4>Isi Data Diri</h4>
+        <h3>Isi Data Diri</h3>
         <p>Lengkapi formulir pendaftaran yang ada di link pendaftaran.</p>
       </div>
     </li>
     <li class="alur-step" data-reveal style="--i:2">
       <span class="alur-no" aria-hidden="true"><b>03</b></span>
       <div class="alur-body">
-        <h4>Ramah Tamah</h4>
+        <h3>Ramah Tamah</h3>
         <p>Sesi diskusi dan wawancara dengan para pengajar Rattililquran.</p>
       </div>
     </li>
     <li class="alur-step" data-reveal style="--i:3">
       <span class="alur-no" aria-hidden="true"><b>04</b></span>
       <div class="alur-body">
-        <h4>Mulai Belajar</h4>
+        <h3>Mulai Belajar</h3>
         <p>Dapatkan akun portal dan mulai mengikuti halaqah. Barakallahu fiikum!</p>
       </div>
     </li>
@@ -2437,40 +2451,40 @@ Baarakallahu fiikum</p>
     <!-- [EDIT] nomor WhatsApp -->
     <a href="https://wa.me/6282316993233" target="_blank" rel="noopener" class="ccard cc-wa">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path fill="#25D366" d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.479 2.03 7.78L0 32l8.413-2.21A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z"/><path fill="#fff" d="M23.47 19.27c-.347-.173-2.05-1.012-2.367-1.128-.318-.116-.55-.173-.78.174-.232.346-.897 1.127-1.1 1.359-.202.232-.405.26-.752.087-.346-.173-1.46-.538-2.78-1.715-1.028-.916-1.722-2.048-1.923-2.394-.202-.346-.022-.533.152-.706.156-.155.346-.405.52-.607.172-.202.23-.346.346-.578.115-.232.057-.434-.029-.607-.086-.173-.78-1.879-1.07-2.573-.282-.677-.568-.585-.78-.596-.202-.01-.434-.012-.665-.012-.232 0-.607.087-.925.434-.318.346-1.214 1.187-1.214 2.893 0 1.706 1.243 3.355 1.416 3.587.173.232 2.445 3.733 5.92 5.235.827.357 1.473.57 1.977.73.83.264 1.585.227 2.182.138.666-.1 2.05-.838 2.34-1.647.289-.81.289-1.504.202-1.648-.086-.144-.318-.231-.665-.404z"/></svg></span>
-      <span class="cc-body"><h4>WhatsApp</h4><p>+62 823-1699-3233</p></span>
+      <span class="cc-body"><h3>WhatsApp</h3><p>+62 823-1699-3233</p></span>
       <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
     </a>
 
     <!-- [EDIT] username Instagram -->
     <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener" class="ccard cc-ig">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#5851DB"/></linearGradient></defs><rect width="24" height="24" rx="6.5" fill="url(#igGrad)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="#fff"/></svg></span>
-      <span class="cc-body"><h4>Instagram</h4><p>@rattililquran</p></span>
+      <span class="cc-body"><h3>Instagram</h3><p>@rattililquran</p></span>
       <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
     </a>
 
     <!-- [EDIT] email -->
     <a href="mailto:rattililquran.id@gmail.com" class="ccard cc-mail">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="mailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><rect x="1" y="4" width="22" height="16" rx="4" fill="url(#mailGrad)"/><path d="M2.5 6.2 12 13l9.5-6.8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span class="cc-body"><h4>Email</h4><p>rattililquran.id@gmail.com</p></span>
+      <span class="cc-body"><h3>Email</h3><p>rattililquran.id@gmail.com</p></span>
       <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
     </a>
 
     <a href="https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08" target="_blank" rel="noopener" class="ccard cc-wa">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M5 9.5v5a1.2 1.2 0 0 0 1.2 1.2h.8l4.3 3v-13.4l-4.3 3H6.2A1.2 1.2 0 0 0 5 9.5z"/><path d="M14.8 8.2a4.4 4.4 0 0 1 0 7.6" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M17 5.6a8 8 0 0 1 0 12.8" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".65"/></svg></span>
-      <span class="cc-body"><h4>Channel WhatsApp</h4><p>Rattililqur'an</p></span>
+      <span class="cc-body"><h3>Channel WhatsApp</h3><p>Rattililqur'an</p></span>
       <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
     </a>
 
     <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener" class="ccard cc-yt">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/><path d="M10 8.7v6.6l6-3.3z" fill="#fff"/></svg></span>
-      <span class="cc-body"><h4>YouTube</h4><p>@rattililquranindonesia</p></span>
+      <span class="cc-body"><h3>YouTube</h3><p>@rattililquranindonesia</p></span>
       <span class="cc-arrow" aria-hidden="true"><svg><use href="#i-chevron-right"/></svg></span>
     </a>
 
     <!-- Alamat: keterangan, bukan tautan -->
     <div class="ccard cc-alm">
       <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6.5" fill="#0F766E"/><path d="M12 5.6c-2.9 0-5.2 2.3-5.2 5.2 0 3.9 5.2 7.6 5.2 7.6s5.2-3.7 5.2-7.6c0-2.9-2.3-5.2-5.2-5.2zm0 7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z" fill="#fff"/></svg></span>
-      <span class="cc-body"><h4>Alamat</h4><p>Bondowoso, Jawa Timur — kelas daring &amp; tatap muka menurut jadwal halaqah.</p></span>
+      <span class="cc-body"><h3>Alamat</h3><p>Bondowoso, Jawa Timur — kelas daring &amp; tatap muka menurut jadwal halaqah.</p></span>
     </div>
   </div>
 </section>
@@ -2489,7 +2503,7 @@ Baarakallahu fiikum</p>
 
     <nav class="footer-nav" aria-label="Tautan footer">
       <div class="footer-row">
-        <h5>Jelajahi</h5>
+        <h2>Jelajahi</h2>
         <a href="#tentang">Tentang</a>
         <a href="#program">Program &amp; Jadwal</a>
         <a href="#pendaftaran">Pendaftaran</a>
@@ -2497,13 +2511,13 @@ Baarakallahu fiikum</p>
         <a href="#faq">FAQ</a>
       </div>
       <div class="footer-row">
-        <h5>Portal</h5>
+        <h2>Portal</h2>
         <a href="portal.html">Portal Murid</a>
         <a href="modul.html">Modul Belajar</a>
         <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">Video Portal</a>
       </div>
       <div class="footer-row">
-        <h5>Terhubung</h5>
+        <h2>Terhubung</h2>
         <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
         <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener">YouTube</a>
