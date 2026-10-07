@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <script>
-(function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
 // Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
 document.documentElement.classList.add('js');
 </script>
@@ -31,6 +31,111 @@ document.documentElement.classList.add('js');
 <title>Portal Murid — Presensi, Raport &amp; Progress | Rattililqur'an</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/portal-modul.css">
+<style>
+/* ══ Komponen khusus halaman Portal (sisanya dari portal-modul.css) ══ */
+
+/* Jangkar (#isi-portal, #akun, …) tidak tertutup navbar yang menempel. */
+html{scroll-padding-top:84px}
+
+/* Hero dua kolom: teks + bingkai peramban berisi beranda portal */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2);flex-shrink:0}
+.angka{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;padding-top:18px;border-top:1px dashed var(--c-line)}
+.angka div{display:flex;align-items:baseline;gap:7px}
+.angka b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--c-ink)}
+.angka span{font-size:13px;color:var(--c-ink-3)}
+.layar{display:block;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-lg);overflow:hidden;text-decoration:none;transition:transform var(--dur) var(--ease-spring)}
+.layar:hover{transform:translateY(-3px)}
+.layar-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--c-line);background:var(--c-soft)}
+.layar-bar i{width:9px;height:9px;border-radius:50%;opacity:.85}
+.layar-bar i:nth-child(1){background:#f87171}.layar-bar i:nth-child(2){background:#fbbf24}.layar-bar i:nth-child(3){background:#34d399}
+.layar-url{flex:1;min-width:0;margin-left:8px;padding:4px 10px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:11.5px;font-weight:600;color:var(--c-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Beranda portal diperbesar 1,3× dari kiri atas agar teksnya terbaca. */
+.layar picture{display:block;height:360px;overflow:hidden}
+.layar img{display:block;width:130%;max-width:none;height:auto}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.layar{max-width:460px}.layar picture{height:320px}}
+
+/* Masalah → jawaban portal */
+.masalah{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.masalah>li{display:flex;flex-direction:column;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm);overflow:hidden}
+.masalah .atas{padding:20px 22px 18px}
+.masalah .no{font-family:var(--font-label);font-size:11.5px;font-weight:700;color:var(--c-ink-4)}
+.masalah h3{margin-top:6px;font-size:16.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.masalah .atas p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--c-ink-3)}
+.masalah .jawab{flex:1;padding:16px 22px 18px;border-top:1px solid var(--c-line);background:var(--grad-soft)}
+.masalah .jawab .k{display:block;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent)}
+.masalah .jawab p{margin-top:6px;font-size:14.5px;line-height:1.65;color:var(--c-ink-2)}
+@media(max-width:700px){.masalah{grid-template-columns:1fr}}
+
+/* Menu akun murid: kartu per kelompok berisi chip menu */
+.sub-judul{margin-top:44px;font-size:clamp(18px,1.8vw,21px);font-weight:800;letter-spacing:-.01em;color:var(--c-ink)}
+.menu{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.menu>li{padding:20px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.menu .kep{display:flex;align-items:center;gap:12px}
+.ik{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:42px;height:42px;border-radius:12px;background:var(--grad-soft);color:var(--c-primary)}
+.ik svg{width:22px;height:22px}
+.menu h4{font-size:15.5px;font-weight:800;line-height:1.3;color:var(--c-ink)}
+.menu .jml{display:block;margin-top:2px;font-size:12.5px;font-weight:600;color:var(--c-ink-4)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chips li{padding:4px 10px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-bg);font-size:12.5px;font-weight:600;line-height:1.5;color:var(--c-ink-2)}
+@media(max-width:820px){.menu{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.menu{grid-template-columns:1fr;gap:10px}.menu>li{padding:16px}}
+
+/* Apa yang didapat: kartu berikon */
+.dapat{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.dapat li{padding:20px 18px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.dapat .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.dapat .d{display:block;margin-top:6px;font-size:14px;line-height:1.6;color:var(--c-ink-3)}
+@media(max-width:900px){.dapat{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .dapat{grid-template-columns:1fr;gap:10px}
+  .dapat li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:16px}
+  .dapat .ik{grid-row:span 2;width:40px;height:40px}
+  .dapat .t{margin-top:0}
+  .dapat .d{font-size:14.5px}
+}
+
+/* Cara mendapat akun: langkah bersambung (mendatar di desktop, menurun di HP) */
+.langkah{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.langkah li{position:relative}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li:last-child::after{display:none}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
+.langkah li:last-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
+.langkah .d a{color:var(--c-primary);font-weight:700}
+@media(max-width:820px){
+  .langkah{grid-template-columns:1fr;gap:0}
+  .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
+  .langkah li:last-child{padding-bottom:0}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah .bul{grid-row:span 2}
+  .langkah .t{margin-top:9px}
+  .langkah .d{font-size:14.5px}
+}
+
+/* FAQ */
+.faq{margin-top:26px;border-top:1px solid var(--c-line)}
+.faq details{border-bottom:1px solid var(--c-line)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
+.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
+.faq .a a{color:var(--c-primary);font-weight:700}
+
+/* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
+.hero-actions .btn-primary,.cta-actions .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
+.cta-actions svg{width:15px;height:15px}
+
+@media(max-width:640px){
+  .masalah .no,.masalah .jawab .k,.menu .jml{color:var(--c-ink-micro)}
+  .faq .a{font-size:15px}
+  .faq summary{min-height:44px}
+}
+</style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}
 
 </style></noscript>
@@ -41,6 +146,17 @@ document.documentElement.classList.add('js');
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.1 8.9v6.2l5.1-3.1z" fill="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-rumah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 5l8 6.5"/><path d="M6.5 10v9.5h11V10"/><path d="M10 19.5v-5h4v5"/></symbol>
+  <symbol id="i-buku" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></symbol>
+  <symbol id="i-main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="10" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="15.5" cy="12" r=".9" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".9" fill="currentColor"/></symbol>
+  <symbol id="i-dompet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6.5" width="17" height="12" rx="2.5"/><path d="M3.5 10h17"/><circle cx="16.5" cy="14.3" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-grafik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="5.5" y="12" width="3" height="5" rx="1"/><rect x="10.5" y="8" width="3" height="9" rx="1"/><rect x="15.5" y="4.5" width="3" height="12.5" rx="1"/></symbol>
+  <symbol id="i-gir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M6 18l1.6-1.6M16.4 7.6L18 6"/></symbol>
+  <symbol id="i-akun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.5"/><path d="M5.5 19.5c.8-3.3 3.3-5.2 6.5-5.2s5.7 1.9 6.5 5.2"/></symbol>
+  <symbol id="i-kalender" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path d="M9 14.8l2 2 4-4"/></symbol>
+  <symbol id="i-tugas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5v-1h6v1"/><path d="M9 12.5l2 2 4-4"/></symbol>
+  <symbol id="i-hp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
 </svg>
@@ -83,14 +199,32 @@ document.documentElement.classList.add('js');
 <main>
   <!-- ══ 1. HERO ══ -->
   <header class="wrap hero">
-    <h1>Portal Murid <em>Rattililqur'an</em></h1>
-    <p class="hero-lead">Setiap murid mendapat akun portal untuk memantau presensi, raport, dan progres belajar — dalam satu tempat, bukan tersebar di percakapan grup.</p>
-    <div class="hero-actions">
-      <a href="/#pendaftaran" class="btn btn-primary btn-lg">Lihat cara bergabung</a>
-      <a href="#isi-portal" class="btn btn-ghost btn-lg">Lihat isi portal</a>
-      <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener" class="btn btn-yt btn-lg"><svg aria-hidden="true"><use href="#i-play"/></svg>Video Portal</a>
+    <div class="hero-grid">
+      <div>
+        <p class="pill">Untuk setiap murid Rattililqur'an</p>
+        <h1>Portal Murid <em>Rattililqur'an</em></h1>
+        <p class="hero-lead">Setiap murid mendapat akun portal untuk memantau presensi, raport, dan progres belajar — dalam satu tempat, bukan tersebar di percakapan grup.</p>
+        <div class="hero-actions">
+          <a href="program.html#alur" class="btn btn-primary btn-lg">Lihat cara bergabung</a>
+          <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener" class="btn btn-yt btn-lg"><svg aria-hidden="true"><use href="#i-play"/></svg>Video Portal</a>
+        </div>
+        <p class="hero-meta">Sudah menjadi murid? <a href="https://portal.rattililquran.com/" class="meta-link">Masuk Portal</a> dengan NIS yang diberikan pengajar Anda.</p>
+        <!-- [EDIT] Samakan dengan "Rattil dalam Angka" (data-count) di index.html. -->
+        <div class="angka" aria-label="Pengguna portal">
+          <div><b>370</b><span>murid aktif</span></div>
+          <div><b>34</b><span>halaqah</span></div>
+          <div><b>11</b><span>pengajar</span></div>
+        </div>
+      </div>
+      <a class="layar" href="#sorotan" aria-label="Lihat tampilan portal">
+        <span class="layar-bar" aria-hidden="true"><i></i><i></i><i></i><span class="layar-url">portal.rattililquran.com</span></span>
+        <picture>
+          <source type="image/webp" srcset="assets/images/Portal-beranda-1280.webp 1280w, assets/images/Portal-beranda-1920.webp 1920w" sizes="(max-width:900px) 598px, 442px">
+          <source srcset="assets/images/Portal-beranda-1280.jpg 1280w, assets/images/Portal-beranda-1920.jpg 1920w" sizes="(max-width:900px) 598px, 442px">
+          <img src="assets/images/Portal-beranda-1280.jpg" alt="Beranda portal murid: halaqah berikutnya dan kalender kegiatan." decoding="async" width="1920" height="2146">
+        </picture>
+      </a>
     </div>
-    <p class="hero-meta"><b>Portal</b> memakai NIS yang diberikan pengajar saat Anda bergabung dalam halaqah.</p>
   </header>
 
   <!-- ══ 2. MENGAPA INI PENTING ══ -->
@@ -99,78 +233,58 @@ document.documentElement.classList.add('js');
       <span class="sec-label" data-reveal>Kenapa ini penting</span>
       <h2 class="sec-title" data-reveal>Dua hal yang membuat progres belajar <em>sulit dilihat</em> — dan cara portal menutupnya. <span class="lead-em">Biidznillah</span></h2>
       <p class="sec-sub" data-reveal>Bukan tentang fitur. Ini tentang dua masalah nyata yang biasanya baru terasa setelah beberapa bulan belajar.</p>
-
-      <ol class="ledger" data-reveal>
+      <ol class="masalah" data-reveal>
         <li>
-          <span class="no">01</span>
-          <div>
-            <span class="t">Progres tidak terlihat, hanya terasa.</span>
-            <span class="d">Setelah beberapa bulan, sulit menjawab &ldquo;sudah sampai mana bacaan saya?&rdquo;. Portal mencatat presensi tiap sesi dan menyusun raport otomatis per periode, jadi kemajuannya bisa dibuka sendiri — bukan cuma diingat-ingat.</span>
+          <div class="atas">
+            <span class="no">01</span>
+            <h3>Progres tidak terlihat, hanya terasa</h3>
+            <p>Setelah beberapa bulan, sulit menjawab &ldquo;sudah sampai mana bacaan saya?&rdquo;.</p>
+          </div>
+          <div class="jawab">
+            <span class="k">Jawaban portal</span>
+            <p>Presensi tercatat tiap sesi dan raport tersusun otomatis per periode — kemajuannya bisa dibuka sendiri, bukan cuma diingat-ingat.</p>
           </div>
         </li>
         <li>
-          <span class="no">02</span>
-          <div>
-            <span class="t">Catatan berserakan di grup chat.</span>
-            <span class="d">Jadwal, materi, dan pengumuman bercampur dengan percakapan lain, lalu tenggelam. Di portal, semuanya menempel pada halaqah Anda dan tersimpan di satu akun.</span>
+          <div class="atas">
+            <span class="no">02</span>
+            <h3>Catatan berserakan di grup chat</h3>
+            <p>Jadwal, materi, dan pengumuman bercampur dengan percakapan lain, lalu tenggelam.</p>
+          </div>
+          <div class="jawab">
+            <span class="k">Jawaban portal</span>
+            <p>Semuanya menempel pada halaqah Anda dan tersimpan di satu akun.</p>
           </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- ══ 3. PORTAL MURID ══ -->
+  <!-- ══ 3. ISI PORTAL ══ -->
   <section class="sec" id="isi-portal">
     <div class="wrap">
       <span class="sec-label" data-reveal>Portal Murid</span>
-      <h2 class="sec-title" data-reveal>Satu akun untuk <em>presensi, raport, dan latihan</em>.</h2>
+      <h2 class="sec-title" data-reveal>Satu akun untuk <em>presensi, raport, dan latihan</em></h2>
       <p class="sec-sub" data-reveal>Portal Manajemen Halaqah Rattililqur'an dipakai murid, guru, dan admin. Murid masuk dengan NIS yang diberikan pengajar, dan bisa memasangnya di layar utama HP seperti aplikasi.</p>
 
-      <figure class="shot lede-fig" data-reveal>
-        <picture>
-          <source type="image/webp" srcset="assets/images/Portal-masuk-1280.webp 1280w, assets/images/Portal-masuk-1920.webp 1920w" sizes="(max-width:1000px) 94vw, 956px">
-          <source srcset="assets/images/Portal-masuk-1280.jpg 1280w, assets/images/Portal-masuk-1920.jpg 1920w" sizes="(max-width:1000px) 94vw, 956px">
-          <img src="assets/images/Portal-masuk-1280.jpg" alt="Halaman masuk Portal Manajemen Halaqah Rattililqur'an beserta ringkasan jumlah murid, halaqah, dan pengajar." loading="lazy" decoding="async" width="1920" height="1042">
-        </picture>
-        <figcaption>Tangkapan layar halaman masuk portal — memuat ringkasan 370 murid aktif, 34 halaqah, dan 11 pengajar.</figcaption>
-      </figure>
-
-      <h3 class="sec-sub" data-reveal style="font-weight:800;color:var(--c-ink);margin-top:44px">Yang ada di dalam akun murid</h3>
-      <ul class="groups" data-reveal>
-        <li>
-          <span class="g">Utama</span>
-          <span class="items">Beranda · Pengumuman · Saran &amp; Masukan</span>
-        </li>
-        <li>
-          <span class="g">Akademik &amp; KBM</span>
-          <span class="items">Riwayat KBM · Materi Level · Latihan Mandiri (PR) · Kajian At-Tibyan · Setoran Hafalan · Partner Belajar · Rattil Quiz</span>
-        </li>
-        <li>
-          <span class="g">Permainan</span>
-          <span class="items">Petualangan · Rattil Run</span>
-        </li>
-        <li>
-          <span class="g">Administrasi</span>
-          <span class="items">Pembayaran &amp; Infaq</span>
-        </li>
-        <li>
-          <span class="g">Evaluasi</span>
-          <span class="items">Assessment Mandiri · Raport · Insight Belajar · Charging</span>
-        </li>
-        <li>
-          <span class="g">Pengaturan &amp; Bantuan</span>
-          <span class="items">Notifikasi · Mode Gelap · Panduan · Pengingat Kalender HP · Install Aplikasi · Ganti Password</span>
-        </li>
+      <h3 class="sub-judul" data-reveal>Yang ada di dalam akun murid</h3>
+      <ul class="menu" data-reveal>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-rumah"/></svg></span><div><h4>Utama</h4><span class="jml">3 menu</span></div></div><ul class="chips"><li>Beranda</li><li>Pengumuman</li><li>Saran &amp; Masukan</li></ul></li>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-buku"/></svg></span><div><h4>Akademik &amp; KBM</h4><span class="jml">7 menu</span></div></div><ul class="chips"><li>Riwayat KBM</li><li>Materi Level</li><li>Latihan Mandiri (PR)</li><li>Kajian At-Tibyan</li><li>Setoran Hafalan</li><li>Partner Belajar</li><li>Rattil Quiz</li></ul></li>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-main"/></svg></span><div><h4>Permainan</h4><span class="jml">2 menu</span></div></div><ul class="chips"><li>Petualangan</li><li>Rattil Run</li></ul></li>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-dompet"/></svg></span><div><h4>Administrasi</h4><span class="jml">1 menu</span></div></div><ul class="chips"><li>Pembayaran &amp; Infaq</li></ul></li>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-grafik"/></svg></span><div><h4>Evaluasi</h4><span class="jml">4 menu</span></div></div><ul class="chips"><li>Assessment Mandiri</li><li>Raport</li><li>Insight Belajar</li><li>Charging</li></ul></li>
+        <li><div class="kep"><span class="ik"><svg aria-hidden="true"><use href="#i-gir"/></svg></span><div><h4>Pengaturan &amp; Bantuan</h4><span class="jml">6 menu</span></div></div><ul class="chips"><li>Notifikasi</li><li>Mode Gelap</li><li>Panduan</li><li>Pengingat Kalender HP</li><li>Install Aplikasi</li><li>Ganti Password</li></ul></li>
       </ul>
       <p class="hero-meta" data-reveal>Daftar di atas adalah menu yang benar-benar ada di portal, bukan rancangan.</p>
     </div>
   </section>
 
   <!-- ══ 4. SOROTAN PORTAL ══ -->
-  <section class="sec">
+  <section class="sec" id="sorotan">
     <div class="wrap">
       <span class="sec-label" data-reveal>Sorotan</span>
-      <h2 class="sec-title" data-reveal>Yang paling sering dibuka murid</h2>
+      <h2 class="sec-title" data-reveal>Yang paling sering <em>dibuka murid</em></h2>
       <p class="sec-sub" data-reveal>Tiga tampilan berikut diambil dari portal yang sedang berjalan.</p>
 
       <figure class="shot lede-fig" data-reveal>
@@ -207,37 +321,78 @@ document.documentElement.classList.add('js');
   <section class="sec">
     <div class="wrap">
       <span class="sec-label" data-reveal>Ringkasan</span>
-      <h2 class="sec-title" data-reveal>Apa yang Anda dapat setelah bergabung</h2>
-      <ul class="ledger" data-reveal>
-        <li>
-          <span class="no">01</span>
-          <div><span class="t">Akun portal murid</span><span class="d">NIS diberikan pengajar, dengan akses ke presensi, materi, dan riwayat belajar.</span></div>
-        </li>
-        <li>
-          <span class="no">02</span>
-          <div><span class="t">Presensi realtime &amp; raport otomatis</span><span class="d">Tercatat tiap sesi, dirangkum otomatis per periode.</span></div>
-        </li>
-        <li>
-          <span class="no">03</span>
-          <div><span class="t">Latihan mandiri &amp; progress</span><span class="d">Tugas, koreksi pengajar, dan capaian dalam satu tempat.</span></div>
-        </li>
-        <li>
-          <span class="no">04</span>
-          <div><span class="t">Portal bisa dipasang di HP</span><span class="d">Mendukung PWA, jadi bisa dibuka dari layar utama seperti aplikasi.</span></div>
-        </li>
+      <h2 class="sec-title" data-reveal>Apa yang Anda dapat <em>setelah bergabung</em></h2>
+      <ul class="dapat" data-reveal>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-akun"/></svg></span><span class="t">Akun portal murid</span><span class="d">NIS diberikan pengajar, dengan akses ke presensi, materi, dan riwayat belajar.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-kalender"/></svg></span><span class="t">Presensi realtime &amp; raport otomatis</span><span class="d">Tercatat tiap sesi, dirangkum otomatis per periode.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-tugas"/></svg></span><span class="t">Latihan mandiri &amp; progres</span><span class="d">Tugas, koreksi pengajar, dan capaian dalam satu tempat.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-hp"/></svg></span><span class="t">Bisa dipasang di HP</span><span class="d">Mendukung PWA, jadi bisa dibuka dari layar utama seperti aplikasi.</span></li>
       </ul>
-      <p class="hero-meta" data-reveal style="margin-top:22px">Materi latihan di dalam portal memakai modul yang sama dengan <a href="modul.html" class="meta-link">Modul Belajar</a>.</p>
+      <p class="hero-meta" data-reveal style="margin-top:22px">Materi latihan di dalam portal memakai modul yang sama dengan <a href="modul.html" class="meta-link">Modul Belajar</a> — yang bisa Anda coba sekarang tanpa akun.</p>
     </div>
   </section>
 
-  <!-- ══ 6. CTA ══ -->
+  <!-- ══ 6. CARA MENDAPAT AKUN ══ -->
+  <section class="sec" id="akun">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Cara mendapat akun</span>
+      <h2 class="sec-title" data-reveal>Akun portal datang <em>bersama halaqah Anda</em></h2>
+      <p class="sec-sub" data-reveal>Portal tidak dibuka lewat pendaftaran terpisah. Akun diberikan setelah Anda resmi bergabung dalam halaqah.</p>
+      <ol class="langkah" data-reveal>
+        <li><span class="bul">1</span><span class="t">Daftar kelas</span><span class="d">Isi formulir pendaftaran <a href="program.html">Kelas Tahsin Riyadhatulhuruf</a>.</span></li>
+        <li><span class="bul">2</span><span class="t">Resmi bergabung</span><span class="d">Setelah diterima, Anda masuk ke halaqah sesuai jadwal pilihan.</span></li>
+        <li><span class="bul">3</span><span class="t">Terima NIS</span><span class="d">NIS diberikan pengajar Anda.</span></li>
+        <li><span class="bul">4</span><span class="t">Masuk &amp; pasang di HP</span><span class="d">Masuk sebagai Murid dengan NIS dan password akun, lalu pasang di layar utama.</span></li>
+      </ol>
+      <figure class="shot lede-fig" data-reveal>
+        <picture>
+          <source type="image/webp" srcset="assets/images/Portal-masuk-1280.webp 1280w, assets/images/Portal-masuk-1920.webp 1920w" sizes="(max-width:1000px) 94vw, 956px">
+          <source srcset="assets/images/Portal-masuk-1280.jpg 1280w, assets/images/Portal-masuk-1920.jpg 1920w" sizes="(max-width:1000px) 94vw, 956px">
+          <img src="assets/images/Portal-masuk-1280.jpg" alt="Halaman masuk Portal Manajemen Halaqah Rattililqur'an beserta ringkasan jumlah murid, halaqah, dan pengajar." loading="lazy" decoding="async" width="1920" height="1042">
+        </picture>
+        <figcaption>Halaman masuk portal — pilih Murid, lalu masukkan NIS dan password akun.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══ 7. FAQ ══ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Pertanyaan umum</span>
+      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Kapan saya mendapat akun portal?</summary>
+          <p class="a">Setelah Anda resmi bergabung dalam halaqah. NIS untuk masuk diberikan oleh pengajar Anda.</p>
+        </details>
+        <details>
+          <summary>Bagaimana cara masuk ke portal?</summary>
+          <p class="a">Buka <a href="https://portal.rattililquran.com/">portal.rattililquran.com</a>, pilih Murid, lalu masukkan NIS dan password akun. Bila lupa, gunakan tautan "Lupa Password?" di halaman masuk.</p>
+        </details>
+        <details>
+          <summary>Bisakah portal dipasang di HP seperti aplikasi?</summary>
+          <p class="a">Bisa. Portal mendukung PWA — gunakan menu Install Aplikasi di dalam portal untuk memasangnya di layar utama HP.</p>
+        </details>
+        <details>
+          <summary>Adakah panduan memakai portal?</summary>
+          <p class="a">Ada menu Panduan di dalam portal, dan <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">playlist Video Portal</a> di YouTube.</p>
+        </details>
+        <details>
+          <summary>Apa hubungan portal dengan Modul Belajar?</summary>
+          <p class="a">Materi latihan di portal memakai modul yang sama dengan <a href="modul.html">Modul Belajar</a>. Modulnya terbuka untuk siapa saja, sedangkan portal khusus murid.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 8. CTA ══ -->
   <section class="cta" id="pendaftaran-cta">
     <div class="wrap">
       <h2 data-reveal>Siap dapat akun portal?</h2>
-      <p data-reveal>Akun portal diberikan pengajar setelah Anda resmi bergabung dalam halaqah. Lihat langkahnya di halaman utama — empat langkah, tanpa tes masuk.</p>
+      <p data-reveal>Akun portal diberikan pengajar setelah Anda resmi bergabung dalam halaqah. Langkah pertamanya: daftar di Kelas Tahsin Riyadhatulhuruf. <span class="lead-em">Biidznillah</span></p>
       <div class="cta-actions" data-reveal>
-        <a href="/#pendaftaran" class="btn btn-primary btn-lg">Lihat cara bergabung</a>
-        <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Portal%20Murid%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Tanya admin</a>
+        <a href="program.html" class="btn btn-primary btn-lg">Lihat Kelas Riyadhatulhuruf</a>
+        <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Portal%20Murid%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost btn-lg"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Tanya admin</a>
       </div>
     </div>
   </section>
