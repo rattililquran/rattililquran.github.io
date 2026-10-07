@@ -2814,7 +2814,7 @@ Baarakallahu fiikum</p>
   // ══ JADWAL, STATUS & COUNTDOWN PENDAFTARAN ══
   // Sumber utama tanggal adalah backend form pendaftaran (gelombang aktif di panel admin,
   // GET ?action=info). Konstanta di bawah hanya CADANGAN: halaman langsung tampil dengan
-  // nilai ini, lalu diganti data backend bila backend menjawab dalam 8 detik.
+  // nilai ini, lalu diganti data backend bila backend menjawab dalam 30 detik.
   // [EDIT] tetap samakan dengan tanggal gelombang di panel admin (format 'YYYY-MM-DDTHH:mm:ss+07:00').
   // Status dibuka/ditutup, tombol daftar, hitung mundur, dan teks siap-bagikan berganti
   // otomatis mengikuti tanggal — termasuk tepat saat jamnya tiba, tanpa memuat ulang halaman.
@@ -2993,7 +2993,9 @@ Baarakallahu fiikum</p>
     if(cache && cache.t && Date.now() - cache.t < UMUR_CACHE && terapkanInfo(cache.d)) return;
     if(!window.fetch || !window.AbortController) return;
     var ctrl = new AbortController();
-    var batas = setTimeout(function(){ ctrl.abort(); }, 8000);
+    // 30 detik: Apps Script sering butuh >8 detik (cold start). Menunggu lebih lama tidak
+    // memperlambat tampilan — halaman sudah tampil dengan cadangan sejak awal.
+    var batas = setTimeout(function(){ ctrl.abort(); }, 30000);
     fetch(BACKEND_INFO_URL, { signal: ctrl.signal })
       .then(function(r){ return r.json(); })
       .then(function(res){
