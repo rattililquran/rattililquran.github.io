@@ -374,10 +374,31 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start}
 /* Tombol hero: kontras teks putih lulus AA (gradien diperdalam seperti CTA footer). */
 .hero .hero-cta .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
-.hero .hero-cta + .hero-bukti{margin-top:16px}
-.hero-bukti{font-size:13.5px;font-weight:600;color:var(--c-ink-2);letter-spacing:.01em}
-.hero-bukti b{color:var(--c-ink);font-weight:800}
-.hero .hero-bukti + .hero-cd,.hero .hero-cta + .hero-cd{margin-top:26px}
+.hero .hero-cta .btn-primary{box-shadow:0 10px 26px rgba(3,105,161,.3)}
+/* Panel periode pendaftaran di kolom kanan hero — desain sama dengan program.html:
+   hitung mundur, tanggal gelombang, catatan kuota, dan angka. */
+.hero-panel{align-self:center;width:100%;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-lg);overflow:hidden;text-align:left}
+.hp-atas{padding:22px 22px 20px;background:var(--grad-soft)}
+.hp-label{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
+.hp-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.hp-cd[hidden]{display:none}
+.hp-cd div{display:flex;flex-direction:column;align-items:center;padding:11px 0 9px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card)}
+.hp-cd b{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
+.hp-cd div:last-child b{color:var(--c-primary)}
+.hp-cd span{margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.hp-tgl{margin-top:14px;font-size:14px;font-weight:800;color:var(--c-ink)}
+.hp-tgl[hidden]{display:none}
+.hp-note{margin-top:4px;font-size:13px;line-height:1.55;color:var(--c-ink-3)}
+.hp-angka{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--c-line)}
+.hp-angka div{padding:14px 6px 13px;text-align:center}
+.hp-angka div+div{border-left:1px solid var(--c-line)}
+.hp-angka b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--c-ink)}
+.hp-angka span{display:block;margin-top:4px;font-size:11.5px;color:var(--c-ink-3)}
+/* Panel sejajar dengan judul: mulai setinggi padding .hero-copy + tinggi badge. */
+@media(min-width:901px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) 320px;gap:48px}
+  .hero-panel{align-self:start;margin-top:calc(clamp(24px,5.5vh,64px) + 52px)}
+}
 /* Desktop: sisakan ruang untuk panduan gulir (bottom 52px + ±64px tinggi) agar tidak
    bertumpuk dengan hitung mundur saat isi hero lebih tinggi dari layar. */
 @media(min-width:901px){.hero{padding-bottom:128px}}
@@ -390,27 +411,9 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   .hero p.lead{margin-top:16px;font-size:clamp(16px,1.3vw,18px)}
   .hero p.lead .lead-em{margin-top:.6em}
   .hero .hero-cta{margin-top:22px}
-  .hero .hero-cta + .hero-bukti{margin-top:12px}
-  .hero .hero-bukti + .hero-cd,.hero .hero-cta + .hero-cd{margin-top:18px}
+  .hero-panel{margin-top:64px}
+  .hp-atas{padding:18px 20px 16px}
 }
-/* Hitung mundur gelombang di hero — angka besar + label kecil di bawahnya,
-   permukaan kaca tipis tanpa border tebal supaya terasa ringan. */
-.hero-cd{
-  margin-top:42px;display:inline-flex;align-items:center;gap:22px;flex-wrap:wrap;
-  padding:16px 22px;border-radius:18px;
-  background:var(--c-glass);
-  -webkit-backdrop-filter:blur(16px) saturate(1.25);backdrop-filter:blur(16px) saturate(1.25);
-  border:1px solid transparent;
-  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 12px 32px -18px rgba(15,23,42,.35);
-}
-.hero-cd[hidden]{display:none}
-.hero-cd-label{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-ink-3);white-space:nowrap}
-.hero-cd-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-primary);box-shadow:0 0 0 3px rgba(2,132,199,.16);flex-shrink:0}
-.hero-cd-sep{width:1px;align-self:stretch;min-height:38px;background:var(--c-line)}
-.hero-cd-row{display:flex;align-items:center;gap:20px}
-.hc-box{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:30px}
-.hc-num{font-size:23px;font-weight:800;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
-.hc-unit{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--c-ink-4)}
 /* Panduan gulir di dasar hero — teks berdenyut dalam chip agar selalu terbaca di atas foto.
    Centering memakai left/right + margin auto, BUKAN translateX(-50%): animasi heroIn
    berakhir di transform:translateY(0) dan akan menimpa translateX sehingga cue meleset. */
@@ -443,7 +446,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 }
 @media(max-width:900px){
   .hero{
-    /* Padding bawah diperbesar supaya blok isi (badge, judul, countdown)
+    /* Padding bawah diperbesar supaya blok isi (badge, judul, tombol, panel)
        terdorong naik oleh centering, dan panduan gulir tetap punya ruang. */
     padding:96px 18px 104px;
     min-height:100svh;
@@ -476,14 +479,9 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   .hero-cta{justify-content:center}
   .hero .hero-cta{margin-top:20px;gap:10px}
   .hero .hero-cta .btn{padding:12px 20px;font-size:14.5px;border-radius:13px}
-  .hero-bukti{font-size:12.5px}
-  .hero .hero-bukti + .hero-cd,.hero .hero-cta + .hero-cd{margin-top:18px}
-  .hero-cd{display:flex;width:100%;max-width:330px;margin:22px auto 0;flex-direction:column;align-items:center;gap:12px;padding:15px 18px;border-radius:16px}
-  .hero-cd-label{text-align:center}
-  .hero-cd-sep{width:100%;height:1px;min-height:0}
-  .hero-cd-row{width:100%;justify-content:space-between;gap:0}
-  .hc-box{min-width:0;flex:1}
-  .hc-num{font-size:22px}
+  .hero-panel{max-width:380px;margin:24px auto 0}
+  .hp-atas{padding:18px 18px 16px}
+  .hp-cd b{font-size:23px}
 }
 /* Layar sangat pendek (mis. 320×568): countdown masih bertemu area panduan
    gulir. Sembunyikan hanya di situ — pada 360×640 ke atas sudah aman. */
@@ -498,16 +496,17 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
    sehingga countdown jatuh di bawah fold. Rapatkan jarak antarunsur dan
    kecilkan blok countdown supaya seluruh isi tetap terlihat tanpa menggulir. */
 @media(max-width:900px) and (max-height:640px){
-  .hero{padding:72px 16px 72px}
+  /* Atas: badge tidak tertutup navbar mengambang; bawah: ruang panduan gulir. */
+  .hero{padding:92px 16px 96px}
   .hero h1{font-size:clamp(26px,7.6vw,32px)}
   .hero p.lead{margin-top:9px;font-size:14px;line-height:1.5}
-  .hero-cd{margin-top:14px;gap:8px;padding:11px 13px;border-radius:13px}
   .hero .hero-cta{margin-top:12px}
   .hero .hero-cta .btn{padding:10px 16px;font-size:13.5px}
-  .hero .hero-cta + .hero-bukti{margin-top:8px}
-  .hero .hero-bukti + .hero-cd,.hero .hero-cta + .hero-cd{margin-top:12px}
-  .hc-num{font-size:20px}
-  .hc-box{gap:4px}
+  .hero-panel{margin-top:16px}
+  .hp-atas{padding:14px 16px 12px}
+  .hp-note{display:none}
+  .hp-cd b{font-size:20px}
+  .hp-angka div{padding:10px 6px 9px}
   .hero-scroll-cue{bottom:16px}
 }
 
@@ -1638,7 +1637,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
   /* ── T-01 · Skala tipografi HP ──
      index.html punya 31 ukuran font berbeda, 4 di antaranya di bawah 11px.
      Blok ini hanya menaikkan yang tidak terbaca; nilai ≥16px tidak disentuh. */
-  .hc-unit,.cd-unit,.hero-cd-label,.stat-no,.countdown-label,.reg-label{font-size:11.5px}
+  .hp-cd span,.hp-label,.cd-unit,.stat-no,.countdown-label,.reg-label{font-size:11.5px}
   .hook-eyebrow,.modul-list .ml-no,.nikola-stack-no{font-size:12px}
   .hook-shot figcaption,.stat-label,.reg-flag{font-size:12.5px}
   /* .modul-list .ml-tag butuh selector penuh — tanpa .modul-list, aturan
@@ -1659,7 +1658,7 @@ html.theme-dark{--c-ink-micro:#94a3b8}
   .reg-when-note,.reg-who-note,.tcard .who span{font-size:13px}
 
   /* ── T-05 · Kontras teks mikro di latar terang ── */
-  .hc-unit,.cd-unit,.hero-cd-label,.stat-no,.countdown-label,.reg-label,
+  .hp-cd span,.hp-label,.cd-unit,.stat-no,.countdown-label,.reg-label,
   .hook-eyebrow,.modul-list .ml-no,.stat-label,.reg-flag,
   .hook-shot figcaption,.modul-list .ml-tag,.reg-when-note,.reg-who-note,
   .share-hint,.p-total,.slide-close .sc-eyebrow,.tcard .who span,
@@ -1868,21 +1867,29 @@ html.theme-dark{--c-ink-micro:#94a3b8}
         <a href="program.html" class="btn btn-primary btn-lg" id="heroCtaUtama">Lihat Kelas Riyadhatulhuruf</a>
         <a href="modul.html" class="btn btn-ghost btn-lg" id="heroCtaKedua">Coba Modul Gratis</a>
       </div>
-      <!-- Bukti sosial: diisi dari angka "Rattil dalam Angka" (data-count), satu sumber. -->
-      <p class="hero-bukti h-anim" id="heroBukti" hidden style="animation-delay:.56s"></p>
-
-      <!-- Hitung mundur gelombang: diisi oleh skrip yang sama dengan section #pendaftaran -->
-      <div class="hero-cd h-anim" id="heroCountdown" hidden style="animation-delay:.62s">
-        <span class="hero-cd-label" id="heroCdLabel"></span>
-        <span class="hero-cd-sep" aria-hidden="true"></span>
-        <div class="hero-cd-row">
-          <span class="hc-box"><span class="hc-num" id="hcDays">00</span><span class="hc-unit">Hari</span></span>
-          <span class="hc-box"><span class="hc-num" id="hcHours">00</span><span class="hc-unit">Jam</span></span>
-          <span class="hc-box"><span class="hc-num" id="hcMins">00</span><span class="hc-unit">Menit</span></span>
-          <span class="hc-box"><span class="hc-num" id="hcSecs">00</span><span class="hc-unit">Detik</span></span>
-        </div>
-      </div>
     </div>
+
+    <!-- Panel periode pendaftaran (desain sama dengan program.html). Hitung mundur, tanggal,
+         dan catatan diisi skrip status di bawah; angka dari "Rattil dalam Angka". -->
+    <aside class="hero-panel h-anim" id="heroPanel" aria-label="Periode pendaftaran" style="animation-delay:.6s">
+      <div class="hp-atas">
+        <p class="hp-label" id="heroCdLabel">Periode pendaftaran</p>
+        <div class="hp-cd" id="heroCountdown" role="timer" hidden>
+          <div><b id="hcDays">00</b><span>Hari</span></div>
+          <div><b id="hcHours">00</b><span>Jam</span></div>
+          <div><b id="hcMins">00</b><span>Menit</span></div>
+          <div><b id="hcSecs">00</b><span>Detik</span></div>
+        </div>
+        <p class="hp-tgl" id="heroPanelTgl">Angkatan 11 · 20–30 Oktober 2026</p>
+        <p class="hp-note" id="heroPanelNote">Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.</p>
+      </div>
+      <!-- Nilai di bawah hanya cadangan; skrip menyalinnya dari data-count "Rattil dalam Angka". -->
+      <div class="hp-angka" id="heroAngka">
+        <div><b>370</b><span>Murid Aktif</span></div>
+        <div><b>11</b><span>Guru</span></div>
+        <div><b>34</b><span>Halaqah</span></div>
+      </div>
+    </aside>
   </div>
 
   <!-- Panduan gulir: teks berdenyut, disembunyikan begitu halaman mulai digulir -->
@@ -2901,6 +2908,16 @@ Baarakallahu fiikum</p>
     var tglTutup = fmtTanggal(TANGGAL_TUTUP_PENDAFTARAN);
     var tutupLebihAwal = TUTUP_LEBIH_AWAL;
     var namaGel = NAMA_GELOMBANG;
+    var isoBuka = (TANGGAL_BUKA_PENDAFTARAN || '').slice(0, 10);
+    var isoTutup = (TANGGAL_TUTUP_PENDAFTARAN || '').slice(0, 10);
+    // "20–30 Oktober 2026" bila sebulan, selain itu tanggal lengkap keduanya.
+    function rentang(a, b){
+      var re = /^\d{4}-\d{2}-\d{2}$/;
+      if(!re.test(a) || !re.test(b)) return '';
+      return a.slice(0, 7) === b.slice(0, 7)
+        ? parseInt(a.slice(8), 10) + '–' + fmtTanggal(b)
+        : fmtTanggal(a) + ' – ' + fmtTanggal(b);
+    }
 
     // Fase: 'sebelum' (menunggu dibuka) → 'buka' → 'tutup'
     function getFase(now){
@@ -2922,6 +2939,9 @@ Baarakallahu fiikum</p>
     var URL_DAFTAR = '/pendaftaran/';
     var URL_PROGRAM = 'program.html';
     var heroCtaUtama = document.getElementById('heroCtaUtama');
+    var heroCdLabel = document.getElementById('heroCdLabel');
+    var heroPanelTgl = document.getElementById('heroPanelTgl');
+    var heroPanelNote = document.getElementById('heroPanelNote');
     var heroCtaKedua = document.getElementById('heroCtaKedua');
     // Tautan WhatsApp dibuka di tab baru; tautan internal di tab yang sama.
     function setTujuan(a, href){
@@ -2968,6 +2988,19 @@ Baarakallahu fiikum</p>
         setTujuan(ctaBar, buka ? URL_DAFTAR : segera ? URL_PROGRAM : URL_TANYA);
         setBtnPrimary(ctaBar, !tutup);
       }
+      // Panel kanan hero: tanggal gelombang & catatan. Label hitung mundur diisi tick();
+      // saat ditutup tidak ada hitung mundur, jadi labelnya diisi di sini.
+      if(heroPanelTgl){
+        var tgl = rentang(isoBuka, isoTutup);
+        heroPanelTgl.textContent = (namaGel ? namaGel + ' · ' : '') + tgl;
+        heroPanelTgl.hidden = tutup || !tgl;
+      }
+      if(heroPanelNote){
+        heroPanelNote.textContent = tutup
+          ? "Info gelombang berikutnya kami umumkan di Instagram dan Channel WhatsApp Rattililqur'an."
+          : 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
+      }
+      if(tutup && heroCdLabel) heroCdLabel.textContent = 'Pendaftaran sementara ditutup';
       // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas + modul gratis.
       if(heroCtaUtama){
         heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : 'Lihat Kelas Riyadhatulhuruf';
@@ -2997,8 +3030,8 @@ Baarakallahu fiikum</p>
     // ── Hitung mundur: hero (label ringkas) + kartu pendaftaran (label lengkap) ──
     // Fungsi (bukan objek tetap) agar label ikut tanggal terbaru dari backend.
     function label(f, short){
-      if(f === 'sebelum') return short ? 'Dibuka dalam' : 'Gelombang berikutnya dibuka dalam';
-      return short ? 'Ditutup dalam' : 'Ditutup ' + tglTutup + ' — atau lebih awal jika kuota penuh · sisa waktu';
+      if(f === 'sebelum') return short ? 'Pendaftaran dibuka dalam' : 'Gelombang berikutnya dibuka dalam';
+      return short ? 'Pendaftaran ditutup dalam' : 'Ditutup ' + tglTutup + ' — atau lebih awal jika kuota penuh · sisa waktu';
     }
     var sets = [];
     function collect(boxId, labelId, ids, short){
@@ -3064,6 +3097,7 @@ Baarakallahu fiikum</p>
       if(b === null || t === null || t < b) return false;
       tBuka = b; tTutup = t;
       tglBuka = fmtTanggal(d.tgl_mulai); tglTutup = fmtTanggal(d.tgl_selesai);
+      isoBuka = d.tgl_mulai; isoTutup = d.tgl_selesai;
       tutupLebihAwal = TUTUP_LEBIH_AWAL || d.alasan_tutup === 'DITUTUP_ADMIN';
       if(typeof d.nama === 'string' && d.nama.trim()) namaGel = d.nama.trim().slice(0, 40);
       fase = null;          // paksa status, teks, dan hitung mundur dihitung ulang
@@ -3091,20 +3125,24 @@ Baarakallahu fiikum</p>
       .catch(function(){ clearTimeout(batas); });   // tetap memakai cadangan
   })();
 
-  // ══ BUKTI SOSIAL HERO ══
-  // Dari angka "Rattil dalam Angka" (data-count) agar cukup diubah di satu tempat.
+  // ══ ANGKA DI PANEL HERO ══
+  // Disalin dari "Rattil dalam Angka" (data-count) agar cukup diubah di satu tempat.
   (function(){
-    var el = document.getElementById('heroBukti');
-    if(!el) return;
-    var parts = Array.prototype.map.call(document.querySelectorAll('.evidence-stat'), function(s){
+    var box = document.getElementById('heroAngka');
+    if(!box) return;
+    var isi = [];
+    document.querySelectorAll('.evidence-stat').forEach(function(s){
       var b = s.querySelector('[data-count]'), l = s.querySelector('.stat-label');
       var n = b ? parseInt(b.getAttribute('data-count'), 10) : NaN;
-      var teks = l ? l.textContent.trim().toLowerCase().replace(/[&<>"]/g, '') : '';
-      return (!isNaN(n) && teks) ? '<b>' + n + '</b> ' + teks : '';
-    }).filter(Boolean);
-    if(!parts.length) return;
-    el.innerHTML = 'Sejak 2020 · ' + parts.join(' · ');
-    el.hidden = false;
+      if(!isNaN(n) && l && l.textContent.trim()) isi.push([n, l.textContent.trim()]);
+    });
+    if(!isi.length) return;
+    box.textContent = '';
+    isi.forEach(function(x){
+      var d = document.createElement('div'), b = document.createElement('b'), sp = document.createElement('span');
+      b.textContent = x[0]; sp.textContent = x[1];
+      d.appendChild(b); d.appendChild(sp); box.appendChild(d);
+    });
   })();
 
   // Back-to-top button (toggle handled in scroll pipeline)
