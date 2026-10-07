@@ -25,6 +25,30 @@ document.documentElement.classList.add('js');
 <meta name="twitter:title" content="Kelas Tahsin Riyadhatulhuruf — Rattililqur'an"/>
 <meta name="twitter:description" content="Belajar membaca Al-Qur'an dari dasar bersama pengajar. Pendaftaran gratis."/>
 <meta name="twitter:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "Kelas Tahsin Riyadhatulhuruf",
+      "description": "Kelas membaca Al-Qur'an dari dasar: makhraj, sifat huruf, dalil, dan latihan bacaan. 40 pertemuan per level, dua kali sepekan bersama pengajar.",
+      "url": "https://rattililquran.com/program.html",
+      "inLanguage": "id",
+      "educationalLevel": "Level 1",
+      "provider": { "@type": "EducationalOrganization", "name": "Rattililqur'an", "url": "https://rattililquran.com/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://rattililquran.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Program & Jadwal", "item": "https://rattililquran.com/#program" },
+        { "@type": "ListItem", "position": 3, "name": "Riyadhatulhuruf" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -114,10 +138,108 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
 /* Tautan di dalam deskripsi ledger */
 .ledger .d a{color:var(--c-primary);font-weight:700}
 
+/* Jangkar (#biaya, #faq, …) tidak tertutup navbar yang menempel. */
+html{scroll-padding-top:84px}
+
+/* Hero dua kolom: teks + panel hitung mundur & angka */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:center}
+.hero-panel{border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh);overflow:hidden}
+.hp-atas{padding:22px 22px 20px;background:var(--grad-soft)}
+.hp-label{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
+.hp-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.hp-cd[hidden]{display:none}
+.hp-cd div{display:flex;flex-direction:column;align-items:center;padding:11px 0 9px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card)}
+.hp-cd b{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
+.hp-cd div:last-child b{color:var(--c-primary)}
+.hp-cd span{margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.hp-tgl{margin-top:14px;font-size:14px;font-weight:800;color:var(--c-ink)}
+.hp-note{margin-top:4px;font-size:13px;line-height:1.55;color:var(--c-ink-3)}
+.hp-angka{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--c-line)}
+.hp-angka div{padding:14px 6px 13px;text-align:center}
+.hp-angka div+div{border-left:1px solid var(--c-line)}
+.hp-angka b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--c-ink)}
+.hp-angka span{display:block;margin-top:4px;font-size:11.5px;color:var(--c-ink-3)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.hero-panel{max-width:440px}}
+
+/* Lompat ke bagian */
+.lompat{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:36px;padding-top:20px;border-top:1px dashed var(--c-line)}
+.lompat .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4);margin-right:4px}
+.lompat a{padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:13px;font-weight:700;color:var(--c-ink-2);text-decoration:none;transition:border-color var(--dur),color var(--dur)}
+.lompat a:hover{border-color:var(--c-primary);color:var(--c-primary)}
+
+/* Cara belajar: kartu berikon, kartu pertama sebagai sorotan */
+.fitur{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.fitur li{padding:20px 20px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.fitur li.utama{grid-column:span 2;background:var(--grad-soft)}
+.fitur .ik{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--grad-soft);color:var(--c-primary)}
+.fitur li.utama .ik{background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.fitur .ik svg{width:22px;height:22px}
+.fitur .t{display:block;margin-top:14px;font-size:15.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.fitur .d{display:block;margin-top:6px;font-size:14px;line-height:1.62;color:var(--c-ink-3)}
+.fitur li.utama .d{font-size:15px;color:var(--c-ink-2);max-width:52ch}
+.fitur .d a{color:var(--c-primary);font-weight:700}
+@media(max-width:820px){.fitur{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .fitur{grid-template-columns:1fr;gap:10px}
+  .fitur li,.fitur li.utama{grid-column:auto;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:16px}
+  .fitur .ik{grid-row:span 2;width:40px;height:40px}
+  .fitur .t{margin-top:0}
+  .fitur .d,.fitur li.utama .d{font-size:14.5px}
+}
+
+/* Testimoni: 3 kartu; di HP menjadi deret geser */
+.testi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.testi figure{display:flex;flex-direction:column;margin:0;padding:20px 22px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.testi figure::before{content:'\201C';display:block;height:24px;font-family:Georgia,serif;font-size:48px;line-height:1;color:var(--c-primary);opacity:.5}
+.testi blockquote{flex:1;margin-top:10px;font-size:14.5px;line-height:1.7;color:var(--c-ink-2)}
+.testi figcaption{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--c-line)}
+.testi .av{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff;font-size:14px;font-weight:800}
+.testi figcaption b{display:block;font-size:14px;color:var(--c-ink)}
+.testi figcaption span{display:block;font-size:12.5px;color:var(--c-ink-3)}
+@media(max-width:820px){
+  .testi{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:22px;margin:26px -22px 0;padding:2px 22px 12px;scrollbar-width:none}
+  .testi::-webkit-scrollbar{display:none}
+  .testi figure{flex:0 0 min(84%,340px);scroll-snap-align:start}
+}
+.testi-geser{display:none;margin-top:6px;font-size:13px;color:var(--c-ink-4)}
+@media(max-width:820px){.testi-geser{display:block}}
+
+/* Alur pendaftaran: langkah bersambung (mendatar di desktop, menurun di HP) */
+.langkah{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:30px}
+.langkah li{position:relative}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li:last-child::after{display:none}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
+.langkah li:last-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
+.langkah .d a{color:var(--c-primary);font-weight:700}
+@media(max-width:820px){
+  .langkah{grid-template-columns:1fr;gap:0}
+  .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
+  .langkah li:last-child{padding-bottom:0}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah .bul{grid-row:span 2}
+  .langkah .t{margin-top:9px}
+  .langkah .d{font-size:14.5px}
+}
+
+/* Tombol daftar yang menempel di bawah layar (HP & tablet) */
+.cta-lekat{display:none}
+@media(max-width:820px){
+  .cta-lekat{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--c-card) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--c-line);box-shadow:0 -8px 24px rgba(12,24,37,.08);transform:translateY(110%);visibility:hidden;transition:transform .3s var(--ease-spring),visibility .3s}
+  .cta-lekat.tampil{transform:none;visibility:visible}
+  .cta-lekat b{display:block;font-size:14px;line-height:1.3;color:var(--c-ink)}
+  .cta-lekat span{display:block;font-size:12.5px;color:var(--c-ink-3)}
+  .cta-lekat .btn{flex-shrink:0;padding:11px 18px;font-size:14px;background:linear-gradient(135deg,#0369a1,#4f46e5)}
+}
+
 @media(max-width:640px){
   .fakta .k{font-size:12px;color:var(--c-ink-micro)}
   .catatan,.faq .a{font-size:15px}
   .faq summary{min-height:44px}
+  .hp-label,.lompat .k{color:var(--c-ink-micro)}
+  .lompat a{padding:9px 14px}
 }
 </style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
@@ -128,7 +250,11 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
-  <symbol id="i-keluar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-halaqah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><circle cx="17" cy="9" r="2.6"/><path d="M15.8 14.5c2.3-.2 4.2 1.4 4.7 4.2"/></symbol>
+  <symbol id="i-lencana" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 9.5-4-1.3-7-5.1-7-9.5V6l7-3z"/><path d="M9 11.8l2.2 2.2 3.8-4"/></symbol>
+  <symbol id="i-grafik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="5.5" y="12" width="3" height="5" rx="1"/><rect x="10.5" y="8" width="3" height="9" rx="1"/><rect x="15.5" y="4.5" width="3" height="12.5" rx="1"/></symbol>
+  <symbol id="i-ujian" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5v-1h6v1"/><path d="M9 12.5l2 2 4-4"/></symbol>
+  <symbol id="i-keluar"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
   <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
 </svg>
 
@@ -172,14 +298,47 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
 <main>
   <!-- ══ 1. HERO ══ -->
   <header class="wrap hero">
-    <p class="status" id="statusPendaftaran">Angkatan 11 · Pendaftaran 20–30 Oktober 2026</p>
-    <h1>Kelas Tahsin <em>Riyadhatulhuruf</em></h1>
-    <p class="hero-lead">Kelas membaca Al-Qur'an dari dasar. Huruf dilatih satu per satu — makhraj, sifat, dan dalilnya — secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat. Terbuka bagi siapa saja yang ingin mendekatkan diri pada Al-Qur'an.</p>
-    <div class="hero-actions">
-      <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Daftar Sekarang</a>
-      <a href="#biaya" class="btn btn-ghost btn-lg">Biaya &amp; syarat</a>
+    <div class="hero-grid">
+      <div>
+        <p class="status" id="statusPendaftaran">Angkatan 11 · Pendaftaran 20–30 Oktober 2026</p>
+        <h1>Kelas Tahsin <em>Riyadhatulhuruf</em></h1>
+        <p class="hero-lead">Kelas membaca Al-Qur'an dari dasar. Huruf dilatih satu per satu — makhraj, sifat, dan dalilnya — secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat. Terbuka bagi siapa saja yang ingin mendekatkan diri pada Al-Qur'an.</p>
+        <div class="hero-actions">
+          <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Daftar Sekarang</a>
+          <a href="#biaya" class="btn btn-ghost btn-lg">Biaya &amp; syarat</a>
+        </div>
+        <p class="hero-meta"><b>Level 1</b> · 40 pertemuan · pendaftaran gratis · jadwal halaqah dipilih saat mendaftar.</p>
+      </div>
+      <aside class="hero-panel" id="heroPanel" aria-label="Periode pendaftaran">
+        <div class="hp-atas">
+          <p class="hp-label" id="hpLabel">Periode pendaftaran</p>
+          <div class="hp-cd" id="hpCd" role="timer" hidden>
+            <div><b id="cdHari">0</b><span>Hari</span></div>
+            <div><b id="cdJam">00</b><span>Jam</span></div>
+            <div><b id="cdMenit">00</b><span>Menit</span></div>
+            <div><b id="cdDetik">00</b><span>Detik</span></div>
+          </div>
+          <p class="hp-tgl" id="hpTgl">Angkatan 11 · 20–30 Oktober 2026</p>
+          <p class="hp-note" id="hpNote">Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.</p>
+        </div>
+        <!-- [EDIT] Samakan dengan "Rattil dalam Angka" (data-count) di index.html. -->
+        <div class="hp-angka">
+          <div><b>370</b><span>Murid aktif</span></div>
+          <div><b>11</b><span>Pengajar</span></div>
+          <div><b>34</b><span>Halaqah</span></div>
+        </div>
+      </aside>
     </div>
-    <p class="hero-meta"><b>Level 1</b> · 40 pertemuan · pendaftaran gratis · jadwal halaqah dipilih saat mendaftar.</p>
+    <nav class="lompat" aria-label="Isi halaman">
+      <span class="k">Langsung ke</span>
+      <a href="#materi">Materi</a>
+      <a href="#cara">Cara belajar</a>
+      <a href="#jadwal">Jadwal</a>
+      <a href="#biaya">Biaya</a>
+      <a href="#syarat">Syarat</a>
+      <a href="#alur">Alur</a>
+      <a href="#faq">FAQ</a>
+    </nav>
   </header>
 
   <!-- ══ 2. SEKILAS ══ -->
@@ -252,21 +411,45 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
   </section>
 
   <!-- ══ 5. CARA BELAJAR ══ -->
-  <section class="sec">
+  <section class="sec" id="cara">
     <div class="wrap">
       <span class="sec-label" data-reveal>Cara belajar</span>
       <h2 class="sec-title" data-reveal>Belajar bersama, <em>terbimbing dan terpantau</em></h2>
-      <ul class="ledger" data-reveal>
-        <li><span class="no">01</span><div><span class="t">Halaqah bersama pengajar</span><span class="d">Belajar secara talaqqi: setiap bacaan didengar dan dikoreksi langsung, sehingga kesalahan tidak terulang tanpa disadari.</span></div></li>
-        <li><span class="no">02</span><div><span class="t">Pengajar terstandar</span><span class="d">Seluruh asatidzah telah melalui standardisasi Microteaching internal — menjaga kesabaran, metodologi, dan kenyamanan belajar di setiap halaqah.</span></div></li>
-        <li><span class="no">03</span><div><span class="t">Progres tercatat di Portal Murid</span><span class="d">Kehadiran, materi, latihan, dan raport bisa Anda buka kapan saja. <a href="portal.html">Tentang Portal Murid</a></span></div></li>
-        <li><span class="no">04</span><div><span class="t">Ujian bulanan</span><span class="d">Nilai ujian bulanan dan nilai akhir menjadi ukuran capaian, sehingga Anda tahu persis posisi bacaan dan bagian yang perlu dibenahi.</span></div></li>
-        <li><span class="no">05</span><div><span class="t">Grup WhatsApp program</span><span class="d">Informasi dan koordinasi halaqah disampaikan melalui grup WhatsApp program.</span></div></li>
+      <ul class="fitur" data-reveal>
+        <li class="utama"><span class="ik"><svg aria-hidden="true"><use href="#i-halaqah"/></svg></span><span class="t">Halaqah bersama pengajar</span><span class="d">Belajar secara talaqqi: setiap bacaan didengar dan dikoreksi langsung, sehingga kesalahan tidak terulang tanpa disadari.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-lencana"/></svg></span><span class="t">Pengajar terstandar</span><span class="d">Seluruh asatidzah telah melalui standardisasi Microteaching internal — menjaga kesabaran, metodologi, dan kenyamanan belajar.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-grafik"/></svg></span><span class="t">Progres tercatat di Portal Murid</span><span class="d">Kehadiran, materi, latihan, dan raport bisa Anda buka kapan saja. <a href="portal.html">Tentang Portal Murid</a></span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-ujian"/></svg></span><span class="t">Ujian bulanan</span><span class="d">Nilai ujian bulanan dan nilai akhir menjadi ukuran capaian — Anda tahu persis posisi bacaan dan bagian yang perlu dibenahi.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span class="t">Grup WhatsApp program</span><span class="d">Informasi dan koordinasi halaqah disampaikan melalui grup WhatsApp program.</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- ══ 6. JADWAL ══ -->
+  <!-- ══ 6. TESTIMONI ══ -->
+  <!-- [EDIT TESTIMONI] Kutipan asli murid, diambil dari bagian testimoni index.html. -->
+  <section class="sec" id="testimoni">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Kata murid</span>
+      <h2 class="sec-title" data-reveal>Kata mereka yang <em>sudah belajar</em></h2>
+      <div class="testi" data-reveal>
+        <figure>
+          <blockquote>Alhamdulillah pengajarnya baik dan penjelasannya enak sehingga kita paham. Mengoreksi jika ada kurang dalam pengucapan makhraj &amp; sifat hurufnya.</blockquote>
+          <figcaption><span class="av" aria-hidden="true">M</span><span><b>Mulyana</b><span>Murid Rattililqur'an</span></span></figcaption>
+        </figure>
+        <figure>
+          <blockquote>MasyaAllah, ustadzahnya telaten dan sabar banget menjelaskan materi, jadi sangat mudah untuk dipahami. Barakallahu fiikunna.</blockquote>
+          <figcaption><span class="av" aria-hidden="true">G</span><span><b>Gita Dewi Saraswati</b><span>Murid Rattililqur'an</span></span></figcaption>
+        </figure>
+        <figure>
+          <blockquote>MasyaAllah, kalau soal program dari Rattil jujur selalu memuaskan — ustadzahnya telaten, sabar, pengertian. Bersyukur sekali bisa jadi thalibah di Rattilil Qur'an.</blockquote>
+          <figcaption><span class="av" aria-hidden="true">M</span><span><b>Mughliya liadamil Ghois</b><span>Murid Rattililqur'an</span></span></figcaption>
+        </figure>
+      </div>
+      <p class="testi-geser" aria-hidden="true">Geser untuk membaca lainnya →</p>
+    </div>
+  </section>
+
+  <!-- ══ 7. JADWAL ══ -->
   <section class="sec" id="jadwal">
     <div class="wrap">
       <span class="sec-label" data-reveal>Jadwal</span>
@@ -279,11 +462,11 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 7. BIAYA ══ -->
+  <!-- ══ 8. BIAYA ══ -->
   <section class="sec" id="biaya">
     <div class="wrap">
       <span class="sec-label" data-reveal>Biaya</span>
-      <h2 class="sec-title" data-reveal>Biaya penuh, <em>tanpa biaya tambahan</em></h2>
+      <h2 class="sec-title" data-reveal>Biaya transparan, <em>tanpa biaya tambahan</em></h2>
       <div class="biaya" data-reveal>
         <div>
           <div class="biaya-angka">Rp80.000</div>
@@ -301,7 +484,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 8. PERSYARATAN ══ -->
+  <!-- ══ 9. PERSYARATAN ══ -->
   <section class="sec" id="syarat">
     <div class="wrap">
       <span class="sec-label" data-reveal>Persyaratan &amp; komitmen</span>
@@ -315,23 +498,23 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 9. ALUR ══ -->
+  <!-- ══ 10. ALUR ══ -->
   <section class="sec" id="alur">
     <div class="wrap">
       <span class="sec-label" data-reveal>Alur pendaftaran</span>
       <h2 class="sec-title" data-reveal>Lima langkah <em>menuju halaqah pertama</em></h2>
-      <ol class="ledger" data-reveal>
-        <li><span class="no">01</span><div><span class="t">Isi formulir pendaftaran</span><span class="d">Empat langkah singkat: data diri, kesiapan &amp; komitmen, pilih jadwal, lalu konfirmasi. Nomor pendaftaran langsung muncul dan dikirim ke email Anda.</span></div></li>
-        <li><span class="no">02</span><div><span class="t">Bagikan informasi pendaftaran</span><span class="d">Sebagai ganti biaya pendaftaran — semoga menjadi amal jariyah bersama.</span></div></li>
-        <li><span class="no">03</span><div><span class="t">Pantau status</span><span class="d">Cek kapan saja dengan nomor pendaftaran dan tanggal lahir di <a href="/pendaftaran/status.html">halaman Cek Status</a>.</span></div></li>
-        <li><span class="no">04</span><div><span class="t">Ramah tamah</span><span class="d">Sesi diskusi dan wawancara bersama para pengajar.</span></div></li>
-        <li><span class="no">05</span><div><span class="t">Mulai belajar</span><span class="d">Setelah diterima, Anda mendapatkan akun Portal Murid dan mulai mengikuti halaqah.</span></div></li>
+      <ol class="langkah" data-reveal>
+        <li><span class="bul">1</span><span class="t">Isi formulir pendaftaran</span><span class="d">Empat langkah singkat: data diri, kesiapan &amp; komitmen, pilih jadwal, lalu konfirmasi. Nomor pendaftaran langsung muncul dan dikirim ke email Anda.</span></li>
+        <li><span class="bul">2</span><span class="t">Bagikan informasi pendaftaran</span><span class="d">Sebagai ganti biaya pendaftaran — semoga menjadi amal jariyah bersama.</span></li>
+        <li><span class="bul">3</span><span class="t">Pantau status</span><span class="d">Cek kapan saja dengan nomor pendaftaran dan tanggal lahir di <a href="/pendaftaran/status.html">halaman Cek Status</a>.</span></li>
+        <li><span class="bul">4</span><span class="t">Ramah tamah</span><span class="d">Sesi diskusi dan wawancara bersama para pengajar.</span></li>
+        <li><span class="bul">5</span><span class="t">Mulai belajar</span><span class="d">Setelah diterima, Anda mendapatkan akun Portal Murid dan mulai mengikuti halaqah.</span></li>
       </ol>
       <p class="catatan" data-reveal id="catatanPeriode">Pendaftaran Angkatan 11 dibuka <b>20–30 Oktober 2026</b>, dan dapat ditutup lebih awal bila kuota terpenuhi.</p>
     </div>
   </section>
 
-  <!-- ══ 10. FAQ ══ -->
+  <!-- ══ 11. FAQ ══ -->
   <section class="sec" id="faq">
     <div class="wrap">
       <span class="sec-label" data-reveal>Pertanyaan umum</span>
@@ -340,6 +523,18 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
         <details>
           <summary>Saya belum bisa membaca Al-Qur'an sama sekali. Boleh ikut?</summary>
           <p class="a">Boleh. Kelas ini dimulai dari dasar — mengenal huruf hijaiyah dan cara melafalkannya — hingga terbiasa membaca dengan benar.</p>
+        </details>
+        <details>
+          <summary>Berapa lama satu level?</summary>
+          <p class="a">Satu level terdiri dari 40 pertemuan, dua kali sepekan — sekitar lima bulan. Selain itu ada Kajian At-Tibyan sekali sepekan.</p>
+        </details>
+        <details>
+          <summary>Apakah pendaftarannya dipungut biaya?</summary>
+          <p class="a">Tidak. Pendaftaran gratis — cukup bagikan informasi pendaftaran ke media sosial. Biaya belajar hanya SPP Rp80.000 per 8 pertemuan, tanpa biaya tambahan lain. <a href="#biaya">Rincian biaya</a></p>
+        </details>
+        <details>
+          <summary>Bolehkah saya mencoba materinya sebelum mendaftar?</summary>
+          <p class="a">Boleh. Bahan latihannya terbuka di <a href="https://modul.rattililquran.com" target="_blank" rel="noopener">Modul Riyāḍat al-Ḥurūf</a> — gratis, tanpa akun.</p>
         </details>
         <details>
           <summary>Bagaimana jika jadwal yang saya inginkan sudah penuh?</summary>
@@ -361,7 +556,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 11. CTA ══ -->
+  <!-- ══ 12. CTA ══ -->
   <section class="cta">
     <div class="wrap">
       <h2 data-reveal>Siap memulai dari huruf pertama?</h2>
@@ -372,6 +567,12 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
       </div>
     </div>
   </section>
+
+  <!-- Tombol daftar yang menempel di bawah layar HP; muncul setelah tombol hero terlewati. -->
+  <div class="cta-lekat" id="ctaLekat">
+    <div><b id="clJudul">Angkatan 11</b><span id="clSub">Pendaftaran 20–30 Oktober 2026</span></div>
+    <a href="/pendaftaran/" class="btn btn-primary" id="clBtn">Daftar Sekarang</a>
+  </div>
 </main>
 
 <!-- ══ FOOTER ══ -->
@@ -435,6 +636,16 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     var URL_TANYA = 'https://wa.me/6282316993233?text=' + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
     var status = document.getElementById('statusPendaftaran');
     var cta = [document.getElementById('ctaHero'), document.getElementById('ctaBawah')];
+    function $(id){ return document.getElementById(id); }
+    // "20–30 Oktober 2026" bila sebulan, selain itu tanggal lengkap keduanya.
+    function rentang(a, b){
+      var pa = a.split('-'), pb = b.split('-');
+      return pa[0] === pb[0] && pa[1] === pb[1]
+        ? parseInt(pa[2], 10) + '–' + tgl(b)
+        : tgl(a) + ' – ' + tgl(b);
+    }
+    $('hpTgl').textContent = PERIODE.angkatan + ' · ' + rentang(PERIODE.buka, PERIODE.tutup);
+    $('clJudul').textContent = PERIODE.angkatan;
 
     var fase = null, timer = null;
     function terapkan(){
@@ -458,11 +669,44 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
           a.href = '/pendaftaran/'; a.removeAttribute('target');
         }
       });
+      // Panel hero dan tombol menempel
+      $('heroPanel').setAttribute('data-fase', f);
+      $('hpLabel').textContent = f === 'sebelum' ? 'Pendaftaran dibuka dalam' : f === 'buka' ? 'Pendaftaran ditutup dalam' : 'Pendaftaran sudah ditutup';
+      $('hpCd').hidden = f === 'tutup';
+      if (f === 'tutup') $('hpNote').textContent = 'Info gelombang berikutnya kami umumkan di Instagram dan Channel WhatsApp Rattililqur\'an.';
+      $('ctaLekat').setAttribute('data-fase', f);
+      $('clSub').textContent = f === 'sebelum' ? 'Dibuka ' + tgl(PERIODE.buka) : 'Ditutup ' + tgl(PERIODE.tutup);
+      $('clBtn').textContent = f === 'sebelum' ? 'Lihat formulir' : 'Daftar Sekarang';
       if (f === 'tutup' && timer) { clearInterval(timer); timer = null; }
     }
-    terapkan();
+
+    // Hitung mundur menuju pembukaan (sebelum) atau penutupan (buka).
+    function dua(n){ return (n < 10 ? '0' : '') + n; }
+    function detik(){
+      terapkan();
+      if (fase === 'tutup') return;
+      var sisa = Math.max(0, Math.floor(((fase === 'sebelum' ? tBuka : tTutup + 1000) - Date.now()) / 1000));
+      $('cdHari').textContent  = Math.floor(sisa / 86400);
+      $('cdJam').textContent   = dua(Math.floor(sisa % 86400 / 3600));
+      $('cdMenit').textContent = dua(Math.floor(sisa % 3600 / 60));
+      $('cdDetik').textContent = dua(sisa % 60);
+    }
+    detik();
     // Berganti tepat saat tanggal buka/tutup tiba tanpa memuat ulang halaman.
-    if (fase !== 'tutup') timer = setInterval(terapkan, 30000);
+    if (fase !== 'tutup') timer = setInterval(detik, 1000);
+
+    // Tombol menempel (HP): tampil setelah tombol hero terlewati, sembunyi
+    // begitu ajakan penutup terlihat, dan tidak tampil saat pendaftaran ditutup.
+    var bar = $('ctaLekat'), hero = $('ctaHero'), akhir = document.querySelector('.cta'), antre = false;
+    function cekBar(){
+      antre = false;
+      bar.classList.toggle('tampil', fase !== 'tutup'
+        && hero.getBoundingClientRect().bottom < 0
+        && akhir.getBoundingClientRect().top > window.innerHeight);
+    }
+    window.addEventListener('scroll', function(){ if (!antre) { antre = true; requestAnimationFrame(cekBar); } }, { passive: true });
+    window.addEventListener('resize', cekBar);
+    cekBar();
   })();
 
   // Tema
