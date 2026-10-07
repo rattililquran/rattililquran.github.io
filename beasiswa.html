@@ -2,15 +2,17 @@
 <html lang="id">
 <head>
 <script>
-(function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+// Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
+document.documentElement.classList.add('js');
 </script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="#0d1f35"/>
-<meta name="description" content="Syarat dan Komitmen Penerima Beasiswa Program Tahsin Al-Qur'an — Rattililqur'an"/>
+<meta name="description" content="Beasiswa Penuh Rattililqur'an membebaskan SPP pribadi 100% bagi yang betul-betul tidak sanggup membayar. Baca syarat, komitmen, dan cara mengajukannya lewat formulir pendaftaran."/>
 <link rel="canonical" href="https://rattililquran.com/beasiswa.html"/>
 <meta property="og:title" content="Beasiswa Tahsin Al-Qur'an — Rattililqur'an"/>
-<meta property="og:description" content="Syarat dan komitmen peserta penerima beasiswa program Tahsin Al-Qur'an Rattililqur'an."/>
+<meta property="og:description" content="SPP dibebaskan 100% bagi yang betul-betul tidak sanggup membayar. Syarat dan komitmen penerima Beasiswa Penuh Rattililqur'an."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://rattililquran.com/beasiswa.html"/>
 <meta property="og:image" content="https://rattililquran.com/assets/images/og-beasiswa.jpg"/>
@@ -21,225 +23,130 @@
 <meta property="og:locale" content="id_ID"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Beasiswa Tahsin Al-Qur'an — Rattililqur'an"/>
-<meta name="twitter:description" content="Syarat dan komitmen peserta penerima beasiswa program Tahsin Al-Qur'an Rattililqur'an."/>
+<meta name="twitter:description" content="SPP dibebaskan 100% bagi yang betul-betul tidak sanggup membayar. Syarat dan komitmen penerima Beasiswa Penuh."/>
 <meta name="twitter:image" content="https://rattililquran.com/assets/images/og-beasiswa.jpg"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Beasiswa Tahsin Al-Qur'an — Rattililqur'an</title>
 <link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/portal-modul.css">
 <style>
-/* <picture> adalah elemen inline yang menambah tinggi baris. Untuk logo,
-   tinggi barisnya dinolkan agar tinggi tetap ditentukan <img> seperti semula. */
-.nav-brand picture,.footer-brand picture,.nikola-hero-logo picture{line-height:0;font-size:0}
-.nav-brand picture img,.footer-brand picture img,.nikola-hero-logo picture img{display:block}
+/* ══ Komponen khusus halaman Beasiswa (sisanya dari portal-modul.css) ══ */
 
-/* ── RESET & BASE ── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --primary:#0d7377;--primary-2:#0a5c60;--primary-3:#084a4d;
-  --accent:#10b981;
-  --grad:linear-gradient(135deg,#0d7377 0%,#14a085 100%);
-  --grad-soft:rgba(13,115,119,.09);
-  --bg:#f8fafc;--card:#fff;--ink:#0f172a;--ink-2:#1e293b;--ink-3:#475569;--ink-4:#94a3b8;
-  --line:rgba(15,23,42,.08);--soft:rgba(13,115,119,.07);
-  --glass:rgba(255,255,255,.72);
-  --r:14px;--r-lg:18px;--r-xl:24px;
-  --sh:0 2px 12px rgba(15,23,42,.07);--sh-sm:0 1px 6px rgba(15,23,42,.06);--sh-lg:0 8px 32px rgba(15,23,42,.12)
-}
-html.theme-dark{
-  --bg:#0d1117;--card:#161b22;--ink:#e6edf3;--ink-2:#c9d1d9;--ink-3:#8b949e;--ink-4:#484f58;
-  --line:rgba(230,237,243,.08);--soft:rgba(13,115,119,.14);
-  --glass:rgba(22,27,34,.72)
-}
-html{scroll-behavior:smooth;overflow-x:clip}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+/* Jangkar (#syarat, #cara, …) tidak tertutup navbar yang menempel. */
+html{scroll-padding-top:84px}
+.nw{white-space:nowrap}
 
-/* ── NAV ── */
-.nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--ink);letter-spacing:0.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
-.nav-brand span{white-space:nowrap}
-.nav-brand img{height:36px;width:auto}
-.brand-accent{
-  background:linear-gradient(90deg,#dc2626 0%,#f87171 38%,#fef08a 50%,#f87171 62%,#dc2626 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  font-weight:800;letter-spacing:0.02em;
-  will-change:background-position;
-  animation:brandShimmer 2.4s linear infinite;
-  display:inline-block;
-}
-@keyframes brandShimmer{0%{background-position:0% center}100%{background-position:200% center}}
-@media (prefers-reduced-motion:reduce){
-  .brand-accent{animation:none;background:none;-webkit-text-fill-color:#dc2626;color:#dc2626}
-}
-.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
-.nav-link{font-size:14px;font-weight:600;color:var(--ink-3);padding:9px 9px;border-radius:11px;text-decoration:none;transition:.18s;position:relative;white-space:nowrap;flex-shrink:0}
-.nav-link:hover{color:var(--primary);background:var(--soft)}
-.nav-link.active{color:var(--primary);background:var(--soft)}
-.nav-cta{margin-left:6px;flex-shrink:0;white-space:nowrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:15px;font-weight:700;padding:13px 26px;border-radius:12px;text-decoration:none;cursor:pointer;border:none;transition:.2s;letter-spacing:-.01em}
-.btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(13,115,119,.28)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(13,115,119,.36)}
-.btn-ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--line)}
-.btn-ghost:hover{background:var(--soft);color:var(--primary);border-color:var(--primary)}
-.nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;margin-left:auto;flex-shrink:0}
-.nav-toggle span{display:block;width:18px;height:2px;background:var(--ink-2);border-radius:2px;transition:.25s}
-.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-.nav-toggle.open span:nth-child(2){opacity:0}
-.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-@media(max-width:1120px){
-  .nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;align-items:stretch;gap:4px;padding:16px 20px 22px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--sh);transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;max-height:calc(100dvh - 74px);overflow-y:auto}
-  .nav-links.show{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
-  .nav-link{padding:13px 14px;font-size:15px}
-  .nav-cta{margin:6px 0 0}
-  .nav-toggle{display:flex}
-}
+/* Hero dua kolom: teks + kartu nilai beasiswa */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2);flex-shrink:0}
+.nilai{border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh);overflow:hidden}
+.nilai-atas{padding:22px 22px 20px;background:var(--grad-soft)}
+.nilai-k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
+.nilai-angka{margin-top:8px;font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1.05;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html.theme-dark .nilai-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
+.nilai-per{margin-top:8px;font-size:14px;font-weight:700;color:var(--c-ink-2)}
+.nilai-per s{color:var(--c-ink-3);font-weight:600}
+.nilai-rinci{margin-top:3px;font-size:13px;line-height:1.55;color:var(--c-ink-3)}
+.nilai-syarat{list-style:none;display:flex;flex-direction:column;gap:9px;padding:16px 22px 18px;border-top:1px solid var(--c-line)}
+.nilai-syarat li{position:relative;padding-left:24px;font-size:13.5px;line-height:1.5;color:var(--c-ink-2)}
+.nilai-syarat li::before{content:'';position:absolute;left:2px;top:.45em;width:11px;height:6px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.nilai{max-width:440px}}
 
-/* ── THEME TOGGLE ── */
-.theme-toggle{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 14px 5px 6px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-3);transition:.18s}
-.theme-toggle:hover{color:var(--primary);border-color:var(--primary)}
-.theme-toggle .icon{width:26px;height:26px;border-radius:50%;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:14px}
+/* Untuk siapa: dua kartu berdampingan */
+.dua{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.dua>div{padding:24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm)}
+.dua>.ya{background:var(--grad-soft)}
+.dua .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
+.dua h3{margin-top:10px;font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.35;color:var(--c-ink)}
+.dua p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--c-ink-2)}
+.cek{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.cek li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:var(--c-ink-2)}
+.cek li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+.cek b,.dua p b{color:var(--c-ink)}
+.dua .btn{margin-top:18px}
+.dua svg{width:17px;height:17px}
+@media(max-width:700px){.dua{grid-template-columns:1fr}.dua>div{padding:20px}}
 
-/* ── BREADCRUMB ── */
-.breadcrumb{max-width:1180px;margin:0 auto;padding:20px 22px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-4)}
-.breadcrumb a{color:var(--ink-4);text-decoration:none;transition:.15s}
-.breadcrumb a:hover{color:var(--primary)}
-.breadcrumb span{color:var(--ink-4)}
+/* Syarat & komitmen: kartu bernomor */
+.syarat{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.syarat>li{padding:20px 22px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.syarat .no{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--grad-soft);color:var(--c-primary);font-family:var(--font-label);font-size:14px;font-weight:800}
+.syarat h3{margin-top:12px;font-size:15.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.syarat ul,.sanksi ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.syarat ul li,.sanksi ul li{position:relative;padding-left:16px;font-size:14px;line-height:1.62;color:var(--c-ink-3)}
+.syarat ul li::before,.sanksi ul li::before{content:'';position:absolute;left:2px;top:.66em;width:5px;height:5px;border-radius:50%;background:var(--c-primary);opacity:.75}
+.syarat b,.sanksi b{color:var(--c-ink)}
+@media(max-width:700px){.syarat{grid-template-columns:1fr;gap:10px}.syarat>li{padding:18px}}
+.sanksi{margin-top:14px;padding:20px 22px;border:1px solid rgba(220,38,38,.28);border-left:4px solid #dc2626;border-radius:var(--r);background:rgba(220,38,38,.05)}
+.sanksi h3{font-size:15.5px;font-weight:800;color:#b91c1c}
+html.theme-dark .sanksi h3{color:#f87171}
+.sanksi ul li::before{background:#dc2626}
 
-/* ── SECTION ── */
-.section{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:60px 22px 80px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px}
-.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary)}
-.title{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.025em;color:var(--ink);line-height:1.15}
-.title .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.sub{font-size:clamp(14px,2vw,16px);color:var(--ink-3);margin-top:14px;line-height:1.7}
-
-/* ── BEASISWA CONTENT ── */
-.beasiswa-intro{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 32px;text-align:center;box-shadow:var(--sh);margin-top:36px}
-.beasiswa-intro .ar{font-family:'Amiri',serif;font-size:24px;color:var(--primary);direction:rtl;margin-bottom:14px;display:block}
-.beasiswa-intro p{font-size:15px;color:var(--ink-3);line-height:1.75}
-.beasiswa-list{margin:32px 0 0;display:flex;flex-direction:column;gap:20px}
-.beasiswa-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;box-shadow:var(--sh);transition:box-shadow .2s}
-.beasiswa-item:hover{box-shadow:var(--sh-lg)}
-.beasiswa-item-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
-.beasiswa-item-num{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--primary)}
-.beasiswa-item h2{font-size:16.5px;font-weight:800;color:var(--ink);margin:0;padding-top:9px}
-.beasiswa-item ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
-.beasiswa-item ul li{font-size:14.5px;color:var(--ink-3);padding-left:22px;position:relative;line-height:1.7}
-.beasiswa-item ul li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary);opacity:.6}
-.beasiswa-doa{margin:36px 0 0;background:var(--grad-soft);border:1px solid rgba(13,115,119,.15);border-radius:var(--r-lg);padding:32px;text-align:center}
-.beasiswa-doa p{font-size:15.5px;color:var(--ink-2);line-height:1.8;margin:0}
-.beasiswa-doa .ar{font-family:'Amiri',serif;font-size:24px;color:var(--primary);direction:rtl;margin-top:18px;display:block}
-.back-btn{margin-top:44px;display:inline-flex}
-@media(max-width:640px){
-  .beasiswa-intro,.beasiswa-doa{padding:20px 18px}
-  .beasiswa-item{padding:20px 18px}
-  .beasiswa-item-header{gap:12px}
+/* Cara mengajukan: langkah bersambung (mendatar di desktop, menurun di HP) */
+.langkah{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.langkah li{position:relative}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li:last-child::after{display:none}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
+.langkah li:last-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
+.langkah .d b{color:var(--c-ink-2)}
+@media(max-width:820px){
+  .langkah{grid-template-columns:1fr;gap:0}
+  .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
+  .langkah li:last-child{padding-bottom:0}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah .bul{grid-row:span 2}
+  .langkah .t{margin-top:9px}
+  .langkah .d{font-size:14.5px}
 }
 
-/* ── FOOTER ── Ft5 Statement: satu kalimat penutup mendominasi, tautan jadi rail horizontal */
-.footer{position:relative;z-index:1;border-top:1px solid var(--line);background:var(--card)}
-.footer-inner{max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,76px) 22px 0}
+/* Pengingat amanah */
+.amanah{margin-top:26px;padding:30px 28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);text-align:center}
+.amanah .ar{font-family:'Amiri',serif;font-size:clamp(22px,2.6vw,27px);line-height:1.8;direction:rtl;color:var(--c-primary)}
+.amanah p{max-width:60ch;margin:12px auto 0;font-size:15.5px;line-height:1.8;color:var(--c-ink-2)}
+.amanah p+p{font-size:14.5px;color:var(--c-ink-3)}
 
-.footer-lead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px 40px}
-.footer-lead-text{max-width:min(60ch,640px);min-width:0}
-.footer-ar{font-family:'Amiri',serif;font-size:clamp(20px,2.4vw,26px);line-height:1.5;color:var(--primary);direction:rtl;text-align:left;margin:0 0 12px}
-.footer-line{font-size:clamp(21px,3.2vw,34px);font-weight:800;letter-spacing:-.025em;line-height:1.2;color:var(--ink);margin:0;overflow-wrap:anywhere}
-.footer-cta{flex-shrink:0}
-/* Gradien .btn-primary asli hanya mencapai 4.12:1 dengan teks putih (di bawah AA
-   untuk teks 15px). Di footer saja gradiennya diperdalam agar lulus AA,
-   tanpa mengubah tombol yang sama di navbar/hero. */
-.footer-cta.btn-primary{background:linear-gradient(135deg,#0a5c60,#134e4a)}
-.footer-cta.btn-primary:hover{box-shadow:0 8px 22px rgba(10,92,96,.4)}
+/* Catatan */
+.catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-soft);font-size:14px;color:var(--c-ink-2);line-height:1.65}
+.catatan a{color:var(--c-primary);font-weight:700}
 
-.footer-nav{display:flex;flex-direction:column;gap:12px;margin-top:clamp(34px,4.5vw,52px)}
-.footer-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
-.footer-row h2{flex:0 0 auto;width:104px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0;line-height:1.2}
-.footer-row a{font-size:14.5px;line-height:1.2;color:var(--ink-3);text-decoration:none;white-space:nowrap;transition:color .16s}
-.footer-row a:hover{color:var(--primary)}
-.footer-row a:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
+/* FAQ */
+.faq{margin-top:26px;border-top:1px solid var(--c-line)}
+.faq details{border-bottom:1px solid var(--c-line)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
+.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
+.faq .a a{color:var(--c-primary);font-weight:700}
 
-.footer-meta{margin-top:clamp(34px,4.5vw,52px);border-top:1px solid var(--line);padding:20px 0 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px}
-.footer-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
-.footer-brand img{height:28px;width:auto}
-.footer-brand span{white-space:nowrap}
-.footer-copy{font-size:13px;color:var(--ink-3);margin:0}
-
-/* Beri ruang untuk tombol mengambang sekaligus home indicator iPhone di layar sempit. */
-@media(max-width:640px){
-  .footer-lead{align-items:flex-start}
-  .footer-cta{width:100%}
-  .footer-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;margin-top:clamp(30px,7vw,40px)}
-  .footer-row{display:contents}
-  .footer-row h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-  .footer-row a{display:flex;align-items:center;min-height:44px;font-size:15px}
-  .footer-meta{display:block;padding:18px 0 42px}
-  .footer-brand{margin-bottom:10px}
-  .footer-copy{max-width:22ch}
-}
-
-/* ── REVEAL ANIMATION ── */
-[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
-[data-reveal].revealed{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){
-  [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   PERBAIKAN LAYAR HP
-   Semua aturan di bawah dibungkus media query / @supports sehingga
-   tampilan desktop dan laptop tidak berubah sama sekali.
-   ══════════════════════════════════════════════════════════════════════ */
-
-/* Token teks mikro: --ink-4 (#94a3b8) hanya 2.45:1 di latar terang. */
-:root{--ink-micro:#475569}
-html.theme-dark{--ink-micro:#8b949e}
-
-/* ── T-02 · Tombol navbar 42px → 44px ── */
-/* Sengaja 900px, bukan 1100px: pada 901–1100px (laptop kecil) ukuran
-   tombol tetap persis seperti semula. */
-@media(max-width:900px){
-  .nav-toggle{width:44px;height:44px}
-  .theme-toggle{min-height:44px}
-  .nav-brand{min-height:44px}
-  /* CTA punya padding inline di markup (10px 20px) sehingga tingginya 42px.
-     Dipakai 12px, bukan 11px: dengan line-height 21.6px + border 2px, 11px
-     hanya menghasilkan 43.59px — dibulatkan 44 tapi sebenarnya kurang. */
-  .nav-links .nav-cta{padding:12px 20px!important}
-}
+/* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
+.hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
 
 @media(max-width:640px){
-  /* ── T-05 · Kontras teks mikro ──
-     .beasiswa-intro p butuh selector penuh (baris 112) agar tidak kalah. */
-  .breadcrumb,.breadcrumb a,.breadcrumb span,.footer-bottom p,.eyebrow,
-  .beasiswa-intro p{color:var(--ink-micro)}
-
-  /* ── T-02 · Area ketuk breadcrumb hanya 21px tinggi ── */
-  .breadcrumb a{display:inline-flex;align-items:center;min-height:44px;padding:0 2px}
-
-  /* Satu paragraf memakai warna inline (var(--ink-4)) sehingga hanya bisa
-     dilawan dengan !important. Sengaja dibatasi di dalam media query ini
-     supaya tampilan desktop tetap memakai nilai aslinya. */
-  main .beasiswa-intro p[style*="ink-4"]{color:var(--ink-micro)!important}
-}
-@supports(padding:max(0px)){
-  .nav-inner{padding-top:max(13px,env(safe-area-inset-top))}
-}
-/* Padding safe-area panel menu hanya saat panel dipakai (<=1100px).
-   Di desktop .nav-links adalah baris menu biasa. */
-@media(max-width:1120px){
-  @supports(padding:max(0px)){
-    .nav-links{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
-  }
+  .nilai-k,.dua .k{color:var(--c-ink-micro)}
+  .catatan,.faq .a{font-size:15px}
+  .faq summary{min-height:44px}
+  .amanah{padding:24px 18px}
 }
 </style>
-<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </head>
 <body>
 
+<!-- ══ SPRITE IKON ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
+</svg>
+
+<!-- ══ NAVBAR ══ -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
@@ -248,135 +155,225 @@ html.theme-dark{--ink-micro:#8b949e}
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
-      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><span class="icon" id="themeIcon">☀️</span><span id="themeLabel">Tema</span></button>
       <a href="/#tentang"     class="nav-link">Tentang</a>
       <a href="/#program"     class="nav-link">Program &amp; Jadwal</a>
       <a href="/#pendaftaran" class="nav-link">Pendaftaran</a>
-      <a href="beasiswa.html" class="nav-link active">Beasiswa</a>
+      <a href="beasiswa.html" class="nav-link active" aria-current="page">Beasiswa</a>
       <a href="/#faq"         class="nav-link">FAQ</a>
       <a href="/#kontak"      class="nav-link">Kontak</a>
       <a href="portal.html" class="nav-link" data-nav="portal">Portal</a>
       <a href="modul.html"  class="nav-link" data-nav="modul">Modul</a>
-      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-mobile" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-desktop" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+      </button>
     </div>
   </div>
 </nav>
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="/">Beranda</a>
-  <span>›</span>
+  <span aria-hidden="true">›</span>
   <span>Beasiswa</span>
 </nav>
 
 <main>
-  <section class="section">
-    <span class="eyebrow" data-reveal>Beasiswa</span>
-    <h1 class="title" data-reveal>Syarat &amp; Komitmen <span class="grad-text">Beasiswa Tahsin</span></h1>
-    <p class="sub" data-reveal>Beasiswa Program Tahsin Al-Qur'an adalah amanah dari Allah ﷻ. Setiap peserta diharapkan menjaganya dengan kesungguhan, adab, dan komitmen yang tulus dalam belajar.</p>
-
-    <div class="beasiswa-intro" data-reveal>
-      <span class="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
-      <p>Beasiswa Program Tahsin Al-Qur'an ini merupakan bentuk amanah dan kesempatan yang Allah berikan untuk mendekatkan diri kepada Al-Qur'an. Setiap peserta diharapkan dapat menjaganya dengan kesungguhan, adab, dan komitmen yang tulus dalam belajar.</p>
-      <p style="margin-top:10px;font-size:14px;color:var(--ink-4)">Adapun persyaratan dan komitmen peserta penerima beasiswa adalah sebagai berikut:</p>
-      <p style="margin-top:10px;font-size:14px;color:var(--ink-3)">Cara mengajukan: isi formulir pendaftaran seperti biasa, lalu sampaikan kondisi Anda kepada admin saat dihubungi.</p>
+  <!-- ══ 1. HERO ══ -->
+  <header class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <p class="pill">Beasiswa Penuh · SPP dibebaskan 100%</p>
+        <h1>Keterbatasan ekonomi <em>bukan penghalang</em> untuk belajar</h1>
+        <p class="hero-lead">Beasiswa Penuh Rattililqur'an membebaskan SPP pribadi murid sepenuhnya — bukan potongan, bukan cicilan — bagi yang betul-betul tidak sanggup membayar. Sebagai gantinya, kami meminta kesungguhan: hadir, beradab, dan menjaga nilai hingga akhir level.</p>
+        <div class="hero-actions">
+          <a href="/pendaftaran/" class="btn btn-primary btn-lg">Ajukan lewat formulir</a>
+          <a href="#syarat" class="btn btn-ghost btn-lg">Baca syaratnya</a>
+        </div>
+        <p class="hero-meta">Syarat lengkapnya tertulis di halaman ini — <b>tanpa syarat tersembunyi</b>.</p>
+      </div>
+      <aside class="nilai" aria-label="Nilai Beasiswa Penuh">
+        <div class="nilai-atas">
+          <p class="nilai-k">SPP pribadi Anda</p>
+          <p class="nilai-angka">Rp0</p>
+          <p class="nilai-per"><s>Rp400.000</s> per level — <span class="nw">dibebaskan 100%</span></p>
+          <p class="nilai-rinci">Kelas Tahsin Riyadhatulhuruf: 40 pertemuan, SPP Rp80.000 per 8 pertemuan.</p>
+        </div>
+        <ul class="nilai-syarat">
+          <li>Betul-betul tidak sanggup membayar</li>
+          <li>Izin tidak lebih dari 3 kali</li>
+          <li>Nilai ujian minimal 80</li>
+        </ul>
+      </aside>
     </div>
+  </header>
 
-    <div class="beasiswa-list">
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">1</div>
-          <h2>Ketidaksanggupan Membayar</h2>
+  <!-- ══ 2. UNTUK SIAPA ══ -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Untuk siapa</span>
+      <h2 class="sec-title" data-reveal>Apakah Beasiswa Penuh <em>tepat untuk Anda?</em></h2>
+      <div class="dua" data-reveal>
+        <div class="ya">
+          <span class="k">Beasiswa Penuh</span>
+          <h3>Untuk Anda yang betul-betul tidak sanggup membayar</h3>
+          <ul class="cek">
+            <li>Anda dan keluarga tidak mampu memenuhi SPP <b class="nw">Rp80.000</b> per 8 pertemuan (Rp10.000 per pertemuan).</li>
+            <li>Anda siap bersungguh-sungguh hingga akhir level dan menjaga seluruh komitmen di bawah ini.</li>
+          </ul>
+          <a href="/pendaftaran/" class="btn btn-primary">Ajukan lewat formulir</a>
         </div>
-        <ul>
-          <li>Beasiswa diperuntukkan bagi peserta yang betul-betul <strong>tidak sanggup membayar</strong> biaya pembelajaran sebesar Rp80.000 per 8 pertemuan (Rp10.000/pertemuan).</li>
-          <li>Jika masih sanggup membayar namun terkendala sebagian, silakan <strong>hubungi admin</strong> terlebih dahulu sebelum mendaftar.</li>
-        </ul>
-      </div>
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">2</div>
-          <h2>Komitmen Hadir hingga Akhir Level</h2>
+        <div>
+          <span class="k">Keringanan</span>
+          <h3>Masih sanggup, tapi terkendala sebagian?</h3>
+          <p>Beasiswa Penuh diperuntukkan bagi yang betul-betul tidak sanggup. Untuk kondisi Anda, silakan <b>hubungi admin terlebih dahulu</b> sebelum mendaftar.</p>
+          <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20keringanan%20biaya%20Kelas%20Tahsin%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Hubungi admin</a>
         </div>
-        <ul>
-          <li>Wajib mengikuti kelas sampai akhir level, tidak mengambil izin lebih dari <strong>3 kali</strong>.</li>
-          <li>Level ini <strong>tidak tersedia kelas pengganti</strong> — peserta harus selalu hadir di setiap halaqah.</li>
-          <li>Tidak bermudah-mudahan dalam izin atau sekadar mustami'ah.</li>
-        </ul>
       </div>
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">3</div>
-          <h2>Standar Nilai Ujian</h2>
-        </div>
-        <ul>
-          <li>Nilai <strong>Ujian Bulanan</strong> dan <strong>rata-rata Nilai Akhir</strong> minimal <strong>80</strong>.</li>
-        </ul>
-      </div>
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">4</div>
-          <h2>Aktif di Halaqah dan Grup WA</h2>
-        </div>
-        <ul>
-          <li>Aktif berpartisipasi selama kegiatan halaqah berlangsung.</li>
-          <li>Aktif dan responsif dalam grup WhatsApp program.</li>
-        </ul>
-      </div>
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">5</div>
-          <h2>Tepat Waktu &amp; Adab Bermajelis</h2>
-        </div>
-        <ul>
-          <li>Selalu hadir <strong>tepat waktu</strong> di setiap sesi halaqah.</li>
-          <li>Mengedepankan adab-adab bermajelis selama proses pembelajaran.</li>
-        </ul>
-      </div>
-
-      <div class="beasiswa-item" data-reveal>
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num">6</div>
-          <h2>Menyebarkan Ilmu</h2>
-        </div>
-        <ul>
-          <li>Siap <strong>mengajarkan ilmu yang telah didapat</strong>, di mana pun berada.</li>
-        </ul>
-      </div>
-
-      <div class="beasiswa-item" data-reveal style="border-color:rgba(220,38,38,.3);">
-        <div class="beasiswa-item-header">
-          <div class="beasiswa-item-num" style="background:rgba(220,38,38,.1);color:#dc2626;font-size:20px;font-weight:800;">!</div>
-          <h2 style="color:#dc2626;">Konsekuensi Pelanggaran</h2>
-        </div>
-        <ul>
-          <li>Apabila poin-poin di atas tidak dijalankan sebagaimana mestinya, program beasiswa akan <strong>dicabut sewaktu-waktu</strong>.</li>
-          <li>Peserta wajib <strong>membayar pembiayaan dari awal</strong> apabila beasiswa dicabut.</li>
-        </ul>
-      </div>
-
     </div>
+  </section>
 
-    <div class="beasiswa-doa" data-reveal>
-      <p>Kami harap peserta dapat menjalankan amanah ini dengan baik, karena sejatinya halaqah ini adalah amanah.</p>
-      <p style="margin-top:12px;font-size:14.5px;color:var(--ink-3);">Terutama jika tanpa membayar, pertanggungjawaban kita kelak di akhirat lebih besar. Allah berikan kemudahan untuk kita tanpa berjihad harta, maka seharusnya kita jaga agar Allah tambah nikmat-Nya.</p>
-      <span class="ar">بَارَكَ اللَّهُ فِيكُمْ</span>
+  <!-- ══ 3. SYARAT & KOMITMEN ══ -->
+  <section class="sec" id="syarat">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Syarat &amp; komitmen</span>
+      <h2 class="sec-title" data-reveal>Syarat dan komitmen <em>penerima beasiswa</em></h2>
+      <p class="sec-sub" data-reveal>Beasiswa ini adalah amanah dari Allah ﷻ. Setiap penerima diharapkan menjaganya dengan kesungguhan, adab, dan komitmen yang tulus dalam belajar.</p>
+      <ol class="syarat" data-reveal>
+        <li>
+          <span class="no">1</span>
+          <h3>Ketidaksanggupan membayar</h3>
+          <ul>
+            <li>Diperuntukkan bagi peserta yang betul-betul <b>tidak sanggup membayar</b> SPP Rp80.000 per 8 pertemuan (Rp10.000 per pertemuan).</li>
+            <li>Bila masih sanggup namun terkendala sebagian, <b>hubungi admin</b> terlebih dahulu sebelum mendaftar.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="no">2</span>
+          <h3>Hadir hingga akhir level</h3>
+          <ul>
+            <li>Mengikuti kelas sampai akhir level, tidak mengambil izin lebih dari <b>3 kali</b>.</li>
+            <li>Level ini <b>tidak tersedia kelas pengganti</b> — selalu hadir di setiap halaqah.</li>
+            <li>Tidak bermudah-mudahan dalam izin atau sekadar mustami'ah.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="no">3</span>
+          <h3>Standar nilai ujian</h3>
+          <ul>
+            <li>Nilai <b>Ujian Bulanan</b> dan <b>rata-rata Nilai Akhir</b> minimal <b>80</b>.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="no">4</span>
+          <h3>Aktif di halaqah dan grup WhatsApp</h3>
+          <ul>
+            <li>Aktif berpartisipasi selama kegiatan halaqah berlangsung.</li>
+            <li>Aktif dan responsif dalam grup WhatsApp program.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="no">5</span>
+          <h3>Tepat waktu &amp; adab bermajelis</h3>
+          <ul>
+            <li>Selalu hadir <b>tepat waktu</b> di setiap sesi halaqah.</li>
+            <li>Mengedepankan adab-adab bermajelis selama proses pembelajaran.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="no">6</span>
+          <h3>Menyebarkan ilmu</h3>
+          <ul>
+            <li>Siap <b>mengajarkan ilmu yang telah didapat</b>, di mana pun berada.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="sanksi" data-reveal>
+        <h3>Konsekuensi bila komitmen tidak dijalankan</h3>
+        <ul>
+          <li>Beasiswa akan <b>dicabut sewaktu-waktu</b>.</li>
+          <li>Peserta wajib <b>membayar pembiayaan dari awal</b>.</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <div class="back-btn" data-reveal>
-      <a href="/#pendaftaran" class="btn btn-primary">Daftar Sekarang</a>
-      <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost">Tanya admin</a>
+  <!-- ══ 4. CARA MENGAJUKAN ══ -->
+  <section class="sec" id="cara">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Cara mengajukan</span>
+      <h2 class="sec-title" data-reveal>Cukup lewat <em>formulir pendaftaran</em></h2>
+      <p class="sec-sub" data-reveal>Tidak ada formulir terpisah. Beasiswa diajukan di formulir pendaftaran yang sama dengan peserta reguler.</p>
+      <ol class="langkah" data-reveal>
+        <li><span class="bul">1</span><span class="t">Isi formulir pendaftaran</span><span class="d">Di langkah <b>Kesiapan &amp; Komitmen</b>, pilih Jenis Biaya <b>Beasiswa</b>.</span></li>
+        <li><span class="bul">2</span><span class="t">Centang dua pernyataan wajib</span><span class="d">Bahwa Anda betul-betul tidak sanggup membayar SPP, dan siap memenuhi seluruh syarat di halaman ini.</span></li>
+        <li><span class="bul">3</span><span class="t">Sampaikan kondisi Anda</span><span class="d">Saat dihubungi admin, ceritakan kondisi Anda dengan jujur.</span></li>
+        <li><span class="bul">4</span><span class="t">Jaga amanahnya</span><span class="d">Setelah diterima, beasiswa berlaku selama komitmennya dijalankan hingga akhir level.</span></li>
+      </ol>
+      <p class="catatan" data-reveal>Alur lengkap pendaftaran — jadwal, biaya reguler, hingga ramah tamah — ada di halaman <a href="program.html#alur">Kelas Tahsin Riyadhatulhuruf</a>.</p>
     </div>
-    <div class="back-btn" data-reveal style="margin-top:18px">
-      <a href="/" class="btn btn-ghost">← Kembali ke Beranda</a>
+  </section>
+
+  <!-- ══ 5. AMANAH ══ -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Pengingat</span>
+      <h2 class="sec-title" data-reveal>Halaqah ini <em>adalah amanah</em></h2>
+      <div class="amanah" data-reveal>
+        <p class="ar" lang="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+        <p>Kami harap peserta dapat menjalankan amanah ini dengan baik, karena sejatinya halaqah ini adalah amanah.</p>
+        <p>Terutama jika tanpa membayar, pertanggungjawaban kita kelak di akhirat lebih besar. Allah berikan kemudahan untuk kita tanpa berjihad harta, maka seharusnya kita jaga agar Allah tambah nikmat-Nya.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6. FAQ ══ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Pertanyaan umum</span>
+      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Apakah Beasiswa Penuh berupa potongan atau cicilan?</summary>
+          <p class="a">Bukan. SPP pribadi murid dibebaskan sepenuhnya (100%) selama komitmennya dijalankan.</p>
+        </details>
+        <details>
+          <summary>Saya masih sanggup membayar sebagian. Bisakah ikut beasiswa?</summary>
+          <p class="a">Beasiswa Penuh hanya untuk yang betul-betul tidak sanggup membayar. Bila masih sanggup tapi terkendala sebagian, <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20keringanan%20biaya%20Kelas%20Tahsin%20Rattililqur'an" target="_blank" rel="noopener">hubungi admin</a> terlebih dahulu sebelum mendaftar.</p>
+        </details>
+        <details>
+          <summary>Berapa kali saya boleh izin?</summary>
+          <p class="a">Tidak lebih dari 3 kali hingga akhir level. Level ini tidak tersedia kelas pengganti, jadi pilih jadwal yang benar-benar bisa Anda hadiri.</p>
+        </details>
+        <details>
+          <summary>Apa yang terjadi bila komitmen tidak dijalankan?</summary>
+          <p class="a">Beasiswa dapat dicabut sewaktu-waktu, dan peserta wajib membayar pembiayaan dari awal.</p>
+        </details>
+        <details>
+          <summary>Di mana saya mengajukannya?</summary>
+          <p class="a">Di <a href="/pendaftaran/">formulir pendaftaran</a>: pilih Jenis Biaya "Beasiswa", lalu centang dua pernyataan wajib yang muncul.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7. CTA ══ -->
+  <section class="cta">
+    <div class="wrap">
+      <h2 data-reveal>Siap menjaga amanah ini?</h2>
+      <p data-reveal>Bila Anda memenuhi syaratnya, ajukan Beasiswa Penuh di formulir pendaftaran. Masih ragu? Tanyakan dulu kepada admin. <span class="lead-em">Biidznillah</span></p>
+      <div class="cta-actions" data-reveal>
+        <a href="/pendaftaran/" class="btn btn-primary btn-lg">Ajukan lewat formulir</a>
+        <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener" class="btn btn-ghost btn-lg"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Tanya admin</a>
+      </div>
     </div>
   </section>
 </main>
 
+<!-- ══ FOOTER ══ -->
 <footer class="footer">
   <div class="footer-inner">
 
@@ -385,7 +382,7 @@ html.theme-dark{--ink-micro:#8b949e}
         <p class="footer-ar">بَارَكَ اللَّهُ فِيكُمْ</p>
         <p class="footer-line">Membimbing setiap muslim membaca Al-Qur'an dengan tartil.</p>
       </div>
-      <a href="index.html#pendaftaran" class="btn btn-primary footer-cta">Daftar Sekarang</a>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary footer-cta">Masuk Portal</a>
     </div>
 
     <nav class="footer-nav" aria-label="Tautan footer">
@@ -422,66 +419,48 @@ html.theme-dark{--ink-micro:#8b949e}
 </footer>
 
 <script>
-  // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile nav toggle
-  var toggle = document.getElementById('navToggle'), links = document.getElementById('navLinks');
-  function setMenu(open){
-    links.classList.toggle('show', open);
-    toggle.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-  toggle.addEventListener('click', function(){ setMenu(!links.classList.contains('show')); });
-  links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
-  // Escape menutup menu, dan fokus dikembalikan ke tombolnya.
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && links.classList.contains('show')){ setMenu(false); toggle.focus(); }
-  });
-
-  // Klik di luar menu menutupnya. Sebelumnya perilaku ini datang tidak sengaja
-  // dari menu yang masih terlihat; setelah panel memakai visibility:hidden
-  // perlu ditangani secara eksplisit.
-  document.addEventListener('click', function(e){
-    if(!links.classList.contains('show')) return;
-    if(toggle.contains(e.target) || links.contains(e.target)) return;
-    setMenu(false);
-  });
-
-  links.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      links.classList.remove('show');
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Theme toggle
+  // Tema
   (function(){
     var btn = document.getElementById('themeToggle');
-    var icon = document.getElementById('themeIcon');
-    var label = document.getElementById('themeLabel');
-    function applyTheme(t){
-      var dark = t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);
-      document.documentElement.classList.toggle('theme-dark', dark);
-      icon.textContent = dark ? '🌙' : '☀️';
-      label.textContent = dark ? 'Gelap' : 'Terang';
-    }
-    applyTheme(localStorage.getItem('theme')||'system');
     btn.addEventListener('click', function(){
-      var isDark = document.documentElement.classList.contains('theme-dark');
-      var next = isDark ? 'light' : 'dark';
-      localStorage.setItem('theme', next);
-      applyTheme(next);
+      var next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
+      try { localStorage.setItem('theme', next); } catch(e){}
+      document.documentElement.classList.toggle('theme-dark', next === 'dark');
     });
   })();
 
-  // Reveal animation
-  var revealEls = document.querySelectorAll('[data-reveal]');
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); } });
-  }, {threshold:0.08});
-  revealEls.forEach(function(el){ io.observe(el); });
+  // Menu mobile
+  (function(){
+    var t = document.getElementById('navToggle'), l = document.getElementById('navLinks');
+    if (!t || !l) return;
+    function setMenu(open){
+      l.classList.toggle('show', open);
+      t.classList.toggle('open', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    t.addEventListener('click', function(){ setMenu(!l.classList.contains('show')); });
+    l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && l.classList.contains('show')) { setMenu(false); t.focus(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!l.classList.contains('show')) return;
+      if (t.contains(e.target) || l.contains(e.target)) return;
+      setMenu(false);
+    });
+  })();
+
+  // Reveal saat digulir. Tanpa IntersectionObserver, tampilkan semua.
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
 </script>
 
 </body>
