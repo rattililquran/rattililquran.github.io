@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+document.documentElement.classList.add('js');
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1f35"/>
+<meta name="robots" content="noindex"/>
+<title>Halaman Tidak Ditemukan — Rattililqur'an</title>
+<!-- Halaman ini dilayani GitHub Pages untuk SEMUA alamat yang tidak ada (mis. /a/b/c),
+     jadi seluruh aset & tautan memakai path absolut (/...), bukan relatif. -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/portal-modul.css">
+<style>
+/* ══ Komponen khusus halaman 404 (sisanya dari portal-modul.css) ══ */
+.nf{padding-top:56px;padding-bottom:64px}
+.nf-kode{display:inline-block;font-size:clamp(64px,11vw,112px);font-weight:800;letter-spacing:-.05em;line-height:1;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html.theme-dark .nf-kode{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
+.nf h1{margin-top:10px;font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.025em;line-height:1.2;color:var(--c-ink)}
+.nf-lead{margin-top:12px;max-width:60ch;font-size:clamp(15px,1.35vw,17px);line-height:1.7;color:var(--c-ink-3)}
+.nf-lead code{padding:2px 7px;border:1px solid var(--c-line);border-radius:7px;background:var(--c-card);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;color:var(--c-ink-2);overflow-wrap:anywhere}
+
+/* Tebakan halaman yang dimaksud */
+.tebak{margin-top:28px;padding:24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);box-shadow:var(--sh-sm);max-width:620px}
+.tebak[hidden]{display:none}
+.tebak .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
+.tebak h2{margin-top:8px;font-size:clamp(19px,2vw,23px);font-weight:800;letter-spacing:-.015em;color:var(--c-ink)}
+.tebak p{margin-top:4px;font-size:14px;color:var(--c-ink-3)}
+.tebak .btn{margin-top:16px;background:linear-gradient(135deg,#0369a1,#4f46e5)}
+.tebak .btn svg{width:16px;height:16px}
+
+/* Daftar halaman utama */
+.peta{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.peta a{display:flex;align-items:center;gap:12px;height:100%;padding:16px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm);text-decoration:none;transition:border-color var(--dur),transform var(--dur) var(--ease-spring)}
+.peta a:hover{border-color:var(--c-primary);transform:translateY(-2px)}
+.peta .ik{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:40px;height:40px;border-radius:12px;background:var(--grad-soft);color:var(--c-primary)}
+.peta .ik svg{width:20px;height:20px}
+.peta b{display:block;font-size:14.5px;font-weight:800;line-height:1.3;color:var(--c-ink)}
+.peta span.d{display:block;margin-top:2px;font-size:12.5px;line-height:1.45;color:var(--c-ink-3)}
+@media(max-width:820px){.peta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.peta{grid-template-columns:1fr;gap:10px}.tebak{padding:20px}.tebak .btn{width:100%}}
+.nf-bantu{margin-top:26px;font-size:14px;color:var(--c-ink-3)}
+.nf-bantu a{color:var(--c-primary);font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ══ SPRITE IKON ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-rumah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 5l8 6.5"/><path d="M6.5 10v9.5h11V10"/><path d="M10 19.5v-5h4v5"/></symbol>
+  <symbol id="i-buku" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></symbol>
+  <symbol id="i-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5v-1h6v1"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4"/></symbol>
+  <symbol id="i-cari" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></symbol>
+  <symbol id="i-hadiah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 12 9 12 9zM12 9c1.5-3 5-3.5 5-1.2C17 9 12 9 12 9z"/></symbol>
+  <symbol id="i-modul" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.5"/></symbol>
+  <symbol id="i-portal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="5.5" y="12" width="3" height="5" rx="1"/><rect x="10.5" y="8" width="3" height="9" rx="1"/><rect x="15.5" y="4.5" width="3" height="12.5" rx="1"/></symbol>
+</svg>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <picture><source type="image/webp" srcset="/assets/images/logo-abu-512.webp"><img src="/assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
+      <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="/#tentang"       class="nav-link">Tentang</a>
+      <a href="/#program"       class="nav-link">Program &amp; Jadwal</a>
+      <a href="/#pendaftaran"   class="nav-link">Pendaftaran</a>
+      <a href="/beasiswa.html"  class="nav-link">Beasiswa</a>
+      <a href="/#faq"           class="nav-link">FAQ</a>
+      <a href="/#kontak"        class="nav-link">Kontak</a>
+      <a href="/portal.html"    class="nav-link">Portal</a>
+      <a href="/modul.html"     class="nav-link">Modul</a>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-mobile" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-desktop" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="wrap nf">
+    <span class="nf-kode" aria-hidden="true">404</span>
+    <h1>Halaman tidak ditemukan</h1>
+    <p class="nf-lead" id="nfLead">Alamat yang Anda buka tidak ada atau sudah dipindahkan. Silakan pilih halaman tujuan di bawah ini.</p>
+
+    <!-- Tebakan halaman tujuan dari alamat yang diketik; diisi skrip. -->
+    <div class="tebak" id="tebak" hidden>
+      <span class="k">Mungkin yang Anda cari</span>
+      <h2 id="tebakNama"></h2>
+      <p id="tebakDesk"></p>
+      <a class="btn btn-primary btn-lg" id="tebakBtn" href="/">Buka halaman ini<svg aria-hidden="true"><use href="#i-panah"/></svg></a>
+    </div>
+
+    <h2 class="sec-label" style="margin-top:44px">Halaman utama</h2>
+    <ul class="peta">
+      <li><a href="/"><span class="ik"><svg aria-hidden="true"><use href="#i-rumah"/></svg></span><span><b>Beranda</b><span class="d">Kenali Rattililqur'an</span></span></a></li>
+      <li><a href="/program.html"><span class="ik"><svg aria-hidden="true"><use href="#i-buku"/></svg></span><span><b>Kelas Riyadhatulhuruf</b><span class="d">Materi, jadwal, biaya</span></span></a></li>
+      <li><a href="/pendaftaran/"><span class="ik"><svg aria-hidden="true"><use href="#i-form"/></svg></span><span><b>Formulir Pendaftaran</b><span class="d">Daftar murid baru</span></span></a></li>
+      <li><a href="/pendaftaran/status.html"><span class="ik"><svg aria-hidden="true"><use href="#i-cari"/></svg></span><span><b>Cek Status</b><span class="d">Pantau hasil pendaftaran</span></span></a></li>
+      <li><a href="/beasiswa.html"><span class="ik"><svg aria-hidden="true"><use href="#i-hadiah"/></svg></span><span><b>Beasiswa Penuh</b><span class="d">Syarat &amp; komitmen</span></span></a></li>
+      <li><a href="/modul.html"><span class="ik"><svg aria-hidden="true"><use href="#i-modul"/></svg></span><span><b>Modul Belajar</b><span class="d">Gratis, tanpa daftar</span></span></a></li>
+      <li><a href="/portal.html"><span class="ik"><svg aria-hidden="true"><use href="#i-portal"/></svg></span><span><b>Portal Murid</b><span class="d">Presensi, raport, latihan</span></span></a></li>
+    </ul>
+    <p class="nf-bantu">Masih belum ketemu? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20mencari%20halaman%20di%20situs%20Rattililqur'an" target="_blank" rel="noopener">Tanya admin via WhatsApp</a>.</p>
+  </section>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-lead">
+      <div class="footer-lead-text">
+        <p class="footer-ar">بَارَكَ اللَّهُ فِيكُمْ</p>
+        <p class="footer-line">Membimbing setiap muslim membaca Al-Qur'an dengan tartil.</p>
+      </div>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary footer-cta">Masuk Portal</a>
+    </div>
+    <div class="footer-meta">
+      <div class="footer-brand"><picture><source type="image/webp" srcset="/assets/images/logo-abu-512.webp"><img src="/assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <p class="footer-copy">&copy; <span id="yearStart">2020</span>&ndash;<span id="year">2026</span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ══ TEBAK HALAMAN TUJUAN ══
+  // Dari alamat yang salah (typo, garis miring di akhir, nama lama, sinonim), cari
+  // halaman yang paling mungkin dimaksud. Hanya menyarankan lewat tombol — tidak
+  // mengalihkan otomatis. [EDIT] tambah kata kunci bila ada alamat lama yang sering dipakai.
+  (function(){
+    var HALAMAN = [
+      { url: '/',                         nama: 'Beranda',                       desk: 'Halaman utama Rattililqur\'an.',                kunci: ['beranda','home','index','utama','rattil','rattililquran','rattililqur'] },
+      { url: '/program.html',             nama: 'Kelas Tahsin Riyadhatulhuruf',  desk: 'Materi, cara belajar, jadwal, biaya, dan alur.', kunci: ['program','kelas','riyadhatulhuruf','riyadhatul','riyadhoh','riyadoh','tahsin','tentangprogram','level','class','course'] },
+      { url: '/program.html#jadwal',      nama: 'Jadwal Kelas Riyadhatulhuruf',  desk: 'Bagian jadwal di halaman program.',             kunci: ['jadwal','schedule','waktu','halaqah'] },
+      { url: '/program.html#biaya',       nama: 'Biaya Kelas Riyadhatulhuruf',   desk: 'Bagian biaya di halaman program.',              kunci: ['biaya','harga','spp','infaq','infak','price','fee','bayar','pembayaran'] },
+      { url: '/pendaftaran/',             nama: 'Formulir Pendaftaran',          desk: 'Daftar sebagai murid baru.',                    kunci: ['pendaftaran','daftar','register','registrasi','form','formulir','signup','pmb','ppdb','gabung','join'] },
+      { url: '/pendaftaran/status.html',  nama: 'Cek Status Pendaftaran',        desk: 'Pantau status dengan nomor pendaftaran.',       kunci: ['status','cek','cekstatus','check','hasil','pengumuman'] },
+      { url: '/beasiswa.html',            nama: 'Beasiswa Penuh',                desk: 'Syarat, komitmen, dan cara mengajukan.',        kunci: ['beasiswa','scholarship','keringanan','subsidi','gratis'] },
+      { url: '/modul.html',               nama: 'Modul Belajar Riyāḍat al-Ḥurūf', desk: 'Latihan makhraj & sifat huruf — gratis.',      kunci: ['modul','module','materi','belajar','riyadat','huruf','hijaiyah','makhraj','tajwid','mindmap'] },
+      { url: '/portal.html',              nama: 'Portal Murid',                  desk: 'Presensi, raport, dan latihan murid.',          kunci: ['portal','murid','raport','rapor','presensi','nis','santri','siswa'] },
+      { url: 'https://portal.rattililquran.com/', nama: 'Masuk Portal',          desk: 'Login akun murid, guru, atau admin.',           kunci: ['login','masuk','signin','akun','account','dashboard'] },
+      { url: '/pendaftaran/admin/',       nama: 'Panel Admin Pendaftaran',       desk: 'Khusus admin.',                                 kunci: ['admin','panel'] },
+      { url: '/#faq',                     nama: 'Pertanyaan Umum',               desk: 'Jawaban atas pertanyaan yang sering diajukan.', kunci: ['faq','tanya','pertanyaan','bantuan','help'] },
+      { url: '/#kontak',                  nama: 'Kontak',                        desk: 'WhatsApp, Instagram, email, dan alamat.',       kunci: ['kontak','contact','hubungi','whatsapp','wa','alamat','lokasi'] },
+      { url: '/#tentang',                 nama: 'Tentang Rattililqur\'an',       desk: 'Cara kami menemani belajar.',                   kunci: ['tentang','about','profil','profile','visi','misi'] },
+      { url: '/#testimoni',               nama: 'Testimoni Murid',               desk: 'Cerita mereka yang sudah belajar.',             kunci: ['testimoni','testimonial','ulasan','review'] }
+    ];
+
+    // Jarak Levenshtein untuk menangkap salah ketik (mis. "progam", "beasiwa").
+    function jarak(a, b){
+      if (a === b) return 0;
+      var m = a.length, n = b.length, prev = [], cur, i, j;
+      for (j = 0; j <= n; j++) prev[j] = j;
+      for (i = 1; i <= m; i++){
+        cur = [i];
+        for (j = 1; j <= n; j++){
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        }
+        prev = cur;
+      }
+      return prev[n];
+    }
+
+    // Skor satu kata alamat terhadap satu kata kunci.
+    function skor(kata, kunci){
+      if (kata === kunci) return 100;
+      if (kata.length >= 4 && kunci.length >= 4 && (kata.indexOf(kunci) === 0 || kunci.indexOf(kata) === 0)) return 80;
+      var batas = kunci.length >= 7 ? 2 : (kunci.length >= 4 ? 1 : 0);
+      var d = batas ? jarak(kata, kunci) : 99;
+      return d <= batas ? 70 - d * 5 : 0;
+    }
+
+    var path;
+    try { path = decodeURIComponent(location.pathname); } catch (e) { path = location.pathname; }
+    var kataAlamat = path.toLowerCase()
+      .replace(/\.(html?|php|aspx?)$/, '')
+      .split(/[^a-z0-9]+/)
+      .filter(function(k){ return k.length >= 2; });
+    // Gabungan juga dicoba, mis. "/cek-status" → "cekstatus".
+    if (kataAlamat.length > 1) kataAlamat.push(kataAlamat.join(''));
+
+    // Nilai halaman = jumlah skor terbaik tiap kata alamat (kata yang cocok saja), sehingga
+    // "/tentang-program" (2 kata cocok) mengalahkan "/#tentang" (1 kata). Bila seri, tujuan
+    // yang lebih spesifik (#bagian) menang: "/biaya-kelas" → bagian biaya.
+    var terbaik = null, nilai = 0;
+    HALAMAN.forEach(function(h){
+      var total = 0;
+      kataAlamat.forEach(function(kata){
+        var best = 0;
+        h.kunci.forEach(function(k){ best = Math.max(best, skor(kata, k)); });
+        if (best >= 60) total += best;
+      });
+      var lebihSpesifik = terbaik && total === nilai && h.url.indexOf('#') !== -1 && terbaik.url.indexOf('#') === -1;
+      if (total > nilai || lebihSpesifik){ nilai = total; terbaik = h; }
+    });
+
+    // Tampilkan alamat yang dibuka (sebagai teks, bukan HTML).
+    var lead = document.getElementById('nfLead');
+    if (path && path !== '/' && path !== '/404.html'){
+      lead.textContent = '';
+      lead.appendChild(document.createTextNode('Alamat '));
+      var code = document.createElement('code');
+      code.textContent = path.length > 60 ? path.slice(0, 57) + '…' : path;
+      lead.appendChild(code);
+      lead.appendChild(document.createTextNode(' tidak ada atau sudah dipindahkan. Silakan pilih halaman tujuan di bawah ini.'));
+    }
+
+    if (!terbaik || nilai < 60) return;
+    var tujuan = terbaik.url;
+    // Bawa serta #bagian bila tujuan belum punya, mis. /progam.html#biaya → /program.html#biaya
+    if (location.hash && tujuan.indexOf('#') === -1 && tujuan.indexOf('http') !== 0) tujuan += location.hash;
+    document.getElementById('tebakNama').textContent = terbaik.nama;
+    document.getElementById('tebakDesk').textContent = terbaik.desk;
+    var btn = document.getElementById('tebakBtn');
+    btn.href = tujuan;
+    btn.firstChild.textContent = 'Buka ' + terbaik.nama + ' ';
+    document.getElementById('tebak').hidden = false;
+  })();
+
+  // Tema
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', function(){
+      var next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
+      try { localStorage.setItem('theme', next); } catch(e){}
+      document.documentElement.classList.toggle('theme-dark', next === 'dark');
+    });
+  })();
+
+  // Menu mobile
+  (function(){
+    var t = document.getElementById('navToggle'), l = document.getElementById('navLinks');
+    if (!t || !l) return;
+    function setMenu(open){
+      l.classList.toggle('show', open);
+      t.classList.toggle('open', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    t.addEventListener('click', function(){ setMenu(!l.classList.contains('show')); });
+    l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && l.classList.contains('show')) { setMenu(false); t.focus(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!l.classList.contains('show')) return;
+      if (t.contains(e.target) || l.contains(e.target)) return;
+      setMenu(false);
+    });
+  })();
+</script>
+
+</body>
+</html>
