@@ -2812,14 +2812,19 @@ Baarakallahu fiikum</p>
   })();
 
   // ══ JADWAL, STATUS & COUNTDOWN PENDAFTARAN ══
-  // [EDIT] isi tanggal buka & tutup gelombang (format ISO 'YYYY-MM-DDTHH:mm:ss+07:00').
+  // Sumber utama tanggal adalah backend form pendaftaran (gelombang aktif di panel admin,
+  // GET ?action=info). Konstanta di bawah hanya CADANGAN: halaman langsung tampil dengan
+  // nilai ini, lalu diganti data backend bila backend menjawab dalam 8 detik.
+  // [EDIT] tetap samakan dengan tanggal gelombang di panel admin (format 'YYYY-MM-DDTHH:mm:ss+07:00').
   // Status dibuka/ditutup, tombol daftar, hitung mundur, dan teks siap-bagikan berganti
-  // otomatis mengikuti tanggal ini — termasuk tepat saat jamnya tiba, tanpa memuat ulang halaman.
+  // otomatis mengikuti tanggal — termasuk tepat saat jamnya tiba, tanpa memuat ulang halaman.
   // Kosongkan TANGGAL_BUKA_PENDAFTARAN ('') bila jadwal gelombang berikutnya belum pasti.
   var TANGGAL_BUKA_PENDAFTARAN  = '2026-10-20T00:00:00+07:00';
   var TANGGAL_TUTUP_PENDAFTARAN = '2026-10-30T23:59:59+07:00';
-  // [EDIT] ubah ke true bila kuota penuh sebelum tanggal tutup
+  // [EDIT] ubah ke true bila kuota penuh sebelum tanggal tutup. Menutup pendaftaran lewat
+  // tombol "Tutup Pendaftaran" di panel admin juga menutup halaman ini (lewat backend).
   var TUTUP_LEBIH_AWAL = false;
+  var BACKEND_INFO_URL = 'https://script.google.com/macros/s/AKfycbxYlR1MnbxBEmDpr5GqahYO3g2v6wUZfrda-N_VrgQua_5uKlRJx1X81-5lLim0Q9jTyw/exec?action=info';
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
     var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -2837,10 +2842,11 @@ Baarakallahu fiikum</p>
     var tTutup = toTime(TANGGAL_TUTUP_PENDAFTARAN);
     var tglBuka = fmtTanggal(TANGGAL_BUKA_PENDAFTARAN);
     var tglTutup = fmtTanggal(TANGGAL_TUTUP_PENDAFTARAN);
+    var tutupLebihAwal = TUTUP_LEBIH_AWAL;
 
     // Fase: 'sebelum' (menunggu dibuka) → 'buka' → 'tutup'
     function getFase(now){
-      if(TUTUP_LEBIH_AWAL || tBuka === null) return 'tutup';
+      if(tutupLebihAwal || tBuka === null) return 'tutup';
       if(now < tBuka) return 'sebelum';
       if(tTutup === null || now < tTutup) return 'buka';
       return 'tutup';
@@ -2905,10 +2911,11 @@ Baarakallahu fiikum</p>
     }
 
     // ── Hitung mundur: hero (label ringkas) + kartu pendaftaran (label lengkap) ──
-    var LABEL = {
-      sebelum: { short:'Dibuka dalam', long:'Gelombang berikutnya dibuka dalam' },
-      buka:    { short:'Ditutup dalam', long:'Ditutup ' + tglTutup + ' — atau lebih awal jika kuota penuh · sisa waktu' }
-    };
+    // Fungsi (bukan objek tetap) agar label ikut tanggal terbaru dari backend.
+    function label(f, short){
+      if(f === 'sebelum') return short ? 'Dibuka dalam' : 'Gelombang berikutnya dibuka dalam';
+      return short ? 'Ditutup dalam' : 'Ditutup ' + tglTutup + ' — atau lebih awal jika kuota penuh · sisa waktu';
+    }
     var sets = [];
     function collect(boxId, labelId, ids, short){
       var box = document.getElementById(boxId);
@@ -2938,7 +2945,7 @@ Baarakallahu fiikum</p>
         terapkanShare(f);
         target = f === 'sebelum' ? tBuka : (f === 'buka' ? tTutup : null);
         if(target === null){ hide(); stop(); return; }
-        sets.forEach(function(s){ if(s.label) s.label.textContent = s.short ? LABEL[f].short : LABEL[f].long; });
+        sets.forEach(function(s){ if(s.label) s.label.textContent = label(f, s.short); });
         show();
       }
       if(target === null) return;
@@ -2961,6 +2968,40 @@ Baarakallahu fiikum</p>
       if(document.hidden){ stop(); }
       else { tick(); start(); }
     });
+
+    // ── Sinkron dengan backend (sumber kebenaran tanggal) ──
+    // tgl_mulai/tgl_selesai 'YYYY-MM-DD' (WIB): buka 00.00 tgl_mulai, tutup setelah akhir hari
+    // tgl_selesai — sama dengan aturan server. Data tak valid / gagal / timeout → cadangan.
+    function terapkanInfo(d){
+      var reTgl = /^\d{4}-\d{2}-\d{2}$/;
+      if(!d || !reTgl.test(d.tgl_mulai || '') || !reTgl.test(d.tgl_selesai || '')) return false;
+      var b = toTime(d.tgl_mulai + 'T00:00:00+07:00');
+      var t = toTime(d.tgl_selesai + 'T23:59:59+07:00');
+      if(b === null || t === null || t < b) return false;
+      tBuka = b; tTutup = t;
+      tglBuka = fmtTanggal(d.tgl_mulai); tglTutup = fmtTanggal(d.tgl_selesai);
+      tutupLebihAwal = TUTUP_LEBIH_AWAL || d.alasan_tutup === 'DITUTUP_ADMIN';
+      fase = null;          // paksa status, teks, dan hitung mundur dihitung ulang
+      tick(); start();
+      return true;
+    }
+    // Simpan 5 menit per tab: tiap kunjungan halaman = satu eksekusi Apps Script, padahal
+    // backend yang sama melayani form pendaftaran di hari ramai.
+    var KUNCI_CACHE = 'rattil_info_gelombang', UMUR_CACHE = 5 * 60 * 1000;
+    var cache = null;
+    try { cache = JSON.parse(sessionStorage.getItem(KUNCI_CACHE) || 'null'); } catch(e){}
+    if(cache && cache.t && Date.now() - cache.t < UMUR_CACHE && terapkanInfo(cache.d)) return;
+    if(!window.fetch || !window.AbortController) return;
+    var ctrl = new AbortController();
+    var batas = setTimeout(function(){ ctrl.abort(); }, 8000);
+    fetch(BACKEND_INFO_URL, { signal: ctrl.signal })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        clearTimeout(batas);
+        if(!res || !res.ok || !terapkanInfo(res.data)) return;
+        try { sessionStorage.setItem(KUNCI_CACHE, JSON.stringify({ t: Date.now(), d: res.data })); } catch(e){}
+      })
+      .catch(function(){ clearTimeout(batas); });   // tetap memakai cadangan
   })();
 
   // Back-to-top button (toggle handled in scroll pipeline)
