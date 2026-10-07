@@ -263,7 +263,7 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(37,211,102,.42)}
 /* Merah YouTube — mengikuti pola tombol brand lain (.btn-wa).
    Efek kilau disamakan dengan .btn-primary agar kedua tombol di hook seragam. */
-.btn-yt{background:#FF0000;color:#fff;box-shadow:0 8px 24px rgba(255,0,0,.3)}
+.btn-yt{background:#e60000;color:#fff;box-shadow:0 8px 24px rgba(230,0,0,.3)}
 .btn-yt:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 34px rgba(255,0,0,.42)}
 .btn-yt:active{transform:translateY(0) scale(1)}
 .btn-yt::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg)}
@@ -385,7 +385,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 .hp-cd div{display:flex;flex-direction:column;align-items:center;padding:11px 0 9px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card)}
 .hp-cd b{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
 .hp-cd div:last-child b{color:var(--c-primary)}
-.hp-cd span{margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.hp-cd span{margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-3)}
 .hp-tgl{margin-top:14px;font-size:14px;font-weight:800;color:var(--c-ink)}
 .hp-tgl[hidden]{display:none}
 .hp-note{margin-top:4px;font-size:13px;line-height:1.55;color:var(--c-ink-3)}
@@ -1699,6 +1699,28 @@ html.theme-dark{--c-ink-micro:#94a3b8}
 /* Angka tabular: lebar digit seragam, jadi '01' dan '09' sama lebar
    dan tidak menggeser tata letak di perangkat mana pun. */
 .turn-item-no,.stat-no,.alur-no b,.modul-list .ml-no,.ledger .no{font-variant-numeric:tabular-nums}
+
+/* ── T-06 · Tautan & aksen teks di mode terang ──
+   --c-primary (#0284c7) hanya 4.1:1 untuk tautan di dalam teks; #0369a1 = 5.9:1. */
+html:not(.theme-dark) .qa-a a,
+html:not(.theme-dark) .slide-close h3 strong,
+html:not(.theme-dark) .footer-ar{color:#0369a1}
+
+/* ── T-07 · Teks bacaan HP yang masih di bawah 14px ──
+   Ditemukan audit Okt 2026 (375px): paragraf 12.5–13.5px pada kartu pilar, slide
+   penutup, catatan, langkah pendaftaran, kontak, dan panel hero. */
+@media(max-width:640px){
+  .nikola-stack-card p{font-size:14px;line-height:1.55}
+  .nikola-hero-sub{font-size:14px}
+  .slide-close p{font-size:14.5px}
+  .reg-note,.gelombang-info .reg-note{font-size:14.5px}
+  .alur-body p{font-size:15px}
+  .alur-body .share-preview p{font-size:14px}
+  .hook-note{font-size:13.5px}
+  .hook-shot figcaption{font-size:13px}
+  .cc-body p{font-size:15px}
+  .hp-note{font-size:14px}
+}
 
 
 </style>

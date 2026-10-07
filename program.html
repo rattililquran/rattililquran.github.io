@@ -72,7 +72,7 @@ document.documentElement.classList.add('js');
 .fakta .n{display:block;margin-top:4px;font-size:13.5px;color:var(--c-ink-3);line-height:1.55}
 @media(max-width:820px){.fakta{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* HP: tetap 2 kolom agar keenam fakta bisa dipindai sekilas, bukan 6 kartu bertumpuk. */
-@media(max-width:480px){.fakta{gap:10px}.fakta li{padding:14px 14px 13px}.fakta .v{font-size:15.5px}.fakta .n{font-size:13px}}
+@media(max-width:480px){.fakta{gap:10px}.fakta li{padding:14px 14px 13px}.fakta .v{font-size:15.5px}.fakta .n{font-size:14px}}
 
 /* Kutipan hadis di bagian "Untuk siapa" */
 .hadis{margin-top:26px;padding:22px 24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft)}
@@ -91,7 +91,8 @@ document.documentElement.classList.add('js');
 
 /* Kartu "coba modul gratis" di bawah daftar materi */
 .coba{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;margin-top:28px;padding:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);box-shadow:var(--sh-sm)}
-.coba-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:var(--c-card);border:1px solid var(--c-line);font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-accent)}
+.coba-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:var(--c-card);border:1px solid var(--c-line);font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#047857}
+html.theme-dark .coba-label{color:var(--c-accent)}
 .coba-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c-accent)}
 .coba h3{margin-top:14px;font-size:clamp(20px,2.2vw,25px);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--c-ink)}
 .coba-isi>p{margin-top:8px;font-size:15px;line-height:1.7;color:var(--c-ink-2)}
@@ -151,7 +152,7 @@ html{scroll-padding-top:84px}
 .hp-cd div{display:flex;flex-direction:column;align-items:center;padding:11px 0 9px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card)}
 .hp-cd b{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--c-ink)}
 .hp-cd div:last-child b{color:var(--c-primary)}
-.hp-cd span{margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-4)}
+.hp-cd span{margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-3)}
 .hp-tgl{margin-top:14px;font-size:14px;font-weight:800;color:var(--c-ink)}
 .hp-note{margin-top:4px;font-size:13px;line-height:1.55;color:var(--c-ink-3)}
 .hp-angka{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--c-line)}
@@ -201,7 +202,7 @@ html{scroll-padding-top:84px}
   .testi::-webkit-scrollbar{display:none}
   .testi figure{flex:0 0 min(84%,340px);scroll-snap-align:start}
 }
-.testi-geser{display:none;margin-top:6px;font-size:13px;color:var(--c-ink-4)}
+.testi-geser{display:none;margin-top:6px;font-size:13px;color:var(--c-ink-3)}
 @media(max-width:820px){.testi-geser{display:block}}
 
 /* Alur pendaftaran: langkah bersambung (mendatar di desktop, menurun di HP) */
@@ -240,6 +241,10 @@ html{scroll-padding-top:84px}
   .faq summary{min-height:44px}
   .hp-label,.lompat .k{color:var(--c-ink-micro)}
   .lompat a{padding:9px 14px}
+  /* Teks HP minimal: label 11.5px, satuan hitung mundur 11px, teks bacaan 14px. */
+  .hp-label,.coba-label,.lompat .k{font-size:11.5px}
+  .hp-note,.coba-jembatan{font-size:14px !important}
+  .status{font-size:13px}
 }
 </style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
