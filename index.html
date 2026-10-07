@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <script>
-(function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
 // Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
 // Tanpa ini, halaman tanpa JavaScript akan menyisakan elemen yang tak terlihat.
 document.documentElement.classList.add('js');
@@ -31,8 +31,6 @@ document.documentElement.classList.add('js');
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" imagesrcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" imagesizes="100vw" type="image/webp" media="(max-width:900px)" fetchpriority="high">
 <link rel="preload" as="image" imagesrcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" imagesizes="100vw" type="image/webp" media="(min-width:901px)" fetchpriority="high">
 <link rel="stylesheet" href="assets/fonts.css">
@@ -2287,13 +2285,13 @@ html.theme-dark{--c-ink-micro:#94a3b8}
             <span class="share-hint" aria-hidden="true"></span>
           </summary>
           <div class="share-preview">
-            <p id="shareTextPreview">Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, Rattililqur'an sekarang membuka pendaftaran. Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info &amp; pendaftaran: https://rattililquran.com
+            <p id="shareTextPreview">Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, Rattililqur'an membuka pendaftaran secara berkala per gelombang. Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info &amp; pendaftaran: https://rattililquran.com
 
 Baarakallahu fiikum</p>
           </div>
         </details>
         <div class="share-actions">
-          <a href="https://api.whatsapp.com/send?text=Bismillah.%20Bagi%20Anda%20yang%20ingin%20memperbaiki%20kualitas%20bacaan%20Al-Qur'an%20dan%20Ibadah%20lainnya%2C%20Rattililqur'an%20sekarang%20membuka%20pendaftaran.%20Belajar%20bersama%20secara%20terstruktur%20dalam%20halaqah%20kecil%20bersama%20pengajar%20berpengalaman%2C%20dengan%20progres%20terpantau%20lewat%20portal%20digital.%20Yuk%2C%20jadikan%20ini%20langkah%20awal%20menjadi%20sahabat%20Al-Qur'an.%20Info%20%26%20pendaftaran%3A%20https%3A%2F%2Frattililquran.com%0A%0ABaarakallahu%20fiikum" target="_blank" rel="noopener" class="btn btn-wa"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Kirim via WhatsApp</a>
+          <a id="shareWaBtn" href="https://api.whatsapp.com/send?text=Bismillah.%20Bagi%20Anda%20yang%20ingin%20memperbaiki%20kualitas%20bacaan%20Al-Qur'an%20dan%20Ibadah%20lainnya%2C%20Rattililqur'an%20membuka%20pendaftaran%20secara%20berkala%20per%20gelombang.%20Belajar%20bersama%20secara%20terstruktur%20dalam%20halaqah%20kecil%20bersama%20pengajar%20berpengalaman%2C%20dengan%20progres%20terpantau%20lewat%20portal%20digital.%20Yuk%2C%20jadikan%20ini%20langkah%20awal%20menjadi%20sahabat%20Al-Qur'an.%20Info%20%26%20pendaftaran%3A%20https%3A%2F%2Frattililquran.com%0A%0ABaarakallahu%20fiikum" target="_blank" rel="noopener" class="btn btn-wa"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Kirim via WhatsApp</a>
           <button type="button" onclick="copyShareLink(this)" class="btn btn-ghost"><svg aria-hidden="true"><use href="#i-copy"/></svg><span class="btn-label">Salin Teks</span></button>
         </div>
       </div>
@@ -2554,7 +2552,7 @@ Baarakallahu fiikum</p>
   var themeToggle = document.getElementById('themeToggle');
   themeToggle.addEventListener('click', function(){
     var isDark = document.documentElement.classList.toggle('theme-dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
   });
 
   // ══ SCROLL PIPELINE (satu listener, rAF-throttled, tanpa layout read saat scroll) ══
@@ -2813,13 +2811,42 @@ Baarakallahu fiikum</p>
     onScroll(); // init on load
   })();
 
-  // Carousel init is handled inside the SNAP CAROUSEL IIFE above
-
-  // ══ STATUS PENDAFTARAN ══
-  // [EDIT] ubah PENDAFTARAN_DIBUKA ke false saat pendaftaran ditutup, lalu sesuaikan PESAN_TUTUP
-  var PENDAFTARAN_DIBUKA = false;
+  // ══ JADWAL, STATUS & COUNTDOWN PENDAFTARAN ══
+  // [EDIT] isi tanggal buka & tutup gelombang (format ISO 'YYYY-MM-DDTHH:mm:ss+07:00').
+  // Status dibuka/ditutup, tombol daftar, hitung mundur, dan teks siap-bagikan berganti
+  // otomatis mengikuti tanggal ini — termasuk tepat saat jamnya tiba, tanpa memuat ulang halaman.
+  // Kosongkan TANGGAL_BUKA_PENDAFTARAN ('') bila jadwal gelombang berikutnya belum pasti.
+  var TANGGAL_BUKA_PENDAFTARAN  = '2026-10-20T00:00:00+07:00';
+  var TANGGAL_TUTUP_PENDAFTARAN = '2026-10-30T23:59:59+07:00';
+  // [EDIT] ubah ke true bila kuota penuh sebelum tanggal tutup
+  var TUTUP_LEBIH_AWAL = false;
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
+    var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    function fmtTanggal(str){
+      // Baca literal YYYY-MM-DD agar tidak bergeser oleh zona waktu browser
+      var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(str);
+      if(!m) return str;
+      return parseInt(m[3], 10) + ' ' + BULAN[parseInt(m[2], 10) - 1] + ' ' + m[1];
+    }
+    function toTime(str){
+      var t = str ? new Date(str).getTime() : NaN;
+      return isNaN(t) ? null : t;
+    }
+    var tBuka = toTime(TANGGAL_BUKA_PENDAFTARAN);
+    var tTutup = toTime(TANGGAL_TUTUP_PENDAFTARAN);
+    var tglBuka = fmtTanggal(TANGGAL_BUKA_PENDAFTARAN);
+    var tglTutup = fmtTanggal(TANGGAL_TUTUP_PENDAFTARAN);
+
+    // Fase: 'sebelum' (menunggu dibuka) → 'buka' → 'tutup'
+    function getFase(now){
+      if(TUTUP_LEBIH_AWAL || tBuka === null) return 'tutup';
+      if(now < tBuka) return 'sebelum';
+      if(tTutup === null || now < tTutup) return 'buka';
+      return 'tutup';
+    }
+
+    // ── Status: badge hero, kartu pendaftaran, tombol daftar & CTA HP ──
     var heroBadge = document.getElementById('heroBadge');
     var heroBadgeText = document.getElementById('heroBadgeText');
     var regStatus = document.getElementById('regStatus');
@@ -2828,89 +2855,70 @@ Baarakallahu fiikum</p>
     var waBtn = document.getElementById('regWaBtn');
     var waBtnText = document.getElementById('regWaText');
     var ctaBar = document.getElementById('ctaDaftarBar');
-    function setWaLabel(text){
-      if(waBtnText){ waBtnText.textContent = text; }
-      else { waBtn.textContent = text; }
+    var URL_DAFTAR = 'https://rattililquran.com/pendaftaran';
+    var URL_TANYA = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
+    function setBtnPrimary(btn, primary){
+      btn.classList.toggle('btn-primary', primary);
+      btn.classList.toggle('btn-wa', !primary);
     }
-    if(PENDAFTARAN_DIBUKA){
-      heroBadge.classList.remove('closed');
-      heroBadge.classList.add('open');
-      heroBadgeText.textContent = 'Pendaftaran murid baru dibuka';
-      regStatus.classList.remove('closed');
-      regStatus.classList.add('open');
-      regStatusText.textContent = 'Pendaftaran Sedang Dibuka';
-      setWaLabel('Daftar Online Sekarang');
-      waBtn.href = 'https://rattililquran.com/pendaftaran';
-      waBtn.classList.remove('btn-wa');
-      waBtn.classList.add('btn-primary');
-      if(ctaBar){
-        ctaBar.textContent = 'Daftar';
-        ctaBar.href = 'https://rattililquran.com/pendaftaran';
-        ctaBar.classList.remove('btn-wa');
-        ctaBar.classList.add('btn-primary');
+    function terapkanStatus(fase){
+      var buka = fase === 'buka';
+      heroBadge.classList.toggle('open', buka);
+      heroBadge.classList.toggle('closed', !buka);
+      heroBadgeText.textContent = buka ? 'Pendaftaran murid baru dibuka' : 'Pendaftaran sementara ditutup';
+      regStatus.classList.toggle('open', buka);
+      regStatus.classList.toggle('closed', !buka);
+      regStatusText.textContent = buka ? 'Pendaftaran Sedang Dibuka' : 'Pendaftaran Sedang Ditutup';
+      if(buka){
+        regNote.textContent = '';
+        regNote.style.display = 'none';
+      } else {
+        regNote.textContent = fase === 'sebelum'
+          ? 'Pendaftaran gelombang berikutnya dibuka ' + tglBuka + '. Hubungi kami via WhatsApp untuk info lebih lanjut.'
+          : PESAN_TUTUP;
+        regNote.style.display = 'block';
       }
-    } else {
-      heroBadge.classList.remove('open');
-      heroBadge.classList.add('closed');
-      heroBadgeText.textContent = 'Pendaftaran sementara ditutup';
-      regStatus.classList.remove('open');
-      regStatus.classList.add('closed');
-      regStatusText.textContent = 'Pendaftaran Sedang Ditutup';
-      regNote.textContent = PESAN_TUTUP;
-      regNote.style.display = 'block';
-      var waHref = "https://wa.me/6282316993233?text=" + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
-      setWaLabel('Tanya Info Gelombang Berikutnya');
-      waBtn.href = waHref;
-      waBtn.target = '_blank';
-      waBtn.classList.remove('btn-primary');
-      waBtn.classList.add('btn-wa');
+      var label = buka ? 'Daftar Online Sekarang' : 'Tanya Info Gelombang Berikutnya';
+      if(waBtnText){ waBtnText.textContent = label; } else { waBtn.textContent = label; }
+      waBtn.href = buka ? URL_DAFTAR : URL_TANYA;
+      setBtnPrimary(waBtn, buka);
       if(ctaBar){
-        ctaBar.textContent = 'Tanya Info';
-        ctaBar.href = waHref;
-        ctaBar.classList.remove('btn-primary');
-        ctaBar.classList.add('btn-wa');
+        ctaBar.textContent = buka ? 'Daftar' : 'Tanya Info';
+        ctaBar.href = buka ? URL_DAFTAR : URL_TANYA;
+        setBtnPrimary(ctaBar, buka);
       }
     }
-  })();
 
-  // ══ COUNTDOWN PENDAFTARAN ══
-  // [EDIT] isi salah satu tanggal di bawah (format ISO 'YYYY-MM-DDTHH:mm:ss'), kosongkan ('') jika tidak dipakai
-  var TANGGAL_TUTUP_PENDAFTARAN = '2026-08-12T23:59:59+07:00'; // dipakai jika PENDAFTARAN_DIBUKA = true, mis. '2026-07-15T23:59:59+07:00'
-  var TANGGAL_BUKA_BERIKUTNYA = '2026-10-12T00:00:00+07:00';   // dipakai jika PENDAFTARAN_DIBUKA = false, isi jika jadwal gelombang berikutnya sudah pasti
-  (function(){
-    var targetStr = PENDAFTARAN_DIBUKA ? TANGGAL_TUTUP_PENDAFTARAN : TANGGAL_BUKA_BERIKUTNYA;
-    if(!targetStr) return;
-    var target = new Date(targetStr);
-    if(isNaN(target.getTime())) return;
-    // Label dibuat dinamis dari tanggal target (bukan teks hardcoded) agar tidak pernah bentrok saat tanggal diubah
-    var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-    function fmtTanggal(str){
-      // Baca literal YYYY-MM-DD agar tidak bergeser oleh zona waktu browser
-      var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(str);
-      if(!m) return str;
-      return parseInt(m[3], 10) + ' ' + BULAN[parseInt(m[2], 10) - 1] + ' ' + m[1];
+    // ── Teks siap-bagikan (pratinjau, tombol WhatsApp, dan tombol Salin memakai teks yang sama) ──
+    var sharePreview = document.getElementById('shareTextPreview');
+    var shareWaBtn = document.getElementById('shareWaBtn');
+    function terapkanShare(fase){
+      var inti = fase === 'buka'
+        ? "Rattililqur'an sekarang membuka pendaftaran" + (tTutup !== null ? ' hingga ' + tglTutup : '') + '.'
+        : fase === 'sebelum'
+          ? "Rattililqur'an akan membuka pendaftaran pada " + tglBuka + '.'
+          : "Rattililqur'an membuka pendaftaran secara berkala per gelombang.";
+      var teks = "Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, " + inti
+        + " Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info & pendaftaran: https://rattililquran.com\n\nBaarakallahu fiikum";
+      if(sharePreview) sharePreview.textContent = teks;
+      if(shareWaBtn) shareWaBtn.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(teks);
     }
-    var labelLong = PENDAFTARAN_DIBUKA
-      ? 'Ditutup ' + fmtTanggal(targetStr) + ' — atau lebih awal jika kuota penuh · sisa waktu'
-      : 'Gelombang berikutnya dibuka dalam';
-    var labelShort = PENDAFTARAN_DIBUKA
-      ? 'Ditutup dalam'
-      : 'Dibuka dalam';
 
-    // Kumpulkan semua target: hero (label ringkas) + kartu pendaftaran (label lengkap)
+    // ── Hitung mundur: hero (label ringkas) + kartu pendaftaran (label lengkap) ──
+    var LABEL = {
+      sebelum: { short:'Dibuka dalam', long:'Gelombang berikutnya dibuka dalam' },
+      buka:    { short:'Ditutup dalam', long:'Ditutup ' + tglTutup + ' — atau lebih awal jika kuota penuh · sisa waktu' }
+    };
     var sets = [];
     function collect(boxId, labelId, ids, short){
       var box = document.getElementById(boxId);
       if(!box) return;
       var cells = ids.map(function(id){ return document.getElementById(id); });
       if(cells.some(function(el){ return !el; })) return;
-      var label = document.getElementById(labelId);
-      if(label) label.textContent = short ? labelShort : labelLong;
-      sets.push({ box:box, cells:cells });
+      sets.push({ box:box, cells:cells, label:document.getElementById(labelId), short:short });
     }
     collect('heroCountdown', 'heroCdLabel', ['hcDays','hcHours','hcMins','hcSecs'], true);
     collect('regCountdown', 'countdownLabel', ['cdDays','cdHours','cdMins','cdSecs'], false);
-    if(!sets.length) return;
 
     function pad(n){ return String(n).padStart(2,'0'); }
     function show(){
@@ -2919,9 +2927,22 @@ Baarakallahu fiikum</p>
     function hide(){
       sets.forEach(function(s){ s.box.hidden = true; s.box.style.display = 'none'; });
     }
+
+    var fase = null, target = null, timer = null;
     function tick(){
-      var diff = target.getTime() - Date.now();
-      if(diff <= 0){ hide(); stop(); return; }
+      var now = Date.now(), f = getFase(now);
+      if(f !== fase){
+        // Pergantian fase (saat dimuat, atau tepat ketika tanggal buka/tutup tiba)
+        fase = f;
+        terapkanStatus(f);
+        terapkanShare(f);
+        target = f === 'sebelum' ? tBuka : (f === 'buka' ? tTutup : null);
+        if(target === null){ hide(); stop(); return; }
+        sets.forEach(function(s){ if(s.label) s.label.textContent = s.short ? LABEL[f].short : LABEL[f].long; });
+        show();
+      }
+      if(target === null) return;
+      var diff = Math.max(0, target - now);
       var vals = [
         pad(Math.floor(diff / 86400000)),
         pad(Math.floor(diff % 86400000 / 3600000)),
@@ -2932,15 +2953,13 @@ Baarakallahu fiikum</p>
         for(var i = 0; i < 4; i++){ s.cells[i].textContent = vals[i]; }
       });
     }
-    var timer = null, ticking = true;
     function stop(){ if(timer){ clearInterval(timer); timer = null; } }
-    function start(){ stop(); if(ticking) timer = setInterval(tick, 1000); }
-    show();
+    function start(){ stop(); if(target !== null && !document.hidden) timer = setInterval(tick, 1000); }
     tick();
     start();
     document.addEventListener('visibilitychange', function(){
-      if(document.hidden){ stop(); ticking = false; }
-      else { ticking = true; tick(); start(); }
+      if(document.hidden){ stop(); }
+      else { tick(); start(); }
     });
   })();
 
@@ -3035,17 +3054,24 @@ Baarakallahu fiikum</p>
   function closeAllQa(){
     document.querySelectorAll('.qa.open').forEach(function(o){
       o.classList.remove('open');
+      o.querySelector('.qa-q').setAttribute('aria-expanded', 'false');
       var a = o.querySelector('.qa-a');
       if(a) a.style.maxHeight = null;
     });
   }
   document.querySelectorAll('.qa-q').forEach(function(btn){
+    btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', function(){
       var qa = btn.parentElement, ans = qa.querySelector('.qa-a'), isOpen = qa.classList.contains('open');
       closeAllQa();
-      if(!isOpen){ qa.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+      if(!isOpen){ qa.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
     });
   });
+  // max-height dikunci dalam px; saat layar diputar/diubah lebarnya teks membungkus ulang
+  // dan jawaban yang sedang terbuka bisa terpotong. Hitung ulang tingginya.
+  window.addEventListener('resize', function(){
+    document.querySelectorAll('.qa.open .qa-a').forEach(function(a){ a.style.maxHeight = a.scrollHeight + 'px'; });
+  }, { passive:true });
 
   // FAQ search
   var faqSearch = document.getElementById('faqSearch');
@@ -3133,7 +3159,9 @@ Baarakallahu fiikum</p>
   window.addEventListener('load', function(){ needMeasure = true; measure(); runScrollFrame(); }, { once:true });
 
   function copyShareLink(btn) {
-    const textToCopy = "Bismillah. Bagi Anda yang ingin memperbaiki kualitas bacaan Al-Qur'an dan Ibadah lainnya, Rattililqur'an sekarang membuka pendaftaran. Belajar bersama secara terstruktur dalam halaqah kecil bersama pengajar berpengalaman, dengan progres terpantau lewat portal digital. Yuk, jadikan ini langkah awal menjadi sahabat Al-Qur'an. Info & pendaftaran: https://rattililquran.com\n\nBaarakallahu fiikum";
+    // Teks diambil dari pratinjau agar selalu sama dengan yang tampil (diisi sesuai fase pendaftaran)
+    var preview = document.getElementById('shareTextPreview');
+    var textToCopy = preview ? preview.textContent : '';
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(textToCopy).then(function() {
         showSuccess(btn);
