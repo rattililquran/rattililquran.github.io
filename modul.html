@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <script>
-(function(){const t=localStorage.getItem('theme')||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
 // Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
 document.documentElement.classList.add('js');
 </script>
@@ -31,6 +31,128 @@ document.documentElement.classList.add('js');
 <title>Modul Belajar Riyāḍat al-Ḥurūf — Gratis &amp; Terbuka | Rattililqur'an</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/portal-modul.css">
+<style>
+/* ══ Komponen khusus halaman Modul (sisanya dari portal-modul.css) ══ */
+
+/* Jangkar (#isi-modul, #cara, …) tidak tertutup navbar yang menempel. */
+html{scroll-padding-top:84px}
+
+/* Hero dua kolom: teks + bingkai peramban berisi tangkapan layar modul */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:44px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2);flex-shrink:0}
+.layar{display:block;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-lg);overflow:hidden;text-decoration:none;transition:transform var(--dur) var(--ease-spring)}
+.layar:hover{transform:translateY(-3px)}
+.layar-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--c-line);background:var(--c-soft)}
+.layar-bar i{width:9px;height:9px;border-radius:50%;opacity:.85}
+.layar-bar i:nth-child(1){background:#f87171}.layar-bar i:nth-child(2){background:#fbbf24}.layar-bar i:nth-child(3){background:#34d399}
+.layar-url{flex:1;min-width:0;margin-left:8px;padding:4px 10px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:11.5px;font-weight:600;color:var(--c-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Tangkapan layar diperbesar 4/3 dan digeser agar kolom isinya (12,5%–87,5% lebar
+   gambar asli) memenuhi bingkai — teksnya terbaca, bukan miniatur. */
+.layar picture{display:block;height:360px;overflow:hidden}
+.layar img{display:block;width:133.4%;max-width:none;height:auto;margin-left:-16.7%}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.layar{max-width:460px}.layar picture{height:300px}}
+
+/* Masalah → jawaban modul */
+.masalah{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.masalah>li{display:flex;flex-direction:column;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm);overflow:hidden}
+.masalah .atas{padding:20px 22px 18px}
+.masalah .no{font-family:var(--font-label);font-size:11.5px;font-weight:700;color:var(--c-ink-4)}
+.masalah h3{margin-top:6px;font-size:16.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.masalah .atas p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--c-ink-3)}
+.masalah .jawab{flex:1;padding:16px 22px 18px;border-top:1px solid var(--c-line);background:var(--grad-soft)}
+.masalah .jawab .k{display:block;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent)}
+.masalah .jawab p{margin-top:6px;font-size:14.5px;line-height:1.65;color:var(--c-ink-2)}
+@media(max-width:700px){.masalah{grid-template-columns:1fr}}
+
+/* Tangga latihan: huruf → frasa → ayat */
+.tangga{display:grid;grid-template-columns:minmax(0,.8fr) auto minmax(0,1.2fr) auto minmax(0,1.7fr);align-items:stretch;gap:10px;margin-top:14px}
+.tangga .tk{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 12px 12px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);text-align:center}
+.tangga .tk:last-child{background:var(--grad-soft)}
+.tangga .ar{font-family:'Amiri',serif;font-size:clamp(22px,2.4vw,28px);line-height:1.7;direction:rtl;color:var(--c-ink)}
+.tangga .lbl{margin-top:2px;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-ink-4)}
+.tangga .panah{display:flex;align-items:center;justify-content:center;color:var(--c-ink-4);font-size:18px}
+@media(max-width:700px){.tangga{grid-template-columns:1fr;gap:6px}.tangga .panah{transform:rotate(90deg);height:18px}}
+
+/* Isi modul: kartu berikon */
+.blok{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.blok li{padding:20px 20px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.blok .ik{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--grad-soft);color:var(--c-primary)}
+.blok .ik svg{width:22px;height:22px}
+.blok .t{display:block;margin-top:14px;font-size:15.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.blok .d{display:block;margin-top:6px;font-size:14px;line-height:1.62;color:var(--c-ink-3)}
+.blok .tag{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:3px 10px;border:1px solid var(--c-line);border-radius:99px;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c-ink-3)}
+.blok .tag svg{width:12px;height:12px}
+.blok li.murid{background:var(--c-soft)}
+.blok li.murid .ik{background:var(--c-card);color:var(--c-ink-3)}
+@media(max-width:820px){.blok{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .blok{grid-template-columns:1fr;gap:10px}
+  .blok li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:16px}
+  .blok .ik{grid-row:span 3;width:40px;height:40px}
+  .blok .t{margin-top:0}
+  .blok .tag{justify-self:start;margin-top:10px}
+  .blok .d{font-size:14.5px}
+}
+
+/* Cara memakai: langkah bersambung (mendatar di desktop, menurun di HP) */
+.langkah{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.langkah li{position:relative}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li:last-child::after{display:none}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
+.langkah li:first-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
+@media(max-width:820px){
+  .langkah{grid-template-columns:1fr;gap:0}
+  .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
+  .langkah li:last-child{padding-bottom:0}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah .bul{grid-row:span 2}
+  .langkah .t{margin-top:9px}
+  .langkah .d{font-size:14.5px}
+}
+
+/* Modul & kelas: dua kartu berdampingan */
+.dua{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.dua>div{display:flex;flex-direction:column;padding:24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm)}
+.dua>.kelas{background:var(--grad-soft)}
+.dua .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
+.dua h3{margin-top:10px;font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.35;color:var(--c-ink)}
+.cek{list-style:none;display:flex;flex-direction:column;gap:9px;margin:14px 0 0;flex:1}
+.cek li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:var(--c-ink-2)}
+.cek li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+.dua .btn{align-self:flex-start;margin-top:18px}
+.dua .btn svg,.hero-actions svg,.cta-actions svg{width:15px;height:15px}
+@media(max-width:700px){.dua{grid-template-columns:1fr}.dua>div{padding:20px}}
+
+/* Jangan patahkan kata bertanda hubung (mis. "At-Tibyan"). */
+.nw{white-space:nowrap}
+
+/* Catatan */
+.catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-soft);font-size:14px;color:var(--c-ink-2);line-height:1.65}
+.catatan b{color:var(--c-ink)}
+
+/* FAQ */
+.faq{margin-top:26px;border-top:1px solid var(--c-line)}
+.faq details{border-bottom:1px solid var(--c-line)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
+.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
+.faq .a a{color:var(--c-primary);font-weight:700}
+
+/* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
+.hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
+
+@media(max-width:640px){
+  .masalah .no,.masalah .jawab .k,.tangga .lbl,.dua .k{color:var(--c-ink-micro)}
+  .catatan,.faq .a{font-size:15px}
+  .faq summary{min-height:44px}
+}
+</style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}
 
 </style></noscript>
@@ -41,6 +163,13 @@ document.documentElement.classList.add('js');
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.1 8.9v6.2l5.1-3.1z" fill="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-buku" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></symbol>
+  <symbol id="i-kisi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.5"/></symbol>
+  <symbol id="i-peta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="6" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="19" cy="18" r="1.8"/><path d="M6.4 7.2l3.5 3M17.6 7.2l-3.5 3M6.4 16.8l3.5-3M17.6 16.8l-3.5-3"/></symbol>
+  <symbol id="i-toga" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.5v4c0 1.4 2.5 2.8 5.5 2.8s5.5-1.4 5.5-2.8v-4"/><path d="M21.5 9.5v5"/></symbol>
+  <symbol id="i-kitab" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-1.8-1.3-4.3-2-7.5-2v13c3.2 0 5.7.7 7.5 2 1.8-1.3 4.3-2 7.5-2v-13c-3.2 0-5.7.7-7.5 2z"/><path d="M12 6.5v13"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-keluar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
 </svg>
@@ -83,13 +212,26 @@ document.documentElement.classList.add('js');
 <main>
   <!-- ══ 1. HERO ══ -->
   <header class="wrap hero">
-    <h1>Modul Belajar <em>Riyāḍat al-Ḥurūf</em></h1>
-    <p class="hero-lead">Modul tahsin Rattililqur'an: latihan makhraj dan sifat huruf, dengan dalil dan contoh yang sudah diverifikasi pengajar — bahan yang sama dipakai di kelas maupun di rumah.</p>
-    <div class="hero-actions">
-      <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Buka Modul</a>
-      <a href="#isi-modul" class="btn btn-ghost btn-lg">Lihat isi modul</a>
+    <div class="hero-grid">
+      <div>
+        <p class="pill">Gratis · tanpa daftar · tanpa akun</p>
+        <h1>Modul Belajar <em>Riyāḍat al-Ḥurūf</em></h1>
+        <p class="hero-lead">Modul tahsin Rattililqur'an: latihan makhraj dan sifat huruf, dengan dalil dan contoh yang sudah diverifikasi pengajar — bahan yang sama dipakai di kelas maupun di rumah.</p>
+        <div class="hero-actions">
+          <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Buka Modul Gratis<svg aria-hidden="true"><use href="#i-keluar"/></svg></a>
+          <a href="#isi-modul" class="btn btn-ghost btn-lg">Lihat isi modul</a>
+        </div>
+        <p class="hero-meta"><b>Terbuka untuk siapa saja</b> — silakan dimanfaatkan selama bukan untuk tujuan komersial.</p>
+      </div>
+      <a class="layar" href="https://modul.rattililquran.com" target="_blank" rel="noopener" aria-label="Buka situs modul Riyāḍat al-Ḥurūf">
+        <span class="layar-bar" aria-hidden="true"><i></i><i></i><i></i><span class="layar-url">modul.rattililquran.com</span></span>
+        <picture>
+          <source type="image/webp" srcset="assets/images/Modul-daftar-materi-1280.webp 1280w, assets/images/Modul-daftar-materi-1920.webp 1920w" sizes="(max-width:900px) 614px, 507px">
+          <source srcset="assets/images/Modul-daftar-materi-1280.jpg 1280w, assets/images/Modul-daftar-materi-1920.jpg 1920w" sizes="(max-width:900px) 614px, 507px">
+          <img src="assets/images/Modul-daftar-materi-1280.jpg" alt="Halaman utama situs modul Riyāḍat al-Ḥurūf." decoding="async" width="1920" height="2400">
+        </picture>
+      </a>
     </div>
-    <p class="hero-meta"><b>Modul</b> terbuka untuk siapa saja, gratis, tanpa perlu mendaftar.</p>
   </header>
 
   <!-- ══ 2. MENGAPA INI PENTING ══ -->
@@ -98,88 +240,53 @@ document.documentElement.classList.add('js');
       <span class="sec-label" data-reveal>Kenapa ini penting</span>
       <h2 class="sec-title" data-reveal>Dua hal yang membuat latihan mandiri <em>terasa berat</em> — dan bagaimana modul ini menyusunnya. <span class="lead-em">Biidznillah</span></h2>
       <p class="sec-sub" data-reveal>Bukan tentang fitur. Ini tentang dua masalah nyata yang biasanya baru terasa setelah beberapa bulan belajar.</p>
-
-      <ol class="ledger" data-reveal>
+      <ol class="masalah" data-reveal>
         <li>
-          <span class="no">01</span>
-          <div>
-            <span class="t">Latihan di rumah tanpa arahan.</span>
-            <span class="d">Mengulang sendiri tanpa contoh yang jelas dan tanpa koreksi berisiko memperkuat kesalahan yang sama — sebab bacaan yang keliru lama-lama terasa wajar. Modul ini menyertakan dalil, contoh, dan langkah latihan yang sudah diverifikasi pengajar, jadi yang Anda tiru di rumah adalah bacaan yang benar, bukan tafsiran sendiri.</span>
+          <div class="atas">
+            <span class="no">01</span>
+            <h3>Latihan di rumah tanpa arahan</h3>
+            <p>Mengulang sendiri tanpa contoh yang jelas dan tanpa koreksi berisiko memperkuat kesalahan yang sama — sebab bacaan yang keliru lama-lama terasa wajar.</p>
+          </div>
+          <div class="jawab">
+            <span class="k">Jawaban modul</span>
+            <p>Dalil, contoh, dan langkah latihan yang sudah diverifikasi pengajar — jadi yang Anda tiru di rumah adalah bacaan yang benar, bukan tafsiran sendiri.</p>
           </div>
         </li>
         <li>
-          <span class="no">02</span>
-          <div>
-            <span class="t">Langsung membaca ayat panjang.</span>
-            <span class="d">Latihan langsung membaca ayat yang panjang terkadang menjadi isu tersendiri bagi pemula. Ayat panjang menuntut makhraj, sifat huruf, dan kelancaran bekerja bersamaan, sehingga mudah terasa berat dan latihan berhenti di tengah jalan. Karena itu modul ini tersusun dengan konsep latihan dari unit terkecil: per huruf lebih dulu, lalu frasa singkat, baru kemudian ayat utuh — setiap tahap melatih satu keterampilan sebelum naik ke tahap berikutnya.</span>
+          <div class="atas">
+            <span class="no">02</span>
+            <h3>Langsung membaca ayat panjang</h3>
+            <p>Ayat panjang menuntut makhraj, sifat huruf, dan kelancaran bekerja bersamaan, sehingga mudah terasa berat dan latihan berhenti di tengah jalan.</p>
+          </div>
+          <div class="jawab">
+            <span class="k">Jawaban modul</span>
+            <p>Latihan dari unit terkecil: per huruf lebih dulu, lalu frasa singkat, baru kemudian ayat utuh — setiap tahap melatih satu keterampilan sebelum naik ke tahap berikutnya.</p>
           </div>
         </li>
       </ol>
+      <div class="tangga" data-reveal aria-label="Contoh tahapan latihan: huruf, frasa singkat, lalu ayat utuh">
+        <div class="tk"><span class="ar" lang="ar">ح</span><span class="lbl">1 · Huruf</span></div>
+        <span class="panah" aria-hidden="true">→</span>
+        <div class="tk"><span class="ar" lang="ar">الْحَمْدُ لِلَّهِ</span><span class="lbl">2 · Frasa singkat</span></div>
+        <span class="panah" aria-hidden="true">→</span>
+        <div class="tk"><span class="ar" lang="ar">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</span><span class="lbl">3 · Ayat utuh</span></div>
+      </div>
     </div>
   </section>
 
-  <!-- ══ 3. MODUL BELAJAR ══ -->
+  <!-- ══ 3. ISI MODUL ══ -->
   <section class="sec" id="isi-modul">
     <div class="wrap">
-      <span class="sec-label" data-reveal>Modul Belajar</span>
-      <h2 class="sec-title" data-reveal>Coba dulu modulnya — <em>terbuka dan gratis</em>.</h2>
-      <p class="sec-sub" data-reveal>Riyāḍat al-Ḥurūf adalah modul tahsin Rattililqur'an: latihan makhraj dan sifat huruf, dengan dalil dan latihan. Modul ini dibuat bukan hanya untuk murid, tapi untuk kaum muslimin yang ingin belajar tahsin — silakan dimanfaatkan selama bukan untuk tujuan komersial.</p>
-
-      <figure class="shot lede-fig" data-reveal>
-        <picture>
-          <source type="image/webp" srcset="assets/images/Modul-daftar-materi-1280.webp 1280w, assets/images/Modul-daftar-materi-1920.webp 1920w" sizes="(max-width:1000px) 94vw, 956px">
-          <source srcset="assets/images/Modul-daftar-materi-1280.jpg 1280w, assets/images/Modul-daftar-materi-1920.jpg 1920w" sizes="(max-width:1000px) 94vw, 956px">
-          <img src="assets/images/Modul-daftar-materi-1280.jpg" alt="Halaman utama situs modul Riyāḍat al-Ḥurūf dengan enam blok materi." loading="lazy" decoding="async" width="1920" height="2400">
-        </picture>
-        <figcaption>Situs modul — enam blok materi, dengan penanda "khusus murid Rattililqur'an" pada dua di antaranya.</figcaption>
-      </figure>
-
-      <h3 class="sec-sub" data-reveal style="font-weight:800;color:var(--c-ink);margin-top:44px">Isi modul</h3>
-      <ul class="ledger" data-reveal>
-        <li>
-          <span class="no">01</span>
-          <div>
-            <span class="t">Materi Rujukan</span>
-            <span class="d">Landasan tajwid, makhraj, dan penjelasan sifat huruf.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no">02</span>
-          <div>
-            <span class="t">Huruf Hijaiyah</span>
-            <span class="d">Latihan lisan makhraj dan sifat per huruf hijaiyah.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no">03</span>
-          <div>
-            <span class="t">Bank Mind Map Tajwid</span>
-            <span class="d">Peta visual center-root untuk sifat huruf, makhraj, dan hukum tajwid — dengan mode belajar, quiz, dan cetak.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no">04</span>
-          <div>
-            <span class="t">Materi Microteaching</span>
-            <span class="tag">Khusus murid</span>
-            <span class="d">Bekal mengajar Al-Qur'an, untuk murid Rattililqur'an.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no">05</span>
-          <div>
-            <span class="t">Materi At-Tibyan</span>
-            <span class="tag">Khusus murid</span>
-            <span class="d">Ngaji kitab Adab Hamalatil Qur'an, untuk murid Rattililqur'an.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no">06</span>
-          <div>
-            <span class="t">Panduan Menggunakan Modul</span>
-            <span class="d">Urutan belajar lima level, dari fondasi sampai hukum mad.</span>
-          </div>
-        </li>
+      <span class="sec-label" data-reveal>Isi modul</span>
+      <h2 class="sec-title" data-reveal>Enam blok materi, <em>empat terbuka untuk umum</em></h2>
+      <p class="sec-sub" data-reveal>Modul ini dibuat bukan hanya untuk murid, tapi untuk kaum muslimin yang ingin belajar tahsin. Dua blok bertanda "khusus murid" terbuka setelah Anda resmi bergabung dalam halaqah.</p>
+      <ul class="blok" data-reveal>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-buku"/></svg></span><span class="t">Materi Rujukan</span><span class="d">Landasan tajwid, makhraj, dan penjelasan sifat huruf.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-kisi"/></svg></span><span class="t">Huruf Hijaiyah</span><span class="d">Latihan lisan makhraj dan sifat per huruf hijaiyah.</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-peta"/></svg></span><span class="t">Bank Mind Map Tajwid</span><span class="d">Peta visual center-root untuk sifat huruf, makhraj, dan hukum tajwid — dengan mode belajar, kuis, dan cetak.</span></li>
+        <li class="murid"><span class="ik"><svg aria-hidden="true"><use href="#i-toga"/></svg></span><span class="t">Materi Microteaching</span><span class="d">Bekal mengajar Al-Qur'an, untuk murid Rattililqur'an.</span><span class="tag"><svg aria-hidden="true"><use href="#i-lock"/></svg>Khusus murid</span></li>
+        <li class="murid"><span class="ik"><svg aria-hidden="true"><use href="#i-kitab"/></svg></span><span class="t">Materi At-Tibyan</span><span class="d">Ngaji kitab Adab Hamalatil Qur'an, untuk murid Rattililqur'an.</span><span class="tag"><svg aria-hidden="true"><use href="#i-lock"/></svg>Khusus murid</span></li>
+        <li><span class="ik"><svg aria-hidden="true"><use href="#i-target"/></svg></span><span class="t">Panduan Menggunakan Modul</span><span class="d">Urutan belajar lima level, dari fondasi sampai hukum mad.</span></li>
       </ul>
 
       <figure class="shot mt-fig" data-reveal>
@@ -190,52 +297,93 @@ document.documentElement.classList.add('js');
         </picture>
         <figcaption>Contoh isi modul — dalil, tabel jenis kesalahan (Lahn Jaliy &amp; Khafiy), dan langkah latihan yang bisa diikuti.</figcaption>
       </figure>
-
-      <p class="hero-meta" data-reveal style="margin-top:22px">Modul ini masih terus disusun dan disempurnakan. Bila Anda menemukan kekeliruan, tersedia form <b>Saran &amp; Masukan</b> di dalam situsnya.</p>
     </div>
   </section>
 
-  <!-- ══ 4. MATERI KHUSUS MURID ══ -->
+  <!-- ══ 4. CARA MEMAKAI ══ -->
+  <section class="sec" id="cara">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Cara memakai</span>
+      <h2 class="sec-title" data-reveal>Mulai dalam <em>satu menit</em></h2>
+      <ol class="langkah" data-reveal>
+        <li><span class="bul">1</span><span class="t">Buka modulnya</span><span class="d">Langsung dari peramban HP atau laptop — tanpa mendaftar, tanpa akun.</span></li>
+        <li><span class="bul">2</span><span class="t">Mulai dari Panduan</span><span class="d">Ikuti urutan belajar lima level, dari fondasi sampai hukum mad.</span></li>
+        <li><span class="bul">3</span><span class="t">Latih per huruf</span><span class="d">Berlatih di blok Huruf Hijaiyah, lalu ulangi dengan Mind Map dan kuisnya.</span></li>
+        <li><span class="bul">4</span><span class="t">Kirim masukan</span><span class="d">Menemukan kekeliruan? Sampaikan lewat form Saran &amp; Masukan di dalam situs.</span></li>
+      </ol>
+      <p class="catatan" data-reveal>Modul ini masih terus disusun dan disempurnakan. Setiap masukan membantu kami memperbaikinya untuk semua yang belajar.</p>
+    </div>
+  </section>
+
+  <!-- ══ 5. MODUL & KELAS ══ -->
   <section class="sec">
     <div class="wrap">
-      <span class="sec-label" data-reveal>Setelah bergabung</span>
-      <h2 class="sec-title" data-reveal>Yang <em>terbuka untuk semua</em>, dan yang khusus untuk murid</h2>
-      <p class="sec-sub" data-reveal>Modulnya bisa dicoba siapa saja. Bagian berikut hanya terbuka setelah Anda resmi bergabung dalam halaqah.</p>
-
-      <ul class="ledger" data-reveal>
-        <li>
-          <span class="no"><svg width="15" height="15" aria-hidden="true" style="color:var(--c-ink-4)"><use href="#i-lock"/></svg></span>
-          <div>
-            <span class="t">Setoran Hafalan</span>
-            <span class="d">Menu setoran dan raport tahfidz di portal, terkunci sebelum akun murid aktif.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no"><svg width="15" height="15" aria-hidden="true" style="color:var(--c-ink-4)"><use href="#i-lock"/></svg></span>
-          <div>
-            <span class="t">Materi Microteaching</span>
-            <span class="d">Bekal mengajar Al-Qur'an — untuk murid yang menyiapkan diri mengajar.</span>
-          </div>
-        </li>
-        <li>
-          <span class="no"><svg width="15" height="15" aria-hidden="true" style="color:var(--c-ink-4)"><use href="#i-lock"/></svg></span>
-          <div>
-            <span class="t">Materi At-Tibyan</span>
-            <span class="d">Kajian kitab Adab Hamalatil Qur'an, bersama para pengajar.</span>
-          </div>
-        </li>
-      </ul>
+      <span class="sec-label" data-reveal>Modul &amp; kelas</span>
+      <h2 class="sec-title" data-reveal>Modul melatih di rumah, <em>kelas mengoreksi bacaan</em></h2>
+      <p class="sec-sub" data-reveal>Modul sudah cukup untuk mulai berlatih. Bila Anda ingin bacaan didengar dan dibenahi langsung oleh pengajar, lanjutkan di kelas.</p>
+      <div class="dua" data-reveal>
+        <div>
+          <span class="k">Mandiri · gratis</span>
+          <h3>Belajar dengan modul</h3>
+          <ul class="cek">
+            <li>Terbuka kapan saja, tanpa mendaftar.</li>
+            <li>Dalil, contoh, dan latihan yang diverifikasi pengajar.</li>
+            <li>Mind map tajwid dengan mode belajar, kuis, dan cetak.</li>
+          </ul>
+          <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-ghost">Buka Modul<svg aria-hidden="true"><use href="#i-keluar"/></svg></a>
+        </div>
+        <div class="kelas">
+          <span class="k">Kelas Tahsin Riyadhatulhuruf</span>
+          <h3>Belajar bersama pengajar</h3>
+          <ul class="cek">
+            <li>Talaqqi: bacaan didengar dan dikoreksi langsung pengajar.</li>
+            <li>Progres, raport, dan ujian bulanan tercatat di Portal Murid.</li>
+            <li>Membuka materi khusus murid: Microteaching dan <span class="nw">At-Tibyan</span>.</li>
+          </ul>
+          <a href="program.html" class="btn btn-primary">Lihat Kelas Riyadhatulhuruf</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ══ 5. CTA ══ -->
+  <!-- ══ 6. FAQ ══ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Pertanyaan umum</span>
+      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Apakah modulnya benar-benar gratis?</summary>
+          <p class="a">Ya. Modul terbuka untuk siapa saja, gratis, tanpa perlu mendaftar. Silakan dimanfaatkan selama bukan untuk tujuan komersial.</p>
+        </details>
+        <details>
+          <summary>Apakah saya harus menjadi murid untuk memakainya?</summary>
+          <p class="a">Tidak. Hanya dua blok — Materi Microteaching dan Materi At-Tibyan — yang khusus untuk murid Rattililqur'an.</p>
+        </details>
+        <details>
+          <summary>Dari mana sebaiknya saya mulai?</summary>
+          <p class="a">Dari blok Panduan Menggunakan Modul: urutan belajar lima level, dari fondasi sampai hukum mad.</p>
+        </details>
+        <details>
+          <summary>Bagaimana jika saya menemukan kekeliruan?</summary>
+          <p class="a">Sampaikan lewat form Saran &amp; Masukan di dalam situs modul. Modul ini masih terus disusun dan disempurnakan.</p>
+        </details>
+        <details>
+          <summary>Apa bedanya belajar dengan modul dan ikut kelas?</summary>
+          <p class="a">Modul untuk latihan mandiri. Di <a href="program.html">Kelas Tahsin Riyadhatulhuruf</a>, bacaan Anda didengar dan dikoreksi langsung oleh pengajar, progres tercatat di Portal Murid, dan ada ujian bulanan.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7. CTA ══ -->
   <section class="cta" id="modul-cta">
     <div class="wrap">
       <h2 data-reveal>Coba modulnya sekarang</h2>
-      <p data-reveal>Modul Riyāḍat al-Ḥurūf terbuka untuk siapa saja — gratis, tanpa perlu mendaftar. Silakan dimanfaatkan selama bukan untuk tujuan komersial.</p>
+      <p data-reveal>Mulai dari huruf pertama hari ini juga — gratis, tanpa perlu mendaftar. <span class="lead-em">Biidznillah</span></p>
       <div class="cta-actions" data-reveal>
-        <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Buka Modul</a>
-        <a href="/#pendaftaran" class="btn btn-ghost btn-lg">Lihat cara bergabung</a>
+        <a href="https://modul.rattililquran.com" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Buka Modul Gratis<svg aria-hidden="true"><use href="#i-keluar"/></svg></a>
+        <a href="program.html" class="btn btn-ghost btn-lg">Lihat Kelas Riyadhatulhuruf</a>
       </div>
     </div>
   </section>
