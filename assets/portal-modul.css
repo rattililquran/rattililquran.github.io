@@ -123,7 +123,10 @@ html.theme-dark .hero h1 em{background-image:linear-gradient(135deg,#38bdf8,#818
 .sec-title .lead-em{font-size:clamp(17px,1.6vw,21px);letter-spacing:0;margin-top:.5em}
 
 /* ── HERO ── */
-.hero{padding:56px 0 8px}
+/* Hanya atas-bawah: hero dipasang bersama .wrap, dan shorthand "56px 0 8px" dulu
+   menolkan padding samping .wrap — teks hero menempel ke tepi layar di HP dan
+   bergeser 22px dari isi bagian lain di desktop. */
+.hero{padding-top:56px;padding-bottom:8px}
 .hero h1{font-size:clamp(32px,4.6vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--c-ink)}
 .hero h1 em{font-style:normal;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-lead{font-size:clamp(16px,1.45vw,19px);color:var(--c-ink-3);line-height:1.72;margin-top:18px;max-width:64ch}
@@ -136,7 +139,9 @@ html.theme-dark .hero h1 em{background-image:linear-gradient(135deg,#38bdf8,#818
 .ledger li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--c-line)}
 .ledger .no{font-family:var(--font-label);font-size:11.5px;font-weight:700;color:var(--c-ink-4);padding-top:3px}
 .ledger .t{font-size:15px;font-weight:700;color:var(--c-ink);line-height:1.5}
-.ledger .d{font-size:13.5px;color:var(--c-ink-3);line-height:1.62;margin-top:3px}
+/* display:block — tanpa ini deskripsi menyambung di baris yang sama dengan judul
+   (margin-top tidak berlaku pada elemen inline). Judul + .tag tetap sebaris. */
+.ledger .d{display:block;font-size:13.5px;color:var(--c-ink-3);line-height:1.62;margin-top:3px}
 .ledger .tag{display:inline-block;font-family:var(--font-label);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-primary);border:1px solid currentColor;border-radius:99px;padding:2px 8px;margin-left:8px;vertical-align:2px}
 html.theme-dark .ledger .tag{color:var(--c-primary-2)}
 

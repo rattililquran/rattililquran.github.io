@@ -1005,6 +1005,12 @@ html.theme-dark .reg-item{--lvl-ink:color-mix(in srgb,var(--lvl-c,var(--c-primar
 }
 html.theme-dark .reg-flag{color:#f87171}
 .reg-about{font-size:14px;line-height:1.6;color:var(--c-ink-2);margin:0;max-width:48ch}
+/* Tautan ke halaman detail program (warna mengikuti aksen kartu --lvl-c) */
+.reg-detail{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13.5px;font-weight:700;color:var(--lvl-c,var(--c-primary));text-decoration:none;transition:gap var(--dur-fast)}
+.reg-detail:hover{gap:10px;text-decoration:underline}
+.reg-detail svg{width:14px;height:14px}
+html.theme-dark .reg-detail{color:color-mix(in srgb,var(--lvl-c,var(--c-primary)) 62%,#ffffff)}
+@media(max-width:900px){.reg-detail{min-height:44px;margin-top:4px}}
 
 /* Label zona di dalam kartu — hanya muncul saat kepala daftar disembunyikan */
 .reg-label{display:none}
@@ -2112,11 +2118,12 @@ html.theme-dark{--c-ink-micro:#94a3b8}
           <h3 class="reg-name">Kelas Riyadhatulhuruf <span class="reg-flag">Paling Diminati</span></h3>
         </div>
         <p class="reg-about">Melatih membaca huruf per huruf secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat.</p>
+        <a href="program.html" class="reg-detail">Lihat detail program <svg aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
       </div>
       <div class="reg-who">
         <span class="reg-label">Untuk Siapa</span>
         <span class="reg-level">Pemula &amp; Menengah</span>
-        <span class="reg-who-note">Setelah dasar makhraj</span>
+        <span class="reg-who-note">Mulai dari dasar</span>
       </div>
       <div class="reg-when">
         <span class="reg-label">Jadwal</span>

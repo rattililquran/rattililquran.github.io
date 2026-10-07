@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+// Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
+document.documentElement.classList.add('js');
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1f35"/>
+<meta name="description" content="Kelas Tahsin Riyadhatulhuruf Level 1 Rattililqur'an: belajar membaca Al-Qur'an dari dasar — makhraj, sifat huruf, dalil, dan latihan bacaan — 40 pertemuan, dua kali sepekan bersama pengajar. SPP Rp80.000 per 8 pertemuan, pendaftaran gratis."/>
+<link rel="canonical" href="https://rattililquran.com/program.html"/>
+<meta property="og:title" content="Kelas Tahsin Riyadhatulhuruf — Rattililqur'an"/>
+<meta property="og:description" content="Belajar membaca Al-Qur'an dari dasar bersama pengajar: makhraj, sifat huruf, dalil, dan latihan bacaan. Pendaftaran gratis."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://rattililquran.com/program.html"/>
+<meta property="og:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Kartu Rattililqur'an: belajar Al-Qur'an dengan tartil, terstruktur & terpantau"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:locale" content="id_ID"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Kelas Tahsin Riyadhatulhuruf — Rattililqur'an"/>
+<meta name="twitter:description" content="Belajar membaca Al-Qur'an dari dasar bersama pengajar. Pendaftaran gratis."/>
+<meta name="twitter:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Kelas Tahsin Riyadhatulhuruf — Tentang Program | Rattililqur'an</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/portal-modul.css">
+<style>
+/* ══ Komponen khusus halaman Tentang Program (sisanya dari portal-modul.css) ══ */
+
+/* Status pendaftaran di atas judul — diisi skrip dari tanggal di bawah. */
+.status{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.status::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c-ink-4);flex-shrink:0}
+.status[data-fase="sebelum"]::before{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+.status[data-fase="buka"]::before{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+
+/* Sekilas: kartu fakta */
+.fakta{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.fakta li{border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);padding:18px 18px 16px;box-shadow:var(--sh-sm)}
+.fakta .k{display:block;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
+.fakta .v{display:block;margin-top:8px;font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--c-ink);line-height:1.3}
+.fakta .n{display:block;margin-top:4px;font-size:13.5px;color:var(--c-ink-3);line-height:1.55}
+@media(max-width:820px){.fakta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* HP: tetap 2 kolom agar keenam fakta bisa dipindai sekilas, bukan 6 kartu bertumpuk. */
+@media(max-width:480px){.fakta{gap:10px}.fakta li{padding:14px 14px 13px}.fakta .v{font-size:15.5px}.fakta .n{font-size:13px}}
+
+/* Kutipan hadis di bagian "Untuk siapa" */
+.hadis{margin-top:26px;padding:22px 24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft)}
+.hadis .ar{font-family:'Amiri',serif;font-size:clamp(24px,3vw,30px);line-height:1.9;direction:rtl;text-align:right;color:var(--c-ink)}
+.hadis .terj{margin-top:10px;font-size:15.5px;line-height:1.7;color:var(--c-ink-2);font-style:italic}
+.hadis .sumber{display:block;margin-top:4px;font-size:13px;font-style:normal;font-weight:700;color:var(--c-ink-3)}
+
+/* Jangan patahkan kata bertanda hubung (mis. "At-Tibyan") di kolom sempit. */
+.nw{white-space:nowrap}
+
+/* Catatan di bawah daftar */
+.catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-soft);font-size:14px;color:var(--c-ink-2);line-height:1.65}
+.catatan a{color:var(--c-primary);font-weight:700}
+.catatan.peringatan{border-left-color:#f59e0b;background:rgba(245,158,11,.08)}
+.catatan b{color:var(--c-ink)}
+
+/* Biaya */
+.biaya{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:26px;padding:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm)}
+.biaya-angka{font-size:clamp(34px,4.4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.1;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
+.biaya-per{margin-top:6px;font-size:15px;font-weight:700;color:var(--c-ink-2)}
+.biaya-setara{margin-top:4px;font-size:14px;color:var(--c-ink-3)}
+.biaya ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.biaya li{position:relative;padding-left:26px;font-size:14.5px;color:var(--c-ink-2);line-height:1.6}
+.biaya li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+.biaya li b{color:var(--c-ink)}
+.biaya a{color:var(--c-primary);font-weight:700}
+@media(max-width:700px){.biaya{grid-template-columns:1fr;gap:20px;padding:22px}}
+
+/* FAQ */
+.faq{margin-top:26px;border-top:1px solid var(--c-line)}
+.faq details{border-bottom:1px solid var(--c-line)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
+.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
+.faq .a a{color:var(--c-primary);font-weight:700}
+
+/* Tautan di dalam deskripsi ledger */
+.ledger .d a{color:var(--c-primary);font-weight:700}
+
+@media(max-width:640px){
+  .fakta .k{font-size:12px;color:var(--c-ink-micro)}
+  .catatan,.faq .a{font-size:15px}
+  .faq summary{min-height:44px}
+}
+</style>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- ══ SPRITE IKON ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
+</svg>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
+      <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="/#tentang"     class="nav-link">Tentang</a>
+      <a href="/#program"     class="nav-link active">Program &amp; Jadwal</a>
+      <a href="/#pendaftaran" class="nav-link">Pendaftaran</a>
+      <a href="beasiswa.html" class="nav-link">Beasiswa</a>
+      <a href="/#faq"         class="nav-link">FAQ</a>
+      <a href="/#kontak"      class="nav-link">Kontak</a>
+      <a href="portal.html" class="nav-link" data-nav="portal">Portal</a>
+      <a href="modul.html"  class="nav-link" data-nav="modul">Modul</a>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-mobile" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-desktop" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">Beranda</a>
+  <span aria-hidden="true">›</span>
+  <a href="/#program">Program &amp; Jadwal</a>
+  <span aria-hidden="true">›</span>
+  <span>Riyadhatulhuruf</span>
+</nav>
+
+<main>
+  <!-- ══ 1. HERO ══ -->
+  <header class="wrap hero">
+    <p class="status" id="statusPendaftaran">Angkatan 11 · Pendaftaran 20–30 Oktober 2026</p>
+    <h1>Kelas Tahsin <em>Riyadhatulhuruf</em></h1>
+    <p class="hero-lead">Kelas membaca Al-Qur'an dari dasar. Huruf dilatih satu per satu — makhraj, sifat, dan dalilnya — secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat. Terbuka bagi siapa saja yang ingin mendekatkan diri pada Al-Qur'an.</p>
+    <div class="hero-actions">
+      <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Daftar Sekarang</a>
+      <a href="#biaya" class="btn btn-ghost btn-lg">Biaya &amp; syarat</a>
+    </div>
+    <p class="hero-meta"><b>Level 1</b> · 40 pertemuan · pendaftaran gratis · jadwal halaqah dipilih saat mendaftar.</p>
+  </header>
+
+  <!-- ══ 2. SEKILAS ══ -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Sekilas</span>
+      <h2 class="sec-title" data-reveal>Yang perlu Anda ketahui <em>sebelum mendaftar</em></h2>
+      <ul class="fakta" data-reveal>
+        <li><span class="k">Jenjang</span><span class="v">Level 1</span><span class="n">Dimulai dari dasar, tanpa prasyarat.</span></li>
+        <li><span class="k">Lama belajar</span><span class="v">40 pertemuan</span><span class="n">Per level — sekitar lima bulan bila dua kali sepekan.</span></li>
+        <li><span class="k">Pertemuan</span><span class="v">2× sepekan</span><span class="n">Ditambah Kajian <span class="nw">At-Tibyan</span> 1× sepekan. Jadwal dipilih saat mendaftar.</span></li>
+        <li><span class="k">SPP</span><span class="v">Rp80.000</span><span class="n">Per 8 pertemuan — Rp10.000 per pertemuan.</span></li>
+        <li><span class="k">Pendaftaran</span><span class="v">Gratis</span><span class="n">Cukup bagikan informasinya ke media sosial.</span></li>
+        <li><span class="k">Bimbingan</span><span class="v">Halaqah &amp; talaqqi</span><span class="n">Bacaan didengar dan dikoreksi langsung pengajar.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 3. UNTUK SIAPA ══ -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Untuk siapa</span>
+      <h2 class="sec-title" data-reveal>Untuk mereka yang ingin <em>berikhtiar menjadi manusia terbaik</em></h2>
+      <figure class="hadis" data-reveal>
+        <p class="ar" lang="ar">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</p>
+        <figcaption class="terj">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya." <span class="sumber">HR. Al-Bukhari</span></figcaption>
+      </figure>
+      <p class="sec-sub" data-reveal>Tidak perlu menunggu "sudah bisa" untuk bergabung. Kelas ini dimulai dari dasar, dari titik awal mana pun Anda berada.</p>
+      <ul class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Belum bisa membaca Al-Qur'an</span><span class="d">Mulai dari mengenal huruf hijaiyah dan cara melafalkannya dengan benar.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Sudah bisa membaca, tapi belum lancar</span><span class="d">Latihan per huruf membangun kelancaran yang kokoh, bukan sekadar cepat.</span></div></li>
+        <li><span class="no">03</span><div><span class="t">Sudah lancar, tapi belum tartil</span><span class="d">Membenahi makhraj dan sifat huruf yang selama ini terlewat, dengan koreksi langsung dari pengajar.</span></div></li>
+      </ul>
+      <p class="catatan" data-reveal>Formulir hanya menampilkan jadwal halaqah yang sesuai dengan jenis kelamin Anda.</p>
+    </div>
+  </section>
+
+  <!-- ══ 4. MATERI ══ -->
+  <section class="sec" id="materi">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Yang dipelajari</span>
+      <h2 class="sec-title" data-reveal>Lima materi, <em>dari huruf sampai adab</em></h2>
+      <p class="sec-sub" data-reveal>Setiap tahap melatih satu keterampilan sebelum naik ke tahap berikutnya — per huruf lebih dulu, lalu frasa singkat, baru kemudian ayat utuh.</p>
+      <ol class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Makhraj — tempat keluarnya huruf</span><span class="d">Melafalkan setiap huruf hijaiyah dari tempat keluarnya yang benar.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Shifat — sifat-sifat huruf</span><span class="d">Membedakan huruf-huruf yang makhrajnya berdekatan melalui sifatnya, agar tidak tertukar saat dibaca.</span></div></li>
+        <li><span class="no">03</span><div><span class="t">Dalil — dasar hukum bacaan</span><span class="d">Memahami landasan setiap kaidah, bukan sekadar menghafal aturan.</span></div></li>
+        <li><span class="no">04</span><div><span class="t">Tadrib — contoh dan latihan bacaan</span><span class="d">Berlatih dengan contoh bacaan yang sudah diverifikasi pengajar, sehingga yang diulang di rumah adalah bacaan yang benar.</span></div></li>
+        <li><span class="no">05</span><div><span class="t">Kajian At-Tibyan</span><span class="tag">Sekali sepekan</span><span class="d">Kajian adab bersama Al-Qur'an dari kitab At-Tibyan karya Imam An-Nawawi — membangun niat dan perilaku, bukan hanya bacaan.</span></div></li>
+      </ol>
+      <p class="catatan" data-reveal>Bahan latihannya bisa dicoba sekarang di <a href="modul.html">Modul Riyāḍat al-Ḥurūf</a> — terbuka dan gratis, tanpa perlu mendaftar.</p>
+    </div>
+  </section>
+
+  <!-- ══ 5. CARA BELAJAR ══ -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Cara belajar</span>
+      <h2 class="sec-title" data-reveal>Belajar bersama, <em>terbimbing dan terpantau</em></h2>
+      <ul class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Halaqah bersama pengajar</span><span class="d">Belajar secara talaqqi: setiap bacaan didengar dan dikoreksi langsung, sehingga kesalahan tidak terulang tanpa disadari.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Pengajar terstandar</span><span class="d">Seluruh asatidzah telah melalui standardisasi Microteaching internal — menjaga kesabaran, metodologi, dan kenyamanan belajar di setiap halaqah.</span></div></li>
+        <li><span class="no">03</span><div><span class="t">Progres tercatat di Portal Murid</span><span class="d">Kehadiran, materi, latihan, dan raport bisa Anda buka kapan saja. <a href="portal.html">Tentang Portal Murid</a></span></div></li>
+        <li><span class="no">04</span><div><span class="t">Ujian bulanan</span><span class="d">Nilai ujian bulanan dan nilai akhir menjadi ukuran capaian, sehingga Anda tahu persis posisi bacaan dan bagian yang perlu dibenahi.</span></div></li>
+        <li><span class="no">05</span><div><span class="t">Grup WhatsApp program</span><span class="d">Informasi dan koordinasi halaqah disampaikan melalui grup WhatsApp program.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 6. JADWAL ══ -->
+  <section class="sec" id="jadwal">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Jadwal</span>
+      <h2 class="sec-title" data-reveal>Dua kali sepekan, <em>pada jadwal yang Anda pilih</em></h2>
+      <p class="sec-sub" data-reveal>Satu level terdiri dari 40 pertemuan. Hari, jam, dan pengajar setiap halaqah tertera di formulir pendaftaran, ditambah Kajian At-Tibyan sekali sepekan.</p>
+      <ul class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Pilih jadwal yang benar-benar bisa Anda hadiri</span><span class="d">Di level ini tidak tersedia kelas pengganti, jadi kehadiran di setiap halaqah sangat menentukan.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Jadwal penuh? Anda tetap bisa mendaftar</span><span class="d">Anda masuk daftar tunggu. Begitu ada kursi kosong, pendaftar yang lebih dulu menunggu dinaikkan otomatis dan diberi tahu lewat email.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 7. BIAYA ══ -->
+  <section class="sec" id="biaya">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Biaya</span>
+      <h2 class="sec-title" data-reveal>Biaya penuh, <em>tanpa biaya tambahan</em></h2>
+      <div class="biaya" data-reveal>
+        <div>
+          <div class="biaya-angka">Rp80.000</div>
+          <p class="biaya-per">per 8 pertemuan · sekitar satu bulan</p>
+          <p class="biaya-setara">Setara Rp10.000 per pertemuan — tidak lebih mahal dari secangkir kopi.</p>
+        </div>
+        <ul>
+          <li><b>Satu level (40 pertemuan): Rp400.000</b> — 5 × Rp80.000, dibayar per 8 pertemuan.</li>
+          <li><b>Tidak ada biaya tambahan</b> lain per level.</li>
+          <li><b>Pendaftaran gratis</b> — cukup bagikan informasi pendaftaran ini ke media sosial.</li>
+          <li><b>Beasiswa Penuh</b> membebaskan SPP 100% bagi yang betul-betul tidak sanggup membayar. <a href="beasiswa.html">Syarat &amp; komitmen beasiswa</a></li>
+        </ul>
+      </div>
+      <p class="catatan" data-reveal>Masih sanggup membayar tapi terkendala sebagian? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20keringanan%20biaya%20Kelas%20Tahsin%20Riyadhatulhuruf" target="_blank" rel="noopener">Hubungi admin</a> terlebih dahulu sebelum mendaftar.</p>
+    </div>
+  </section>
+
+  <!-- ══ 8. PERSYARATAN ══ -->
+  <section class="sec" id="syarat">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Persyaratan &amp; komitmen</span>
+      <h2 class="sec-title" data-reveal>Yang kami harapkan <em>dari setiap peserta</em></h2>
+      <ul class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Bersungguh-sungguh hingga akhir level</span><span class="d">Mengikuti seluruh 40 pertemuan, tidak mengundurkan diri di tengah jalan.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Hadir tepat waktu dan menjalankan tugas</span><span class="d">Datang tepat waktu di setiap halaqah dan mengerjakan tugas yang diberikan.</span></div></li>
+        <li><span class="no">03</span><div><span class="t">Mematuhi peraturan program</span><span class="d">Termasuk menjaga adab selama belajar bersama.</span></div></li>
+      </ul>
+      <p class="catatan peringatan" data-reveal><b>Perlu diketahui:</b> peserta yang berhenti di tengah pembelajaran dikenai sanksi berupa denda. Ketentuannya dijelaskan saat sesi perkenalan.</p>
+    </div>
+  </section>
+
+  <!-- ══ 9. ALUR ══ -->
+  <section class="sec" id="alur">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Alur pendaftaran</span>
+      <h2 class="sec-title" data-reveal>Lima langkah <em>menuju halaqah pertama</em></h2>
+      <ol class="ledger" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Isi formulir pendaftaran</span><span class="d">Empat langkah singkat: data diri, kesiapan &amp; komitmen, pilih jadwal, lalu konfirmasi. Nomor pendaftaran langsung muncul dan dikirim ke email Anda.</span></div></li>
+        <li><span class="no">02</span><div><span class="t">Bagikan informasi pendaftaran</span><span class="d">Sebagai ganti biaya pendaftaran — semoga menjadi amal jariyah bersama.</span></div></li>
+        <li><span class="no">03</span><div><span class="t">Pantau status</span><span class="d">Cek kapan saja dengan nomor pendaftaran dan tanggal lahir di <a href="/pendaftaran/status.html">halaman Cek Status</a>.</span></div></li>
+        <li><span class="no">04</span><div><span class="t">Ramah tamah</span><span class="d">Sesi diskusi dan wawancara bersama para pengajar.</span></div></li>
+        <li><span class="no">05</span><div><span class="t">Mulai belajar</span><span class="d">Setelah diterima, Anda mendapatkan akun Portal Murid dan mulai mengikuti halaqah.</span></div></li>
+      </ol>
+      <p class="catatan" data-reveal id="catatanPeriode">Pendaftaran Angkatan 11 dibuka <b>20–30 Oktober 2026</b>, dan dapat ditutup lebih awal bila kuota terpenuhi.</p>
+    </div>
+  </section>
+
+  <!-- ══ 10. FAQ ══ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <span class="sec-label" data-reveal>Pertanyaan umum</span>
+      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Saya belum bisa membaca Al-Qur'an sama sekali. Boleh ikut?</summary>
+          <p class="a">Boleh. Kelas ini dimulai dari dasar — mengenal huruf hijaiyah dan cara melafalkannya — hingga terbiasa membaca dengan benar.</p>
+        </details>
+        <details>
+          <summary>Bagaimana jika jadwal yang saya inginkan sudah penuh?</summary>
+          <p class="a">Anda tetap bisa mendaftar dan masuk daftar tunggu jadwal tersebut. Bila ada kursi kosong, pendaftar yang lebih dulu menunggu dinaikkan otomatis dan diberi tahu lewat email.</p>
+        </details>
+        <details>
+          <summary>Apakah ada kelas pengganti bila saya berhalangan?</summary>
+          <p class="a">Di level ini tidak tersedia kelas pengganti. Karena itu, pilih jadwal yang benar-benar bisa Anda hadiri setiap pekan.</p>
+        </details>
+        <details>
+          <summary>Saya tidak sanggup membayar SPP. Apakah ada keringanan?</summary>
+          <p class="a">Tersedia <a href="beasiswa.html">Beasiswa Penuh</a> bagi yang betul-betul tidak sanggup membayar — pilih "Beasiswa" saat mengisi formulir. Bila masih sanggup tapi terkendala sebagian, hubungi admin terlebih dahulu sebelum mendaftar.</p>
+        </details>
+        <details>
+          <summary>Bagaimana cara mengetahui hasil pendaftaran saya?</summary>
+          <p class="a">Buka <a href="/pendaftaran/status.html">halaman Cek Status</a>, lalu masukkan nomor pendaftaran dan tanggal lahir Anda. Nomor pendaftaran juga dikirim ke email saat Anda mendaftar.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 11. CTA ══ -->
+  <section class="cta">
+    <div class="wrap">
+      <h2 data-reveal>Siap memulai dari huruf pertama?</h2>
+      <p data-reveal>Satu langkah kecil yang istiqamah lebih berbuah daripada menunggu waktu yang sempurna. <span class="lead-em">Biidznillah</span></p>
+      <div class="cta-actions" data-reveal>
+        <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaBawah">Daftar Sekarang</a>
+        <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Kelas%20Tahsin%20Riyadhatulhuruf" target="_blank" rel="noopener" class="btn btn-ghost btn-lg"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Tanya admin</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-lead">
+      <div class="footer-lead-text">
+        <p class="footer-ar">بَارَكَ اللَّهُ فِيكُمْ</p>
+        <p class="footer-line">Membimbing setiap muslim membaca Al-Qur'an dengan tartil.</p>
+      </div>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary footer-cta">Masuk Portal</a>
+    </div>
+
+    <nav class="footer-nav" aria-label="Tautan footer">
+      <div class="footer-row">
+        <h2>Jelajahi</h2>
+        <a href="/#tentang">Tentang</a>
+        <a href="/#program">Program &amp; Jadwal</a>
+        <a href="/#pendaftaran">Pendaftaran</a>
+        <a href="beasiswa.html">Beasiswa</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="footer-row">
+        <h2>Portal</h2>
+        <a href="portal.html">Portal Murid</a>
+        <a href="modul.html">Modul Belajar</a>
+        <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">Video Portal</a>
+      </div>
+      <div class="footer-row">
+        <h2>Terhubung</h2>
+        <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </nav>
+
+    <div class="footer-meta">
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <p class="footer-copy">&copy; <span id="yearStart">2020</span>&ndash;<span id="year">2026</span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ══ PERIODE PENDAFTARAN ══
+  // [EDIT] per angkatan. Samakan dengan tanggal gelombang di panel admin dan
+  // konstanta TANGGAL_BUKA/TUTUP_PENDAFTARAN di index.html.
+  // Buka 00.00 WIB tanggal "buka", tutup setelah akhir hari tanggal "tutup".
+  var PERIODE = { angkatan: 'Angkatan 11', buka: '2026-10-20', tutup: '2026-10-30' };
+  (function(){
+    var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    function tgl(iso){ var p = iso.split('-'); return parseInt(p[2], 10) + ' ' + BULAN[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
+    var tBuka  = new Date(PERIODE.buka  + 'T00:00:00+07:00').getTime();
+    var tTutup = new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime();
+    if (isNaN(tBuka) || isNaN(tTutup)) return;   // teks bawaan HTML tetap dipakai
+
+    var URL_TANYA = 'https://wa.me/6282316993233?text=' + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
+    var status = document.getElementById('statusPendaftaran');
+    var cta = [document.getElementById('ctaHero'), document.getElementById('ctaBawah')];
+
+    var fase = null, timer = null;
+    function terapkan(){
+      var now = Date.now();
+      var f = now < tBuka ? 'sebelum' : (now <= tTutup ? 'buka' : 'tutup');
+      if (f === fase) return;
+      fase = f;
+      status.setAttribute('data-fase', f);
+      status.textContent = PERIODE.angkatan + ' · ' + (
+        f === 'sebelum' ? 'Pendaftaran dibuka ' + tgl(PERIODE.buka) :
+        f === 'buka'    ? 'Pendaftaran dibuka hingga ' + tgl(PERIODE.tutup) :
+                          'Pendaftaran sudah ditutup');
+      cta.forEach(function(a){
+        if (!a) return;
+        if (f === 'tutup') {
+          a.textContent = 'Tanya gelombang berikutnya';
+          a.href = URL_TANYA; a.target = '_blank'; a.rel = 'noopener';
+        } else {
+          // Sebelum dibuka, formulir menampilkan tanggal pembukaan.
+          a.textContent = f === 'buka' ? 'Daftar Sekarang' : 'Lihat formulir pendaftaran';
+          a.href = '/pendaftaran/'; a.removeAttribute('target');
+        }
+      });
+      if (f === 'tutup' && timer) { clearInterval(timer); timer = null; }
+    }
+    terapkan();
+    // Berganti tepat saat tanggal buka/tutup tiba tanpa memuat ulang halaman.
+    if (fase !== 'tutup') timer = setInterval(terapkan, 30000);
+  })();
+
+  // Tema
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', function(){
+      var next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
+      try { localStorage.setItem('theme', next); } catch(e){}
+      document.documentElement.classList.toggle('theme-dark', next === 'dark');
+    });
+  })();
+
+  // Menu mobile
+  (function(){
+    var t = document.getElementById('navToggle'), l = document.getElementById('navLinks');
+    if (!t || !l) return;
+    function setMenu(open){
+      l.classList.toggle('show', open);
+      t.classList.toggle('open', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    t.addEventListener('click', function(){ setMenu(!l.classList.contains('show')); });
+    l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && l.classList.contains('show')) { setMenu(false); t.focus(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!l.classList.contains('show')) return;
+      if (t.contains(e.target) || l.contains(e.target)) return;
+      setMenu(false);
+    });
+  })();
+
+  // Reveal saat digulir. Tanpa IntersectionObserver, tampilkan semua.
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
