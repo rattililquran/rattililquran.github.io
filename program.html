@@ -63,12 +63,13 @@ document.documentElement.classList.add('js');
 /* Token lokal halaman ini */
 :root{
   --veil:248,250,252;          /* = --c-bg terang; selubung foto hero */
-  --veil-gelap:7,14,28;        /* = --c-bg gelap; pita foto penutup di kedua tema */
+  --veil-gelap:7,14,28;        /* = --c-bg gelap; pita foto hadis di kedua tema */
+  --veil-hangat:250,246,239;   /* krem hangat: selubung foto "Program" di tema terang */
   --c-merah:#b91c1c;           /* tinta merah mushaf & logo, untuk teks Arab hiasan */
   --c-band:color-mix(in srgb,var(--c-soft) 55%,var(--c-bg)); /* latar pita selang-seling */
   --btn-dalam:linear-gradient(135deg,#0369a1,#4f46e5);       /* gradien tombol yang lulus AA */
 }
-html.theme-dark{--veil:7,14,28;--c-merah:#f87171}
+html.theme-dark{--veil:7,14,28;--veil-hangat:7,14,28;--c-merah:#f87171}
 :root{--c-kopi:#92400e}                /* cokelat kopi: label "secangkir kopi" di kartu Biaya */
 html.theme-dark{--c-kopi:#fbbf24}
 
@@ -78,15 +79,22 @@ html{scroll-padding-top:84px}
 /* Jangan patahkan kata bertanda hubung (mis. "At-Tibyan") di kolom sempit. */
 .nw{white-space:nowrap}
 
-/* ══ HERO berlatar foto mushaf — gambar & cara selubung sama dengan beranda ══ */
+/* ══ HERO berlatar foto "Program" (mushaf, tasbih, lentera) — foto yang sama
+   dengan bagian Program di beranda. Fotonya terang & lembut, jadi selubungnya
+   lebih tipis agar cahaya lentera dan mushaf tetap terasa. ══ */
 .hero-band{position:relative;isolation:isolate;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
-.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:60% 72%}
-/* Selubung: pekat di kolom teks (kiri), menipis ke kanan agar mushaf terlihat,
+.hero-bg img,.cta-bg img{filter:saturate(1.25) brightness(1.03)}
+.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 82%}
+/* Selubung: lebih rapat di kolom teks (kiri), menipis ke kanan agar mushaf terlihat,
    lalu larut ke warna latar halaman di tepi bawah. */
 .hero-band::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:
-  linear-gradient(180deg,rgba(var(--veil),0) 70%,rgba(var(--veil),1) 100%),
-  linear-gradient(90deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.7) 74%,rgba(var(--veil),.52) 100%)}
+  linear-gradient(180deg,rgba(var(--veil),0) 74%,rgba(var(--veil),1) 100%),
+  linear-gradient(90deg,rgba(var(--veil-hangat),.86) 0%,rgba(var(--veil-hangat),.78) 42%,rgba(var(--veil-hangat),.45) 72%,rgba(var(--veil-hangat),.2) 100%)}
+/* Foto terang di latar gelap butuh selubung lebih pekat. */
+html.theme-dark .hero-band::after{background:
+  linear-gradient(180deg,rgba(var(--veil),0) 74%,rgba(var(--veil),1) 100%),
+  linear-gradient(90deg,rgba(var(--veil),.93) 0%,rgba(var(--veil),.88) 42%,rgba(var(--veil),.72) 72%,rgba(var(--veil),.55) 100%)}
 /* Teks sekunder dinaikkan satu tingkat agar tetap ≥4.5:1 di atas foto. */
 .hero-band .breadcrumb,.hero-band .breadcrumb a,.hero-band .breadcrumb span{color:var(--c-ink-micro)}
 .hero-band .breadcrumb a:hover{color:var(--c-primary)}
@@ -141,8 +149,9 @@ html{scroll-padding-top:84px}
   .hero-grid{grid-template-columns:1fr;gap:30px}
   .hero-panel{max-width:440px}
   /* Foto potret untuk HP: selubung menurun dari atas, mushaf tampak di belakang panel. */
-  .hero-bg img{object-position:center 78%}
-  .hero-band::after{background:linear-gradient(180deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.68) 72%,rgba(var(--veil),.8) 90%,rgba(var(--veil),1) 100%)}
+  .hero-bg img{object-position:center 100%}
+  .hero-band::after{background:linear-gradient(180deg,rgba(var(--veil-hangat),.88) 0%,rgba(var(--veil-hangat),.8) 46%,rgba(var(--veil-hangat),.42) 70%,rgba(var(--veil),.8) 86%,rgba(var(--veil),1) 100%)}
+  html.theme-dark .hero-band::after{background:linear-gradient(180deg,rgba(var(--veil),.94) 0%,rgba(var(--veil),.88) 46%,rgba(var(--veil),.66) 74%,rgba(var(--veil),.82) 92%,rgba(var(--veil),1) 100%)}
   .hero{padding-bottom:56px}
 }
 @media(max-width:480px){.hero h1{font-size:clamp(28px,9vw,40px)}}
@@ -163,9 +172,16 @@ main .sec{border-top:0;padding:80px 0}
 @media(max-width:480px){.fakta li{padding:15px 14px 14px}.fakta .v{font-size:16.5px;margin-top:8px}.fakta .n{font-size:14px}}
 
 /* Untuk siapa: kutipan hadis di tengah, khidmat */
-.hadis{margin-top:28px;padding:clamp(28px,4.5vw,48px) clamp(20px,4vw,48px);border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm);text-align:center}
-.hadis .ar{font-family:'Amiri',serif;font-size:clamp(28px,4.2vw,44px);line-height:1.8;direction:rtl;text-align:center;color:var(--c-ink)}
-.hadis .terj{display:block;max-width:46ch;margin:10px auto 0;font-size:16px;line-height:1.7;color:var(--c-ink-2);font-style:italic}
+/* Pita hadis: foto mushaf beranda, selalu gelap di kedua tema — jeda khidmat
+   sebelum "Untuk siapa". Token warna dipersempit ke nilai tema gelap. */
+.ayat-band{position:relative;isolation:isolate;overflow:hidden;padding:clamp(88px,11vw,140px) 0;
+  --c-ink:#f1f5f9;--c-ink-2:#e2e8f0;--c-ink-3:#cbd5e1;--c-merah:#fca5a5}
+.ayat-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.ayat-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.ayat-band::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(var(--veil-gelap),.86),rgba(var(--veil-gelap),.62))}
+.hadis{margin:0 auto;text-align:center}
+.hadis .ar{font-family:'Amiri',serif;font-size:clamp(34px,5.6vw,64px);line-height:1.7;direction:rtl;text-align:center;color:var(--c-ink)}
+.hadis .terj{display:block;max-width:44ch;margin:14px auto 0;font-size:clamp(16px,1.6vw,19px);line-height:1.7;color:var(--c-ink-2);font-style:italic}
 .hadis .sumber{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;font-size:13px;font-style:normal;font-weight:700;letter-spacing:.02em;color:var(--c-ink-3)}
 .hadis .sumber::before,.hadis .sumber::after{content:'';width:32px;height:1px;background:var(--c-merah);opacity:.55}
 
@@ -325,18 +341,20 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
   .faq-lain{order:2;margin-top:20px}
 }
 
-/* Ajakan penutup: pita foto mushaf, selalu gelap di kedua tema */
-.cta.cta-foto{position:relative;isolation:isolate;overflow:hidden;border-top:0;padding:clamp(80px,10vw,124px) 0;
-  --c-ink:#f1f5f9;--c-ink-2:#e2e8f0;--c-ink-3:#cbd5e1;--c-card:rgba(255,255,255,.08);--c-line:rgba(255,255,255,.26);--c-primary:#7dd3fc}
+/* Ajakan penutup: foto "Program" seperti hero (berkas yang sama, sudah di cache),
+   selubung mengikuti tema — pasangan pembuka & penutup halaman. */
+.cta.cta-foto{position:relative;isolation:isolate;overflow:hidden;border-top:0;padding:clamp(80px,10vw,124px) 0}
 .cta-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
-.cta-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 58%}
-.cta-foto::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 75% 85% at 50% 50%,rgba(var(--veil-gelap),.86),rgba(var(--veil-gelap),.64))}
+.cta-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 78%}
+.cta-foto::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(ellipse 70% 80% at 50% 50%,rgba(var(--veil-hangat),.86),rgba(var(--veil-hangat),.4))}
+html.theme-dark .cta-foto::after{background:
+  radial-gradient(ellipse 70% 80% at 50% 50%,rgba(var(--veil),.9),rgba(var(--veil),.7))}
 .cta-foto h2{font-size:clamp(28px,3.8vw,46px)}
 .cta-foto p{color:var(--c-ink-2)}
 .cta-foto .lead-em{color:var(--c-ink)}
 .cta-foto .btn-primary{background:var(--btn-dalam)}
-.cta-foto .btn-ghost{background:var(--c-card);color:var(--c-ink);border-color:var(--c-line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.cta-foto .btn-ghost:hover{border-color:var(--c-ink);color:var(--c-ink)}
+.cta-foto .btn-ghost{background:color-mix(in srgb,var(--c-card) 86%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 
 /* Tombol daftar yang menempel di bawah layar (HP & tablet) */
 .cta-lekat{display:none}
@@ -407,14 +425,14 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
 </nav>
 
 <main>
-  <!-- ══ 1. HERO — foto mushaf yang sama dengan beranda (WebP + JPEG, HP & desktop) ══ -->
+  <!-- ══ 1. HERO — foto "Program" seperti di beranda (WebP + JPEG, HP & desktop) ══ -->
   <div class="hero-band">
     <picture class="hero-bg">
-      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
-      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
-      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
-      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
-      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Program-mobile-780.webp 780w, assets/images/Program-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Program-mobile-780.jpg 780w, assets/images/Program-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Program-desktop-1280.webp 1280w, assets/images/Program-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Program-desktop-1280.jpg 1280w, assets/images/Program-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Program-desktop-1280.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
     </picture>
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -487,15 +505,26 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 3. UNTUK SIAPA ══ -->
+  <!-- ══ 3. HADIS — pita foto mushaf beranda (dimuat saat digulir) ══ -->
+  <section class="ayat-band" aria-label="Hadis tentang belajar Al-Qur'an">
+    <picture class="ayat-bg">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </picture>
+    <figure class="wrap hadis" data-reveal>
+      <p class="ar" lang="ar">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</p>
+      <figcaption class="terj">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya." <span class="sumber">HR. Al-Bukhari</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ══ 4. UNTUK SIAPA ══ -->
   <section class="sec sec-band">
     <div class="wrap">
       <span class="sec-label" data-reveal>Untuk siapa</span>
       <h2 class="sec-title" data-reveal>Untuk mereka yang ingin <em>berikhtiar menjadi manusia terbaik</em></h2>
-      <figure class="hadis" data-reveal>
-        <p class="ar" lang="ar">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</p>
-        <figcaption class="terj">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya." <span class="sumber">HR. Al-Bukhari</span></figcaption>
-      </figure>
       <p class="sec-sub" data-reveal>Tidak perlu menunggu "sudah bisa" untuk bergabung. Kelas ini dimulai dari dasar, dari titik awal mana pun Anda berada.</p>
       <ul class="titik" data-reveal>
         <li><div class="atas"><span class="no">01</span><span class="tingkat" data-n="1" aria-hidden="true"><i></i><i></i><i></i></span></div><span class="t">Belum bisa membaca Al-Qur'an</span><span class="d">Mulai dari mengenal huruf hijaiyah dan cara melafalkannya dengan benar.</span></li>
@@ -506,7 +535,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 4. MATERI ══ -->
+  <!-- ══ 5. MATERI ══ -->
   <section class="sec" id="materi">
     <div class="wrap">
       <span class="sec-label" data-reveal>Yang dipelajari</span>
@@ -540,7 +569,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 5. CARA BELAJAR ══ -->
+  <!-- ══ 6. CARA BELAJAR ══ -->
   <section class="sec sec-band" id="cara">
     <div class="wrap">
       <span class="sec-label" data-reveal>Cara belajar</span>
@@ -555,7 +584,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 6. TESTIMONI ══ -->
+  <!-- ══ 7. TESTIMONI ══ -->
   <!-- [EDIT TESTIMONI] Kutipan asli murid, diambil dari bagian testimoni index.html. -->
   <section class="sec" id="testimoni">
     <div class="wrap">
@@ -579,7 +608,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 7. JADWAL ══ -->
+  <!-- ══ 8. JADWAL ══ -->
   <section class="sec sec-band" id="jadwal">
     <div class="wrap">
       <span class="sec-label" data-reveal>Jadwal</span>
@@ -592,7 +621,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 8. BIAYA ══ -->
+  <!-- ══ 9. BIAYA ══ -->
   <section class="sec" id="biaya">
     <div class="wrap">
       <span class="sec-label" data-reveal>Biaya</span>
@@ -615,7 +644,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 9. PERSYARATAN ══ -->
+  <!-- ══ 10. PERSYARATAN ══ -->
   <section class="sec sec-band" id="syarat">
     <div class="wrap">
       <span class="sec-label" data-reveal>Persyaratan &amp; komitmen</span>
@@ -629,7 +658,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 10. ALUR ══ -->
+  <!-- ══ 11. ALUR ══ -->
   <section class="sec" id="alur">
     <div class="wrap">
       <span class="sec-label" data-reveal>Alur pendaftaran</span>
@@ -645,7 +674,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 11. FAQ ══ -->
+  <!-- ══ 12. FAQ ══ -->
   <section class="sec sec-band" id="faq">
     <div class="wrap faq-grid">
       <div class="faq-kepala">
@@ -690,14 +719,14 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
     </div>
   </section>
 
-  <!-- ══ 12. CTA — pita foto mushaf (berkas sama dengan hero, sudah di cache) ══ -->
+  <!-- ══ 13. CTA — foto "Program" (berkas sama dengan hero, sudah di cache) ══ -->
   <section class="cta cta-foto">
     <picture class="cta-bg">
-      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
-      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
-      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
-      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
-      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Program-mobile-780.webp 780w, assets/images/Program-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Program-mobile-780.jpg 780w, assets/images/Program-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Program-desktop-1280.webp 1280w, assets/images/Program-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Program-desktop-1280.jpg 1280w, assets/images/Program-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Program-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
     </picture>
     <div class="wrap">
       <h2 data-reveal>Siap memulai dari huruf pertama?</h2>
