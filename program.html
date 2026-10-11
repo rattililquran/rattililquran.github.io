@@ -174,7 +174,8 @@ main .sec{border-top:0;padding:80px 0}
 /* Untuk siapa: kutipan hadis di tengah, khidmat */
 /* Pita hadis: foto mushaf beranda, selalu gelap di kedua tema — jeda khidmat
    sebelum "Untuk siapa". Token warna dipersempit ke nilai tema gelap. */
-.ayat-band{position:relative;isolation:isolate;overflow:hidden;padding:clamp(88px,11vw,140px) 0;
+/* Latar gelap dasar: tetap gelap selama foto (lazy) belum termuat. */
+.ayat-band{position:relative;isolation:isolate;overflow:hidden;padding:clamp(88px,11vw,140px) 0;background:rgb(var(--veil-gelap));
   --c-ink:#f1f5f9;--c-ink-2:#e2e8f0;--c-ink-3:#cbd5e1;--c-merah:#fca5a5}
 .ayat-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
 .ayat-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 60%}

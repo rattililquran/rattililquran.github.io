@@ -32,20 +32,55 @@ document.documentElement.classList.add('js');
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/portal-modul.css">
 <style>
+/* Hallmark · redesign · selaras program.html: hero berlatar foto, pita selang-seling,
+ * pita foto "amanah" · font: Plus Jakarta Sans + Amiri */
 /* ══ Komponen khusus halaman Beasiswa (sisanya dari portal-modul.css) ══ */
+
+/* Token lokal halaman ini */
+:root{
+  --veil:248,250,252;          /* = --c-bg terang; selubung foto hero */
+  --veil-gelap:7,14,28;        /* = --c-bg gelap; pita foto "amanah" di kedua tema */
+  --c-band:color-mix(in srgb,var(--c-soft) 55%,var(--c-bg)); /* latar pita selang-seling */
+  --c-cahaya:#fde68a;          /* kuning lentera: bismillah di pita "amanah" */
+  --btn-dalam:linear-gradient(135deg,#0369a1,#4f46e5);       /* gradien tombol yang lulus AA */
+}
+html.theme-dark{--veil:7,14,28}
 
 /* Jangkar (#syarat, #cara, …) tidak tertutup navbar yang menempel. */
 html{scroll-padding-top:84px}
 .nw{white-space:nowrap}
 
-/* Hero dua kolom: teks + kartu nilai beasiswa */
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:center}
-.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+/* ══ HERO berlatar foto mushaf — gambar & selubung sama dengan beranda ══ */
+.hero-band{position:relative;isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:60% 72%}
+/* Selubung: pekat di kolom teks (kiri), menipis ke kanan agar mushaf terlihat,
+   lalu larut ke warna latar halaman di tepi bawah. */
+.hero-band::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(180deg,rgba(var(--veil),0) 70%,rgba(var(--veil),1) 100%),
+  linear-gradient(90deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.7) 74%,rgba(var(--veil),.52) 100%)}
+/* Breadcrumb sejajar dengan kolom isi; di layar sempit barisnya yang membungkus. */
+.hero-band .breadcrumb{max-width:1000px;flex-wrap:wrap;row-gap:0}
+.hero-band .breadcrumb>*{white-space:nowrap}
+.hero-band .breadcrumb,.hero-band .breadcrumb a,.hero-band .breadcrumb span{color:var(--c-ink-micro)}
+.hero-band .breadcrumb a:hover{color:var(--c-primary)}
+.hero{padding-top:36px;padding-bottom:84px}
+.hero-band + .sec{padding-top:40px}
+.hero h1{font-size:clamp(30px,4.2vw,52px);overflow-wrap:anywhere}
+/* Teks sekunder dinaikkan satu tingkat agar tetap ≥4.5:1 di atas foto. */
+.hero .hero-lead{color:var(--c-ink-2)}
+.hero .hero-meta{color:var(--c-ink-2)}
+.hero .hero-meta b{color:var(--c-ink)}
+.hero-actions .btn-primary{box-shadow:0 10px 26px rgba(3,105,161,.3)}
+
+/* Hero dua kolom: teks + kartu nilai beasiswa (kaca buram di atas foto) */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:color-mix(in srgb,var(--c-card) 84%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:var(--sh-sm);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
 .pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2);flex-shrink:0}
-.nilai{border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh);overflow:hidden}
+.nilai{border:1px solid var(--c-line);border-radius:var(--r-lg);background:color-mix(in srgb,var(--c-card) 90%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:var(--sh-lg);overflow:hidden}
 .nilai-atas{padding:22px 22px 20px;background:var(--grad-soft)}
 .nilai-k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
-.nilai-angka{margin-top:8px;font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1.05;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nilai-angka{margin-top:8px;font-size:60px;font-weight:800;letter-spacing:-.035em;line-height:1.05;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 html.theme-dark .nilai-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
 .nilai-per{margin-top:8px;font-size:14px;font-weight:700;color:var(--c-ink-2)}
 .nilai-per s{color:var(--c-ink-3);font-weight:600}
@@ -53,12 +88,24 @@ html.theme-dark .nilai-angka{background-image:linear-gradient(135deg,#38bdf8,#81
 .nilai-syarat{list-style:none;display:flex;flex-direction:column;gap:9px;padding:16px 22px 18px;border-top:1px solid var(--c-line)}
 .nilai-syarat li{position:relative;padding-left:24px;font-size:13.5px;line-height:1.5;color:var(--c-ink-2)}
 .nilai-syarat li::before{content:'';position:absolute;left:2px;top:.45em;width:11px;height:6px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.nilai{max-width:440px}}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .nilai{max-width:440px}
+  /* Foto potret untuk HP: selubung menurun dari atas, mushaf tampak di belakang kartu. */
+  .hero-bg img{object-position:center 78%}
+  .hero-band::after{background:linear-gradient(180deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.68) 72%,rgba(var(--veil),.8) 90%,rgba(var(--veil),1) 100%)}
+  .hero{padding-bottom:56px}
+}
+
+/* ══ Ritme halaman: pita selang-seling menggantikan garis pemisah ══ */
+main .sec{border-top:0;padding:80px 0}
+.sec-band{background:var(--c-band)}
+@media(max-width:640px){main .sec{padding:60px 0}}
 
 /* Untuk siapa: dua kartu berdampingan */
 .dua{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
 .dua>div{padding:24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm)}
-.dua>.ya{background:var(--grad-soft)}
+.dua>.ya{background:var(--grad-soft);border-color:color-mix(in srgb,var(--c-primary) 28%,var(--c-line));box-shadow:var(--sh)}
 .dua .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
 .dua h3{margin-top:10px;font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.35;color:var(--c-ink)}
 .dua p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--c-ink-2)}
@@ -88,10 +135,10 @@ html.theme-dark .sanksi h3{color:#f87171}
 /* Cara mengajukan: langkah bersambung (mendatar di desktop, menurun di HP) */
 .langkah{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
 .langkah li{position:relative}
-.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:linear-gradient(90deg,color-mix(in srgb,var(--c-primary) 45%,var(--c-line)),var(--c-line))}
 .langkah li:last-child::after{display:none}
-.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
-.langkah li:last-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid color-mix(in srgb,var(--c-primary) 40%,var(--c-line));border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-primary)}
+.langkah li:last-child .bul{border-color:transparent;background:var(--btn-dalam);color:#fff;box-shadow:0 8px 20px rgba(3,105,161,.28)}
 .langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
 .langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
 .langkah .d b{color:var(--c-ink-2)}
@@ -99,41 +146,63 @@ html.theme-dark .sanksi h3{color:#f87171}
   .langkah{grid-template-columns:1fr;gap:0}
   .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
   .langkah li:last-child{padding-bottom:0}
-  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto;background:var(--c-line)}
   .langkah .bul{grid-row:span 2}
   .langkah .t{margin-top:9px}
   .langkah .d{font-size:14.5px}
 }
 
-/* Pengingat amanah */
-.amanah{margin-top:26px;padding:30px 28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);text-align:center}
-.amanah .ar{font-family:'Amiri',serif;font-size:clamp(22px,2.6vw,27px);line-height:1.8;direction:rtl;color:var(--c-primary)}
-.amanah p{max-width:60ch;margin:12px auto 0;font-size:15.5px;line-height:1.8;color:var(--c-ink-2)}
-.amanah p+p{font-size:14.5px;color:var(--c-ink-3)}
+/* Pengingat amanah: pita foto "Program" (mushaf, tasbih, lentera), selalu gelap
+   di kedua tema. Token warna dipersempit ke nilai tema gelap. */
+/* Latar gelap dasar: tetap gelap selama foto (lazy) belum termuat. */
+.amanah-band{position:relative;isolation:isolate;overflow:hidden;padding:clamp(88px,11vw,136px) 0;text-align:center;background:rgb(var(--veil-gelap));
+  --c-ink:#f1f5f9;--c-ink-2:#e2e8f0;--c-ink-3:#cbd5e1;--c-ink-4:#94a3b8;--c-ink-micro:#94a3b8}
+.amanah-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.amanah-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 75%}
+.amanah-band::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 70% 85% at 50% 50%,rgba(var(--veil-gelap),.88),rgba(var(--veil-gelap),.66))}
+.amanah-band .ar{margin-bottom:22px;font-family:'Amiri',serif;font-size:clamp(30px,4.4vw,48px);line-height:1.7;direction:rtl;color:var(--c-cahaya)}
+.amanah-band .sec-title em{background-image:linear-gradient(135deg,#7dd3fc,#a5b4fc)}
+.amanah{max-width:62ch;margin:0 auto}
+.amanah p{margin-top:16px;font-size:clamp(16px,1.5vw,18px);line-height:1.8;color:var(--c-ink-2)}
+.amanah p+p{margin-top:12px;font-size:15.5px;color:var(--c-ink-3)}
 
 /* Catatan */
 .catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-soft);font-size:14px;color:var(--c-ink-2);line-height:1.65}
 .catatan a{color:var(--c-primary);font-weight:700}
 
-/* FAQ */
-.faq{margin-top:26px;border-top:1px solid var(--c-line)}
+/* FAQ: judul menempel di kiri, daftar pertanyaan di kanan */
+.faq-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:56px;align-items:start}
+.faq-kepala{position:sticky;top:104px}
+.faq-lain{margin-top:16px;font-size:14.5px;line-height:1.65;color:var(--c-ink-3)}
+.faq-lain a{color:var(--c-primary);font-weight:700}
+.faq{border-top:1px solid var(--c-line)}
 .faq details{border-bottom:1px solid var(--c-line)}
-.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none;transition:color var(--dur-fast)}
+.faq summary:hover{color:var(--c-primary)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
 .faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
 .faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
 .faq .a a{color:var(--c-primary);font-weight:700}
+/* HP: satu kolom; tautan "tanya admin" pindah ke bawah daftar pertanyaan. */
+@media(max-width:860px){
+  .faq-grid{display:flex;flex-direction:column;gap:0}
+  .faq-kepala{display:contents}
+  .faq-grid .faq{order:1;align-self:stretch;margin-top:26px}
+  .faq-lain{order:2;margin-top:20px}
+}
+
+/* Ajakan penutup di atas pita latar */
+main .cta{border-top:0;background:var(--c-band)}
 
 /* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
-.hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
+.hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:var(--btn-dalam)}
 
 @media(max-width:640px){
   .nilai-k,.dua .k{color:var(--c-ink-micro);font-size:11.5px}
   .nilai-rinci{font-size:14px}
   .catatan,.faq .a{font-size:15px}
   .faq summary{min-height:44px}
-  .amanah{padding:24px 18px}
 }
 </style>
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
@@ -176,14 +245,23 @@ html.theme-dark .sanksi h3{color:#f87171}
   </div>
 </nav>
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="/">Beranda</a>
-  <span aria-hidden="true">›</span>
-  <span>Beasiswa</span>
-</nav>
-
 <main>
-  <!-- ══ 1. HERO ══ -->
+  <!-- ══ 1. HERO — foto mushaf yang sama dengan beranda (WebP + JPEG, HP & desktop) ══ -->
+  <div class="hero-band">
+    <picture class="hero-bg">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+    </picture>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a>
+    <span aria-hidden="true">›</span>
+    <span>Beasiswa</span>
+  </nav>
+
   <header class="wrap hero">
     <div class="hero-grid">
       <div>
@@ -211,6 +289,7 @@ html.theme-dark .sanksi h3{color:#f87171}
       </aside>
     </div>
   </header>
+  </div>
 
   <!-- ══ 2. UNTUK SIAPA ══ -->
   <section class="sec">
@@ -238,7 +317,7 @@ html.theme-dark .sanksi h3{color:#f87171}
   </section>
 
   <!-- ══ 3. SYARAT & KOMITMEN ══ -->
-  <section class="sec" id="syarat">
+  <section class="sec sec-band" id="syarat">
     <div class="wrap">
       <span class="sec-label" data-reveal>Syarat &amp; komitmen</span>
       <h2 class="sec-title" data-reveal>Syarat dan komitmen <em>penerima beasiswa</em></h2>
@@ -318,24 +397,34 @@ html.theme-dark .sanksi h3{color:#f87171}
     </div>
   </section>
 
-  <!-- ══ 5. AMANAH ══ -->
-  <section class="sec">
+  <!-- ══ 5. AMANAH — pita foto "Program" (dimuat saat digulir) ══ -->
+  <section class="amanah-band" aria-labelledby="amanah-judul">
+    <picture class="amanah-bg">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Program-mobile-780.webp 780w, assets/images/Program-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Program-mobile-780.jpg 780w, assets/images/Program-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Program-desktop-1280.webp 1280w, assets/images/Program-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Program-desktop-1280.jpg 1280w, assets/images/Program-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Program-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </picture>
     <div class="wrap">
+      <p class="ar" lang="ar" data-reveal>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
       <span class="sec-label" data-reveal>Pengingat</span>
-      <h2 class="sec-title" data-reveal>Halaqah ini <em>adalah amanah</em></h2>
+      <h2 class="sec-title" id="amanah-judul" data-reveal>Halaqah ini <em>adalah amanah</em></h2>
       <div class="amanah" data-reveal>
-        <p class="ar" lang="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
         <p>Kami harap peserta dapat menjalankan amanah ini dengan baik, karena sejatinya halaqah ini adalah amanah.</p>
-        <p>Terutama jika tanpa membayar, pertanggungjawaban kita kelak di akhirat lebih besar. Allah berikan kemudahan untuk kita tanpa berjihad harta, maka seharusnya kita jaga agar Allah tambah nikmat-Nya.</p>
+        <p>Terutama jika tanpa membayar, pertanggungjawaban kita kelak di akhirat lebih besar. Allah berikan kemudahan untuk kita tanpa berjihad harta, maka seharusnya kita jaga agar Allah tambah <span class="nw">nikmat-Nya.</span></p>
       </div>
     </div>
   </section>
 
   <!-- ══ 6. FAQ ══ -->
   <section class="sec" id="faq">
-    <div class="wrap">
-      <span class="sec-label" data-reveal>Pertanyaan umum</span>
-      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+    <div class="wrap faq-grid">
+      <div class="faq-kepala">
+        <span class="sec-label" data-reveal>Pertanyaan umum</span>
+        <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+        <p class="faq-lain" data-reveal>Pertanyaan Anda belum terjawab? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Program%20Beasiswa%20Penuh%20Rattililqur'an" target="_blank" rel="noopener">Tanya admin lewat WhatsApp</a></p>
+      </div>
       <div class="faq" data-reveal>
         <details>
           <summary>Apakah Beasiswa Penuh berupa potongan atau cicilan?</summary>
