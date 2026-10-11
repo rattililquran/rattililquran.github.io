@@ -290,6 +290,9 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 
 /* ── SECTION ── */
 .section{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:90px 22px;scroll-margin-top:76px}
+/* #kontak memakai padding-top:0 (inline), jadi jarak 76px di atas membuat judulnya
+   tertutup navbar mengambang (bawah navbar ±100px). Beri jarak sendiri. */
+#kontak{scroll-margin-top:124px}
 .section.tight{padding-top:60px}
 @media(max-width:640px){
   .section{padding:48px 18px}
