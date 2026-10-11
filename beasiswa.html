@@ -195,6 +195,16 @@ html.theme-dark .sanksi h3{color:#f87171}
 /* Ajakan penutup di atas pita latar */
 main .cta{border-top:0;background:var(--c-band)}
 
+/* Tombol ajukan yang menempel di bawah layar (HP & tablet) — sama dengan program.html */
+.cta-lekat{display:none}
+@media(max-width:820px){
+  .cta-lekat{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--c-card) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--c-line);box-shadow:0 -8px 24px rgba(12,24,37,.08);transform:translateY(110%);visibility:hidden;transition:transform .3s var(--ease-spring),visibility .3s}
+  .cta-lekat.tampil{transform:none;visibility:visible}
+  .cta-lekat b{display:block;font-size:14px;line-height:1.3;color:var(--c-ink)}
+  .cta-lekat span{display:block;font-size:12.5px;color:var(--c-ink-3)}
+  .cta-lekat .btn{flex-shrink:0;padding:11px 18px;font-size:14px;background:var(--btn-dalam)}
+}
+
 /* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
 .hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:var(--btn-dalam)}
 
@@ -269,7 +279,7 @@ main .cta{border-top:0;background:var(--c-band)}
         <h1>Keterbatasan ekonomi <em>bukan penghalang</em> untuk belajar</h1>
         <p class="hero-lead">Beasiswa Penuh Rattililqur'an membebaskan SPP pribadi murid sepenuhnya — bukan potongan, bukan cicilan — bagi yang betul-betul tidak sanggup membayar. Sebagai gantinya, kami meminta kesungguhan: hadir, beradab, dan menjaga nilai hingga akhir level.</p>
         <div class="hero-actions">
-          <a href="/pendaftaran/" class="btn btn-primary btn-lg">Ajukan lewat formulir</a>
+          <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Ajukan lewat formulir</a>
           <a href="#syarat" class="btn btn-ghost btn-lg">Baca syaratnya</a>
         </div>
         <p class="hero-meta">Syarat lengkapnya tertulis di halaman ini — <b>tanpa syarat tersembunyi</b>.</p>
@@ -461,6 +471,12 @@ main .cta{border-top:0;background:var(--c-band)}
       </div>
     </div>
   </section>
+
+  <!-- Tombol ajukan yang menempel di bawah layar HP; muncul setelah tombol hero terlewati. -->
+  <div class="cta-lekat" id="ctaLekat">
+    <div><b>Beasiswa Penuh</b><span>SPP dibebaskan 100%</span></div>
+    <a href="/pendaftaran/" class="btn btn-primary" id="clBtn">Ajukan</a>
+  </div>
 </main>
 
 <!-- ══ FOOTER ══ -->
@@ -510,6 +526,40 @@ main .cta{border-top:0;background:var(--c-band)}
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ══ TOMBOL MENEMPEL (HP) ══
+  // [EDIT] per angkatan — samakan dengan PERIODE di program.html dan
+  // TANGGAL_BUKA/TUTUP_PENDAFTARAN di index.html.
+  // Buka 00.00 WIB tanggal "buka", tutup setelah akhir hari tanggal "tutup".
+  var PERIODE = { buka: '2026-10-20', tutup: '2026-10-30' };
+  (function(){
+    var bar = document.getElementById('ctaLekat'), hero = document.getElementById('ctaHero'),
+        akhir = document.querySelector('main .cta'), btn = document.getElementById('clBtn');
+    if (!bar || !hero || !akhir || !btn) return;
+    var tBuka  = new Date(PERIODE.buka  + 'T00:00:00+07:00').getTime();
+    var tTutup = new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime();
+    function fase(){
+      if (isNaN(tBuka) || isNaN(tTutup)) return 'buka';
+      var now = Date.now();
+      return now < tBuka ? 'sebelum' : (now <= tTutup ? 'buka' : 'tutup');
+    }
+    var antre = false;
+    function cek(){
+      antre = false;
+      var f = fase();
+      // Sebelum dibuka, formulir hanya menampilkan tanggal pembukaan.
+      var label = f === 'sebelum' ? 'Lihat formulir' : 'Ajukan';
+      if (btn.textContent !== label) btn.textContent = label;
+      // Tampil setelah tombol hero terlewati, sembunyi begitu ajakan penutup
+      // terlihat, dan tidak tampil setelah pendaftaran ditutup.
+      bar.classList.toggle('tampil', f !== 'tutup'
+        && hero.getBoundingClientRect().bottom < 0
+        && akhir.getBoundingClientRect().top > window.innerHeight);
+    }
+    window.addEventListener('scroll', function(){ if (!antre) { antre = true; requestAnimationFrame(cek); } }, { passive: true });
+    window.addEventListener('resize', cek);
+    cek();
+  })();
 
   // Tema
   (function(){
