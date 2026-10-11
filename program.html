@@ -849,6 +849,9 @@ html.theme-dark .cta-foto::after{background:
       $('clSub').textContent = f === 'sebelum' ? 'Dibuka ' + tgl(PERIODE.buka) : 'Ditutup ' + tgl(PERIODE.tutup);
       $('clBtn').textContent = f === 'sebelum' ? 'Lihat formulir' : 'Daftar Sekarang';
       if (f === 'tutup' && timer) { clearInterval(timer); timer = null; }
+      // Tombol menempel ikut diperbarui saat fase berganti, tanpa menunggu pengunjung
+      // menggulir (mis. tepat 00.00 saat ditutup). `bar` belum terisi pada panggilan pertama.
+      if (bar) cekBar();
     }
 
     // Hitung mundur menuju pembukaan (sebelum) atau penutupan (buka).

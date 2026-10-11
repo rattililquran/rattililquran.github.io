@@ -558,6 +558,12 @@ main .cta{border-top:0;background:var(--c-band)}
     }
     window.addEventListener('scroll', function(){ if (!antre) { antre = true; requestAnimationFrame(cek); } }, { passive: true });
     window.addEventListener('resize', cek);
+    // Perbarui tepat saat tanggal buka/tutup tiba, tanpa menunggu pengunjung menggulir.
+    [tBuka, tTutup + 1000].forEach(function(t){
+      var jeda = t - Date.now();
+      if (jeda > 0 && jeda < 2000000000) setTimeout(cek, jeda + 500);
+    });
+    document.addEventListener('visibilitychange', function(){ if (!document.hidden) cek(); });
     cek();
   })();
 
