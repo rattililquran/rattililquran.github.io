@@ -9,7 +9,7 @@ document.documentElement.classList.add('js');
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="#0d1f35"/>
-<meta name="description" content="Kelas Tahsin Riyadhatulhuruf Level 1 Rattililqur'an: belajar membaca Al-Qur'an dari dasar — makhraj, sifat huruf, dalil, dan latihan bacaan — 40 pertemuan, dua kali sepekan bersama pengajar. SPP Rp80.000 per 8 pertemuan, pendaftaran gratis."/>
+<meta name="description" content="Kelas Tahsin Riyadhatulhuruf Level 1 Rattililqur'an: belajar membaca Al-Qur'an dari dasar — makhraj, sifat huruf, dalil, dan latihan bacaan — 40 pertemuan, dua kali sepekan bersama pengajar. SPP hanya Rp10.000 per pertemuan, pendaftaran gratis."/>
 <link rel="canonical" href="https://rattililquran.com/program.html"/>
 <meta property="og:title" content="Kelas Tahsin Riyadhatulhuruf — Rattililqur'an"/>
 <meta property="og:description" content="Belajar membaca Al-Qur'an dari dasar bersama pengajar: makhraj, sifat huruf, dalil, dan latihan bacaan. Pendaftaran gratis."/>
@@ -69,6 +69,8 @@ document.documentElement.classList.add('js');
   --btn-dalam:linear-gradient(135deg,#0369a1,#4f46e5);       /* gradien tombol yang lulus AA */
 }
 html.theme-dark{--veil:7,14,28;--c-merah:#f87171}
+:root{--c-kopi:#92400e}                /* cokelat kopi: label "secangkir kopi" di kartu Biaya */
+html.theme-dark{--c-kopi:#fbbf24}
 
 /* Jangkar (#biaya, #faq, …) tidak tertutup navbar yang menempel. */
 html{scroll-padding-top:84px}
@@ -265,37 +267,21 @@ html.theme-dark .coba-label{color:var(--c-accent)}
 
 /* Biaya */
 .biaya{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:28px;padding:30px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh)}
-.biaya-angka{font-size:clamp(36px,4.6vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.1;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* Angka utama: harga per pertemuan; cara bayar per 8 pertemuan jadi keterangan. */
+.biaya-hanya{font-size:15px;font-weight:700;color:var(--c-ink-2)}
+.biaya-angka{margin-top:2px;font-size:clamp(46px,6vw,68px);font-weight:800;letter-spacing:-.035em;line-height:1.05;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
-.biaya-per{margin-top:6px;font-size:15px;font-weight:700;color:var(--c-ink-2)}
-.biaya-setara{margin-top:4px;font-size:14px;color:var(--c-ink-3)}
+.biaya-per{margin-top:4px;font-size:18px;font-weight:800;color:var(--c-ink)}
+.biaya-kopi{display:inline-flex;align-items:center;gap:10px;margin-top:16px;padding:9px 14px 9px 11px;border-radius:12px;background:color-mix(in srgb,var(--c-kopi) 10%,var(--c-card));font-size:14.5px;font-weight:700;line-height:1.4;color:var(--c-kopi)}
+.biaya-kopi svg{width:22px;height:22px;flex-shrink:0}
+.biaya-setara{margin-top:14px;font-size:14px;line-height:1.6;color:var(--c-ink-3)}
+.biaya-setara b{color:var(--c-ink-2)}
 .biaya-poin{list-style:none;display:flex;flex-direction:column;gap:12px}
 .biaya-poin li{position:relative;padding-left:26px;font-size:14.5px;color:var(--c-ink-2);line-height:1.6}
 .biaya-poin li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
 .biaya-poin li b{color:var(--c-ink)}
 .biaya a{color:var(--c-primary);font-weight:700}
-/* Satu level = 40 pertemuan = 5 blok × 8 pertemuan; satu titik = satu pertemuan. */
-.termin{grid-column:1/-1;padding-top:24px;border-top:1px solid var(--c-line)}
-.termin-kepala{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
-.termin-kepala b{font-size:15px;font-weight:800;color:var(--c-ink)}
-.termin-kepala .termin-total{font-size:19px;letter-spacing:-.01em}
-.termin-blok{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
-.termin-blok li{display:flex;flex-direction:column;gap:9px;min-width:0;padding:13px 14px 12px;border:1px solid var(--c-line);border-radius:12px;background:var(--grad-soft)}
-.termin-blok .titik8{--d:12px;display:block;width:calc(var(--d) * 8);max-width:100%;height:var(--d);background:radial-gradient(circle,var(--c-primary) 0 3.5px,transparent 4px) 0 0/var(--d) var(--d) repeat}
-.termin-blok .rentang{font-size:12.5px;font-weight:700;color:var(--c-ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
-.termin-blok b{font-size:14px;font-weight:800;color:var(--c-ink);font-variant-numeric:tabular-nums}
-.termin-cat{margin-top:10px;font-size:13.5px;color:var(--c-ink-3)}
-@media(max-width:860px){
-  .termin-blok .titik8{--d:10px;width:calc(var(--d) * 4);height:calc(var(--d) * 2)}
-  .termin-blok .lbl{display:none}
-}
-@media(max-width:700px){
-  .biaya{grid-template-columns:1fr;gap:20px;padding:22px}
-  .termin-blok{gap:6px}
-  .termin-blok li{align-items:center;padding:11px 4px 10px;text-align:center}
-  .termin-blok b{display:none}
-  .termin-cat{font-size:14px}
-}
+@media(max-width:700px){.biaya{grid-template-columns:1fr;gap:20px;padding:22px}}
 
 /* Alur pendaftaran: langkah bersambung (mendatar di desktop, menurun di HP) */
 .langkah{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:32px}
@@ -387,6 +373,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
   <symbol id="i-grafik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="5.5" y="12" width="3" height="5" rx="1"/><rect x="10.5" y="8" width="3" height="9" rx="1"/><rect x="15.5" y="4.5" width="3" height="12.5" rx="1"/></symbol>
   <symbol id="i-ujian" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5v-1h6v1"/><path d="M9 12.5l2 2 4-4"/></symbol>
   <symbol id="i-keluar"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-kopi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-4z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c0 1 .8 1.3.8 2.3S8 7 8 8M12 3.5c0 1 .8 1.3.8 2.3S12 7 12 8"/></symbol>
   <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.75 13.58L3 21l4.57-1.21A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c-.35.7.05 1.8.8 2.9.75 1.1 1.85 1.95 2.6 2.1.5.1.95-.15 1.2-.7"/></symbol>
 </svg>
 
@@ -449,7 +436,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
           <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Daftar Sekarang</a>
           <a href="#biaya" class="btn btn-ghost btn-lg">Biaya &amp; syarat</a>
         </div>
-        <p class="hero-meta"><b>Level 1</b> · 40 pertemuan · pendaftaran gratis · jadwal halaqah dipilih saat mendaftar.</p>
+        <p class="hero-meta"><b>Level 1</b> · 40 pertemuan · <b>Rp10.000</b> per pertemuan · pendaftaran gratis · jadwal halaqah dipilih saat mendaftar.</p>
       </div>
       <aside class="hero-panel" id="heroPanel" aria-label="Periode pendaftaran">
         <div class="hp-atas">
@@ -493,7 +480,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
         <li><span class="k">Jenjang</span><span class="v">Level 1</span><span class="n">Dimulai dari dasar, tanpa prasyarat.</span></li>
         <li><span class="k">Lama belajar</span><span class="v">40 pertemuan</span><span class="n">Per level — sekitar lima bulan bila dua kali sepekan.</span></li>
         <li><span class="k">Pertemuan</span><span class="v">2× sepekan</span><span class="n">Ditambah Kajian <span class="nw">At-Tibyan</span> 1× sepekan. Jadwal dipilih saat mendaftar.</span></li>
-        <li><span class="k">SPP</span><span class="v">Rp80.000</span><span class="n">Per 8 pertemuan — Rp10.000 per pertemuan.</span></li>
+        <li><span class="k">SPP</span><span class="v">Rp10.000</span><span class="n">Per pertemuan — dibayar Rp80.000 per 8 pertemuan.</span></li>
         <li><span class="k">Pendaftaran</span><span class="v">Gratis</span><span class="n">Cukup bagikan informasinya ke media sosial.</span></li>
         <li><span class="k">Bimbingan</span><span class="v">Halaqah &amp; talaqqi</span><span class="n">Bacaan didengar dan dikoreksi langsung pengajar.</span></li>
       </ul>
@@ -612,27 +599,17 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
       <h2 class="sec-title" data-reveal>Biaya transparan, <em>tanpa biaya tambahan</em></h2>
       <div class="biaya" data-reveal>
         <div>
-          <div class="biaya-angka">Rp80.000</div>
-          <p class="biaya-per">per 8 pertemuan · sekitar satu bulan</p>
-          <p class="biaya-setara">Setara Rp10.000 per pertemuan — tidak lebih mahal dari secangkir kopi.</p>
+          <p class="biaya-hanya">Hanya</p>
+          <div class="biaya-angka">Rp10.000</div>
+          <p class="biaya-per">per pertemuan</p>
+          <p class="biaya-kopi"><svg aria-hidden="true"><use href="#i-kopi"/></svg><span>Tidak lebih mahal dari <span class="nw">secangkir kopi.</span></span></p>
+          <p class="biaya-setara">SPP dibayar <b>Rp80.000 per 8 pertemuan</b> · sekitar satu bulan.</p>
         </div>
         <ul class="biaya-poin">
           <li><b>Tidak ada biaya tambahan</b> lain per level.</li>
           <li><b>Pendaftaran gratis</b> — cukup bagikan informasi pendaftaran ini ke media sosial.</li>
           <li><b>Beasiswa Penuh</b> membebaskan SPP 100% bagi yang betul-betul tidak sanggup membayar. <a href="beasiswa.html">Syarat &amp; komitmen beasiswa</a></li>
         </ul>
-        <!-- Satu titik = satu pertemuan: 5 blok × 8 pertemuan = 40 pertemuan. -->
-        <div class="termin">
-          <div class="termin-kepala"><b>Satu level · 40 pertemuan</b><b class="termin-total">Rp400.000</b></div>
-          <ol class="termin-blok" aria-label="Pembayaran SPP satu level">
-            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>1–8</span><b>Rp80.000</b></li>
-            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>9–16</span><b>Rp80.000</b></li>
-            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>17–24</span><b>Rp80.000</b></li>
-            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>25–32</span><b>Rp80.000</b></li>
-            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>33–40</span><b>Rp80.000</b></li>
-          </ol>
-          <p class="termin-cat">5 × Rp80.000, dibayar per 8 pertemuan.</p>
-        </div>
       </div>
       <p class="catatan" data-reveal>Masih sanggup membayar tapi terkendala sebagian? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20keringanan%20biaya%20Kelas%20Tahsin%20Riyadhatulhuruf" target="_blank" rel="noopener">Hubungi admin</a> terlebih dahulu sebelum mendaftar.</p>
     </div>
@@ -687,7 +664,7 @@ html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#81
         </details>
         <details>
           <summary>Apakah pendaftarannya dipungut biaya?</summary>
-          <p class="a">Tidak. Pendaftaran gratis — cukup bagikan informasi pendaftaran ke media sosial. Biaya belajar hanya SPP Rp80.000 per 8 pertemuan, tanpa biaya tambahan lain. <a href="#biaya">Rincian biaya</a></p>
+          <p class="a">Tidak. Pendaftaran gratis — cukup bagikan informasi pendaftaran ke media sosial. Biaya belajar hanya SPP Rp10.000 per pertemuan, dibayar Rp80.000 per 8 pertemuan, tanpa biaya tambahan lain. <a href="#biaya">Rincian biaya</a></p>
         </details>
         <details>
           <summary>Bolehkah saya mencoba materinya sebelum mendaftar?</summary>
