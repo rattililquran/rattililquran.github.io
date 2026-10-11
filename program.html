@@ -56,95 +56,63 @@ document.documentElement.classList.add('js');
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/portal-modul.css">
 <style>
+/* Hallmark · redesign · macrostructure: Long Document berlapis foto · tone: tenang, khidmat
+ * anchor: biru-indigo (sistem situs) + merah tinta mushaf · font: Plus Jakarta Sans + Amiri */
 /* ══ Komponen khusus halaman Tentang Program (sisanya dari portal-modul.css) ══ */
 
-/* Status pendaftaran di atas judul — diisi skrip dari tanggal di bawah. */
-.status{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
-.status::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c-ink-4);flex-shrink:0}
-.status[data-fase="sebelum"]::before{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.18)}
-.status[data-fase="buka"]::before{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
-
-/* Sekilas: kartu fakta */
-.fakta{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
-.fakta li{border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);padding:18px 18px 16px;box-shadow:var(--sh-sm)}
-.fakta .k{display:block;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
-.fakta .v{display:block;margin-top:8px;font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--c-ink);line-height:1.3}
-.fakta .n{display:block;margin-top:4px;font-size:13.5px;color:var(--c-ink-3);line-height:1.55}
-@media(max-width:820px){.fakta{grid-template-columns:repeat(2,minmax(0,1fr))}}
-/* HP: tetap 2 kolom agar keenam fakta bisa dipindai sekilas, bukan 6 kartu bertumpuk. */
-@media(max-width:480px){.fakta{gap:10px}.fakta li{padding:14px 14px 13px}.fakta .v{font-size:15.5px}.fakta .n{font-size:14px}}
-
-/* Kutipan hadis di bagian "Untuk siapa" */
-.hadis{margin-top:26px;padding:22px 24px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft)}
-.hadis .ar{font-family:'Amiri',serif;font-size:clamp(24px,3vw,30px);line-height:1.9;direction:rtl;text-align:right;color:var(--c-ink)}
-.hadis .terj{margin-top:10px;font-size:15.5px;line-height:1.7;color:var(--c-ink-2);font-style:italic}
-.hadis .sumber{display:block;margin-top:4px;font-size:13px;font-style:normal;font-weight:700;color:var(--c-ink-3)}
-
-/* Jangan patahkan kata bertanda hubung (mis. "At-Tibyan") di kolom sempit. */
-.nw{white-space:nowrap}
-
-/* Catatan di bawah daftar */
-.catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-soft);font-size:14px;color:var(--c-ink-2);line-height:1.65}
-.catatan a{color:var(--c-primary);font-weight:700}
-.catatan.peringatan{border-left-color:#f59e0b;background:rgba(245,158,11,.08)}
-.catatan b{color:var(--c-ink)}
-
-/* Kartu "coba modul gratis" di bawah daftar materi */
-.coba{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;margin-top:28px;padding:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);box-shadow:var(--sh-sm)}
-.coba-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:var(--c-card);border:1px solid var(--c-line);font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#047857}
-html.theme-dark .coba-label{color:var(--c-accent)}
-.coba-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c-accent)}
-.coba h3{margin-top:14px;font-size:clamp(20px,2.2vw,25px);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--c-ink)}
-.coba-isi>p{margin-top:8px;font-size:15px;line-height:1.7;color:var(--c-ink-2)}
-.coba-isi>p b{color:var(--c-ink)}
-.coba-poin{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:16px}
-.coba-poin li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:var(--c-ink-2)}
-.coba-poin li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
-.coba-aksi{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-/* Gradien diperdalam seperti .footer-cta agar teks putih lulus AA. */
-.coba-aksi .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
-.coba-aksi .btn-primary:hover{box-shadow:0 14px 34px rgba(3,105,161,.34)}
-.coba-aksi svg{width:15px;height:15px}
-.coba-jembatan{margin-top:16px !important;font-size:13.5px !important;color:var(--c-ink-3) !important}
-/* Hiasan: petak huruf hijaiyah, satu disorot — "latihan per huruf". */
-.coba-huruf{display:grid;grid-template-columns:repeat(4,52px);gap:8px;direction:rtl}
-.coba-huruf span{display:flex;align-items:center;justify-content:center;height:52px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card);font-family:'Amiri',serif;font-size:26px;line-height:1;color:var(--c-ink-2)}
-.coba-huruf span.aktif{background:linear-gradient(135deg,#0369a1,#4f46e5);border-color:transparent;color:#fff;box-shadow:0 10px 24px rgba(3,105,161,.3);transform:scale(1.08)}
-@media(max-width:820px){.coba-huruf{grid-template-columns:repeat(3,46px)}.coba-huruf span{height:46px;font-size:23px}.coba-huruf span:nth-child(n+10){display:none}}
-@media(max-width:640px){.coba{grid-template-columns:1fr;padding:22px}.coba-huruf{display:none}.coba-aksi .btn{flex:1 1 auto}}
-
-/* Biaya */
-.biaya{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:26px;padding:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm)}
-.biaya-angka{font-size:clamp(34px,4.4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.1;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
-.biaya-per{margin-top:6px;font-size:15px;font-weight:700;color:var(--c-ink-2)}
-.biaya-setara{margin-top:4px;font-size:14px;color:var(--c-ink-3)}
-.biaya ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-.biaya li{position:relative;padding-left:26px;font-size:14.5px;color:var(--c-ink-2);line-height:1.6}
-.biaya li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
-.biaya li b{color:var(--c-ink)}
-.biaya a{color:var(--c-primary);font-weight:700}
-@media(max-width:700px){.biaya{grid-template-columns:1fr;gap:20px;padding:22px}}
-
-/* FAQ */
-.faq{margin-top:26px;border-top:1px solid var(--c-line)}
-.faq details{border-bottom:1px solid var(--c-line)}
-.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
-.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
-.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
-.faq .a a{color:var(--c-primary);font-weight:700}
-
-/* Tautan di dalam deskripsi ledger */
-.ledger .d a{color:var(--c-primary);font-weight:700}
+/* Token lokal halaman ini */
+:root{
+  --veil:248,250,252;          /* = --c-bg terang; selubung foto hero */
+  --veil-gelap:7,14,28;        /* = --c-bg gelap; pita foto penutup di kedua tema */
+  --c-merah:#b91c1c;           /* tinta merah mushaf & logo, untuk teks Arab hiasan */
+  --c-band:color-mix(in srgb,var(--c-soft) 55%,var(--c-bg)); /* latar pita selang-seling */
+  --btn-dalam:linear-gradient(135deg,#0369a1,#4f46e5);       /* gradien tombol yang lulus AA */
+}
+html.theme-dark{--veil:7,14,28;--c-merah:#f87171}
 
 /* Jangkar (#biaya, #faq, …) tidak tertutup navbar yang menempel. */
 html{scroll-padding-top:84px}
 
-/* Hero dua kolom: teks + panel hitung mundur & angka */
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:center}
-.hero-panel{border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh);overflow:hidden}
+/* Jangan patahkan kata bertanda hubung (mis. "At-Tibyan") di kolom sempit. */
+.nw{white-space:nowrap}
+
+/* ══ HERO berlatar foto mushaf — gambar & cara selubung sama dengan beranda ══ */
+.hero-band{position:relative;isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.hero-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:60% 72%}
+/* Selubung: pekat di kolom teks (kiri), menipis ke kanan agar mushaf terlihat,
+   lalu larut ke warna latar halaman di tepi bawah. */
+.hero-band::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(180deg,rgba(var(--veil),0) 70%,rgba(var(--veil),1) 100%),
+  linear-gradient(90deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.7) 74%,rgba(var(--veil),.52) 100%)}
+/* Teks sekunder dinaikkan satu tingkat agar tetap ≥4.5:1 di atas foto. */
+.hero-band .breadcrumb,.hero-band .breadcrumb a,.hero-band .breadcrumb span{color:var(--c-ink-micro)}
+.hero-band .breadcrumb a:hover{color:var(--c-primary)}
+/* Breadcrumb sejajar dengan kolom isi (.wrap 1000px), bukan navbar (1180px).
+   Di layar sempit barisnya yang membungkus, bukan teks tautannya. */
+.hero-band .breadcrumb{max-width:1000px;flex-wrap:wrap;row-gap:0}
+.hero-band .breadcrumb>*{white-space:nowrap}
+.hero{padding-top:36px;padding-bottom:72px}
+/* Hero sudah larut ke latar di tepi bawah; bagian pertama tak perlu jarak atas penuh. */
+.hero-band + .sec{padding-top:36px}
+.hero h1{font-size:clamp(30px,5vw,64px);overflow-wrap:anywhere}
+.hero .hero-lead{color:var(--c-ink-2)}
+.hero .hero-meta{color:var(--c-ink-2)}
+.hero .hero-meta b{color:var(--c-ink)}
+.hero-actions .btn-primary{background:var(--btn-dalam);box-shadow:0 10px 26px rgba(3,105,161,.3)}
+.hero-actions .btn-primary:hover{box-shadow:0 14px 34px rgba(3,105,161,.36)}
+/* Nama program dalam aksara Arab, ditulis dengan tinta merah seperti bingkai mushaf. */
+.hero-ar{margin-top:10px;font-family:'Amiri',serif;font-size:clamp(26px,3vw,38px);line-height:1.5;color:var(--c-merah);direction:rtl;unicode-bidi:isolate;text-align:left}
+
+/* Status pendaftaran di atas judul — diisi skrip dari tanggal di bawah. */
+.status{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:color-mix(in srgb,var(--c-card) 84%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:var(--sh-sm);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.status::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c-ink-4);flex-shrink:0}
+.status[data-fase="sebelum"]::before{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+.status[data-fase="buka"]::before{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+
+/* Hero dua kolom: teks + panel hitung mundur & angka (kaca buram di atas foto) */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:56px;align-items:center}
+.hero-panel{border:1px solid var(--c-line);border-radius:var(--r-lg);background:color-mix(in srgb,var(--c-card) 90%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:var(--sh-lg);overflow:hidden}
 .hp-atas{padding:22px 22px 20px;background:var(--grad-soft)}
 .hp-label{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-3)}
 .hp-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
@@ -160,23 +128,113 @@ html{scroll-padding-top:84px}
 .hp-angka div+div{border-left:1px solid var(--c-line)}
 .hp-angka b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--c-ink)}
 .hp-angka span{display:block;margin-top:4px;font-size:11.5px;color:var(--c-ink-3)}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}.hero-panel{max-width:440px}}
 
 /* Lompat ke bagian */
-.lompat{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:36px;padding-top:20px;border-top:1px dashed var(--c-line)}
-.lompat .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4);margin-right:4px}
-.lompat a{padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:13px;font-weight:700;color:var(--c-ink-2);text-decoration:none;transition:border-color var(--dur),color var(--dur)}
+.lompat{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:40px;padding-top:20px;border-top:1px dashed var(--c-line)}
+.lompat .k{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-micro);margin-right:4px}
+.lompat a{padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:color-mix(in srgb,var(--c-card) 84%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:13px;font-weight:700;color:var(--c-ink-2);text-decoration:none;transition:border-color var(--dur),color var(--dur)}
 .lompat a:hover{border-color:var(--c-primary);color:var(--c-primary)}
 
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-panel{max-width:440px}
+  /* Foto potret untuk HP: selubung menurun dari atas, mushaf tampak di belakang panel. */
+  .hero-bg img{object-position:center 78%}
+  .hero-band::after{background:linear-gradient(180deg,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 44%,rgba(var(--veil),.68) 72%,rgba(var(--veil),.8) 90%,rgba(var(--veil),1) 100%)}
+  .hero{padding-bottom:56px}
+}
+@media(max-width:480px){.hero h1{font-size:clamp(28px,9vw,40px)}}
+
+/* ══ Ritme halaman: pita selang-seling menggantikan garis pemisah ══ */
+main .sec{border-top:0;padding:80px 0}
+.sec-band{background:var(--c-band)}
+@media(max-width:640px){main .sec{padding:60px 0}}
+
+/* Sekilas: satu lembar spesifikasi bergaris rambut, bukan enam kartu lepas */
+.fakta{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-line);box-shadow:var(--sh);overflow:hidden}
+.fakta li{padding:22px 24px 20px;background:var(--c-card)}
+.fakta .k{display:block;font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-4)}
+.fakta .v{display:block;margin-top:10px;font-size:21px;font-weight:800;letter-spacing:-.02em;color:var(--c-ink);line-height:1.25}
+.fakta .n{display:block;margin-top:6px;font-size:13.5px;color:var(--c-ink-3);line-height:1.55}
+@media(max-width:820px){.fakta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* HP: tetap 2 kolom agar keenam fakta bisa dipindai sekilas, bukan 6 kartu bertumpuk. */
+@media(max-width:480px){.fakta li{padding:15px 14px 14px}.fakta .v{font-size:16.5px;margin-top:8px}.fakta .n{font-size:14px}}
+
+/* Untuk siapa: kutipan hadis di tengah, khidmat */
+.hadis{margin-top:28px;padding:clamp(28px,4.5vw,48px) clamp(20px,4vw,48px);border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-sm);text-align:center}
+.hadis .ar{font-family:'Amiri',serif;font-size:clamp(28px,4.2vw,44px);line-height:1.8;direction:rtl;text-align:center;color:var(--c-ink)}
+.hadis .terj{display:block;max-width:46ch;margin:10px auto 0;font-size:16px;line-height:1.7;color:var(--c-ink-2);font-style:italic}
+.hadis .sumber{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;font-size:13px;font-style:normal;font-weight:700;letter-spacing:.02em;color:var(--c-ink-3)}
+.hadis .sumber::before,.hadis .sumber::after{content:'';width:32px;height:1px;background:var(--c-merah);opacity:.55}
+
+/* Untuk siapa: tiga titik awal — bilah kecil menandai titik berangkat pembaca */
+.titik{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.titik li{padding:20px 20px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
+.titik .atas{display:flex;align-items:center;justify-content:space-between}
+.titik .no{font-family:var(--font-label);font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--c-primary)}
+.tingkat{display:flex;align-items:flex-end;gap:4px;height:16px}
+.tingkat i{width:5px;border-radius:2px;background:color-mix(in srgb,var(--c-ink-4) 35%,transparent)}
+.tingkat i:nth-child(1){height:7px}
+.tingkat i:nth-child(2){height:11px}
+.tingkat i:nth-child(3){height:16px}
+.tingkat[data-n="1"] i:nth-child(-n+1),.tingkat[data-n="2"] i:nth-child(-n+2),.tingkat[data-n="3"] i{background:var(--c-primary)}
+.titik .t{display:block;margin-top:12px;font-size:16px;font-weight:800;line-height:1.35;color:var(--c-ink)}
+.titik .d{display:block;margin-top:6px;font-size:14px;line-height:1.62;color:var(--c-ink-3)}
+@media(max-width:760px){.titik{grid-template-columns:1fr;gap:10px}.titik .d{font-size:14.5px}}
+
+/* Catatan di bawah daftar */
+.catatan{margin-top:22px;padding:14px 16px;border:1px solid var(--c-line);border-left:3px solid var(--c-primary);border-radius:var(--r-sm);background:var(--c-card);font-size:14px;color:var(--c-ink-2);line-height:1.65}
+.catatan a{color:var(--c-primary);font-weight:700}
+.catatan.peringatan{border-left-color:#f59e0b;background:color-mix(in srgb,#f59e0b 8%,var(--c-card))}
+.catatan b{color:var(--c-ink)}
+
+/* Tautan di dalam deskripsi ledger */
+.ledger .d a{color:var(--c-primary);font-weight:700}
+
+/* Materi: setiap baris membawa istilahnya dalam aksara Arab */
+.ledger.materi li{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px;padding:18px 0}
+.ledger.materi .no{align-self:start;padding-top:4px}
+.ledger.materi .t{font-size:16px}
+.ledger.materi .d{font-size:14px}
+.materi .ar{min-width:4.2em;font-family:'Amiri',serif;font-size:clamp(24px,2.5vw,30px);line-height:1.3;color:var(--c-merah);opacity:.9;direction:rtl;text-align:center}
+@media(max-width:560px){
+  .ledger.materi li{gap:12px;align-items:start}
+  .materi .ar{min-width:0;font-size:22px;padding-top:2px}
+}
+
+/* Kartu "coba modul gratis" di bawah daftar materi */
+.coba{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;margin-top:32px;padding:28px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--grad-soft);box-shadow:var(--sh-sm)}
+.coba-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:var(--c-card);border:1px solid var(--c-line);font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#047857}
+html.theme-dark .coba-label{color:var(--c-accent)}
+.coba-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c-accent)}
+.coba h3{margin-top:14px;font-size:clamp(20px,2.2vw,25px);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--c-ink)}
+.coba-isi>p{margin-top:8px;font-size:15px;line-height:1.7;color:var(--c-ink-2)}
+.coba-isi>p b{color:var(--c-ink)}
+.coba-poin{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.coba-poin li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:var(--c-ink-2)}
+.coba-poin li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+.coba-aksi{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.coba-aksi .btn-primary{background:var(--btn-dalam)}
+.coba-aksi .btn-primary:hover{box-shadow:0 14px 34px rgba(3,105,161,.34)}
+.coba-aksi svg{width:15px;height:15px}
+.coba-jembatan{margin-top:16px !important;font-size:13.5px !important;color:var(--c-ink-3) !important}
+/* Hiasan: petak huruf hijaiyah, satu disorot — "latihan per huruf". */
+.coba-huruf{display:grid;grid-template-columns:repeat(4,52px);gap:8px;direction:rtl}
+.coba-huruf span{display:flex;align-items:center;justify-content:center;height:52px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-card);font-family:'Amiri',serif;font-size:26px;line-height:1;color:var(--c-ink-2)}
+.coba-huruf span.aktif{background:var(--btn-dalam);border-color:transparent;color:#fff;box-shadow:0 10px 24px rgba(3,105,161,.3);transform:scale(1.08)}
+@media(max-width:820px){.coba-huruf{grid-template-columns:repeat(3,46px)}.coba-huruf span{height:46px;font-size:23px}.coba-huruf span:nth-child(n+10){display:none}}
+@media(max-width:640px){.coba{grid-template-columns:1fr;padding:22px}.coba-huruf{display:none}.coba-aksi .btn{flex:1 1 auto}}
+
 /* Cara belajar: kartu berikon, kartu pertama sebagai sorotan */
-.fitur{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.fitur{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
 .fitur li{padding:20px 20px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
-.fitur li.utama{grid-column:span 2;background:var(--grad-soft)}
+.fitur li.utama{grid-column:span 2;border-color:color-mix(in srgb,var(--c-primary) 28%,var(--c-line));box-shadow:var(--sh)}
 .fitur .ik{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--grad-soft);color:var(--c-primary)}
-.fitur li.utama .ik{background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.fitur li.utama .ik{background:var(--btn-dalam);color:#fff}
 .fitur .ik svg{width:22px;height:22px}
 .fitur .t{display:block;margin-top:14px;font-size:15.5px;font-weight:800;line-height:1.35;color:var(--c-ink)}
 .fitur .d{display:block;margin-top:6px;font-size:14px;line-height:1.62;color:var(--c-ink-3)}
+.fitur li.utama .t{font-size:17px}
 .fitur li.utama .d{font-size:15px;color:var(--c-ink-2);max-width:52ch}
 .fitur .d a{color:var(--c-primary);font-weight:700}
 @media(max-width:820px){.fitur{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -184,17 +242,17 @@ html{scroll-padding-top:84px}
   .fitur{grid-template-columns:1fr;gap:10px}
   .fitur li,.fitur li.utama{grid-column:auto;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:16px}
   .fitur .ik{grid-row:span 2;width:40px;height:40px}
-  .fitur .t{margin-top:0}
+  .fitur .t,.fitur li.utama .t{margin-top:0;font-size:15.5px}
   .fitur .d,.fitur li.utama .d{font-size:14.5px}
 }
 
 /* Testimoni: 3 kartu; di HP menjadi deret geser */
-.testi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.testi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
 .testi figure{display:flex;flex-direction:column;margin:0;padding:20px 22px 18px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-card);box-shadow:var(--sh-sm)}
-.testi figure::before{content:'\201C';display:block;height:24px;font-family:Georgia,serif;font-size:48px;line-height:1;color:var(--c-primary);opacity:.5}
+.testi figure::before{content:'\201C';display:block;height:24px;font-family:Georgia,serif;font-size:48px;line-height:1;color:var(--c-merah);opacity:.6}
 .testi blockquote{flex:1;margin-top:10px;font-size:14.5px;line-height:1.7;color:var(--c-ink-2)}
 .testi figcaption{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--c-line)}
-.testi .av{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff;font-size:14px;font-weight:800}
+.testi .av{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--btn-dalam);color:#fff;font-size:14px;font-weight:800}
 .testi figcaption b{display:block;font-size:14px;color:var(--c-ink)}
 .testi figcaption span{display:block;font-size:12.5px;color:var(--c-ink-3)}
 @media(max-width:820px){
@@ -205,13 +263,47 @@ html{scroll-padding-top:84px}
 .testi-geser{display:none;margin-top:6px;font-size:13px;color:var(--c-ink-3)}
 @media(max-width:820px){.testi-geser{display:block}}
 
+/* Biaya */
+.biaya{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:28px;padding:30px;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh)}
+.biaya-angka{font-size:clamp(36px,4.6vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.1;background-image:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html.theme-dark .biaya-angka{background-image:linear-gradient(135deg,#38bdf8,#818cf8)}
+.biaya-per{margin-top:6px;font-size:15px;font-weight:700;color:var(--c-ink-2)}
+.biaya-setara{margin-top:4px;font-size:14px;color:var(--c-ink-3)}
+.biaya-poin{list-style:none;display:flex;flex-direction:column;gap:12px}
+.biaya-poin li{position:relative;padding-left:26px;font-size:14.5px;color:var(--c-ink-2);line-height:1.6}
+.biaya-poin li::before{content:'';position:absolute;left:2px;top:.55em;width:12px;height:7px;border-left:2.5px solid var(--c-accent);border-bottom:2.5px solid var(--c-accent);transform:rotate(-45deg)}
+.biaya-poin li b{color:var(--c-ink)}
+.biaya a{color:var(--c-primary);font-weight:700}
+/* Satu level = 40 pertemuan = 5 blok × 8 pertemuan; satu titik = satu pertemuan. */
+.termin{grid-column:1/-1;padding-top:24px;border-top:1px solid var(--c-line)}
+.termin-kepala{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
+.termin-kepala b{font-size:15px;font-weight:800;color:var(--c-ink)}
+.termin-kepala .termin-total{font-size:19px;letter-spacing:-.01em}
+.termin-blok{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.termin-blok li{display:flex;flex-direction:column;gap:9px;min-width:0;padding:13px 14px 12px;border:1px solid var(--c-line);border-radius:12px;background:var(--grad-soft)}
+.termin-blok .titik8{--d:12px;display:block;width:calc(var(--d) * 8);max-width:100%;height:var(--d);background:radial-gradient(circle,var(--c-primary) 0 3.5px,transparent 4px) 0 0/var(--d) var(--d) repeat}
+.termin-blok .rentang{font-size:12.5px;font-weight:700;color:var(--c-ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.termin-blok b{font-size:14px;font-weight:800;color:var(--c-ink);font-variant-numeric:tabular-nums}
+.termin-cat{margin-top:10px;font-size:13.5px;color:var(--c-ink-3)}
+@media(max-width:860px){
+  .termin-blok .titik8{--d:10px;width:calc(var(--d) * 4);height:calc(var(--d) * 2)}
+  .termin-blok .lbl{display:none}
+}
+@media(max-width:700px){
+  .biaya{grid-template-columns:1fr;gap:20px;padding:22px}
+  .termin-blok{gap:6px}
+  .termin-blok li{align-items:center;padding:11px 4px 10px;text-align:center}
+  .termin-blok b{display:none}
+  .termin-cat{font-size:14px}
+}
+
 /* Alur pendaftaran: langkah bersambung (mendatar di desktop, menurun di HP) */
-.langkah{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:30px}
+.langkah{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:32px}
 .langkah li{position:relative}
-.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:var(--c-line)}
+.langkah li::after{content:'';position:absolute;top:19px;left:48px;right:-6px;height:2px;background:linear-gradient(90deg,color-mix(in srgb,var(--c-primary) 45%,var(--c-line)),var(--c-line))}
 .langkah li:last-child::after{display:none}
-.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid var(--c-line);border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-ink-2)}
-.langkah li:last-child .bul{border-color:transparent;background:linear-gradient(135deg,#0369a1,#4f46e5);color:#fff}
+.langkah .bul{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1.5px solid color-mix(in srgb,var(--c-primary) 40%,var(--c-line));border-radius:50%;background:var(--c-card);font-family:var(--font-label);font-size:13px;font-weight:800;color:var(--c-primary)}
+.langkah li:last-child .bul{border-color:transparent;background:var(--btn-dalam);color:#fff;box-shadow:0 8px 20px rgba(3,105,161,.28)}
 .langkah .t{display:block;margin-top:14px;font-size:15px;font-weight:800;line-height:1.35;color:var(--c-ink)}
 .langkah .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:var(--c-ink-3)}
 .langkah .d a{color:var(--c-primary);font-weight:700}
@@ -219,11 +311,46 @@ html{scroll-padding-top:84px}
   .langkah{grid-template-columns:1fr;gap:0}
   .langkah li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:16px;padding-bottom:22px}
   .langkah li:last-child{padding-bottom:0}
-  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto}
+  .langkah li::after{top:46px;bottom:6px;left:19px;right:auto;width:2px;height:auto;background:var(--c-line)}
   .langkah .bul{grid-row:span 2}
   .langkah .t{margin-top:9px}
   .langkah .d{font-size:14.5px}
 }
+
+/* FAQ: judul menempel di kiri, daftar pertanyaan di kanan */
+.faq-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:56px;align-items:start}
+.faq-kepala{position:sticky;top:104px}
+.faq-lain{margin-top:16px;font-size:14.5px;line-height:1.65;color:var(--c-ink-3)}
+.faq-lain a{color:var(--c-primary);font-weight:700}
+.faq{border-top:1px solid var(--c-line)}
+.faq details{border-bottom:1px solid var(--c-line)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:15px;font-weight:700;color:var(--c-ink);cursor:pointer;list-style:none;transition:color var(--dur-fast)}
+.faq summary:hover{color:var(--c-primary)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border:1px solid var(--c-line);border-radius:50%;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--c-ink-3);transition:transform var(--dur) var(--ease-spring)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--c-primary)}
+.faq .a{padding:0 0 18px;font-size:14.5px;color:var(--c-ink-3);line-height:1.7;max-width:70ch}
+.faq .a a{color:var(--c-primary);font-weight:700}
+/* HP: satu kolom; tautan "tanya admin" pindah ke bawah daftar pertanyaan. */
+@media(max-width:860px){
+  .faq-grid{display:flex;flex-direction:column;gap:0}
+  .faq-kepala{display:contents}
+  .faq-grid .faq{order:1;align-self:stretch;margin-top:26px}
+  .faq-lain{order:2;margin-top:20px}
+}
+
+/* Ajakan penutup: pita foto mushaf, selalu gelap di kedua tema */
+.cta.cta-foto{position:relative;isolation:isolate;overflow:hidden;border-top:0;padding:clamp(80px,10vw,124px) 0;
+  --c-ink:#f1f5f9;--c-ink-2:#e2e8f0;--c-ink-3:#cbd5e1;--c-card:rgba(255,255,255,.08);--c-line:rgba(255,255,255,.26);--c-primary:#7dd3fc}
+.cta-bg{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.cta-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 58%}
+.cta-foto::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 75% 85% at 50% 50%,rgba(var(--veil-gelap),.86),rgba(var(--veil-gelap),.64))}
+.cta-foto h2{font-size:clamp(28px,3.8vw,46px)}
+.cta-foto p{color:var(--c-ink-2)}
+.cta-foto .lead-em{color:var(--c-ink)}
+.cta-foto .btn-primary{background:var(--btn-dalam)}
+.cta-foto .btn-ghost{background:var(--c-card);color:var(--c-ink);border-color:var(--c-line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.cta-foto .btn-ghost:hover{border-color:var(--c-ink);color:var(--c-ink)}
 
 /* Tombol daftar yang menempel di bawah layar (HP & tablet) */
 .cta-lekat{display:none}
@@ -232,7 +359,7 @@ html{scroll-padding-top:84px}
   .cta-lekat.tampil{transform:none;visibility:visible}
   .cta-lekat b{display:block;font-size:14px;line-height:1.3;color:var(--c-ink)}
   .cta-lekat span{display:block;font-size:12.5px;color:var(--c-ink-3)}
-  .cta-lekat .btn{flex-shrink:0;padding:11px 18px;font-size:14px;background:linear-gradient(135deg,#0369a1,#4f46e5)}
+  .cta-lekat .btn{flex-shrink:0;padding:11px 18px;font-size:14px;background:var(--btn-dalam)}
 }
 
 @media(max-width:640px){
@@ -292,21 +419,31 @@ html{scroll-padding-top:84px}
   </div>
 </nav>
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="/">Beranda</a>
-  <span aria-hidden="true">›</span>
-  <a href="/#program">Program &amp; Jadwal</a>
-  <span aria-hidden="true">›</span>
-  <span>Riyadhatulhuruf</span>
-</nav>
-
 <main>
-  <!-- ══ 1. HERO ══ -->
+  <!-- ══ 1. HERO — foto mushaf yang sama dengan beranda (WebP + JPEG, HP & desktop) ══ -->
+  <div class="hero-band">
+    <picture class="hero-bg">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+    </picture>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a>
+    <span aria-hidden="true">›</span>
+    <a href="/#program">Program &amp; Jadwal</a>
+    <span aria-hidden="true">›</span>
+    <span>Riyadhatulhuruf</span>
+  </nav>
+
   <header class="wrap hero">
     <div class="hero-grid">
       <div>
         <p class="status" id="statusPendaftaran">Angkatan 11 · Pendaftaran 20–30 Oktober 2026</p>
         <h1>Kelas Tahsin <em>Riyadhatulhuruf</em></h1>
+        <p class="hero-ar" lang="ar">رِيَاضَةُ الْحُرُوفِ</p>
         <p class="hero-lead">Kelas membaca Al-Qur'an dari dasar. Huruf dilatih satu per satu — makhraj, sifat, dan dalilnya — secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat. Terbuka bagi siapa saja yang ingin mendekatkan diri pada Al-Qur'an.</p>
         <div class="hero-actions">
           <a href="/pendaftaran/" class="btn btn-primary btn-lg" id="ctaHero">Daftar Sekarang</a>
@@ -345,6 +482,7 @@ html{scroll-padding-top:84px}
       <a href="#faq">FAQ</a>
     </nav>
   </header>
+  </div>
 
   <!-- ══ 2. SEKILAS ══ -->
   <section class="sec">
@@ -363,7 +501,7 @@ html{scroll-padding-top:84px}
   </section>
 
   <!-- ══ 3. UNTUK SIAPA ══ -->
-  <section class="sec">
+  <section class="sec sec-band">
     <div class="wrap">
       <span class="sec-label" data-reveal>Untuk siapa</span>
       <h2 class="sec-title" data-reveal>Untuk mereka yang ingin <em>berikhtiar menjadi manusia terbaik</em></h2>
@@ -372,10 +510,10 @@ html{scroll-padding-top:84px}
         <figcaption class="terj">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya." <span class="sumber">HR. Al-Bukhari</span></figcaption>
       </figure>
       <p class="sec-sub" data-reveal>Tidak perlu menunggu "sudah bisa" untuk bergabung. Kelas ini dimulai dari dasar, dari titik awal mana pun Anda berada.</p>
-      <ul class="ledger" data-reveal>
-        <li><span class="no">01</span><div><span class="t">Belum bisa membaca Al-Qur'an</span><span class="d">Mulai dari mengenal huruf hijaiyah dan cara melafalkannya dengan benar.</span></div></li>
-        <li><span class="no">02</span><div><span class="t">Sudah bisa membaca, tapi belum lancar</span><span class="d">Latihan per huruf membangun kelancaran yang kokoh, bukan sekadar cepat.</span></div></li>
-        <li><span class="no">03</span><div><span class="t">Sudah lancar, tapi belum tartil</span><span class="d">Membenahi makhraj dan sifat huruf yang selama ini terlewat, dengan koreksi langsung dari pengajar.</span></div></li>
+      <ul class="titik" data-reveal>
+        <li><div class="atas"><span class="no">01</span><span class="tingkat" data-n="1" aria-hidden="true"><i></i><i></i><i></i></span></div><span class="t">Belum bisa membaca Al-Qur'an</span><span class="d">Mulai dari mengenal huruf hijaiyah dan cara melafalkannya dengan benar.</span></li>
+        <li><div class="atas"><span class="no">02</span><span class="tingkat" data-n="2" aria-hidden="true"><i></i><i></i><i></i></span></div><span class="t">Sudah bisa membaca, tapi belum lancar</span><span class="d">Latihan per huruf membangun kelancaran yang kokoh, bukan sekadar cepat.</span></li>
+        <li><div class="atas"><span class="no">03</span><span class="tingkat" data-n="3" aria-hidden="true"><i></i><i></i><i></i></span></div><span class="t">Sudah lancar, tapi belum tartil</span><span class="d">Membenahi makhraj dan sifat huruf yang selama ini terlewat, dengan koreksi langsung dari pengajar.</span></li>
       </ul>
       <p class="catatan" data-reveal>Formulir hanya menampilkan jadwal halaqah yang sesuai dengan jenis kelamin Anda.</p>
     </div>
@@ -387,12 +525,12 @@ html{scroll-padding-top:84px}
       <span class="sec-label" data-reveal>Yang dipelajari</span>
       <h2 class="sec-title" data-reveal>Lima materi, <em>dari huruf sampai adab</em></h2>
       <p class="sec-sub" data-reveal>Setiap tahap melatih satu keterampilan sebelum naik ke tahap berikutnya — per huruf lebih dulu, lalu frasa singkat, baru kemudian ayat utuh.</p>
-      <ol class="ledger" data-reveal>
-        <li><span class="no">01</span><div><span class="t">Makhraj — tempat keluarnya huruf</span><span class="d">Melafalkan setiap huruf hijaiyah dari tempat keluarnya yang benar.</span></div></li>
-        <li><span class="no">02</span><div><span class="t">Shifat — sifat-sifat huruf</span><span class="d">Membedakan huruf-huruf yang makhrajnya berdekatan melalui sifatnya, agar tidak tertukar saat dibaca.</span></div></li>
-        <li><span class="no">03</span><div><span class="t">Dalil — dasar hukum bacaan</span><span class="d">Memahami landasan setiap kaidah, bukan sekadar menghafal aturan.</span></div></li>
-        <li><span class="no">04</span><div><span class="t">Tadrib — contoh dan latihan bacaan</span><span class="d">Berlatih dengan contoh bacaan yang sudah diverifikasi pengajar, sehingga yang diulang di rumah adalah bacaan yang benar.</span></div></li>
-        <li><span class="no">05</span><div><span class="t">Kajian At-Tibyan</span><span class="tag">Sekali sepekan</span><span class="d">Kajian adab bersama Al-Qur'an dari kitab At-Tibyan karya Imam An-Nawawi — membangun niat dan perilaku, bukan hanya bacaan.</span></div></li>
+      <ol class="ledger materi" data-reveal>
+        <li><span class="no">01</span><div><span class="t">Makhraj — tempat keluarnya huruf</span><span class="d">Melafalkan setiap huruf hijaiyah dari tempat keluarnya yang benar.</span></div><span class="ar" lang="ar" aria-hidden="true">مَخْرَج</span></li>
+        <li><span class="no">02</span><div><span class="t">Shifat — sifat-sifat huruf</span><span class="d">Membedakan huruf-huruf yang makhrajnya berdekatan melalui sifatnya, agar tidak tertukar saat dibaca.</span></div><span class="ar" lang="ar" aria-hidden="true">صِفَات</span></li>
+        <li><span class="no">03</span><div><span class="t">Dalil — dasar hukum bacaan</span><span class="d">Memahami landasan setiap kaidah, bukan sekadar menghafal aturan.</span></div><span class="ar" lang="ar" aria-hidden="true">دَلِيل</span></li>
+        <li><span class="no">04</span><div><span class="t">Tadrib — contoh dan latihan bacaan</span><span class="d">Berlatih dengan contoh bacaan yang sudah diverifikasi pengajar, sehingga yang diulang di rumah adalah bacaan yang benar.</span></div><span class="ar" lang="ar" aria-hidden="true">تَدْرِيب</span></li>
+        <li><span class="no">05</span><div><span class="t">Kajian At-Tibyan</span><span class="tag">Sekali sepekan</span><span class="d">Kajian adab bersama Al-Qur'an dari kitab At-Tibyan karya Imam An-Nawawi — membangun niat dan perilaku, bukan hanya bacaan.</span></div><span class="ar" lang="ar" aria-hidden="true">التِّبْيَان</span></li>
       </ol>
       <aside class="coba" data-reveal aria-labelledby="coba-judul">
         <div class="coba-isi">
@@ -416,7 +554,7 @@ html{scroll-padding-top:84px}
   </section>
 
   <!-- ══ 5. CARA BELAJAR ══ -->
-  <section class="sec" id="cara">
+  <section class="sec sec-band" id="cara">
     <div class="wrap">
       <span class="sec-label" data-reveal>Cara belajar</span>
       <h2 class="sec-title" data-reveal>Belajar bersama, <em>terbimbing dan terpantau</em></h2>
@@ -455,7 +593,7 @@ html{scroll-padding-top:84px}
   </section>
 
   <!-- ══ 7. JADWAL ══ -->
-  <section class="sec" id="jadwal">
+  <section class="sec sec-band" id="jadwal">
     <div class="wrap">
       <span class="sec-label" data-reveal>Jadwal</span>
       <h2 class="sec-title" data-reveal>Dua kali sepekan, <em>pada jadwal yang Anda pilih</em></h2>
@@ -478,19 +616,30 @@ html{scroll-padding-top:84px}
           <p class="biaya-per">per 8 pertemuan · sekitar satu bulan</p>
           <p class="biaya-setara">Setara Rp10.000 per pertemuan — tidak lebih mahal dari secangkir kopi.</p>
         </div>
-        <ul>
-          <li><b>Satu level (40 pertemuan): Rp400.000</b> — 5 × Rp80.000, dibayar per 8 pertemuan.</li>
+        <ul class="biaya-poin">
           <li><b>Tidak ada biaya tambahan</b> lain per level.</li>
           <li><b>Pendaftaran gratis</b> — cukup bagikan informasi pendaftaran ini ke media sosial.</li>
           <li><b>Beasiswa Penuh</b> membebaskan SPP 100% bagi yang betul-betul tidak sanggup membayar. <a href="beasiswa.html">Syarat &amp; komitmen beasiswa</a></li>
         </ul>
+        <!-- Satu titik = satu pertemuan: 5 blok × 8 pertemuan = 40 pertemuan. -->
+        <div class="termin">
+          <div class="termin-kepala"><b>Satu level · 40 pertemuan</b><b class="termin-total">Rp400.000</b></div>
+          <ol class="termin-blok" aria-label="Pembayaran SPP satu level">
+            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>1–8</span><b>Rp80.000</b></li>
+            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>9–16</span><b>Rp80.000</b></li>
+            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>17–24</span><b>Rp80.000</b></li>
+            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>25–32</span><b>Rp80.000</b></li>
+            <li><span class="titik8" aria-hidden="true"></span><span class="rentang"><span class="lbl">Pertemuan </span>33–40</span><b>Rp80.000</b></li>
+          </ol>
+          <p class="termin-cat">5 × Rp80.000, dibayar per 8 pertemuan.</p>
+        </div>
       </div>
       <p class="catatan" data-reveal>Masih sanggup membayar tapi terkendala sebagian? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20keringanan%20biaya%20Kelas%20Tahsin%20Riyadhatulhuruf" target="_blank" rel="noopener">Hubungi admin</a> terlebih dahulu sebelum mendaftar.</p>
     </div>
   </section>
 
   <!-- ══ 9. PERSYARATAN ══ -->
-  <section class="sec" id="syarat">
+  <section class="sec sec-band" id="syarat">
     <div class="wrap">
       <span class="sec-label" data-reveal>Persyaratan &amp; komitmen</span>
       <h2 class="sec-title" data-reveal>Yang kami harapkan <em>dari setiap peserta</em></h2>
@@ -520,10 +669,13 @@ html{scroll-padding-top:84px}
   </section>
 
   <!-- ══ 11. FAQ ══ -->
-  <section class="sec" id="faq">
-    <div class="wrap">
-      <span class="sec-label" data-reveal>Pertanyaan umum</span>
-      <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+  <section class="sec sec-band" id="faq">
+    <div class="wrap faq-grid">
+      <div class="faq-kepala">
+        <span class="sec-label" data-reveal>Pertanyaan umum</span>
+        <h2 class="sec-title" data-reveal>Sering <em>ditanyakan</em></h2>
+        <p class="faq-lain" data-reveal>Pertanyaan Anda belum terjawab? <a href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20Kelas%20Tahsin%20Riyadhatulhuruf" target="_blank" rel="noopener">Tanya admin lewat WhatsApp</a></p>
+      </div>
       <div class="faq" data-reveal>
         <details>
           <summary>Saya belum bisa membaca Al-Qur'an sama sekali. Boleh ikut?</summary>
@@ -561,8 +713,15 @@ html{scroll-padding-top:84px}
     </div>
   </section>
 
-  <!-- ══ 12. CTA ══ -->
-  <section class="cta">
+  <!-- ══ 12. CTA — pita foto mushaf (berkas sama dengan hero, sudah di cache) ══ -->
+  <section class="cta cta-foto">
+    <picture class="cta-bg">
+      <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
+      <source media="(max-width:900px)" srcset="assets/images/Rattilhomepage-mobile-780.jpg 780w, assets/images/Rattilhomepage-mobile-1170.jpg 1170w" sizes="100vw">
+      <source type="image/webp" srcset="assets/images/Rattilhomepage-desktop-1280.webp 1280w, assets/images/Rattilhomepage-desktop-1920.webp 1920w" sizes="100vw">
+      <source srcset="assets/images/Rattilhomepage-desktop-1280.jpg 1280w, assets/images/Rattilhomepage-desktop-1920.jpg 1920w" sizes="100vw">
+      <img src="assets/images/Rattilhomepage-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </picture>
     <div class="wrap">
       <h2 data-reveal>Siap memulai dari huruf pertama?</h2>
       <p data-reveal>Satu langkah kecil yang istiqamah lebih berbuah daripada menunggu waktu yang sempurna. <span class="lead-em">Biidznillah</span></p>
