@@ -2337,9 +2337,10 @@ html.reel-terbuka{overflow:hidden}
       <div class="reg-main">
         <div class="reg-top">
           <span class="reg-no" aria-hidden="true">01</span>
-          <h3 class="reg-name">Tahsin Al-Fatihah</h3>
+          <h3 class="reg-name">Tahsin Al-Fatihah <span class="reg-flag" style="background:#047857;color:#fff">Spesial Ramadhan · Gratis</span></h3>
         </div>
         <p class="reg-about">Program akselerasi 8 pertemuan untuk memperbaiki bacaan Surah Al-Fatihah agar terbebas dari kesalahan yang mengubah makna.</p>
+        <a href="programramadhan.html" class="reg-detail">Lihat detail program <svg aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
       </div>
       <div class="reg-who">
         <span class="reg-label">Untuk Siapa</span>
@@ -3130,7 +3131,7 @@ Baarakallahu fiikum</p>
     var waBtnText = document.getElementById('regWaText');
     var ctaBar = document.getElementById('ctaDaftarBar');
     var URL_DAFTAR = '/pendaftaran/';
-    var URL_PROGRAM = 'program.html';
+    var URL_PROGRAM = (namaGel && /ramadhan/i.test(namaGel)) ? 'programramadhan.html' : 'program.html';
     var heroCtaUtama = document.getElementById('heroCtaUtama');
     var heroCdLabel = document.getElementById('heroCdLabel');
     var heroPanelTgl = document.getElementById('heroPanelTgl');
@@ -3208,7 +3209,7 @@ Baarakallahu fiikum</p>
       if(tutup && heroCdLabel) heroCdLabel.textContent = 'Pendaftaran sementara ditutup';
       // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas + modul gratis.
       if(heroCtaUtama){
-        heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : 'Lihat Kelas Riyadhatulhuruf';
+        heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : (namaGel && /ramadhan/i.test(namaGel) ? 'Lihat Kelas Ramadhan' : 'Lihat Kelas Riyadhatulhuruf');
         setTujuan(heroCtaUtama, buka ? URL_DAFTAR : URL_PROGRAM);
       }
       if(heroCtaKedua){
