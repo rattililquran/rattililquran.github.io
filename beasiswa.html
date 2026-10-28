@@ -531,13 +531,14 @@ main .cta{border-top:0;background:var(--c-band)}
   // [EDIT] per angkatan — samakan dengan PERIODE di program.html dan
   // TANGGAL_BUKA/TUTUP_PENDAFTARAN di index.html.
   // Buka 00.00 WIB tanggal "buka", tutup setelah akhir hari tanggal "tutup".
-  var PERIODE = { buka: '2026-10-20', tutup: '2026-10-30' };
+  // tutup '' = tanggal tutup belum ditetapkan. Saat ini: Kelas Ramadhan 1448 H, dibuka 20 Jan 2027.
+  var PERIODE = { buka: '2027-01-20', tutup: '' };
   (function(){
     var bar = document.getElementById('ctaLekat'), hero = document.getElementById('ctaHero'),
         akhir = document.querySelector('main .cta'), btn = document.getElementById('clBtn');
     if (!bar || !hero || !akhir || !btn) return;
     var tBuka  = new Date(PERIODE.buka  + 'T00:00:00+07:00').getTime();
-    var tTutup = new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime();
+    var tTutup = PERIODE.tutup ? new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime() : Infinity;
     function fase(){
       if (isNaN(tBuka) || isNaN(tTutup)) return 'buka';
       var now = Date.now();

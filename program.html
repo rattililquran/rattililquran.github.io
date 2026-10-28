@@ -447,7 +447,7 @@ html.theme-dark .cta-foto::after{background:
   <header class="wrap hero">
     <div class="hero-grid">
       <div>
-        <p class="status" id="statusPendaftaran">Angkatan 11 · Pendaftaran 20–30 Oktober 2026</p>
+        <p class="status" id="statusPendaftaran">Kelas Ramadhan 1448 H · Pendaftaran dibuka 20 Januari 2027</p>
         <h1>Kelas Tahsin <em>Riyadhatulhuruf</em></h1>
         <p class="hero-ar" lang="ar">رِيَاضَةُ الْحُرُوفِ</p>
         <p class="hero-lead">Kelas membaca Al-Qur'an dari dasar. Huruf dilatih satu per satu — makhraj, sifat, dan dalilnya — secara terstruktur dan terbimbing, hingga terbiasa sebelum masuk ke ayat. Terbuka bagi siapa saja yang ingin mendekatkan diri pada Al-Qur'an.</p>
@@ -466,8 +466,8 @@ html.theme-dark .cta-foto::after{background:
             <div><b id="cdMenit">00</b><span>Menit</span></div>
             <div><b id="cdDetik">00</b><span>Detik</span></div>
           </div>
-          <p class="hp-tgl" id="hpTgl">Angkatan 11 · 20–30 Oktober 2026</p>
-          <p class="hp-note" id="hpNote">Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.</p>
+          <p class="hp-tgl" id="hpTgl">Kelas Ramadhan 1448 H · Dibuka 20 Januari 2027</p>
+          <p class="hp-note" id="hpNote">Info lengkap kelas kami umumkan di Instagram dan Channel WhatsApp Rattililqur'an.</p>
         </div>
         <!-- [EDIT] Samakan dengan "Rattil dalam Angka" (data-count) di index.html. -->
         <div class="hp-angka">
@@ -671,7 +671,7 @@ html.theme-dark .cta-foto::after{background:
         <li><span class="bul">4</span><span class="t">Ramah tamah</span><span class="d">Sesi diskusi dan wawancara bersama para pengajar.</span></li>
         <li><span class="bul">5</span><span class="t">Mulai belajar</span><span class="d">Setelah diterima, Anda mendapatkan akun Portal Murid dan mulai mengikuti halaqah.</span></li>
       </ol>
-      <p class="catatan" data-reveal id="catatanPeriode">Pendaftaran Angkatan 11 dibuka <b>20–30 Oktober 2026</b>, dan dapat ditutup lebih awal bila kuota terpenuhi.</p>
+      <p class="catatan" data-reveal id="catatanPeriode">Pendaftaran Angkatan 11 sudah ditutup. Program terdekat: <b>Kelas Ramadhan 1448 H</b>, pendaftaran dibuka <b>20 Januari 2027</b>.</p>
     </div>
   </section>
 
@@ -741,7 +741,7 @@ html.theme-dark .cta-foto::after{background:
 
   <!-- Tombol daftar yang menempel di bawah layar HP; muncul setelah tombol hero terlewati. -->
   <div class="cta-lekat" id="ctaLekat">
-    <div><b id="clJudul">Angkatan 11</b><span id="clSub">Pendaftaran 20–30 Oktober 2026</span></div>
+    <div><b id="clJudul">Kelas Ramadhan 1448 H</b><span id="clSub">Dibuka 20 Januari 2027</span></div>
     <a href="/pendaftaran/" class="btn btn-primary" id="clBtn">Daftar Sekarang</a>
   </div>
 </main>
@@ -796,12 +796,14 @@ html.theme-dark .cta-foto::after{background:
   // [EDIT] per angkatan. Samakan dengan tanggal gelombang di panel admin,
   // konstanta TANGGAL_BUKA/TUTUP_PENDAFTARAN di index.html, dan PERIODE di beasiswa.html.
   // Buka 00.00 WIB tanggal "buka", tutup setelah akhir hari tanggal "tutup".
-  var PERIODE = { angkatan: 'Angkatan 11', buka: '2026-10-20', tutup: '2026-10-30' };
+  // tutup '' = tanggal tutup belum ditetapkan (fase "buka" tanpa hitung mundur penutupan).
+  var PERIODE = { angkatan: 'Kelas Ramadhan 1448 H', buka: '2027-01-20', tutup: '' };
   (function(){
     var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     function tgl(iso){ var p = iso.split('-'); return parseInt(p[2], 10) + ' ' + BULAN[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
     var tBuka  = new Date(PERIODE.buka  + 'T00:00:00+07:00').getTime();
-    var tTutup = new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime();
+    var adaTutup = !!PERIODE.tutup;
+    var tTutup = adaTutup ? new Date(PERIODE.tutup + 'T23:59:59+07:00').getTime() : Infinity;
     if (isNaN(tBuka) || isNaN(tTutup)) return;   // teks bawaan HTML tetap dipakai
 
     var URL_TANYA = 'https://wa.me/6282316993233?text=' + encodeURIComponent("Assalamualaikum, saya ingin tahu info gelombang pendaftaran Rattililqur'an berikutnya");
@@ -815,7 +817,7 @@ html.theme-dark .cta-foto::after{background:
         ? parseInt(pa[2], 10) + '–' + tgl(b)
         : tgl(a) + ' – ' + tgl(b);
     }
-    $('hpTgl').textContent = PERIODE.angkatan + ' · ' + rentang(PERIODE.buka, PERIODE.tutup);
+    $('hpTgl').textContent = PERIODE.angkatan + ' · ' + (adaTutup ? rentang(PERIODE.buka, PERIODE.tutup) : 'Dibuka ' + tgl(PERIODE.buka));
     $('clJudul').textContent = PERIODE.angkatan;
 
     var fase = null, timer = null;
@@ -827,7 +829,7 @@ html.theme-dark .cta-foto::after{background:
       status.setAttribute('data-fase', f);
       status.textContent = PERIODE.angkatan + ' · ' + (
         f === 'sebelum' ? 'Pendaftaran dibuka ' + tgl(PERIODE.buka) :
-        f === 'buka'    ? 'Pendaftaran dibuka hingga ' + tgl(PERIODE.tutup) :
+        f === 'buka'    ? (adaTutup ? 'Pendaftaran dibuka hingga ' + tgl(PERIODE.tutup) : 'Pendaftaran sedang dibuka') :
                           'Pendaftaran sudah ditutup');
       cta.forEach(function(a){
         if (!a) return;
@@ -845,8 +847,10 @@ html.theme-dark .cta-foto::after{background:
       $('hpLabel').textContent = f === 'sebelum' ? 'Pendaftaran dibuka dalam' : f === 'buka' ? 'Pendaftaran ditutup dalam' : 'Pendaftaran sudah ditutup';
       $('hpCd').hidden = f === 'tutup';
       if (f === 'tutup') $('hpNote').textContent = 'Info gelombang berikutnya kami umumkan di Instagram dan Channel WhatsApp Rattililqur\'an.';
+      if (f === 'buka') $('hpNote').textContent = 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
+      $('hpCd').hidden = f === 'tutup' || (f === 'buka' && !adaTutup);
       $('ctaLekat').setAttribute('data-fase', f);
-      $('clSub').textContent = f === 'sebelum' ? 'Dibuka ' + tgl(PERIODE.buka) : 'Ditutup ' + tgl(PERIODE.tutup);
+      $('clSub').textContent = f === 'sebelum' ? 'Dibuka ' + tgl(PERIODE.buka) : (adaTutup ? 'Ditutup ' + tgl(PERIODE.tutup) : 'Pendaftaran dibuka');
       $('clBtn').textContent = f === 'sebelum' ? 'Lihat formulir' : 'Daftar Sekarang';
       if (f === 'tutup' && timer) { clearInterval(timer); timer = null; }
       // Tombol menempel ikut diperbarui saat fase berganti, tanpa menunggu pengunjung
