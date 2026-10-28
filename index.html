@@ -1966,7 +1966,7 @@ html.reel-terbuka{overflow:hidden}
       <!-- Tombol ajakan: teks & tujuan berganti mengikuti fase pendaftaran (skrip status di bawah). -->
       <div class="hero-cta h-anim" style="animation-delay:.5s">
         <a href="program.html" class="btn btn-primary btn-lg" id="heroCtaUtama">Lihat Kelas Riyadhatulhuruf</a>
-        <a href="modul.html" class="btn btn-ghost btn-lg" id="heroCtaKedua">Coba Modul Gratis</a>
+        <a href="programramadhan.html" class="btn btn-ghost btn-lg" id="heroCtaKedua">Kelas Ramadhan</a>
       </div>
     </div>
 
@@ -3207,14 +3207,14 @@ Baarakallahu fiikum</p>
             : 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
       }
       if(tutup && heroCdLabel) heroCdLabel.textContent = 'Pendaftaran sementara ditutup';
-      // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas + modul gratis.
+      // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas reguler + kelas ramadhan.
       if(heroCtaUtama){
-        heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : (namaGel && /ramadhan/i.test(namaGel) ? 'Lihat Kelas Ramadhan' : 'Lihat Kelas Riyadhatulhuruf');
-        setTujuan(heroCtaUtama, buka ? URL_DAFTAR : URL_PROGRAM);
+        heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : 'Lihat Kelas Riyadhatulhuruf';
+        setTujuan(heroCtaUtama, buka ? URL_DAFTAR : 'program.html');
       }
       if(heroCtaKedua){
-        heroCtaKedua.textContent = buka ? 'Lihat detail program' : 'Coba Modul Gratis';
-        setTujuan(heroCtaKedua, buka ? URL_PROGRAM : 'modul.html');
+        heroCtaKedua.textContent = 'Kelas Ramadhan';
+        setTujuan(heroCtaKedua, 'programramadhan.html');
       }
     }
 
