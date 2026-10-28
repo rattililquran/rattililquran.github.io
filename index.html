@@ -3039,13 +3039,15 @@ Baarakallahu fiikum</p>
   // Status dibuka/ditutup, tombol daftar, hitung mundur, dan teks siap-bagikan berganti
   // otomatis mengikuti tanggal — termasuk tepat saat jamnya tiba, tanpa memuat ulang halaman.
   // Kosongkan TANGGAL_BUKA_PENDAFTARAN ('') bila jadwal gelombang berikutnya belum pasti.
-  var TANGGAL_BUKA_PENDAFTARAN  = '2026-10-20T00:00:00+07:00';
-  var TANGGAL_TUTUP_PENDAFTARAN = '2026-10-30T23:59:59+07:00';
+  // Angkatan 11 (20–30 Okt 2026) ditutup lebih awal di beranda (28 Okt 2026). Berikutnya:
+  // Kelas Ramadhan 1448 H, dibuka 20 Jan 2027. Tanggal tutupnya belum ditetapkan.
+  var TANGGAL_BUKA_PENDAFTARAN  = '2027-01-20T00:00:00+07:00';
+  var TANGGAL_TUTUP_PENDAFTARAN = '';
   // [EDIT] ubah ke true bila kuota penuh sebelum tanggal tutup. Menutup pendaftaran lewat
   // tombol "Tutup Pendaftaran" di panel admin juga menutup halaman ini (lewat backend).
   var TUTUP_LEBIH_AWAL = false;
   // [EDIT] nama gelombang cadangan (dipakai sebelum/bila backend tidak menjawab).
-  var NAMA_GELOMBANG = 'Angkatan 11';
+  var NAMA_GELOMBANG = 'Kelas Ramadhan 1448 H';
   var BACKEND_INFO_URL = 'https://script.google.com/macros/s/AKfycbxYlR1MnbxBEmDpr5GqahYO3g2v6wUZfrda-N_VrgQua_5uKlRJx1X81-5lLim0Q9jTyw/exec?action=info';
   var PESAN_TUTUP = "Pendaftaran gelombang ini sudah ditutup. Hubungi kami via WhatsApp untuk info gelombang berikutnya.";
   (function(){
@@ -3156,7 +3158,9 @@ Baarakallahu fiikum</p>
       if(heroPanelNote){
         heroPanelNote.textContent = tutup
           ? "Info gelombang berikutnya kami umumkan di Instagram dan Channel WhatsApp Rattililqur'an."
-          : 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
+          : segera
+            ? "Info lengkap kelas kami umumkan di Instagram dan Channel WhatsApp Rattililqur'an."
+            : 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
       }
       if(tutup && heroCdLabel) heroCdLabel.textContent = 'Pendaftaran sementara ditutup';
       // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas + modul gratis.
@@ -3253,6 +3257,11 @@ Baarakallahu fiikum</p>
       var b = toTime(d.tgl_mulai + 'T00:00:00+07:00');
       var t = toTime(d.tgl_selesai + 'T23:59:59+07:00');
       if(b === null || t === null || t < b) return false;
+      // Gelombang di backend lebih lama dari jadwal cadangan di atas (mis. backend masih
+      // Angkatan 11 setelah beranda dialihkan ke gelombang berikutnya) → abaikan. Begitu
+      // gelombang baru dibuat & diaktifkan di panel admin, backend kembali jadi acuan.
+      var bCadangan = toTime(TANGGAL_BUKA_PENDAFTARAN);
+      if(bCadangan !== null && b < bCadangan - 86400000) return false;
       tBuka = b; tTutup = t;
       tglBuka = fmtTanggal(d.tgl_mulai); tglTutup = fmtTanggal(d.tgl_selesai);
       isoBuka = d.tgl_mulai; isoTutup = d.tgl_selesai;
