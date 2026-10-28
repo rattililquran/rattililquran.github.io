@@ -382,9 +382,11 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
 }
 .hero p.lead{font-size:clamp(17px,1.4vw,20px);color:var(--c-ink);max-width:660px;margin:22px 0 0;line-height:1.7}
 .hero p.lead .lead-em{display:block;margin-top:.9em;font-style:italic;font-weight:600;color:inherit}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start}
+/* Tiga tombol hero simetris: ukuran, tinggi, padding, dan border seragam */
+.hero-copy .hero-cta .btn{flex:1 1 0;min-width:190px;padding:15px 18px;font-size:14px;letter-spacing:-.01em;text-align:center;justify-content:center;box-sizing:border-box}
 /* Tombol hero: kontras teks putih lulus AA (gradien diperdalam seperti CTA footer). */
-.hero .hero-cta .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
+.hero .hero-cta .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5);border:1.5px solid transparent}
 .hero .hero-cta .btn-primary{box-shadow:0 10px 26px rgba(3,105,161,.3)}
 /* Panel periode pendaftaran di kolom kanan hero — desain sama dengan program.html:
    hitung mundur, tanggal gelombang, catatan kuota, dan angka. */
@@ -489,7 +491,7 @@ html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%
   }
   .hero-cta{justify-content:center}
   .hero .hero-cta{margin-top:20px;gap:10px}
-  .hero .hero-cta .btn{padding:12px 20px;font-size:14.5px;border-radius:13px}
+  .hero-copy .hero-cta .btn{flex:1 1 100%;max-width:360px;min-width:0;padding:13px 20px;font-size:14px;border-radius:13px}
   .hero-panel{max-width:380px;margin:24px auto 0}
   .hp-atas{padding:18px 18px 16px}
   .hp-cd b{font-size:23px}
@@ -1963,10 +1965,11 @@ html.reel-terbuka{overflow:hidden}
       <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
       <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata. <em class="lead-em">Biidznillah</em></p>
 
-      <!-- Tombol ajakan: teks & tujuan berganti mengikuti fase pendaftaran (skrip status di bawah). -->
+      <!-- Tiga tombol hero simetris: Kelas Utama, Kelas Ramadhan, dan Modul Gratis -->
       <div class="hero-cta h-anim" style="animation-delay:.5s">
         <a href="program.html" class="btn btn-primary btn-lg" id="heroCtaUtama">Lihat Kelas Riyadhatulhuruf</a>
         <a href="programramadhan.html" class="btn btn-ghost btn-lg" id="heroCtaKedua">Kelas Ramadhan</a>
+        <a href="modul.html" class="btn btn-ghost btn-lg" id="heroCtaKetiga">Coba Modul Gratis</a>
       </div>
     </div>
 
@@ -3137,6 +3140,7 @@ Baarakallahu fiikum</p>
     var heroPanelTgl = document.getElementById('heroPanelTgl');
     var heroPanelNote = document.getElementById('heroPanelNote');
     var heroCtaKedua = document.getElementById('heroCtaKedua');
+    var heroCtaKetiga = document.getElementById('heroCtaKetiga');
     // Tautan WhatsApp dibuka di tab baru; tautan internal di tab yang sama.
     function setTujuan(a, href){
       a.href = href;
@@ -3207,7 +3211,7 @@ Baarakallahu fiikum</p>
             : 'Kuota setiap halaqah terbatas. Jadwal yang sudah penuh tetap bisa dipilih lewat daftar tunggu.';
       }
       if(tutup && heroCdLabel) heroCdLabel.textContent = 'Pendaftaran sementara ditutup';
-      // Tombol hero: saat dibuka langsung ke formulir; selain itu ke halaman kelas reguler + kelas ramadhan.
+      // Tiga tombol hero: kelas reguler, kelas ramadhan, dan modul gratis
       if(heroCtaUtama){
         heroCtaUtama.textContent = buka ? 'Daftar Sekarang' : 'Lihat Kelas Riyadhatulhuruf';
         setTujuan(heroCtaUtama, buka ? URL_DAFTAR : 'program.html');
@@ -3215,6 +3219,10 @@ Baarakallahu fiikum</p>
       if(heroCtaKedua){
         heroCtaKedua.textContent = 'Kelas Ramadhan';
         setTujuan(heroCtaKedua, 'programramadhan.html');
+      }
+      if(heroCtaKetiga){
+        heroCtaKetiga.textContent = 'Coba Modul Gratis';
+        setTujuan(heroCtaKetiga, 'modul.html');
       }
     }
 
