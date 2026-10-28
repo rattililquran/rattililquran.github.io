@@ -348,6 +348,14 @@ html.theme-dark .hero::after{
 /* Segera dibuka (sebelum tanggal buka): kuning, tetap berdenyut. */
 .hero-badge.soon .dot{background:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.2)}
 .hero-badge.soon .dot::after{background:#f59e0b}
+.hero-badge .dot{flex-shrink:0}
+.hero-badge .hb-sep::before{content:' · '}
+/* Layar sempit: nama gelombang & tanggal disusun dua baris (bukan teks yang terpotong acak). */
+@media(max-width:420px){
+  .hero-badge{border-radius:16px;text-align:left;padding:8px 14px;line-height:1.35}
+  .hero-badge .hb-sep{display:none}
+  .hero-badge .hb-tgl{display:block;font-size:12px;font-weight:600;color:var(--c-ink-2)}
+}
 @keyframes dotPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(3);opacity:0}}
 @keyframes wordUp{to{opacity:1;transform:translateY(0)}}
 .hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--c-ink);margin-top:12px;display:flex;flex-wrap:wrap;gap:.22em;justify-content:flex-start}
@@ -2006,10 +2014,35 @@ html.reel-terbuka{overflow:hidden}
   <div class="reels-rak" data-reveal>
     <button class="reels-panah reels-panah--kiri" type="button" aria-label="Geser ke kiri" aria-controls="reelsBaris" hidden><svg aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
     <ul class="reels-baris" id="reelsBaris">
-      <li><a class="reel-kartu" href="https://www.instagram.com/reel/DexfDy7Tz4D/" target="_blank" rel="noopener" data-ig="DexfDy7Tz4D" data-judul="90% dari kursi Angkatan 11 sudah terisi" aria-label="Putar Reels: 90% dari kursi Angkatan 11 sudah terisi (59 detik)">
-        <img src="assets/images/reels/kuota-90-300.webp" srcset="assets/images/reels/kuota-90-300.webp 300w, assets/images/reels/kuota-90-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/DfBNsGpTX7i/" target="_blank" rel="noopener" data-ig="DfBNsGpTX7i" data-judul="“Waktu saya akan habis kalau saya mengaji.”" aria-label="Putar Reels: “Waktu saya akan habis kalau saya mengaji.” (1 menit 34 detik)">
+        <img src="assets/images/reels/waktu-habis-mengaji-300.webp" srcset="assets/images/reels/waktu-habis-mengaji-300.webp 300w, assets/images/reels/waktu-habis-mengaji-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
         <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
-        <span class="reel-durasi" aria-hidden="true">0:59</span>
+        <span class="reel-durasi" aria-hidden="true">1:34</span>
+      </a></li>
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/De-fhlMzQJZ/" target="_blank" rel="noopener" data-ig="De-fhlMzQJZ" data-judul="Masihkah kita enggan membacanya, di saat kita punya dua mata yang sempurna?" aria-label="Putar Reels: Masihkah kita enggan membacanya, di saat kita punya dua mata yang sempurna? (1 menit 5 detik)">
+        <img src="assets/images/reels/islambek-300.webp" srcset="assets/images/reels/islambek-300.webp 300w, assets/images/reels/islambek-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+        <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+        <span class="reel-durasi" aria-hidden="true">1:05</span>
+      </a></li>
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/De77sp5TK5Y/" target="_blank" rel="noopener" data-ig="De77sp5TK5Y" data-judul="Tidak ada alasan untuk tidak membacanya" aria-label="Putar Reels: Tidak ada alasan untuk tidak membacanya (1 menit 40 detik)">
+        <img src="assets/images/reels/tidak-ada-alasan-300.webp" srcset="assets/images/reels/tidak-ada-alasan-300.webp 300w, assets/images/reels/tidak-ada-alasan-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+        <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+        <span class="reel-durasi" aria-hidden="true">1:40</span>
+      </a></li>
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/De5UFUezgnI/" target="_blank" rel="noopener" data-ig="De5UFUezgnI" data-judul="Siapa manusia terbaik?" aria-label="Putar Reels: Siapa manusia terbaik? (1 menit 18 detik)">
+        <img src="assets/images/reels/manusia-terbaik-300.webp" srcset="assets/images/reels/manusia-terbaik-300.webp 300w, assets/images/reels/manusia-terbaik-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+        <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+        <span class="reel-durasi" aria-hidden="true">1:18</span>
+      </a></li>
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/De28SlUzmVD/" target="_blank" rel="noopener" data-ig="De28SlUzmVD" data-judul="Satu huruf Al-Qur'an, kenapa tidak langsung sepuluh?" aria-label="Putar Reels: Satu huruf Al-Qur'an, kenapa tidak langsung sepuluh? (1 menit 21 detik)">
+        <img src="assets/images/reels/satu-huruf-sepuluh-300.webp" srcset="assets/images/reels/satu-huruf-sepuluh-300.webp 300w, assets/images/reels/satu-huruf-sepuluh-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+        <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+        <span class="reel-durasi" aria-hidden="true">1:21</span>
+      </a></li>
+      <li><a class="reel-kartu" href="https://www.instagram.com/reel/De0ni3uzp4c/" target="_blank" rel="noopener" data-ig="De0ni3uzp4c" data-yt="nd_2C3rRT6E" data-judul="Hadir di halaqah untuk membetulkan satu huruf. Ada yang ikut terhapus" aria-label="Putar Reels: Hadir di halaqah untuk membetulkan satu huruf. Ada yang ikut terhapus (1 menit 23 detik)">
+        <img src="assets/images/reels/ada-yang-terhapus-300.webp" srcset="assets/images/reels/ada-yang-terhapus-300.webp 300w, assets/images/reels/ada-yang-terhapus-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
+        <span class="reel-putar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+        <span class="reel-durasi" aria-hidden="true">1:23</span>
       </a></li>
       <li><a class="reel-kartu" href="https://www.instagram.com/reel/DewGZnXA_em/" target="_blank" rel="noopener" data-ig="DewGZnXA_em" data-judul="Belajar membaca Al-Qur'an terasa terlalu berat untuk dimulai?" aria-label="Putar Reels: Belajar membaca Al-Qur'an terasa terlalu berat untuk dimulai? (57 detik)">
         <img src="assets/images/reels/asy-syarh-5-6-300.webp" srcset="assets/images/reels/asy-syarh-5-6-300.webp 300w, assets/images/reels/asy-syarh-5-6-600.webp 600w" sizes="(max-width:640px) 42vw, (max-width:900px) 27vw, 215px" width="300" height="400" alt="" loading="lazy" decoding="async">
@@ -3116,13 +3149,23 @@ Baarakallahu fiikum</p>
     }
     function terapkanStatus(fase){
       var buka = fase === 'buka', segera = fase === 'sebelum', tutup = fase === 'tutup';
-      var awalan = namaGel ? namaGel + ' · ' : 'Pendaftaran ';
       heroBadge.classList.toggle('open', buka);
       heroBadge.classList.toggle('soon', segera);
       heroBadge.classList.toggle('closed', tutup);
-      heroBadgeText.textContent = buka ? awalan + (namaGel ? 'Dibuka' : 'dibuka') + ' hingga ' + tglTutup
-        : segera ? awalan + (namaGel ? 'Dibuka' : 'dibuka') + ' ' + tglBuka
-        : 'Pendaftaran sementara ditutup';
+      // Nama gelombang & tanggal sebagai dua bagian: satu baris di layar lebar, dua baris
+      // tersusun di HP (CSS .hb-tgl). Tanpa nama gelombang → satu kalimat biasa.
+      var tglBadge = buka ? (tTutup !== null ? 'Dibuka hingga ' + tglTutup : 'Pendaftaran dibuka')
+        : segera ? 'Dibuka ' + tglBuka : '';
+      heroBadgeText.textContent = '';
+      if(tutup || !namaGel){
+        heroBadgeText.textContent = tutup ? 'Pendaftaran sementara ditutup'
+          : 'Pendaftaran ' + tglBadge.charAt(0).toLowerCase() + tglBadge.slice(1);
+      } else {
+        [['hb-nama', namaGel], ['hb-sep', ''], ['hb-tgl', tglBadge]].forEach(function(b){
+          var sp = document.createElement('span'); sp.className = b[0]; sp.textContent = b[1];
+          heroBadgeText.appendChild(sp);
+        });
+      }
       regStatus.classList.toggle('open', buka);
       regStatus.classList.toggle('soon', segera);
       regStatus.classList.toggle('closed', tutup);
