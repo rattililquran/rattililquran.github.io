@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+(function(){var t='system';try{t=localStorage.getItem('theme')||'system';}catch(e){}if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark');})();
+// Penanda JS aktif: animasi reveal hanya menyembunyikan konten bila skrip jalan.
+document.documentElement.classList.add('js');
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1f35"/>
+<meta name="description" content="Infaq untuk Rattililqur'an lewat QRIS: pindai dari aplikasi bank atau e-wallet apa pun dan ketik nominalnya sendiri."/>
+<link rel="canonical" href="https://rattililquran.com/infaq.html"/>
+<meta property="og:title" content="Infaq — Rattililqur'an"/>
+<meta property="og:description" content="Infaq lewat QRIS resmi Rattililqur'an. Pindai dari aplikasi bank atau e-wallet apa pun."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://rattililquran.com/infaq.html"/>
+<meta property="og:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Rattililqur'an — Sebuah Ikhtiar Menjadi Sahabat Al-Qur'an"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:locale" content="id_ID"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Infaq — Rattililqur'an"/>
+<meta name="twitter:description" content="Infaq lewat QRIS resmi Rattililqur'an. Pindai dari aplikasi bank atau e-wallet apa pun."/>
+<meta name="twitter:image" content="https://rattililquran.com/assets/images/og-home.jpg"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Infaq lewat QRIS | Rattililqur'an</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/portal-modul.css">
+<style>
+/* ══ Komponen khusus halaman Infaq (sisanya dari portal-modul.css) ══
+   Rencana & pengaman: rencana_infaq.md. QRIS diperiksa alat/cek-infaq.sh sebelum deploy. */
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:12.5px;font-weight:700;color:var(--c-ink-2);line-height:1.4}
+.pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2);flex-shrink:0}
+.infaq-grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:40px;align-items:start;margin-top:30px}
+.qris{margin:0;border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-lg);padding:22px;text-align:center}
+.qris-kode{display:block;background:#fff;border-radius:var(--r);padding:10px}
+.qris-kode img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.qris figcaption{margin-top:16px;font-size:14px;line-height:1.55;color:var(--c-ink-2)}
+.qris-nama{display:block;font-size:16px;font-weight:800;color:var(--c-ink)}
+.qris-nmid{display:block;margin-top:2px;font-family:var(--font-label);font-variant-numeric:tabular-nums;font-size:13px;color:var(--c-ink-3)}
+.qris-cek{display:block;margin-top:10px;font-size:13px;color:var(--c-ink-3)}
+.qris .btn{width:100%;margin-top:16px}
+.langkah h2{font-size:clamp(22px,2.4vw,28px);font-weight:800;letter-spacing:-.02em;line-height:1.25}
+.langkah h3{margin-top:22px;font-size:16px;font-weight:800}
+.langkah p,.langkah li{font-size:15.5px;color:var(--c-ink-2)}
+.langkah p{margin-top:8px}
+.langkah ol{margin:10px 0 0;padding-left:22px}
+.langkah li{margin-top:6px}
+.catatan-kotak{margin-top:26px;padding:18px 20px;border:1px solid var(--c-line);border-radius:var(--r);background:var(--c-soft)}
+.catatan-kotak p{margin:0;font-size:14.5px}
+.catatan-kotak p+p{margin-top:10px}
+.catatan-kotak .btn{margin-top:12px}
+.waspada{border-color:rgba(217,119,6,.35);background:rgba(245,158,11,.08)}
+/* Ucapan terima kasih */
+.syukur{margin-top:28px}
+.syukur>summary{list-style:none;cursor:pointer;width:100%}
+.syukur>summary::-webkit-details-marker{display:none}
+.syukur[open]>summary{display:none}
+.syukur-isi{border:1px solid var(--c-line);border-radius:var(--r-lg);background:var(--c-card);box-shadow:var(--sh-lg);padding:28px 26px;text-align:center;background-image:radial-gradient(120% 70% at 50% 0%,rgba(16,185,129,.10),transparent 60%)}
+.syukur[open] .syukur-isi{animation:syukurMasuk .7s var(--ease-spring) both}
+@keyframes syukurMasuk{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.langkah .syukur-ar{margin:0;font-family:'Amiri',serif;font-size:clamp(34px,5vw,44px);line-height:1.4;color:var(--c-accent)}
+.syukur-judul{margin-top:4px;font-size:clamp(22px,2.6vw,28px);font-weight:800;letter-spacing:-.02em;outline:none}
+.langkah .syukur-doa{margin:10px auto 0;max-width:46ch;font-size:16px;color:var(--c-ink-2)}
+.syukur-ayat{margin:22px 0 0;padding:20px 18px;border-radius:var(--r);background:var(--c-soft)}
+.syukur-ayat blockquote{margin:0}
+.syukur-ayat [lang=ar]{margin:0;font-family:'Amiri',serif;font-size:clamp(22px,3vw,27px);line-height:2;color:var(--c-ink)}
+.syukur-ayat blockquote p+p{margin-top:10px;font-size:15px;font-style:italic;color:var(--c-ink-2)}
+.syukur-ayat figcaption{margin-top:8px;font-size:13px;font-weight:700;color:var(--c-ink-3)}
+.syukur-kabar{margin-top:24px;text-align:left}
+.syukur-kabar h3{font-size:16px;font-weight:800}
+.syukur-kabar h3 span{font-weight:600;color:var(--c-ink-3)}
+.langkah .syukur-kabar>p{margin-top:4px;font-size:13.5px;color:var(--c-ink-3)}
+.syukur-isian{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.syukur-isian label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--c-ink-2)}
+.syukur-isian input{font:inherit;font-weight:500;font-size:15px;padding:11px 13px;border:1px solid var(--c-line);border-radius:12px;background:var(--c-bg);color:var(--c-ink);min-height:44px}
+.syukur-isian input:focus{outline:2px solid var(--c-primary);outline-offset:1px}
+.syukur-kabar .btn{margin-top:14px;width:100%}
+@media(max-width:520px){.syukur-isi{padding:24px 18px}.syukur-isian{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.syukur[open] .syukur-isi{animation:none}}
+@media(max-width:900px){.infaq-grid{grid-template-columns:1fr;gap:30px}.qris{max-width:380px;margin:0 auto;width:100%}}
+</style>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important;animation:none!important}
+
+</style></noscript>
+</head>
+<body>
+
+<!-- ══ SPRITE IKON ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.1 8.9v6.2l5.1-3.1z" fill="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-buku" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></symbol>
+  <symbol id="i-kisi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.5"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.5"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.5"/></symbol>
+  <symbol id="i-peta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="6" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="19" cy="18" r="1.8"/><path d="M6.4 7.2l3.5 3M17.6 7.2l-3.5 3M6.4 16.8l3.5-3M17.6 16.8l-3.5-3"/></symbol>
+  <symbol id="i-toga" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.5v4c0 1.4 2.5 2.8 5.5 2.8s5.5-1.4 5.5-2.8v-4"/><path d="M21.5 9.5v5"/></symbol>
+  <symbol id="i-kitab" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-1.8-1.3-4.3-2-7.5-2v13c3.2 0 5.7.7 7.5 2 1.8-1.3 4.3-2 7.5-2v-13c-3.2 0-5.7.7-7.5 2z"/><path d="M12 6.5v13"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-keluar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+</svg>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
+      <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="/#tentang"     class="nav-link">Tentang</a>
+      <a href="/#program"     class="nav-link">Program &amp; Jadwal</a>
+      <a href="/#pendaftaran" class="nav-link">Pendaftaran</a>
+      <a href="beasiswa.html" class="nav-link">Beasiswa</a>
+      <a href="/#faq"         class="nav-link">FAQ</a>
+      <a href="/#kontak"      class="nav-link">Kontak</a>
+      <a href="portal.html" class="nav-link" data-nav="portal">Portal</a>
+      <a href="modul.html"  class="nav-link" data-nav="modul">Modul</a>
+      <a href="infaq.html"  class="nav-link active" data-nav="infaq">Infaq</a>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-mobile" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary nav-cta nav-cta-desktop" style="padding:10px 20px;font-size:13.5px">Masuk Portal</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">Beranda</a>
+  <span aria-hidden="true">›</span>
+  <span>Infaq</span>
+</nav>
+
+<main>
+  <header class="wrap hero">
+    <p class="pill">Infaq · QRIS</p>
+    <h1>Infaq untuk <em>Rattililqur'an</em></h1>
+    <!-- [EDIT] peruntukan infaq: tulis persis sesuai keputusan pengelola (rencana_infaq.md §1). -->
+    <p class="hero-lead">Infaq Anda membantu kegiatan belajar membaca Al-Qur'an di Rattililqur'an. Pindai QRIS di bawah dari aplikasi bank atau e-wallet apa pun, lalu ketik nominalnya sendiri.</p>
+
+    <div class="infaq-grid">
+      <!-- QRIS resmi (DANA, statis). Isi kode dicek alat/cek-infaq.sh; jangan ganti gambar tanpa
+           memperbarui acuan di skrip itu dan rencana_infaq.md §1. -->
+      <figure class="qris" data-reveal>
+        <span class="qris-kode">
+          <img src="assets/images/infaq/qris-dana-640.png" srcset="assets/images/infaq/qris-dana-640.png 640w, assets/images/infaq/qris-dana-1024.png 1024w" sizes="(max-width:900px) 336px, 296px" width="640" height="640" alt="Kode QRIS infaq Rattililqur'an. Nama penerima rattililquran, Service. NMID ID1026611450127." decoding="async">
+        </span>
+        <figcaption>
+          <span class="qris-nama">rattililquran, Service</span>
+          <span class="qris-nmid">NMID ID1026611450127</span>
+          <span class="qris-cek">Pastikan nama ini yang muncul di aplikasi Anda sebelum membayar.</span>
+        </figcaption>
+        <a class="btn btn-primary btn-lg" href="assets/images/infaq/qris-dana-1024.png" download="QRIS-Infaq-Rattililquran.png">Simpan gambar QRIS</a>
+      </figure>
+
+      <div class="langkah" data-reveal>
+        <h2>Cara berinfaq</h2>
+        <h3>Dari laptop atau komputer</h3>
+        <p>Buka aplikasi bank atau e-wallet di HP, pilih menu bayar atau pindai QRIS, lalu arahkan kamera ke kode di layar.</p>
+        <h3>Dari HP</h3>
+        <ol>
+          <li>Ketuk <b>Simpan gambar QRIS</b>.</li>
+          <li>Di aplikasi bank atau e-wallet, buka menu bayar atau pindai QRIS, lalu pilih gambar dari galeri.</li>
+          <li>Ketik nominal, pastikan nama penerima <b>rattililquran, Service</b>, lalu bayar.</li>
+        </ol>
+
+        <!-- Ucapan terima kasih. QRIS statis tidak mengabari situs, jadi pemberi sendiri yang
+             membuka panel ini. <details> bekerja tanpa JavaScript; skrip hanya menyusun pesan WA.
+             Teks Arab: QS. Saba' [34]: 39 (potongan) disalin dari quran.com (Uthmani), terjemahan
+             Kemenag. Wajib diperiksa pengajar sebelum tayang (rencana_infaq.md §12). -->
+        <details class="syukur" id="syukur">
+          <summary class="btn btn-primary btn-lg">Saya sudah berinfaq</summary>
+          <div class="syukur-isi" aria-live="polite">
+            <p class="syukur-ar" lang="ar" dir="rtl">جَزَاكُمُ اللَّهُ خَيْرًا</p>
+            <h2 class="syukur-judul" id="syukurJudul" tabindex="-1">Jazaakumullahu khairan</h2>
+            <p class="syukur-doa">Semoga Allah menerima infaq Anda, memberkahi harta dan keluarga Anda, dan menggantinya dengan yang lebih baik.</p>
+            <figure class="syukur-ayat">
+              <blockquote>
+                <p lang="ar" dir="rtl">وَمَآ أَنفَقْتُم مِّن شَىْءٍ فَهُوَ يُخْلِفُهُۥ ۖ وَهُوَ خَيْرُ ٱلرَّٰزِقِينَ</p>
+                <p>"Dan apa saja yang kamu infakkan, Allah akan menggantinya dan Dialah pemberi rezeki yang terbaik."</p>
+              </blockquote>
+              <figcaption>QS. Saba' [34]: 39</figcaption>
+            </figure>
+
+            <div class="syukur-kabar">
+              <h3>Kabari kami <span>(tidak wajib)</span></h3>
+              <p>Isian ini hanya masuk ke pesan WhatsApp Anda, tidak disimpan di situs.</p>
+              <div class="syukur-isian">
+                <label>Nama <input type="text" id="kabarNama" maxlength="60" autocomplete="name" placeholder="Boleh dikosongkan"></label>
+                <label>Nominal <input type="text" id="kabarNominal" maxlength="15" inputmode="numeric" placeholder="Contoh: 50.000"></label>
+              </div>
+              <a class="btn btn-ghost" id="kabarWa" href="https://wa.me/6282316993233?text=Assalamualaikum%2C%20saya%20sudah%20berinfaq%20untuk%20Rattililqur'an%20lewat%20QRIS.%20Berikut%20bukti%20pembayarannya." target="_blank" rel="noopener noreferrer">Kirim bukti lewat WhatsApp</a>
+            </div>
+          </div>
+        </details>
+
+        <div class="catatan-kotak waspada">
+          <p>Rattililqur'an hanya menerima infaq lewat QRIS di halaman ini. Bila ada yang meminta transfer atas nama Rattililqur'an ke nomor atau rekening lain, mohon tanyakan dulu ke WhatsApp resmi kami di <b>0823-1699-3233</b>.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-lead">
+      <div class="footer-lead-text">
+        <p class="footer-ar">بَارَكَ اللَّهُ فِيكُمْ</p>
+        <p class="footer-line">Membimbing setiap muslim membaca Al-Qur'an dengan tartil.</p>
+      </div>
+      <a href="https://portal.rattililquran.com/" class="btn btn-primary footer-cta">Masuk Portal</a>
+    </div>
+
+    <nav class="footer-nav" aria-label="Tautan footer">
+      <div class="footer-row">
+        <h2>Jelajahi</h2>
+        <a href="/#tentang">Tentang</a>
+        <a href="/#program">Program &amp; Jadwal</a>
+        <a href="/#pendaftaran">Pendaftaran</a>
+        <a href="beasiswa.html">Beasiswa</a>
+        <a href="infaq.html">Infaq</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="footer-row">
+        <h2>Portal</h2>
+        <a href="portal.html">Portal Murid</a>
+        <a href="modul.html">Modul Belajar</a>
+        <a href="https://www.youtube.com/playlist?list=PLY4GFxLoZrbc" target="_blank" rel="noopener">Video Portal</a>
+      </div>
+      <div class="footer-row">
+        <h2>Terhubung</h2>
+        <a href="https://wa.me/6282316993233" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://instagram.com/rattililquran" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://youtube.com/@rattililquranindonesia" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </nav>
+
+    <div class="footer-meta">
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <p class="footer-copy">&copy; <span id="yearStart">2020</span>&ndash;<span id="year">2026</span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Tema
+  (function(){
+    var btn=document.getElementById('themeToggle');
+    btn.addEventListener('click',function(){
+      var isDark=document.documentElement.classList.contains('theme-dark');
+      var next=isDark?'light':'dark';
+      try{ localStorage.setItem('theme',next); }catch(e){}
+      document.documentElement.classList.toggle('theme-dark', next==='dark');
+    });
+  })();
+
+  // Menu mobile
+  (function(){
+    var t=document.getElementById('navToggle'), l=document.getElementById('navLinks');
+    if(!t||!l) return;
+    function setMenu(open){
+      l.classList.toggle('show',open);
+      t.classList.toggle('open',open);
+      t.setAttribute('aria-expanded', open?'true':'false');
+    }
+    t.addEventListener('click',function(){ setMenu(!l.classList.contains('show')); });
+    l.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){ setMenu(false); });
+    });
+    // Escape menutup menu, dan fokus dikembalikan ke tombolnya.
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&l.classList.contains('show')){ setMenu(false); t.focus(); }
+    });
+
+  // Klik di luar menu menutupnya. Sebelumnya perilaku ini datang tidak sengaja
+  // dari menu yang masih terlihat; setelah panel memakai visibility:hidden
+  // perlu ditangani secara eksplisit.
+  document.addEventListener('click', function(e){
+    if(!l.classList.contains('show')) return;
+    if(t.contains(e.target) || l.contains(e.target)) return;
+    setMenu(false);
+  });
+
+  })();
+
+  // Ucapan terima kasih: fokus ke judul saat dibuka; susun pesan WA dari isian (tidak disimpan).
+  (function(){
+    var d = document.getElementById('syukur'), a = document.getElementById('kabarWa');
+    if(!d || !a) return;
+    var nama = document.getElementById('kabarNama'), nominal = document.getElementById('kabarNominal');
+    var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    function rupiah(v){
+      var n = String(v || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
+      return n ? 'Rp' + n.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+    }
+    function susun(){
+      var t = new Date(), tgl = t.getDate() + ' ' + BULAN[t.getMonth()] + ' ' + t.getFullYear();
+      var n = (nama.value || '').trim(), r = rupiah(nominal.value);
+      var teks = (n ? 'Assalamualaikum, saya ' + n + '. Saya' : 'Assalamualaikum, saya') +
+        ' sudah berinfaq untuk Rattililqur\'an lewat QRIS' + (r ? ' sebesar ' + r : '') +
+        ' pada ' + tgl + '. Berikut bukti pembayarannya.';
+      a.href = 'https://wa.me/6282316993233?text=' + encodeURIComponent(teks);
+    }
+    nama.addEventListener('input', susun);
+    nominal.addEventListener('input', susun);
+    nominal.addEventListener('blur', function(){ var r = rupiah(nominal.value); nominal.value = r ? r.slice(2) : ''; susun(); });
+    d.addEventListener('toggle', function(){
+      if(d.open){ susun(); var j = document.getElementById('syukurJudul'); if(j) j.focus({ preventScroll:true }); d.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start' }); }
+    });
+  })();
+
+  // Reveal saat digulir. Tanpa IntersectionObserver, tampilkan semua.
+  (function(){
+    var els=document.querySelectorAll('[data-reveal]');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:.12});
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
