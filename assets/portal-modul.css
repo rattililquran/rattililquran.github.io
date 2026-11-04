@@ -57,6 +57,12 @@ a{color:inherit}
 @keyframes brandShimmer{0%{background-position:0% center}100%{background-position:200% center}}
 .nav-links{display:flex;align-items:center;gap:2px;flex-wrap:nowrap}
 .nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 9px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);white-space:nowrap;flex-shrink:0}
+/* Laptop kecil (1101–1179px): menu lengkap (9 tautan) masih tampil sebaris; rapatkan jarak
+   antartautan agar tombol tema tidak terdorong keluar layar. */
+@media(min-width:1101px) and (max-width:1179px){
+  .nav-links{gap:0}
+  .nav-link{padding:9px 6px;font-size:13.5px}
+}
 .nav-link:hover,.nav-link.active{color:var(--c-primary)}
 .nav-cta{margin-left:6px}
 .nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--c-line);background:var(--c-card);border-radius:12px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;margin-left:auto;flex-shrink:0}
