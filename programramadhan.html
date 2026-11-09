@@ -43,14 +43,25 @@ document.documentElement.classList.add('js');
         "availability": "https://schema.org/InStock"
       },
       "educationalLevel": "Dasar & Perbaikan",
-      "provider": { "@type": "EducationalOrganization", "name": "Rattililqur'an", "url": "https://rattililquran.com/" }
+      "provider": {
+        "@id": "https://rattililquran.com/#organization"
+      }
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://rattililquran.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Program & Jadwal", "item": "https://rattililquran.com/#program" },
-        { "@type": "ListItem", "position": 3, "name": "Kelas Ramadhan" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://rattililquran.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Kelas Ramadhan",
+          "item": "https://rattililquran.com/programramadhan.html"
+        }
       ]
     }
   ]

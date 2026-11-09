@@ -37,25 +37,46 @@ document.documentElement.classList.add('js');
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": "Rattililqur'an",
-  "alternateName": "Rattililquran",
-  "url": "https://rattililquran.com/",
-  "logo": "https://rattililquran.com/assets/images/logo-abu.png",
-  "description": "Lembaga Tahsin & Tahfidz Al-Qur'an dengan halaqah kecil, pengajar berpengalaman, dan metode pembelajaran terstruktur.",
-  "email": "rattililquran.id@gmail.com",
-  "sameAs": [
-    "https://instagram.com/rattililquran",
-    "https://youtube.com/@rattililquranindonesia",
-    "https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+62-823-1699-3233",
-    "contactType": "customer service",
-    "areaServed": "ID",
-    "availableLanguage": ["Indonesian"]
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rattililquran.com/#website",
+      "url": "https://rattililquran.com/",
+      "name": "Rattililqur'an",
+      "alternateName": [
+        "Rattilil Qur'an",
+        "Rattililquran"
+      ],
+      "inLanguage": "id",
+      "publisher": {
+        "@id": "https://rattililquran.com/#organization"
+      }
+    },
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://rattililquran.com/#organization",
+      "name": "Rattililqur'an",
+      "alternateName": "Rattililquran",
+      "url": "https://rattililquran.com/",
+      "logo": "https://rattililquran.com/assets/images/logo-abu.png",
+      "description": "Lembaga Tahsin & Tahfidz Al-Qur'an dengan halaqah kecil, pengajar berpengalaman, dan metode pembelajaran terstruktur.",
+      "email": "rattililquran.id@gmail.com",
+      "sameAs": [
+        "https://instagram.com/rattililquran",
+        "https://youtube.com/@rattililquranindonesia",
+        "https://whatsapp.com/channel/0029VaGYGlKCMY0A7aS9hj08"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+62-823-1699-3233",
+        "contactType": "customer service",
+        "areaServed": "ID",
+        "availableLanguage": [
+          "Indonesian"
+        ]
+      }
+    }
+  ]
 }
 </script>
 <style>
