@@ -149,6 +149,12 @@ html{scroll-padding-top:84px}
 /* Gradien tombol utama diperdalam (seperti .footer-cta) agar teks putih lulus AA. */
 .hero-actions .btn-primary,.cta-actions .btn-primary,.dua .btn-primary{background:linear-gradient(135deg,#0369a1,#4f46e5)}
 
+
+/* Langsung ke materi: tautan ke halaman modul yang sering dicari */
+.materi-cepat{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:32px;padding-top:20px;border-top:1px dashed var(--c-line)}
+.materi-cepat .k{flex-basis:100%;font-family:var(--font-label);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-micro)}
+.materi-cepat a{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:1px solid var(--c-line);border-radius:99px;background:var(--c-card);font-size:13.5px;font-weight:700;color:var(--c-ink-2);text-decoration:none;transition:border-color var(--dur),color var(--dur)}
+.materi-cepat a:hover{border-color:var(--c-primary);color:var(--c-primary)}
 @media(max-width:640px){
   .masalah .no,.masalah .jawab .k,.tangga .lbl,.dua .k{color:var(--c-ink-micro)}
   .masalah .jawab .k,.tangga .lbl,.dua .k,.blok .tag{font-size:11.5px}
@@ -321,6 +327,20 @@ html{scroll-padding-top:84px}
         </picture>
         <figcaption>Contoh isi modul — dalil, tabel jenis kesalahan (Lahn Jaliy &amp; Khafiy), dan langkah latihan yang bisa diikuti.</figcaption>
       </figure>
+
+      <!-- Materi yang paling sering dicari di Google (Search Console, 90 hari s.d. 9 Nov 2026).
+           [EDIT] perbarui sesuai laporan Performa. -->
+      <nav class="materi-cepat" aria-label="Langsung ke materi" data-reveal>
+        <span class="k">Langsung ke materi</span>
+        <a href="https://modul.rattililquran.com/huruf/penjelasan-izhar-qamariyah.html" target="_blank" rel="noopener">Izhar Qamariyah</a>
+        <a href="https://modul.rattililquran.com/huruf/penjelasan-hukum-ra.html" target="_blank" rel="noopener">Hukum Ra: Tafkhim &amp; Tarqiq</a>
+        <a href="https://modul.rattililquran.com/huruf/penjelasan-mad-wajib-muttasil.html" target="_blank" rel="noopener">Mad Wajib Muttasil</a>
+        <a href="https://modul.rattililquran.com/huruf/penjelasan-izhar-halq.html" target="_blank" rel="noopener">Izhar Halqi</a>
+        <a href="https://modul.rattililquran.com/huruf/ringkasan-nun-sukun-tanwin.html" target="_blank" rel="noopener">Hukum Nun Sukun &amp; Tanwin</a>
+        <a href="https://modul.rattililquran.com/huruf/anatomi-makhraj.html" target="_blank" rel="noopener">Anatomi Makhraj</a>
+        <a href="https://modul.rattililquran.com/huruf/mindmap.html?topic=makhraj" target="_blank" rel="noopener">Mind Map Makharijul Huruf</a>
+        <a href="https://modul.rattililquran.com/huruf/mindmap.html?topic=mimsukun" target="_blank" rel="noopener">Mind Map Mim Sukun</a>
+      </nav>
     </div>
   </section>
 
