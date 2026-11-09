@@ -53,8 +53,27 @@ a{color:inherit}
 .nav-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;color:var(--c-ink);letter-spacing:.02em;text-decoration:none;text-transform:uppercase;flex-shrink:0}
 .nav-brand span{white-space:nowrap}
 .nav-brand img{height:36px;width:auto}
-.brand-accent{background:linear-gradient(90deg,#dc2626 0%,#f87171 38%,#fef08a 50%,#f87171 62%,#dc2626 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;letter-spacing:.02em;will-change:background-position;animation:brandShimmer 2.4s linear infinite;display:inline-block}
-@keyframes brandShimmer{0%{background-position:0% center}100%{background-position:200% center}}
+.brand-accent{background:linear-gradient(90deg,#dc2626 0%,#f87171 50%,#dc2626 100%);background-size:100% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;letter-spacing:.02em;display:inline-block}
+/* Kilat: teks merah statis + "pita" tipis berisi salinan teks kuning (dari data-kilat,
+   lewat ::before — bukan teks DOM, jadi tidak terbaca ganda) yang meluncur di atasnya.
+   Pita dan teks di dalamnya digeser transform ke arah berlawanan sehingga huruf tampak
+   diam dan hanya kilatnya yang bergerak. Semua transform → dikerjakan GPU, tanpa repaint
+   (versi lama menganimasikan background-position: repaint seluruh halaman tiap frame).
+   Teks (.kilat-teks) & pita ditumpuk di sel grid yang sama, bukan position:relative pada .kilat —
+   elemen ber-position memecah teks merek jadi kandidat LCP terpisah (LCP lab 2,0→3,8 s). */
+.kilat{display:inline-grid}
+.kilat-teks{grid-area:1/1}
+.kilat-pita{grid-area:1/1;position:relative;width:25%;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);
+  animation:kilatPita var(--kilat-durasi,2.4s) linear infinite}
+.kilat-pita::before{content:attr(data-kilat);position:absolute;top:0;left:0;width:400%;white-space:nowrap;
+  background:none;-webkit-text-fill-color:#fef08a;color:#fef08a;
+  animation:kilatTeks var(--kilat-durasi,2.4s) linear infinite}
+html.theme-dark .kilat-pita::before{-webkit-text-fill-color:#fef9c3;color:#fef9c3}
+@keyframes kilatPita{from{transform:translateX(-100%)}to{transform:translateX(400%)}}
+@keyframes kilatTeks{from{transform:translateX(25%)}to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.kilat-pita{display:none}}
 .nav-links{display:flex;align-items:center;gap:2px;flex-wrap:nowrap}
 .nav-link{font-size:14px;font-weight:600;color:var(--c-ink-3);padding:9px 9px;border-radius:11px;text-decoration:none;transition:color var(--dur-fast);white-space:nowrap;flex-shrink:0}
 /* Laptop kecil (1101–1179px): menu lengkap (9 tautan) masih tampil sebaris; rapatkan jarak

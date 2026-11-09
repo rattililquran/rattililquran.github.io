@@ -221,16 +221,33 @@ html.js [data-reveal].in{animation:fadeUp .7s var(--ease-spring) both;animation-
 .nav-brand span{white-space:nowrap}
 .nav-brand img{height:34px;width:auto}
 .brand-accent{
-  background:linear-gradient(90deg,#dc2626 0%,#f87171 38%,#fef08a 50%,#f87171 62%,#dc2626 100%);
-  background-size:200% auto;
+  background:linear-gradient(90deg,#dc2626 0%,#f87171 50%,#dc2626 100%);
+  background-size:100% auto;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
   font-weight:800;letter-spacing:0.02em;
-  will-change:background-position;
-  animation:brandShimmer 2.4s linear infinite;
   display:inline-block;
 }
-@keyframes brandShimmer{0%{background-position:0% center}100%{background-position:200% center}}
+/* Kilat: teks merah statis + "pita" tipis berisi salinan teks kuning (dari data-kilat,
+   lewat ::before — bukan teks DOM, jadi tidak terbaca ganda) yang meluncur di atasnya.
+   Pita dan teks di dalamnya digeser transform ke arah berlawanan sehingga huruf tampak
+   diam dan hanya kilatnya yang bergerak. Semua transform → dikerjakan GPU, tanpa repaint
+   (versi lama menganimasikan background-position: repaint seluruh halaman tiap frame).
+   Teks (.kilat-teks) & pita ditumpuk di sel grid yang sama, bukan position:relative pada .kilat —
+   elemen ber-position memecah teks merek jadi kandidat LCP terpisah (LCP lab 2,0→3,8 s). */
+.kilat{display:inline-grid}
+.kilat-teks{grid-area:1/1}
+.kilat-pita{grid-area:1/1;position:relative;width:25%;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);
+  animation:kilatPita var(--kilat-durasi,2.4s) linear infinite}
+.kilat-pita::before{content:attr(data-kilat);position:absolute;top:0;left:0;width:400%;white-space:nowrap;
+  background:none;-webkit-text-fill-color:#fef08a;color:#fef08a;
+  animation:kilatTeks var(--kilat-durasi,2.4s) linear infinite}
+html.theme-dark .kilat-pita::before{-webkit-text-fill-color:#fef9c3;color:#fef9c3}
+@keyframes kilatPita{from{transform:translateX(-100%)}to{transform:translateX(400%)}}
+@keyframes kilatTeks{from{transform:translateX(25%)}to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.kilat-pita{display:none}}
 @media (prefers-reduced-motion:reduce){
   .brand-accent{animation:none;background:none;-webkit-text-fill-color:#dc2626;color:#dc2626}
 }
@@ -329,6 +346,9 @@ html.theme-dark .theme-toggle .i-moon{display:block}
 }
 .sec-num{position:absolute;top:-8px;right:22px;font-size:clamp(54px,8vw,120px);font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--c-primary);opacity:.07;pointer-events:none;z-index:0;user-select:none;will-change:transform}
 @media(max-width:640px){.sec-num{font-size:52px;top:-2px;right:14px}}
+/* Angka dari data-n lewat ::before: dekorasi murni, tidak dihitung sebagai teks
+   (sebelumnya gagal uji kontras 1,08:1 walau aria-hidden). */
+.sec-num::before{content:attr(data-n)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--c-primary);background:var(--grad-soft);padding:7px 15px;border-radius:99px;margin-bottom:18px;position:relative;z-index:1}
 .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c-primary)}
 .title{font-size:clamp(32px,3.6vw,48px);font-weight:800;letter-spacing:-.025em;color:var(--c-ink);line-height:1.15}
@@ -395,16 +415,15 @@ html.theme-dark .hero::after{
 /* "Sahabat Al-Qur'an" — merah dengan efek kilat, sama seperti aksen navbar.
    Catatan: pakai background-image (bukan shorthand) agar background-clip:text tidak tereset. */
 .hero h1 .grad{
-  background-image:linear-gradient(90deg,#b91c1c 0%,#dc2626 30%,#f87171 44%,#fef08a 50%,#f87171 56%,#dc2626 70%,#b91c1c 100%);
-  background-size:200% auto;
+  background-image:linear-gradient(90deg,#b91c1c 0%,#dc2626 35%,#f87171 50%,#dc2626 65%,#b91c1c 100%);
+  background-size:100% auto;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
-  will-change:background-position;
 }
-.hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards,brandShimmer 2.8s linear infinite}
-html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%,#ef4444 30%,#fca5a5 44%,#fef9c3 50%,#fca5a5 56%,#ef4444 70%,#f87171 100%);background-size:200% auto}
+.hero h1 .grad .kilat-pita{--kilat-durasi:2.8s}
+.hero h1 .w.kilat{display:inline-grid}
+html.theme-dark .hero h1 .grad{background-image:linear-gradient(90deg,#f87171 0%,#ef4444 35%,#fca5a5 50%,#ef4444 65%,#f87171 100%);background-size:100% auto}
 @media (prefers-reduced-motion:reduce){
-  .hero h1 .w.grad{animation:wordUp .8s var(--ease-spring) forwards}
   .hero h1 .grad{background-image:none;-webkit-text-fill-color:#dc2626;color:#dc2626}
   html.theme-dark .hero h1 .grad{background-image:none;-webkit-text-fill-color:#f87171;color:#f87171}
 }
@@ -1953,8 +1972,8 @@ html.reel-terbuka{overflow:hidden}
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
-      <span>RATTILIL<span class="brand-accent">QUR'AN</span></span>
+      <picture><source type="image/webp" srcset="assets/images/logo-abu-160.webp 160w, assets/images/logo-abu-512.webp 512w" sizes="52px"><img src="assets/images/logo-abu.png" alt="Rattililqur'an" onerror="this.style.display='none'"></picture>
+      <span>RATTILIL<span class="brand-accent kilat"><span class="kilat-teks">QUR'AN</span><span class="kilat-pita" aria-hidden="true" data-kilat="QUR'AN"></span></span></span>
     </a>
     <div class="nav-links" id="navLinks">
       <a href="#tentang"     class="nav-link">Tentang</a>
@@ -1980,6 +1999,7 @@ html.reel-terbuka{overflow:hidden}
 </nav>
 
 <!-- ══ HERO ══ -->
+<main id="isi">
 <header class="hero">
   <picture class="hero-bg">
     <source media="(max-width:900px)" type="image/webp" srcset="assets/images/Rattilhomepage-mobile-780.webp 780w, assets/images/Rattilhomepage-mobile-1170.webp 1170w" sizes="100vw">
@@ -1991,7 +2011,7 @@ html.reel-terbuka{overflow:hidden}
   <div class="hero-grid">
     <div class="hero-copy">
       <div class="hero-badge h-anim closed" id="heroBadge" style="animation-delay:.05s"><span class="dot"></span> <span id="heroBadgeText">Pendaftaran sementara ditutup</span></div>
-      <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad">Sahabat Al-Qur'an</span></h1>
+      <h1><span class="w">Sebuah</span><span class="w">Ikhtiar</span><span class="w">Menjadi</span><span class="w grad kilat"><span class="kilat-teks">Sahabat Al-Qur'an</span><span class="kilat-pita" aria-hidden="true" data-kilat="Sahabat Al-Qur'an"></span></span></h1>
       <p class="lead h-anim" style="animation-delay:.44s">Masih ragu bacaan Al-Qur'an sudah benar? Kami hadir untuk memastikan setiap huruf, makhraj, dan tajwid Anda terbebas dari kesalahan — lewat halaqah kecil yang intensif, pengajar berpengalaman, dan progres yang terpantau nyata. <em class="lead-em">Biidznillah</em></p>
 
       <!-- Tiga tombol hero simetris: Kelas Utama, Kelas Ramadhan, dan Modul Gratis -->
@@ -2158,7 +2178,7 @@ html.reel-terbuka{overflow:hidden}
 
 <!-- ══ BAB 01 · SCROLLYTELLING STORY ══ -->
 <section class="section-pinned-story" id="keresahan">
-  <span class="sec-num" aria-hidden="true">01</span>
+  <span class="sec-num" aria-hidden="true" data-n="01"></span>
   <div class="pinned-sticky-wrap">
 
     <!-- Top scroll progress bar -->
@@ -2279,7 +2299,7 @@ html.reel-terbuka{overflow:hidden}
 
 <!-- ══ BAB 02 · TITIK BALIK ══ -->
 <section class="section" id="harapan">
-  <span class="sec-num" aria-hidden="true">02</span>
+  <span class="sec-num" aria-hidden="true" data-n="02"></span>
   <div class="turn-hero" data-reveal="stagger">
     <h2 class="title">Tidak Ada Kata <span class="grad-text">Terlambat untuk Memulai</span></h2>
     <p class="sub" style="margin-left:auto;margin-right:auto">Mereka yang hari ini fasih membaca pun pernah berada di titik terbata-bata. Perbedaan satu-satunya adalah keberanian untuk mengambil langkah pertama bersama guru yang tepat.</p>
@@ -2314,7 +2334,7 @@ html.reel-terbuka{overflow:hidden}
 
 <!-- ══ BAB 03 · BAGAIMANA KAMI MENEMANI (NIKOLA RADESKI STACKING STYLE) ══ -->
 <section id="tentang">
-  <span class="sec-num" aria-hidden="true">03</span>
+  <span class="sec-num" aria-hidden="true" data-n="03"></span>
   <div class="nikola-wrap">
     <div class="nikola-layout">
 
@@ -2387,7 +2407,7 @@ html.reel-terbuka{overflow:hidden}
     <source srcset="assets/images/Program-desktop-1280.jpg 1280w, assets/images/Program-desktop-1920.jpg 1920w" sizes="100vw">
     <img src="assets/images/Program-desktop-1280.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </picture>
-  <span class="sec-num" aria-hidden="true">04</span>
+  <span class="sec-num" aria-hidden="true" data-n="04"></span>
   <span class="eyebrow" data-reveal>Program Belajar</span>
   <h2 class="title" data-reveal>Halaqah &amp; <span class="grad-text">Kajian</span></h2>
   <p class="sub" data-reveal>Beragam program disusun sesuai jenjang kemampuan, dari pemula hingga Qiyam Bilqur'an.</p>
@@ -2582,7 +2602,7 @@ html.reel-terbuka{overflow:hidden}
 
 <!-- ══ PENDAFTARAN ══ -->
 <section class="section center" id="pendaftaran">
-  <span class="sec-num" aria-hidden="true">07</span>
+  <span class="sec-num" aria-hidden="true" data-n="07"></span>
   <span class="eyebrow" data-reveal>Pendaftaran</span>
   <h2 class="title" data-reveal>Cara <span class="grad-text">Bergabung</span></h2>
   <p class="sub" data-reveal>Empat langkah mudah untuk mulai belajar bersama kami.</p>
@@ -2678,7 +2698,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ TESTIMONI & BUKTI ══ -->
 <section class="section center" id="testimoni">
-  <span class="sec-num" aria-hidden="true">09</span>
+  <span class="sec-num" aria-hidden="true" data-n="09"></span>
   <h2 class="title" data-reveal>Rattil dalam <span class="grad-text">Angka</span></h2>
   <p class="sub" data-reveal>Sebelum Anda percaya, biarkan angkanya berbicara — dan cerita mereka yang sudah melangkah lebih dulu.</p>
 
@@ -2722,7 +2742,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ FAQ ══ -->
 <section class="section center" id="faq">
-  <span class="sec-num" aria-hidden="true">10</span>
+  <span class="sec-num" aria-hidden="true" data-n="10"></span>
   <span class="eyebrow" data-reveal>FAQ</span>
   <h2 class="title" data-reveal>Pertanyaan <span class="grad-text">Umum</span></h2>
   <p class="sub" data-reveal>Hal-hal yang sering ditanyakan calon murid.</p>
@@ -2759,7 +2779,7 @@ Baarakallahu fiikum</p>
 
 <!-- ══ KONTAK ══ -->
 <section class="section center" id="kontak" style="padding-top:0">
-  <span class="sec-num" aria-hidden="true">11</span>
+  <span class="sec-num" aria-hidden="true" data-n="11"></span>
   <span class="eyebrow" data-reveal>Hubungi Kami</span>
   <h2 class="title" data-reveal>Kontak &amp; <span class="grad-text">Informasi</span></h2>
   <p class="sub" data-reveal>Ada yang ingin ditanyakan? Pilih kanal yang paling nyaman untuk Anda — dan ikuti kanal sosial kami supaya tidak ketinggalan informasi jadwal, gelombang pendaftaran, serta materi baru.</p>
@@ -2808,6 +2828,8 @@ Baarakallahu fiikum</p>
 </section>
 
 <!-- ══ FOOTER ══ -->
+</main>
+
 <footer class="footer">
   <div class="footer-inner">
 
@@ -2844,7 +2866,7 @@ Baarakallahu fiikum</p>
     </nav>
 
     <div class="footer-meta">
-      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-512.webp"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent">qur'an</span></span></div>
+      <div class="footer-brand"><picture><source type="image/webp" srcset="assets/images/logo-abu-160.webp 160w, assets/images/logo-abu-512.webp 512w" sizes="52px"><img src="assets/images/logo-abu.png" alt="" onerror="this.style.display='none'"></picture><span>Rattilil<span class="brand-accent kilat"><span class="kilat-teks">qur'an</span><span class="kilat-pita" aria-hidden="true" data-kilat="qur'an"></span></span></span></div>
       <p class="footer-copy">&copy; <span id="yearStart">2020</span>&ndash;<span id="year">2026</span> Rattililqur'an. Seluruh hak cipta dilindungi.</p>
     </div>
 
