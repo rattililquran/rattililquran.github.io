@@ -2840,7 +2840,7 @@ Baarakallahu fiikum</p>
   </a>
 </div>
 
-<script src="assets/sorot/sorot-ilus.js"></script>
+<script src="assets/sorot/sorot-ilus.js?v=2"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -2994,7 +2994,7 @@ Baarakallahu fiikum</p>
     var total    = slides.length; // 6
     var cur      = -1;
     var lastFillPct = -1;
-    var gantiTerakhir = 0;
+    var gantiTerakhir = 0, tadiTerkunci = false;
 
     if(!section || !track || total === 0) return;
 
@@ -3058,7 +3058,12 @@ Baarakallahu fiikum</p>
       // Early-exit saat section jauh dari viewport → hindari layout read/write tiap event scroll
       var rect    = section.getBoundingClientRect();
       var scrolled = -rect.top;
-      if(scrolled < -viewH || scrolled > scrollable + viewH) return;
+      if(scrolled < -viewH || scrolled > scrollable + viewH){
+        // Jauh di atas/bawah bab: samakan ke slide tepi, supaya kembali ke bab (mis. lewat tautan) tidak ditarik
+        // ke slide lama yang tersisa dari kunjungan sebelumnya.
+        goTo(scrolled < 0 ? 0 : total - 1); tadiTerkunci = false;
+        return;
+      }
 
       // clamp 0..1
       var pct = Math.max(0, Math.min(1, scrolled / scrollable));
@@ -3078,7 +3083,12 @@ Baarakallahu fiikum</p>
       // Maju/mundur paling banyak satu slide, dan tiap slide tampil minimal JEDA ms. Ini untuk scroll bawaan yang
       // tidak lewat gerakan (momentum iOS saat masuk bab, seret scrollbar); setelah scroll diam, posisi dirapikan.
       // Di luar keadaan terkunci (bab belum/sudah lewat) indeks langsung disamakan: pct sudah 0 atau 1.
-      if(cur >= 0 && slideIdx !== cur && terkunci()){
+      // Saat baru masuk bab, slide tepi (pembuka/penutup) ditahan JEDA ms, jadi lemparan scroll yang besar
+      // (momentum HP, satu putaran roda kencang) tidak melewatinya; posisi lalu dirapikan ke slide itu.
+      var kunci = terkunci();
+      if(kunci && !tadiTerkunci && cur >= 0) gantiTerakhir = performance.now();
+      tadiTerkunci = kunci;
+      if(cur >= 0 && slideIdx !== cur && kunci){
         if(performance.now() - gantiTerakhir < JEDA){ rapikanNanti(); return; }
         slideIdx = cur + (slideIdx > cur ? 1 : -1);
       }
@@ -3091,7 +3101,12 @@ Baarakallahu fiikum</p>
     // bebas; tiap gerakan memindah tepat satu slide. Di slide pertama (ke atas) dan terakhir (ke bawah) scroll
     // dilepas lagi ke browser supaya pengunjung bisa keluar dari bab.
     var JEDA = 550, KUNCI = 700;
-    var kunciSampai = 0, rodaTerakhir = 0, rodaJumlah = 0, rodaLangkah = 0, sentuh = null, rapiT = 0;
+    var kunciSampai = 0, rodaTerakhir = 0, rodaJumlah = 0, rodaLangkah = 0, rodaMasuk = false, sentuh = null, rapiT = 0;
+    // Gerakan di menu HP, pemutar Reels (<dialog>), atau kolom isian bukan milik bab ini.
+    function bukanMilikBab(t){
+      if(document.querySelector('dialog[open]')) return true;
+      return !!(t && t.closest && t.closest('#navLinks, dialog, input, textarea, select, [contenteditable]'));
+    }
     function posisi(i){
       var y0 = section.getBoundingClientRect().top + window.pageYOffset;
       return Math.round(y0 + i / (total - 1) * (section.offsetHeight - window.innerHeight)) + 1;
@@ -3126,27 +3141,34 @@ Baarakallahu fiikum</p>
     }
 
     window.addEventListener('wheel', function(e){
-      if(e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX) || !terkunci()) return;
-      var arah = e.deltaY > 0 ? 1 : -1, kini = performance.now();
-      // Gerakan baru = jeda > 220 ms sejak event roda terakhir. Ekor inersia trackpad yang menyambung tanpa jeda
-      // tidak dihitung sebagai gerakan baru (kecuali sudah lama sekali), jadi satu sapuan = satu slide.
+      if(e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX) || bukanMilikBab(e.target)) return;
+      var kini = performance.now();
+      // Gerakan baru = jeda > 220 ms sejak event roda terakhir (dicatat juga di luar bab). Satu gerakan, termasuk
+      // ekor inersia trackpad sepanjang apa pun, paling banyak memindah satu slide.
       var baru = kini - rodaTerakhir > 220;
       rodaTerakhir = kini;
-      if(baru){ rodaJumlah = 0; rodaLangkah = 0; }
+      var kunci = terkunci();
+      if(baru){ rodaJumlah = 0; rodaLangkah = 0; rodaMasuk = false; }
+      if(!kunci){ rodaMasuk = true; return; }
+      var arah = e.deltaY > 0 ? 1 : -1;
+      // Gerakan yang dimulai di luar bab hanya menghentikan halaman di slide tepi (pembuka/penutup), tidak
+      // langsung melompat ke slide berikutnya.
+      if(rodaMasuk){ e.preventDefault(); rapikanNanti(); return; }
       if(bisaKeluar(arah) && rodaLangkah === 0) return;
       e.preventDefault();
+      if(rodaLangkah) return;
       rodaJumlah += e.deltaY * (e.deltaMode === 1 ? 33 : 1);
       if(Math.abs(rodaJumlah) < 24) return;
-      if(rodaLangkah && kini - rodaLangkah < 1100) return;
       if(langkah(arah)){ rodaLangkah = kini; rodaJumlah = 0; }
     }, { passive: false });
 
     window.addEventListener('touchstart', function(e){
-      if(e.touches.length !== 1){ sentuh = null; return; }
+      if(e.touches.length !== 1 || bukanMilikBab(e.target)){ sentuh = null; return; }
       sentuh = { x: e.touches[0].clientX, y: e.touches[0].clientY, aktif: terkunci(), lepas: false };
     }, { passive: true });
     window.addEventListener('touchmove', function(e){
       if(!sentuh || !sentuh.aktif || sentuh.lepas) return;
+      if(e.touches.length > 1){ sentuh.lepas = true; return; } // cubit-zoom: biarkan
       var dx = e.touches[0].clientX - sentuh.x, dy = e.touches[0].clientY - sentuh.y;
       if(Math.abs(dy) < 6 || Math.abs(dx) > Math.abs(dy)) return;
       if(bisaKeluar(dy < 0 ? 1 : -1)){ sentuh.lepas = true; return; } // di tepi bab: biarkan halaman bergulir
@@ -3161,10 +3183,11 @@ Baarakallahu fiikum</p>
     window.addEventListener('touchcancel', function(){ sentuh = null; }, { passive: true });
 
     window.addEventListener('keydown', function(e){
-      if(e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !terkunci()) return;
-      var t = e.target, tag = t && t.tagName;
-      if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
-      var arah = 0, k = e.key;
+      if(e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !terkunci() || bukanMilikBab(e.target)) return;
+      var t = e.target, k = e.key;
+      // Spasi pada tombol/tautan yang sedang fokus (mis. titik navigasi) tetap menekan tombol itu.
+      if(k === ' ' && t && t.closest && t.closest('button, a, summary, [role="button"], [role="tab"]')) return;
+      var arah = 0;
       if(k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) arah = 1;
       else if(k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey)) arah = -1;
       if(arah && langkah(arah)) e.preventDefault();

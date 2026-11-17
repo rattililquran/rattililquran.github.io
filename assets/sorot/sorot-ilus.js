@@ -151,6 +151,7 @@
   }
 
   function lepas(wadah){
+    wadah._sorotToken = (wadah._sorotToken || 0) + 1;
     if(wadah._sorotHenti) wadah._sorotHenti();
     wadah._sorotHenti = null;
     if(wadah._sorotRO){ wadah._sorotRO.disconnect(); wadah._sorotRO = null; }
@@ -160,9 +161,11 @@
   function pasang(wadah, id, opsi){
     opsi = opsi || {};
     lepas(wadah);
-    wadah._sorotId = id;
+    // Token per panggilan: pasang() yang lebih baru membatalkan yang lama walau id-nya sama (cegah gambar dobel
+    // bila slide aktif lagi sebelum data selesai dimuat).
+    var token = wadah._sorotToken = (wadah._sorotToken || 0) + 1;
     return ambil(id).then(function(data){
-      if(!data || wadah._sorotId !== id) return false;
+      if(!data || wadah._sorotToken !== token) return false;
       var b = bangun(wadah, data, opsi.latar);
       wadah._sorotHenti = jalan(wadah, b, opsi.latar);
       return true;
