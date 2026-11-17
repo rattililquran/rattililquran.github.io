@@ -1,0 +1,44 @@
+{
+  "_catatan": "Peta slide Bab 01 beranda → benda sorot / bentuk line. Dicetak alat/ilustrasi-sorot.mjs ke assets/sorot/<id>.json. Warna: emas | putih | biru | redup.",
+  "gambar": [
+    {
+      "id": "keresahan-1",
+      "arti": "Ibu dan anak berkerudung mengaji bersama di depan mushaf",
+      "isi": [
+        {
+          "benda": "garis:ibu-menunjuk",
+          "warna": "putih"
+        },
+        {
+          "benda": "garis:anak-rehal"
+        }
+      ]
+    },
+    {
+      "id": "keresahan-2",
+      "arti": "Masjid dengan kubah dan menara",
+      "benda": "garis:masjid-estetik"
+    },
+    {
+      "id": "keresahan-3",
+      "arti": "Guru menunjuk, murid duduk menyimak",
+      "isi": [
+        {
+          "benda": "garis:tokoh-duduk",
+          "warna": "putih",
+          "dx": -170
+        },
+        {
+          "benda": "garis:tokoh-menunjuk",
+          "dx": 150
+        }
+      ],
+      "tanah": true
+    },
+    {
+      "id": "keresahan-4",
+      "arti": "Jam pasir: waktu terus berjalan",
+      "benda": "garis:jam-pasir"
+    }
+  ]
+}
